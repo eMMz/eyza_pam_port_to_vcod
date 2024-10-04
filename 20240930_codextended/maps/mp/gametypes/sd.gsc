@@ -21,7 +21,7 @@
 			Axis players spawn from these. Place at least 16 of these relatively close together.
 
 		Spectator Spawnpoints:
-			classname		mp_global_intermission
+			classname		mp_searchanddestroy_intermission
 			Spectators spawn from these and intermission is viewed from these positions.
 			Atleast one is required, any more and they are randomly chosen between.
 
@@ -1145,7 +1145,7 @@ spawnSpectator(origin, angles)
 	}
 	else
 	{
- 		spawnpointname = "mp_global_intermission";
+ 		//spawnpointname = "mp_global_intermission";
  		spawnpointname = "mp_searchanddestroy_intermission";
 		spawnpoints = getentarray(spawnpointname, "classname");
 		spawnpoint = maps\mp\gametypes\_spawnlogic::getSpawnpoint_Random(spawnpoints);
@@ -1198,7 +1198,7 @@ spawnIntermission()
 	// Will disable spectating
 	self thread maps\mp\gametypes\_spectating::setSpectatePermissions();
 
-	spawnpointname = "mp_global_intermission";
+	spawnpointname = "mp_searchanddestroy_intermission";
 	spawnpoints = getentarray(spawnpointname, "classname");
 	spawnpoint = maps\mp\gametypes\_spawnlogic::getSpawnpoint_Random(spawnpoints);
 

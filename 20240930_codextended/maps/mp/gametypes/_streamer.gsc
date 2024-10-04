@@ -90,14 +90,19 @@ onSpawnedStreamer()
 
 		// Watch for keys and force following a player
 		self thread player_loop();
+		// wait 1;
 		self streamerSystemTurnOn();
+		// wait 1;
 
 		// Show autospectator status HUD
 		self thread maps\mp\gametypes\_streamer_auto::HUD_loop();
+		// wait 1;
 		// Create and update boxes with players name
 		self thread maps\mp\gametypes\_streamer_hud::HUD_PlayerBoxes_Loop();
+		// wait 1;
 		// XRAY
 		self thread maps\mp\gametypes\_streamer_xray::XRAY_Loop();
+		// wait 1;
 
 		self thread cinematicMove();
 	}
@@ -983,7 +988,7 @@ cinematicMove()
 		// Cinematic was canceled, or this is second run
 		if (i == 0 && self.origin == (0,0,0))
 		{
-			spawnpoints = getentarray("mp_global_intermission", "classname");
+			spawnpoints = getentarray("mp_searchanddestroy_intermission", "classname");
 			spawnpoint = maps\mp\gametypes\_spawnlogic::getSpawnpoint_Random(spawnpoints);
 			if(isdefined(spawnpoint)) self spawn(spawnpoint.origin, spawnpoint.angles);
 		}

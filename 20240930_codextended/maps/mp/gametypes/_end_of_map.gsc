@@ -78,7 +78,7 @@ Going to ScoreBoard
 HUD_Matchover()
 {
 	//x = -85;
-	x = 395;
+	x = 225;
 	y = 240;
 
 	// Its a TIE | Axis win! | Allies win!

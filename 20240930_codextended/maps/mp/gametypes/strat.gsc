@@ -524,7 +524,7 @@ spawnSpectator(origin, angles)
 		self spawn(origin, angles);
 	else
 	{
- 		spawnpointname = "mp_global_intermission";
+ 		spawnpointname = "mp_searchanddestroy_intermission";
 		spawnpoints = getentarray(spawnpointname, "classname");
 		spawnpoint = maps\mp\gametypes\_spawnlogic::getSpawnpoint_Random(spawnpoints);
 

@@ -113,7 +113,7 @@ onRoundEnd()
     {
         level waittill("log_round_end", roundwinner);
 
-        wait 0.05;; // wait to complete kill log
+        wait 0.05; // wait to complete kill log
 
         logPrint("RoundEnd;\n");
 

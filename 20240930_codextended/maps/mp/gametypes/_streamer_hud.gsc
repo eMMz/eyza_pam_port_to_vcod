@@ -361,6 +361,7 @@ HUD_PlayerBoxes_Loop()
 	self endon("disconnect");
 
 	wait level.frame;
+	wait 1;
 
 	teamLeft = "allies";
 	teamRight = "axis";
@@ -761,6 +762,7 @@ fill_box(index, barSide, teamname, player)
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_weapon",		weapon_text);
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_round_kills",	kills_added);
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_icons",		icons);
+	wait .05;
 }
 
 
@@ -777,7 +779,8 @@ unfill_box(index, barSide)
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_score", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_weapon", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_round_kills", "");
-
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_health", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_icons", "");
+
+	wait .05;
 }
