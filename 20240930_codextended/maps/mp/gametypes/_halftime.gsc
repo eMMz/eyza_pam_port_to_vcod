@@ -133,7 +133,7 @@ Do_Half_Time()
 HUD_TeamSwap()
 {
 	//x = -85;
-	x = 225;
+	x = 310;
 	y = 240;
 
 	// Halftime
