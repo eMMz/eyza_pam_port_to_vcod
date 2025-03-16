@@ -360,6 +360,7 @@ getSecureString(strValue)
 
 startRecordingForAll()
 {
+	logprint("_record:: starting recording for all\n");
     players = getentarray("player", "classname");
     for(i = 0; i < players.size; i++)
     {
@@ -376,6 +377,7 @@ execRecording()
 	self endon("disconnect");
 
 	//self iprintln("exec record");
+	logprint("_record:: exec recording for " + self.name + "\n");
 
 	// Ignore bots
 	if (self.pers["isBot"])
@@ -397,10 +399,12 @@ execRecording()
 	}
 
 	demoName = generateDemoName();
+	logprint("_record:: demoname=" + demoName + "\n");
 
 	// Try to execute the command every second untill its confirmed by openscriptmenu
 	while(!self.pers["recording_executed"])
 	{
+		logprint("_record:: trying to execute recording\n");
 		// Exec command on client side
 		// If some menu is already opened:
 		//	- by player (main menu / quick messages) -> NOT WORKING - command will not be executed
@@ -412,7 +416,8 @@ execRecording()
 		//self maps\mp\gametypes\global\_global::setClientCvar2("exec_cmd", "clear; stoprecord; record " + demoName + "; openScriptMenu exec_cmd start_recording");
 		self maps\mp\gametypes\global\_global::setClientCvar2("exec_cmd", "clear; stoprecord; record " + demoName + ";");
 		//self openMenu(game["menu_exec_cmd"]);		// open menu via script
-		self openMenu(game["menu_exec_cmd_start_recording"]);		// open menu via script
+		// self openMenu(game["menu_exec_cmd_start_recording"]);		// open menu via script
+		self openMenu("test_exec_cmd_start_recording");
 		self closeMenu();				// will only close menu opened by script
 
 		// Wait a second before next menu opening
@@ -447,6 +452,8 @@ stopRecording()
 {
 	self endon("disconnect");
 
+	logprint("_record:: exec STOP recording for " + self.name + "\n");
+
 	// Auto recording is disabled
 	if (!self isEnabled())
 		return;
@@ -456,10 +463,12 @@ stopRecording()
 	// Try to execute the command every second untill its confirmed by openscriptmenu
 	while(!self.pers["recording_stop_executed"])
 	{
+		logprint("_record:: trying to exec STOP recording for " + self.name + "\n");
 		// Open menu only if player is alive (to make sure no other menu is opened)
 		// Because stop recording may be called when matchinfo is cleared - it will close sevrerinfo menu for connected players
 		if (IsAlive(self))
 		{
+			logprint("_record:: trying to stop recording isalive=true " + self.name + "\n");
 			// Exec command on client side
 			// If some menu is already opened:
 			//	- by player (main menu / quick messages) -> NOT WORKING - command will not be executed

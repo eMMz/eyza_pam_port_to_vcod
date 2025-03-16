@@ -116,6 +116,7 @@ onConnected()
 		if (game["scr_matchinfo"] == 2)
 		{
 			//waittillframeend;
+			wait 0.01;
 			// Update team names in scoreboard
 			self updateTeamNames();
 		}
@@ -176,6 +177,7 @@ ingame_toggle()
 // Show match info ingame menu elements in hud menu
 ingame_show()
 {
+	logPrint("ingame_show\n");
 	if (!self.pers["matchinfo_ingame_visible"] && self.pers["team"] != "streamer") // Always hide ingame menu for streamer as they have own menu
 	{
 		self.pers["matchinfo_ingame_visible"] = true;
@@ -190,6 +192,7 @@ ingame_show()
 // Hide match info ingame menu elements in hud menu
 ingame_hide()
 {
+	logPrint("ingame_hide\n");
 	//if (self.pers["matchinfo_ingame_visible"])
 	{
 		self.pers["matchinfo_ingame_visible"] = false;

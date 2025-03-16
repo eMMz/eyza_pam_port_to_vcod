@@ -203,6 +203,7 @@ toggle_color_mode()
 {
 	self endon("disconnect");
 
+	/*
 	if (self.pers["streamerSystem_colorMode"] == 1)
 		self.pers["streamerSystem_colorMode"] = 2;
 	else if (self.pers["streamerSystem_colorMode"] == 2)
@@ -211,6 +212,7 @@ toggle_color_mode()
 		self.pers["streamerSystem_colorMode"] = 1;
 
 	self maps\mp\gametypes\_quicksettings::updateClientSettings("streamer_color");
+	*/
 }
 
 

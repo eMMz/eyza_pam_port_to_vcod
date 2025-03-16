@@ -12,9 +12,15 @@ onConnected()
 {
 	self endon("disconnect");
 
-	if (!isDefined(self.pers["quicksettings_saved"]))
-		self.pers["quicksettings_saved"] = false;
+	logprint("_quickSettings::onConnected\n");
 
+	if (!isDefined(self.pers["quicksettings_saved"]))
+	{
+		logprint("_quickSettings::onConnected quicksettings_saved is note defined\n");
+		self.pers["quicksettings_saved"] = false;
+	}
+
+	logprint("_quickSettings::onConnected waiting for modDownloaded from player is received\n");
 	// Wait till response about downloaded mod from player is received - we know player is not in lag
 	while (!self.pers["modDownloaded"])
 		wait level.frame;
@@ -23,7 +29,12 @@ onConnected()
 
 	// Nothing get loaded, write defaults
 	if (!self.pers["quicksettings_saved"])
+	{
+		logprint("_quickSettings::onConnected updateClientSettings(defaults)\n");
 		self updateClientSettings("defaults");
+	}
+
+	logprint("_quickSettings::onConnected completed\n");
 }
 
 /*
@@ -33,9 +44,47 @@ Return true to indicate that menu response was handled in this function
 */
 onMenuResponse(menu, response)
 {
+	logprint("_quicksettings::onMenuResponse: menu=" + menu + ", response="+ response + "\n");
 	if (menu == game["menu_quicksettings"])
 	{
 		self parseString(response);
+		return true;
+	}
+	else if (menu == game["menu_serverinfo"] && response == "server16") 
+	{
+		strValue = getCvar("server16");
+		logPrint("server16=" + strValue + "\n");
+		self parseString(strValue);
+		return true;
+	}
+	else if (menu == game["menu_ingame"] && response == "quicksettings_autorecording")
+	{
+		logprint("_quicksettings::onMenuResponse autorecording\n");
+		self parseString("autorecording");
+		return true;
+	}
+	else if (menu == game["menu_ingame"] && response == "quicksettings_matchinfo")
+	{
+		logprint("_quicksettings::onMenuResponse matchinfo\n");
+		self parseString("matchinfo");
+		return true;
+	}
+	else if (menu == game["menu_ingame"] && response == "quicksettings_score")
+	{
+		logprint("_quicksettings::onMenuResponse score\n");
+		self parseString("score");
+		return true;
+	}
+	else if (menu == game["menu_ingame"] && response == "quicksettings_playersleft")
+	{
+		logprint("_quicksettings::onMenuResponse playersleft\n");
+		self parseString("playersleft");
+		return true;
+	}
+	else if (menu == game["menu_ingame"] && response == "quicksettings_streamer")
+	{
+		logprint("_quicksettings::onMenuResponse streamer\n");
+		self parseString("streamer");
 		return true;
 	}
 }
@@ -55,7 +104,7 @@ parseString(strValue)
 	lastItemPos = 0;
 	for (i = 0; i <= strValue.size; i++)
 	{
-		if (i == string.size)
+		if (i == strValue.size)
 			char = "|"; // used for last item
 		else
 			char = strValue[i];
@@ -127,4 +176,5 @@ updateClientSettings(reason)
 
 
 	self.pers["quicksettings_saved"] = true;
+	logPrint("_quickSettings::updateClientSettings(" + reason + ")\n");
 }

@@ -9,7 +9,7 @@ init()
 		maps\mp\gametypes\global\_global::precacheString2("STRING_FORCEDOWNLOAD_ERROR_2", &"Downloading was enabled (/cl_allowDownload 1).");
 		maps\mp\gametypes\global\_global::precacheString2("STRING_FORCEDOWNLOAD_ERROR_3", &"Please reconnect to the server.");
 
-		precacheStatusIcon("icon_mod");
+		//precacheStatusIcon("icon_mod");
 	}
 
 	//setCvar("sv_allowDownload", "1");
@@ -20,6 +20,7 @@ init()
 
 onConnected()
 {
+	logprint("_force_download::onConnected start\n");
 	// Define variables
 	if (!isDefined(self.pers["modDownloaded"]))
 	{
@@ -35,7 +36,7 @@ onConnected()
 		return;
 	
 	// vCoD temporary fix
-	modIsDownloaded();
+	//modIsDownloaded();
 
 	if (!self.pers["modDownloaded"] && game["state"] != "intermission")
 	{
@@ -43,6 +44,7 @@ onConnected()
 		// Message is not visible if menu is open and is removed when response comes
 		self showErrorMessage();
 	}
+	logprint("_force_download::onConnected stop\n");
 }
 
 // Called from _menus::OnConnected() when we are waiting for response
@@ -53,12 +55,17 @@ checkDownload()
 	// After a few second of not getting response from client disable all
 	wait level.fps_multiplier * 3;
 
+	logPrint("checkDownload-1\n");
+
 	// Ignore if pam is not installed correctly
 	if (level.pam_installation_error || game["state"] == "intermission")
 		return;
 
+	logPrint("checkDownload-2\n");
+
 	if (!self.pers["modDownloaded"])
 	{
+		logPrint("checkDownload-3\n");
 		self.pers["downloadDisableResponse"] = true;
 
 		self closeMenu();
@@ -67,6 +74,8 @@ checkDownload()
 
 		spawnModNotDownloaded();
 	}
+	
+	logPrint("checkDownload-4\n");
 }
 
 spawnModNotDownloaded()
@@ -81,7 +90,7 @@ spawnModNotDownloaded()
 	wait level.frame; // wait to correctly replace statusicon (is set in readyup)
 
 	// Special icon for player with not downloaded mod
-	self.statusicon = "icon_mod";
+	//self.statusicon = "icon_mod";
 }
 
 modIsDownloaded()
@@ -113,19 +122,19 @@ showErrorMessage()
 	self.forcedownload.archived = false;
 	self.forcedownload setShader("black", 640, 480);
 
-	self.forcedownloadm1 = maps\mp\gametypes\global\_global::addHUDClient(self, 0, 150, 1.8, (1, .86, .4), "center", "top", "center");
+	self.forcedownloadm1 = maps\mp\gametypes\global\_global::addHUDClient(self, 320, 150, 1.8, (1, .86, .4), "center", "top", "center");
 	self.forcedownloadm1.sort = 1001;
 	self.forcedownloadm1.foreground = true;
 	self.forcedownloadm1.archived = false;
 	self.forcedownloadm1 SetText(game["STRING_FORCEDOWNLOAD_ERROR_1"]);
 
-	self.forcedownloadm2 = maps\mp\gametypes\global\_global::addHUDClient(self, 0, 174, 1.4, (1, .86, .4), "center", "top", "center");
+	self.forcedownloadm2 = maps\mp\gametypes\global\_global::addHUDClient(self, 320, 174, 1.4, (1, .86, .4), "center", "top", "center");
 	self.forcedownloadm2.sort = 1002;
 	self.forcedownloadm2.foreground = true;
 	self.forcedownloadm2.archived = false;
 	self.forcedownloadm2 SetText(game["STRING_FORCEDOWNLOAD_ERROR_2"]);
 
-	self.forcedownloadm3 = maps\mp\gametypes\global\_global::addHUDClient(self, 0, 210, 1.6, (1, .86, .4), "center", "top", "center");
+	self.forcedownloadm3 = maps\mp\gametypes\global\_global::addHUDClient(self, 320, 210, 1.6, (1, .86, .4), "center", "top", "center");
 	self.forcedownloadm3.sort = 1003;
 	self.forcedownloadm3.foreground = true;
 	self.forcedownloadm3.archived = false;

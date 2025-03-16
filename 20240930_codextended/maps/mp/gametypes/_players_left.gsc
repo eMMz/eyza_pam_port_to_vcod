@@ -185,8 +185,8 @@ updatePlayersCount()
 		// Update HUD to all players
 		for(i = 0; i < players.size; i++)
 		{
-			logprint("_players_left:: i=" + i + ", players.size=" + players.size + "\n");
-			logprint("_players_left:: updating axis/allies left for all players\n");
+			//logprint("_players_left:: i=" + i + ", players.size=" + players.size + "\n");
+			//logprint("_players_left:: updating axis/allies left for all players\n");
 			player = players[i];
 			player thread updateHUD(alliesChanged, axisChanged);
 
@@ -195,15 +195,15 @@ updatePlayersCount()
 	}
 	else
 	{
-		logprint("_players_left:: allies and axis didnt change - updating specator only\n");
+		//logprint("_players_left:: allies and axis didnt change - updating specator only\n");
 		// Update HUD for spectator only
 		for(i = 0; i < players.size; i++)
 		{
-			logprint("_players_left:: i=" + i + ", players.size=" + players.size + "\n");
+			//logprint("_players_left:: i=" + i + ", players.size=" + players.size + "\n");
 			player = players[i];
 			if (player.sessionteam == "spectator")
 			{
-				logprint("_players_left:: updating spectator axis/allies left\n");
+				//logprint("_players_left:: updating spectator axis/allies left\n");
 				player thread updateHUD(alliesChanged, axisChanged);
 			}
 		}

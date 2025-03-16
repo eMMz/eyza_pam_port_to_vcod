@@ -25,25 +25,31 @@ CodeCallback_PlayerCommand(command_object)
 
         if (command_object[0] == "test")
         {
-            spawnBots();
+            self spawnBots();
             return;
         }
+		
+		if (command_object[0] == "rup")
+		{
+			self rupBots();
+			return;
+		}
     }
     self processClientCommand();
 }
 
 spawnBots()
 {
-    bots = [];
-    allies = 10;
-    axis = 10;
+    self.bots = [];
+    allies = 5;
+    axis = 5;
 
     for(i = 0; i < (allies + axis); i++)
     {
-        bots[i] = addTestClient();
+        self.bots[i] = addTestClient();
         wait .05;
 
-        if (bots.size - 1 < allies) // First spawn the allies
+        if (self.bots.size - 1 < allies) // First spawn the allies
         {
             clanName = "^1AlliesClan";
             team = "allies";
@@ -57,16 +63,16 @@ spawnBots()
         }
 
         botName = clanName + "^7" + getRandomPlayerName() + "(" + (i+1) + ")";
-        bots[i] renameClient(botName);
+        self.bots[i] renameClient(botName);
         
-        bots[i].pers["team"] = team;
-        bots[i].pers["firstTeamSelected"] = team;
-        bots[i].pers["weapon"] = weapon;
+        self.bots[i].pers["team"] = team;
+        self.bots[i].pers["firstTeamSelected"] = team;
+        self.bots[i].pers["weapon"] = weapon;
 
-        bots[i] thread [[level.spawnPlayer]]();
+        self.bots[i] thread [[level.spawnPlayer]]();
     }
     for(i = 0; i < bots.size; i++)
-        bots[i] thread botPressUse();
+        self.bots[i] thread botPressUse();
 }
 getRandomPlayerName()
 {
@@ -88,4 +94,10 @@ botPressUse()
     self setUse(1); // hold
     wait .25;
     self setUse(0); // release
+}
+
+rupBots()
+{
+	for(i = 0; i < self.bots.size; i++)
+        self.bots[i] thread botPressUse();
 }

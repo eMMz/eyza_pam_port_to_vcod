@@ -11,7 +11,7 @@ init()
 	logprint("_menu_scoreboard::init\n");
 	
 	//level.scoreboard_lines = 26;
-	level.scoreboard_lines = 16;
+	level.scoreboard_lines = 40;
 
 	maps\mp\gametypes\global\_global::addEventListener("onConnected",     ::onConnected);
 
@@ -63,6 +63,7 @@ hide_scoreboard(distributed)
 	self endon("disconnect");
 
 	// Streamers have visible scoreboard from previous map (intermission scoreboard)
+	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_teams", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_names", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_scores", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_kills", "");
@@ -79,16 +80,16 @@ hide_scoreboard(distributed)
 		wait level.fps_multiplier * 0.25;
 
 	// Fill empty lines
-	for(j = 1; j <= level.scoreboard_lines; j++)
-	{
-		// First line is always header and then empty space, skip
-		if (j == 2 || j == 3) continue;
+	// for(j = 1; j <= level.scoreboard_lines; j++)
+	// {
+	// 	// First line is always header and then empty space, skip
+	// 	if (j == 2 || j == 3) continue;
 
-		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_line_" + j, "0");
+	// 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_line_" + j, "0");
 
-		if (j == 14 && isDefined(distributed) && distributed)
-			wait level.fps_multiplier * 0.25;
-	}
+	// 	if (j == 14 && isDefined(distributed) && distributed)
+	// 		wait level.fps_multiplier * 0.25;
+	// }
 }
 
 /*
@@ -100,11 +101,12 @@ onMenuResponse(menu, response)
 {
 	logprint("_menu_scoreboard:: onMenuResponse menu=" + menu + ", response=" + response + "\n");
 	
-	if (menu != "ingame")
-		return;
+	//if (menu != "ingame")
+		//return;
 
-	if (response == "scoreboard_refresh")
+	if (response == "ingame_scoreboard_refresh")
 	{
+		logprint("_menu_scoreboard::scoreboard_refresh\n");
 		self thread generatePlayerList();
 		return true;
 	}
@@ -267,13 +269,16 @@ addLine(stats, name, score, kills, deaths, assists, damages, grenades, plants, d
 {
 	// Lines limit reached
 	if (self.scoreboard.i > level.scoreboard_lines)
+	{
+		logprint("_menu_scoreboard:addLine lines limit reached: " + level.scoreboard_lines + "\n");
 		return;
+	}
 
 	// If empty line (parameters of function are not set)
 	if (!isDefined(stats))
 	{
 		self.pers["scoreboard_lines_statIds"][self.scoreboard.i] = undefined;
-		logprint("_menu_scoreboard:: added empty line at index=" + self.scoreboard.i + "\n");
+		//logprint("_menu_scoreboard:: added empty line at index=" + self.scoreboard.i + "\n");
 	}
 	else
 	{
@@ -290,9 +295,10 @@ addLine(stats, name, score, kills, deaths, assists, damages, grenades, plants, d
 		self.scoreboard.plants +=	plants;
 		self.scoreboard.defuses +=	defuses;
 		
-		logprint("_menu_scoreboard:: added non-empty line at index=" + self.scoreboard.i + "\n");
+		//logprint("_menu_scoreboard:: added non-empty line at index=" + self.scoreboard.i + "\n");
 	}
 
+	self.scoreboard.teams +=	"\n^7";
 	self.scoreboard.names +=	"\n^7";
 	self.scoreboard.scores +=	"\n^7";
 	self.scoreboard.kills +=	"\n^7";
@@ -308,25 +314,67 @@ addLine(stats, name, score, kills, deaths, assists, damages, grenades, plants, d
 
 addEmptyLine()
 {
-	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_line_"+self.scoreboard.i, "0");
+	//self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_line_"+self.scoreboard.i, "0");
 	addLine();
 }
 
 addTeamLine(teamname, index)
 {
 	// 0=hide; 1=show line odd; 2=show line even; 3=show line hightlighted; "string"=show team name
-	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_line_"+self.scoreboard.i, teamname);
-	logprint("_menu_scoreboard:: added teamline=" + teamname + "\n");
-	addLine();
+	//self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_line_"+self.scoreboard.i, teamname);
 
 	if (index == 1)
 	{
 		// Space after heading (we must skip 2 lines)
-		logprint("_menu_scoreboard:: about to add empty line\n");
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		//addEmptyLine();
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		//addEmptyLine();
+	} else if (index == 2)
+	{
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
 		addEmptyLine();
-		logprint("_menu_scoreboard:: about to add empty line\n");
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
 		addEmptyLine();
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		//addEmptyLine();
+	} else if (index == 3)
+	{
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		addEmptyLine();
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		addEmptyLine();
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		//addEmptyLine();
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		//addEmptyLine();
+	} else if (index == 4)
+	{
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		addEmptyLine();
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		addEmptyLine();
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		//addEmptyLine();
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		//addEmptyLine();
+	} else if (index == 5)
+	{
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		addEmptyLine();
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		addEmptyLine();
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		//addEmptyLine();
+		//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+		//addEmptyLine();
 	}
+
+	self.scoreboard.teams += teamname;
+	addLine();
+	//logprint("_menu_scoreboard::addTeamLine added teamline=" + teamname + "\n");
+	//logprint("_menu_scoreboard::addTeamLine about to add empty line for index" + index + "\n");
+	addEmptyLine();
 }
 
 addPlayerLine(team, stats)
@@ -358,7 +406,7 @@ addPlayerLine(team, stats)
 	}
 
 
-	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_line_"+self.scoreboard.i, value);
+	//self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_line_"+self.scoreboard.i, value);
 
 
 	// Final intermission scoreboard
@@ -423,7 +471,7 @@ addPlayerLine(team, stats)
 		}
 
 
-		logprint("addLine with player stats: " + name + " " + score + " etc...\n");
+		//logprint("addLine with player stats: " + name + " " + score + " etc...\n");
 		addLine(stats, name, color + score, color + stats["kills"], color + stats["deaths"], color + assists, color + damage, color + grenades, color + plants, color + defuses);
 
 		// Debug
@@ -431,7 +479,7 @@ addPlayerLine(team, stats)
 	}
 	else
 	{
-		logprint("addLine blank\n");
+		//logprint("addLine blank\n");
 		addLine(stats, name, "", "", "", "", "", "", "", "");
 	}
 
@@ -453,6 +501,8 @@ generatePlayerList(toggle)
 
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_map", maps\mp\gametypes\_matchinfo::GetMapName(level.mapname));
 
+	logprint("inside generatePlayerList for " + self.name + "\n");
+
 	for (;;)
 	{
 		teamplayers = getTeamPlayersArraySorted();
@@ -468,6 +518,7 @@ generatePlayerList(toggle)
 		// Temp variables
 		self.scoreboard = spawnstruct();
 		self.scoreboard.i = 1;
+		self.scoreboard.teams = "";
 		self.scoreboard.names = "";
 		self.scoreboard.scores = "";
 		self.scoreboard.kills = "";
@@ -551,6 +602,7 @@ generatePlayerList(toggle)
 		}
 
 		// Text separed by new lines
+		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_teams", self.scoreboard.teams);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_names", self.scoreboard.names);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_scores", self.scoreboard.scores);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_kills", self.scoreboard.kills);
@@ -661,18 +713,18 @@ generatePlayerList(toggle)
 		if (topgrenader != "")
 			toptext += "^7Grenade expert:   ^7" + topgrenader;
 
-		logprint("_menu_scoreboard:: about to add empty line before top player\n");
-		addEmptyLine();
-		logprint("_menu_scoreboard:: about to add empty line before top player\n");
-		addEmptyLine();
+		//logprint("_menu_scoreboard:: about to add empty line before top player\n");
+		//addEmptyLine();
+		//logprint("_menu_scoreboard:: about to add empty line before top player\n");
+		//addEmptyLine();
 		addTeamLine(toptext, 5);
 
 
 		// Fill empty lines
-		for(; self.scoreboard.i <= level.scoreboard_lines; self.scoreboard.i++)
-		{
-			self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_line_"+self.scoreboard.i, "0");
-		}
+		// for(; self.scoreboard.i <= level.scoreboard_lines; self.scoreboard.i++)
+		// {
+		// 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_line_"+self.scoreboard.i, "0");
+		// }
 
 
 		// Keep updating even in next round after map restart
@@ -718,7 +770,10 @@ generatePlayerList(toggle)
 
 			// 1 sec elapsed, keep updating
 			if (i > level.sv_fps * 1)
+			{
+				//logprint("_menu_scoreboard::generatePlayerList break to refresh the scoreboard\n");
 				break;
+			}
 		}
 
 		//self iprintln("updating scoreboard...");

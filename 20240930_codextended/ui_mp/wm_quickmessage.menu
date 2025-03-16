@@ -5,6 +5,7 @@
 #define ORIGIN_QUICKMESSAGEWINDOW		32 256
 
 {
+
 	// NEW eyza's
 	menuDef
 	{

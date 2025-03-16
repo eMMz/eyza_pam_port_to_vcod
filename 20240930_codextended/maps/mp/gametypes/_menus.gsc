@@ -17,8 +17,8 @@ onStartGameType()
 {
 	if (!isDefined(game["menuPrecached"]))
 	{
-		//game["menu_moddownload"] = "moddownload";
-		//game["menu_ingame"] = "ingame";
+		game["menu_moddownload"] = "moddownload";
+		game["menu_ingame"] = "ingame";
 		game["menu_team"] = "team_" + game["allies"] + game["axis"];	// team_britishgerman
 		game["menu_weapon_allies"] = "weapon_" + game["allies"];
 		game["menu_weapon_axis"] = "weapon_" + game["axis"];
@@ -32,13 +32,13 @@ onStartGameType()
 		game["menu_quickstatements"] = "quickstatements";
 		game["menu_quickresponses"] = "quickresponses";
 		game["menu_quicksettings"] = "quicksettings";
-		//game["menu_mousesettings"] = "mousesettings";
-		//game["menu_scoreboard"] = "scoreboard_sd";
+		game["menu_mousesettings"] = "mousesettings";
+		game["menu_scoreboard"] = "scoreboard_sd";
 		game["menu_streamersystem"] = "streamersystem";
-		//game["menu_strat_records"] = "strat_records";
+		game["menu_strat_records"] = "strat_records";
 
-		//precacheMenu(game["menu_moddownload"]);
-		//precacheMenu(game["menu_ingame"]);
+		precacheMenu(game["menu_moddownload"]);
+		precacheMenu(game["menu_ingame"]);
 		precacheMenu(game["menu_team"]);
 		precacheMenu(game["menu_weapon_allies"]);
 		precacheMenu(game["menu_weapon_axis"]);
@@ -53,7 +53,7 @@ onStartGameType()
 		precacheMenu(game["menu_quickresponses"]);
 		//precacheMenu(game["menu_quicksettings"]);
 		//precacheMenu(game["menu_mousesettings"]);
-		//precacheMenu(game["menu_scoreboard"]);
+		precacheMenu(game["menu_scoreboard"]);
 		precacheMenu(game["menu_streamersystem"]);
 		//precacheMenu(game["menu_strat_records"]);
 
@@ -87,7 +87,7 @@ onConnected()
 	}
 
 	// Open first menu that inform mod is downloaded
-	/*
+	
 	else if (self maps\mp\gametypes\_force_download::waitingForResponse())
 	{
 		logprint("_menus:: open checkDownload\n");
@@ -103,7 +103,7 @@ onConnected()
 		logprint("_menus:: modIsNotDownloadedForSure\n");
 		// dont open any menu
 	}
-	*/
+	
 
 	// Server info wasnt skiped yet - player didnt click "continue"
 	else if(!isDefined(self.pers["skipserverinfo"]))
@@ -119,8 +119,8 @@ onConnected()
 		logprint("_menus:: intermission\n");
 		self maps\mp\gametypes\global\_global::setClientCvar2("ui_allow_weaponchange", 0);
 		self maps\mp\gametypes\global\_global::setClientCvar2("ui_allow_changeteam", 0);
-		//scriptMainMenu = game["menu_ingame"];	// default
-		scriptMainMenu = game["menu_team"];
+		scriptMainMenu = game["menu_ingame"];	// default
+		//scriptMainMenu = game["menu_team"];
 	}
 
 	// Player did not choose team yet after connect
@@ -155,7 +155,8 @@ onConnected()
 		else // in team and with weapon
 		{
 			logprint("_menus:: in a team and with weapon\n");
-			//scriptMainMenu = game["menu_ingame"];
+			scriptMainMenu = game["menu_ingame"];
+			/*
 			if(self.pers["team"] == "allies")
 			{
 				scriptMainMenu = game["menu_weapon_allies"];
@@ -164,16 +165,18 @@ onConnected()
 			{
 				scriptMainMenu = game["menu_weapon_axis"];
 			}
+			*/
 		}
 	}
 	else // spectator
 	{
 		logprint("_menus:: spectator\n");
 		self maps\mp\gametypes\global\_global::setClientCvar2("ui_allow_weaponchange", 0);
-		//scriptMainMenu = game["menu_ingame"];	// default
-		scriptMainMenu = game["menu_team"];
+		scriptMainMenu = game["menu_ingame"];	// default
+		//scriptMainMenu = game["menu_team"];
 	}
 
+	logprint("_menus::onConnected: setting g_scriptMainMenu to " + scriptMainMenu + "\n");
 	self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", scriptMainMenu);
 
 	if (isDefined(self.pers["firstTeamSelected"])) 
@@ -211,8 +214,8 @@ onJoinedTeam(team)
 	}
 	else if (team == "spectator" || team == "streamer")
 	{
-		//self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_ingame"]);
-		self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_team"]);
+		self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_ingame"]);
+		//self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_team"]);
 	}
 
 	self maps\mp\gametypes\global\_global::setClientCvar2("ui_allowVote", level.allowvote);
@@ -225,7 +228,7 @@ Return true to indicate that menu response was handled in this function
 */
 onMenuResponse(menu, response)
 {
-	logprint("_menus:: onMenuResponse start with menu=" + menu + ", response=" + response + "\n");
+	logprint("_menus:: onMenuResponse start with menu=" + menu + ", response=" + response + " for player name " + self.name + "\n");
 	
 	// Pam is not installed correctly, ignore other responses
 	if (level.pam_installation_error)
@@ -234,7 +237,7 @@ onMenuResponse(menu, response)
 		return true;
 	}
 
-	/*
+	
 	// Mod is not downloaded, ignore other responses
 	if (maps\mp\gametypes\_force_download::modIsNotDownloadedForSure())
 		return true;
@@ -242,8 +245,9 @@ onMenuResponse(menu, response)
 	// Not downloaded yet and still listening
 	if(menu == game["menu_moddownload"] && response == "moddownloaded" && maps\mp\gametypes\_force_download::waitingForResponse())
 	{
+		logPrint("mod is downloaded!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 		maps\mp\gametypes\_force_download::modIsDownloaded();
-
+		logPrint("mod is downloaded DONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 		// Open server info
 		self closeMenu();
 		//self closeInGameMenu();
@@ -253,38 +257,53 @@ onMenuResponse(menu, response)
 
 		if (game["state"] != "intermission")
 			self maps\mp\gametypes\global\_global::setClientCvar2("ui_allow_changeteam", 1);
+		
+		return true;
+	}
+	/*
+	else if (self.pers["isBot"] && menu == game["menu_moddownload"] && response == "moddownloaded")
+	{
+		logprint("bot downlaoded the mod obviously...\n");
+		return true;
 	}
 	*/
+	
 
-	if(menu == game["menu_serverinfo"] && response == "close")
+	else if(menu == game["menu_serverinfo"] && response == "close")
 	{
 		logprint("_menus:: menu_serverinfo and close at onMenuResponse\n");
 		self closeMenu();
 		//self closeInGameMenu();
 
-		/*
 		if (!isDefined(self.pers["skipserverinfo"]))	// first time
 		{
+			logprint("_menus:: skipserverinfo not defined\n");
 			// After serverinfo is skipped, show menu with teams
 			self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_team"]);
 			self openMenu(game["menu_team"]);
 		}
-		else if (!isDefined(self.pers["firstTeamSelected"]))
+		else if (!isDefined(self.pers["firstTeamSelected"])) {
+			logPrint("_menus:: firstTeamSelected not defined\n");
 			self openMenu(game["menu_team"]);
-		else
+		}
+		else {
+			logPrint("_menus:: should open menu_ingame\n");
 			self openMenu(game["menu_ingame"]); // serverinfo may be opened and closed aditionally via menu
-		*/
-		self openMenu(game["menu_team"]);
+		}
+		//self openMenu(game["menu_team"]);
 
 		self.pers["skipserverinfo"] = true;
 
 		return true;
 	}
 
+	/*
 	if(response == "open" || response == "close")
 	{
-			return true;
+		logPrint("_menus:: response is open || close: " + response + "\n");
+		return true;
 	}
+	*/
 
 	if(response == "back")
 	{
@@ -292,28 +311,31 @@ onMenuResponse(menu, response)
 		self closeMenu();
 		//self closeInGameMenu();
 
-		/*
+		
 		if(menu == game["menu_team"])
 			self openMenu(game["menu_ingame"]);
 		else if(menu == game["menu_weapon_allies"] || menu == game["menu_weapon_axis"])
 			self openMenu(game["menu_team"]);
-		*/
-		if(menu == game["menu_weapon_allies"] || menu == game["menu_weapon_axis"])
-			self openMenu(game["menu_team"]);
+		
+		//if(menu == game["menu_weapon_allies"] || menu == game["menu_weapon_axis"])
+			//self openMenu(game["menu_team"]);
 
 		return true;
 	}
 	
+	/*
 	if (response == "team")
 	{
 		logprint("_menus:: response team at onMenuResponse\n");
-		self closeMenu();
+		//self closeMenu();
 		self openMenu(game["menu_team"]);
 		
 		return true;
 	}
+	*/
 
-	/*
+	logPrint("_menus_onMenuResponse:: menu==" + menu + "\n");
+
 	if(menu == game["menu_ingame"])
 	{
 		if (response == "changeweapon" && game["state"] != "intermission")
@@ -350,9 +372,9 @@ onMenuResponse(menu, response)
 		}
 	}
 
-	else*/ if(menu == game["menu_team"] && game["state"] != "intermission")
+	else if(menu == game["menu_team"] && game["state"] != "intermission")
 	{
-		logprint("_menus:: choosing menu_team and it's not an intermission at onMenuResponse\n");
+		logprint("_menus:: choosing menu_team and it's not an intermission at onMenuResponse, response=" + response + "\n");
 		teamBefore = self.pers["team"];
 		switch(response)
 		{
@@ -401,16 +423,21 @@ onMenuResponse(menu, response)
 			break;
 		/*
 		case "options":
-			self closeMenu();
+			//self closeMenu();
 			//self closeInGameMenu();
 			self openMenu(game["menu_ingame"]);
 			break;
-			*/
+		*/
 		}
+
 		return true;
 	}
 	else if(menu == game["menu_weapon_allies"] || menu == game["menu_weapon_axis"])
 	{
+		if (response == "open" || response == "close") {
+			logPrint("_menus:: choosing weapon response=" + response + " - ignoring\n");
+			return true;
+		}
 		logprint("_menus:: choosing weapon " + response + " at onMenuResponse\n");
 		self closeMenu();
 		//self closeInGameMenu();

@@ -202,7 +202,7 @@ format_fractional(num, fixedPositions, precision)
 	// Get the fraction part as integer formated to 9 places
 	fraction = "" + (int)((num2 - (int)(num2)) * 1000000000.0);
 	fraction2 = "000000000" + fraction;
-	logprint("string:: num=" + num + ", num2=" + num2 + ", fraction=" + fraction + ", fraction2=" + fraction2 + "\n");
+	//logprint("string:: num=" + num + ", num2=" + num2 + ", fraction=" + fraction + ", fraction2=" + fraction2 + "\n");
 	fraction2 = getsubstr(fraction2, fraction2.size - 9);
 	fraction2 = getsubstr(fraction2, 0, precision);
 

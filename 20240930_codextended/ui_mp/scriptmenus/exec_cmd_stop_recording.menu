@@ -1,3 +1,6 @@
+#include "ui_mp/menudef.h"
+#include "ui_mp/macros.h"
+
 {
     menuDef
     {

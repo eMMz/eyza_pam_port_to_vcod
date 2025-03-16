@@ -86,7 +86,7 @@ itemDef \
 	visible			1 \
 	rect			0 0 w 24 \
 	origin			x 438 \
-	forecolor		GLOBAL_UNFOCUSED_COLOR \
+	forecolor		1 1 1 0.2 \
 	type			ITEM_TYPE_BUTTON \
 	text			textstring \
 	textfont		UI_FONT_NORMAL \
@@ -111,7 +111,7 @@ itemDef \
 	visible			1 \
 	rect			0 0 w 24 \
 	origin			x 438 \
-	forecolor		GLOBAL_DISABLED_COLOR \
+	forecolor		1.0 1.0 0.0 1.0 /*GLOBAL_DISABLED_COLOR*/ \
 	type			ITEM_TYPE_BUTTON \
 	text			textstring \
 	textfont		UI_FONT_NORMAL \
@@ -127,7 +127,7 @@ itemDef \
 	visible			1 \
 	rect			0 0 w 24 \
 	origin			x 438 \
-	forecolor		GLOBAL_UNFOCUSED_COLOR \
+	forecolor		1 1 1 0.2 \
 	type			ITEM_TYPE_BUTTON \
 	text			textstring \
 	textfont		UI_FONT_NORMAL \
@@ -240,7 +240,7 @@ itemDef \
 	forecolor		1 1 1 1 \
 	text			teamname \
 	textfont		UI_FONT_NORMAL \
-	textscale		GLOBAL_HEADER_SIZE \
+	textscale		0.5 /*GLOBAL_HEADER_SIZE*/ \
 	decoration \
 }
 
@@ -265,13 +265,13 @@ itemDef \
 itemDef  \
 { \
 	visible			1 \
-	rect			0 0 128 24 0 0 \
+	rect			0 0 128 24 \
 	origin			origin_choice \
-	forecolor		GLOBAL_UNFOCUSED_COLOR \
+	forecolor		1 1 1 0.2 \
 	type			ITEM_TYPE_BUTTON \
 	text			textstring \
 	textfont		UI_FONT_NORMAL \
-	textscale		GLOBAL_TEXT_SIZE \
+	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	action \
@@ -293,11 +293,11 @@ itemDef  \
 	visible			1 \
 	rect			0 0 128 24 \
 	origin			origin_choice \
-	forecolor		GLOBAL_UNFOCUSED_COLOR \
+	forecolor		1.0 1.0 1.0 1.0 /*GLOBAL_UNFOCUSED_COLOR*/ \
 	type			ITEM_TYPE_BUTTON \
 	text			textstring \
 	textfont		UI_FONT_NORMAL \
-	textscale		GLOBAL_TEXT_SIZE \
+	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	cvartest		cvarstring \
@@ -318,13 +318,13 @@ itemDef  \
 itemDef  \
 { \
 	visible			1 \
-	rect			0 0 128 24 0 0 \
+	rect			0 0 128 24 \
 	origin			origin_choice \
-	forecolor		GLOBAL_DISABLED_COLOR \
+	forecolor		1.0 1.0 1 0.2 /*GLOBAL_DISABLED_COLOR*/ \
 	type			ITEM_TYPE_BUTTON \
 	text			textstring \
 	textfont		UI_FONT_NORMAL \
-	textscale		GLOBAL_TEXT_SIZE \
+	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	cvartest		cvarstring \
@@ -354,7 +354,7 @@ itemDef \
 { \
 	name			weaponimage \
 	visible 		0 \
-	rect			0 0 32 32 0 0 \
+	rect			0 0 32 32 \
 	origin			ORIGIN_GRENADESLOT2 \
 	style			WINDOW_STYLE_SHADER \
 	background		"hud_us_smokegrenade_C" \
@@ -366,13 +366,13 @@ itemDef \
 { \
 	name			stringname \
 	visible			1 \
-	rect			0 0 128 24 0 0 \
+	rect			0 0 128 24 \
 	origin			originpos \
-	forecolor		GLOBAL_UNFOCUSED_COLOR \
+	forecolor		1 1 1 0.2 \
 	type			ITEM_TYPE_BUTTON \
 	text			stringtext \
 	textfont		UI_FONT_NORMAL \
-	textscale		GLOBAL_TEXT_SIZE \
+	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	cvartest		cvartext \
@@ -393,13 +393,13 @@ itemDef  \
 { \
 	name			stringname \
 	visible			1 \
-	rect			0 0 128 24 0 0 \
+	rect			0 0 128 24 \
 	origin			originpos \
-	forecolor		GLOBAL_DISABLED_COLOR \
+	forecolor		1.0 1.0 0.0 1.0 /*GLOBAL_DISABLED_COLOR*/ \
 	type			ITEM_TYPE_BUTTON \
 	text			"" \
 	textfont		UI_FONT_NORMAL \
-	textscale		GLOBAL_TEXT_SIZE \
+	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	cvartest		cvartext \
@@ -414,13 +414,13 @@ itemDef  \
 { \
 	name			stringname \
 	visible			1 \
-	rect			0 0 128 24 0 0 \
+	rect			0 0 128 24 \
 	origin			originpos \
-	forecolor		GLOBAL_DISABLED_COLOR \
+	forecolor		1.0 1.0 0.0 1.0 /*GLOBAL_DISABLED_COLOR*/ \
 	type			ITEM_TYPE_BUTTON \
 	text			stringtext \
 	textfont		UI_FONT_NORMAL \
-	textscale		GLOBAL_TEXT_SIZE \
+	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	cvartest		cvartext \
@@ -432,13 +432,13 @@ itemDef  \
 { \
 	name			stringname \
 	visible			1 \
-	rect			0 0 128 24 0 0 \
+	rect			0 0 128 24 \
 	origin			originpos \
 	forecolor		.95 .84 .7 1  \
 	type			ITEM_TYPE_BUTTON \
 	text			stringtext \
 	textfont		UI_FONT_NORMAL \
-	textscale		GLOBAL_TEXT_SIZE \
+	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	cvartest		cvartext \
@@ -460,7 +460,7 @@ itemDef \
 { \
 	name			weaponimage \
 	visible 		0 \
-	rect			0 0 224 112 0 0 \
+	rect			0 0 224 112 \
 	origin			ORIGIN_WEAPONIMAGE \
 	style			WINDOW_STYLE_SHADER \
 	background		weaponimage \
@@ -470,7 +470,7 @@ itemDef \
 { \
 	name			weaponimage \
 	visible 		0 \
-	rect			0 0 32 32 0 0 \
+	rect			0 0 32 32 \
 	origin			ORIGIN_GRENADESLOT1 \
 	style			WINDOW_STYLE_SHADER \
 	background		"gfx/icons/hud@" grenadeimage ".tga" \
@@ -481,7 +481,7 @@ itemDef  \
 	name			weaponimage \
 	visible			0 \
 	origin			ORIGIN_USEDBY \
-	forecolor		GLOBAL_UNFOCUSED_COLOR \
+	forecolor		1 1 1 0.2 \
 	text 			"Used by:" \
 	type			ITEM_TYPE_TEXT \
 	textfont		UI_FONT_NORMAL \
@@ -497,7 +497,7 @@ itemDef  \
 	name			weaponimage \
 	visible			0 \
 	origin			ORIGIN_USEDBY2 \
-	forecolor		GLOBAL_UNFOCUSED_COLOR \
+	forecolor		1 1 1 0.2 \
 	text 			" " \
 	type			ITEM_TYPE_EDITFIELD \
 	textfont		UI_FONT_NORMAL \
@@ -520,7 +520,7 @@ itemDef  \
 itemDef \
 { \
 	visible			1 \
-	rect			0 0 480 75 0 0 \
+	rect			0 0 480 75 \
 	origin			60 84 \
 	forecolor		1 1 1 1 \
 	autowrapped \
@@ -536,9 +536,9 @@ itemDef \
 itemDef \
 { \
 	visible			1 \
-	rect			0 0 180 110 0 0 \
+	rect			0 0 180 110 \
 	origin			170 180 \
-	forecolor		GLOBAL_UNFOCUSED_COLOR \
+	forecolor		1 1 1 0.2 \
 	cvar			"ui_serverinfo_left1" \
 	textfont		UI_FONT_NORMAL \
 	textscale		0.3 \
@@ -550,9 +550,9 @@ itemDef \
 itemDef  \
 { \
 	visible			1 \
-	rect			0 0 128 110 0 0 \
+	rect			0 0 128 110 \
 	origin			185 180 \
-	forecolor		GLOBAL_UNFOCUSED_COLOR \
+	forecolor		1 1 1 0.2 \
 	cvar			"ui_serverinfo_left2" \
 	textfont		UI_FONT_NORMAL \
 	textscale		0.3 \
@@ -564,9 +564,9 @@ itemDef  \
 itemDef \
 { \
 	visible			1 \
-	rect			0 0 180 110 0 0 \
+	rect			0 0 180 110 \
 	origin			390 180 \
-	forecolor		GLOBAL_UNFOCUSED_COLOR \
+	forecolor		1 1 1 0.2 \
 	cvar			"ui_serverinfo_right1" \
 	textfont		UI_FONT_NORMAL \
 	textscale		0.3 \
@@ -578,9 +578,9 @@ itemDef \
 itemDef  \
 { \
 	visible			1 \
-	rect			0 0 128 110 0 0 \
+	rect			0 0 128 110 \
 	origin			405 180 \
-	forecolor		GLOBAL_UNFOCUSED_COLOR \
+	forecolor		1 1 1 0.2 \
 	cvar			"ui_serverinfo_right2" \
 	textfont		UI_FONT_NORMAL \
 	textscale		0.3 \
@@ -595,7 +595,7 @@ itemDef \
 { \
 	name			"text_motd" \
 	visible			1 \
-	rect			0 0 480 130 0 0 \
+	rect			0 0 480 130 \
 	origin			60 305 \
 	forecolor		1 1 1 1 \
 	autowrapped \
@@ -610,7 +610,7 @@ itemDef \
 { \
 	name			"text_serverversion" \
 	visible			1 \
-	rect			0 0 480 130 0 0 \
+	rect			0 0 480 130 \
 	origin			60 410 \
 	forecolor		1 1 1 .4 \
 	cvar			"ui_serverversion" \
@@ -625,7 +625,7 @@ itemDef \
 itemDef \
 { \
 	visible 		1 \
-	rect			-128 60 896 375 0 0  \
+	rect			-128 60 896 375  \
 	type 			ITEM_TYPE_BUTTON \
 	action \
 	{ \
@@ -644,7 +644,7 @@ itemDef \
 { \
 	name			"window" \
 	visible			1 \
-	rect			16 y 0 0 0 0 \
+	rect			16 y 0 0 \
 	origin			ORIGIN_QUICKMESSAGEWINDOW \
 	forecolor		fontcolor \
 	textfont		UI_FONT_NORMAL \
@@ -660,7 +660,7 @@ itemDef \
 { \
 	name			"window" \
 	visible			1 \
-	rect			16 y 0 0 0 0 \
+	rect			16 y 0 0 \
 	origin			ORIGIN_QUICKMESSAGEWINDOW \
 	forecolor		fontcolor \
 	textfont		UI_FONT_NORMAL \
@@ -677,7 +677,7 @@ itemDef \
 #define CVAR_CHECK(textstring, cvartotest, cvarshowhide) \
 itemDef \
 { \
-	rect 			-128 0 896 480 0 0 \
+	rect 			-128 0 896 480 \
 	visible 		1 \
 	backcolor 		1 1 1 1 \
 	style 			WINDOW_STYLE_FILLED \
@@ -1152,6 +1152,7 @@ itemDef \
 #define SCOREBOARD_HEADING_X 15
 #define SCOREBOARD_NAME_X 33
 
+#define SCOREBOARD_TEAM_X 15
 #define SCOREBOARD_SCORE_X 167
 #define SCOREBOARD_KILLS_X 208
 #define SCOREBOARD_DEATHS_X 226
@@ -1164,132 +1165,6 @@ itemDef \
 
 
 
-#define SCOREBOARD_LINE_1_Y  30
-#define SCOREBOARD_LINE_2_Y  40
-#define SCOREBOARD_LINE_3_Y  50
-#define SCOREBOARD_LINE_4_Y  59
-#define SCOREBOARD_LINE_5_Y  69
-#define SCOREBOARD_LINE_6_Y  79
-#define SCOREBOARD_LINE_7_Y  88
-#define SCOREBOARD_LINE_8_Y  98
-#define SCOREBOARD_LINE_9_Y  108
-#define SCOREBOARD_LINE_10_Y 117
-#define SCOREBOARD_LINE_11_Y 127
-#define SCOREBOARD_LINE_12_Y 137
-#define SCOREBOARD_LINE_13_Y 146
-#define SCOREBOARD_LINE_14_Y 156
-#define SCOREBOARD_LINE_15_Y 166
-#define SCOREBOARD_LINE_16_Y 175
-#define SCOREBOARD_LINE_17_Y 185
-#define SCOREBOARD_LINE_18_Y 195
-#define SCOREBOARD_LINE_19_Y 204
-#define SCOREBOARD_LINE_20_Y 214
-#define SCOREBOARD_LINE_21_Y 224
-#define SCOREBOARD_LINE_22_Y 233
-#define SCOREBOARD_LINE_23_Y 243
-#define SCOREBOARD_LINE_24_Y 253
-#define SCOREBOARD_LINE_25_Y 263
-#define SCOREBOARD_LINE_26_Y 273
-
-#define SCOREBOARD_LINE_BACKGROUND_COLOR 		.0 .0 .0 .1
-#define SCOREBOARD_LINE_BACKGROUND_COLOR_HIGHLIGHTED 	.2 .2 .2 .7
-#define SCOREBOARD_LINE_BACKGROUND_COLOR_DISCONNECTED	.2 .0 .0 .2
-/*
-type
-0 = hide
-1 = player line - odd
-2 = player line - even
-3 = player line - highlighted
-"<string>" = show team name
-
-added _ means that line can be clicked
-added ! means that player is disconnected
-*/
-#define ITEM_SCOREBOARD_LINE(line_id, x, y, y_offset) \
-itemDef  \
-{ \
-	style			WINDOW_STYLE_FILLED \
-	rect			10 y_offset 380 10 \
-	origin			x y \
-	backcolor		SCOREBOARD_LINE_BACKGROUND_COLOR \
-	visible			1 \
-	cvartest		"ui_scoreboard_line_" line_id \
-	showcvar		{ "2";"2_"; } \
-	decoration \
-} \
-itemDef  \
-{ \
-	style			WINDOW_STYLE_FILLED \
-	rect			10 y_offset 380 10 \
-	origin			x y \
-	backcolor		SCOREBOARD_LINE_BACKGROUND_COLOR_HIGHLIGHTED \
-	visible			1 \
-	cvartest		"ui_scoreboard_line_" line_id \
-	showcvar		{ "3";"3_"; } \
-	decoration \
-} \
-itemDef  \
-{ \
-	style			WINDOW_STYLE_FILLED \
-	rect			10 y_offset 380 10 \
-	origin			x y \
-	backcolor		SCOREBOARD_LINE_BACKGROUND_COLOR_DISCONNECTED \
-	visible			1 \
-	cvartest		"ui_scoreboard_line_" line_id \
-	showcvar		{ "1!";"2!";"3!" } \
-	decoration \
-} \
-itemDef \
-{ \
-	rect			SCOREBOARD_HEADING_X y_offset 1 1 \
-	origin			x y \
-	cvar 			"ui_scoreboard_line_" line_id \
-	textfont		UI_FONT_BIG \
-	textscale		0.195 /* 0.26 orig */ \
-	textstyle		ITEM_TEXTSTYLE_SHADOWED \
-	textaligny		SCOREBOARD_HEADING_ALIGNY \
-	visible			1 \
-	cvartest		"ui_scoreboard_line_" line_id \
-	hidecvar		{ ""; "0"; "1"; "2"; "3";  "0_"; "1_"; "2_"; "3_";  "0!"; "1!"; "2!"; "3!"; } \
-	decoration \
-} \
-\
-itemDef  \
-{ \
-	style			WINDOW_STYLE_FILLED \
-	rect			10 y_offset 16 10 \
-    origin			x y \
-	backcolor		0 0 0 0.7 \
-	visible			1 \
-	cvartest		"ui_scoreboard_line_" line_id \
-    showCvar		{ "0_"; "1_"; "2_"; "3_"; } \
-	decoration \
-} \
-itemDef \
-{ \
-	rect			0 y_offset 390 10 \
-    origin			x y \
-	type			ITEM_TYPE_BUTTON \
-	visible			1 \
-	forecolor		1 1 1 1 \
-	text			"Set" \
-	textfont		UI_FONT_NORMAL \
-	textscale		0.135 /* 0.18 */ \
-	textalign		ITEM_ALIGN_LEFT \
-	textalignx		13 \
-	textaligny		8 \
-	textstyle		ITEM_TEXTSTYLE_SHADOWED \
-	cvartest		"ui_scoreboard_line_" line_id \
-    showCvar		{ "0_"; "1_"; "2_"; "3_"; } \
-	action \
-	{ \
-		play "mouse_click"; \
-	} \
-	onFocus \
-	{ \
-		play "mouse_over"; \
-	} \
-}
 
 #define ITEM_SCOREBOARD_HEADING(x, y, textstring, x_offset, y_offset, fontsize, txtalign, line_x, line_y, line_height) \
 itemDef \
@@ -1344,37 +1219,22 @@ itemDef \
 	ITEM_SCOREBOARD_HEADING(x, y, "Kills",    SCOREBOARD_KILLS_TEXT_X,   	23, .21, ITEM_ALIGN_CENTER, 	SCOREBOARD_KILLS_TEXT_X, 	25, 	30) \
 	ITEM_SCOREBOARD_HEADING(x, y, "Deaths",   SCOREBOARD_DEATHS_TEXT_X,  	33, .21, ITEM_ALIGN_CENTER, 	SCOREBOARD_DEATHS_TEXT_X, 	35, 	20) \
 	ITEM_SCOREBOARD_HEADING(x, y, "Assists",  SCOREBOARD_ASSISTS_TEXT_X, 	23, .21, ITEM_ALIGN_CENTER, 	SCOREBOARD_ASSISTS_TEXT_X, 	25, 	30) \
-	ITEM_SCOREBOARD_HEADING(x, y, "Hits",     SCOREBOARD_DAMAGE_TEXT_X,  	33, .21, ITEM_ALIGN_CENTER, 	SCOREBOARD_DAMAGE_TEXT_X, 	35, 	20) \
+	/*ITEM_SCOREBOARD_HEADING(x, y, "Hits",     SCOREBOARD_DAMAGE_TEXT_X,  	33, .21, ITEM_ALIGN_CENTER, 	SCOREBOARD_DAMAGE_TEXT_X, 	35, 	20)*/ \
 	ITEM_SCOREBOARD_HEADING(x, y, "Grenades", SCOREBOARD_GRENADES_TEXT_X,	23, .21, ITEM_ALIGN_CENTER, 	SCOREBOARD_GRENADES_TEXT_X, 	25, 	30) \
 	ITEM_SCOREBOARD_HEADING(x, y, "Plants",   SCOREBOARD_PLANTS_TEXT_X,  	33, .21, ITEM_ALIGN_CENTER, 	SCOREBOARD_PLANTS_TEXT_X, 	35, 	20) \
 	ITEM_SCOREBOARD_HEADING(x, y, "Defuses",  SCOREBOARD_DEFUSES_TEXT_X, 	23, .21, ITEM_ALIGN_RIGHT,  	SCOREBOARD_DEFUSES_TEXT_X_LINE, 25, 	30) \
 \
-	ITEM_SCOREBOARD_LINE("1", x, y, SCOREBOARD_LINE_1_Y) \
-\
-	ITEM_SCOREBOARD_LINE("4", x, y, SCOREBOARD_LINE_4_Y) \
-	ITEM_SCOREBOARD_LINE("5", x, y, SCOREBOARD_LINE_5_Y) \
-	ITEM_SCOREBOARD_LINE("6", x, y, SCOREBOARD_LINE_6_Y) \
-	ITEM_SCOREBOARD_LINE("7", x, y, SCOREBOARD_LINE_7_Y) \
-	ITEM_SCOREBOARD_LINE("8", x, y, SCOREBOARD_LINE_8_Y) \
-	ITEM_SCOREBOARD_LINE("9", x, y, SCOREBOARD_LINE_9_Y) \
-	ITEM_SCOREBOARD_LINE("10", x, y, SCOREBOARD_LINE_10_Y) \
-	ITEM_SCOREBOARD_LINE("11", x, y, SCOREBOARD_LINE_11_Y) \
-	ITEM_SCOREBOARD_LINE("12", x, y, SCOREBOARD_LINE_12_Y) \
-	ITEM_SCOREBOARD_LINE("13", x, y, SCOREBOARD_LINE_13_Y) \
-	ITEM_SCOREBOARD_LINE("14", x, y, SCOREBOARD_LINE_14_Y) \
-	ITEM_SCOREBOARD_LINE("15", x, y, SCOREBOARD_LINE_15_Y) \
-	ITEM_SCOREBOARD_LINE("16", x, y, SCOREBOARD_LINE_16_Y) \
-\
-	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_names",    SCOREBOARD_NAME_X,     40, .2, ITEM_ALIGN_LEFT) \
-	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_scores",   SCOREBOARD_SCORE_X,    40, .2, ITEM_ALIGN_LEFT) \
-	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_kills",    SCOREBOARD_KILLS_X,    40, .2, ITEM_ALIGN_LEFT) \
-	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_deaths",   SCOREBOARD_DEATHS_X,   40, .2, ITEM_ALIGN_LEFT) \
-	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_assists",  SCOREBOARD_ASSISTS_X,  40, .2, ITEM_ALIGN_LEFT) \
-	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_damages",  SCOREBOARD_DAMAGE_X,   40, .2, ITEM_ALIGN_LEFT) \
-	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_grenades", SCOREBOARD_GRENADES_X, 40, .2, ITEM_ALIGN_LEFT) \
-	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_plants",   SCOREBOARD_PLANTS_X,   40, .2, ITEM_ALIGN_LEFT) \
-	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_defuses",  SCOREBOARD_DEFUSES_X,  40, .2, ITEM_ALIGN_LEFT) \
-	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_ping",     SCOREBOARD_PING_X,     40, .2, ITEM_ALIGN_LEFT)
+	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_teams",	   SCOREBOARD_TEAM_X,     55, .21, ITEM_ALIGN_LEFT) \
+	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_names",    SCOREBOARD_NAME_X,     55, .21, ITEM_ALIGN_LEFT) \
+	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_scores",   SCOREBOARD_SCORE_X,    55, .21, ITEM_ALIGN_LEFT) \
+	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_kills",    SCOREBOARD_KILLS_X,    55, .21, ITEM_ALIGN_LEFT) \
+	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_deaths",   SCOREBOARD_DEATHS_X,   55, .21, ITEM_ALIGN_LEFT) \
+	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_assists",  SCOREBOARD_ASSISTS_X,  55, .21, ITEM_ALIGN_LEFT) \
+	/*ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_damages",  SCOREBOARD_DAMAGE_X,   40, .2, ITEM_ALIGN_LEFT)*/ \
+	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_grenades", SCOREBOARD_GRENADES_X, 55, .21, ITEM_ALIGN_LEFT) \
+	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_plants",   SCOREBOARD_PLANTS_X,   55, .21, ITEM_ALIGN_LEFT) \
+	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_defuses",  SCOREBOARD_DEFUSES_X,  55, .21, ITEM_ALIGN_LEFT) \
+	ITEM_SCOREBOARD_COLUMN(x, y, "ui_scoreboard_ping",     SCOREBOARD_PING_X,     55, .21, ITEM_ALIGN_LEFT)
 
 
 

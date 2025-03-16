@@ -754,7 +754,7 @@ fill_box(index, barSide, teamname, player)
 	name += maps\mp\gametypes\global\_global::removeColorsFromString(player.name);
 
 
-
+	//logPrint("fillbox " + name + "\n");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_num",		(index+1));
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_health",		health);
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_name",		name);
@@ -762,7 +762,7 @@ fill_box(index, barSide, teamname, player)
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_weapon",		weapon_text);
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_round_kills",	kills_added);
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_icons",		icons);
-	wait .05;
+	wait .10;
 }
 
 
@@ -774,6 +774,7 @@ unfill_box(index, barSide)
 
 	// Text does not need to be updated, because is hided automatically if healht is empty
 	// vcod doesnt work?
+	//logPrint("unfillbox emptyName " + "\n");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_num", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_name", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_score", "");
@@ -782,5 +783,5 @@ unfill_box(index, barSide)
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_health", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_icons", "");
 
-	wait .05;
+	wait .10;
 }

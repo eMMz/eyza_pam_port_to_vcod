@@ -14,7 +14,8 @@ init()
 
 	maps\mp\gametypes\global\_global::addEventListener("onCvarChanged", ::onCvarChanged);
 
-	maps\mp\gametypes\global\_global::registerCvarEx("I", "pam_mode", "STRING", "comp", maps\mp\gametypes\global\rules::IsValidPAMMode);
+	//maps\mp\gametypes\global\_global::registerCvarEx("I", "pam_mode", "STRING", "comp", maps\mp\gametypes\global\rules::IsValidPAMMode);
+	maps\mp\gametypes\global\_global::registerCvarEx("I", "pam_mode", "STRING", "comp_mr1", maps\mp\gametypes\global\rules::IsValidPAMMode);
 	maps\mp\gametypes\global\_global::registerCvarEx("I", "pam_mode_custom", "BOOL", false);
 
 

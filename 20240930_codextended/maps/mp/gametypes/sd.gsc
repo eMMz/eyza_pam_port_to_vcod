@@ -1217,9 +1217,10 @@ spawnIntermission()
 		level.bombmodel stopLoopSound();
 
 	// Open alternative scoreboard
-	//self openMenu(game["menu_scoreboard"]);
-	//self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_ingame"]);
-	self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_team"]);
+	logPrint("opening alternative scoreboard\n");
+	self openMenu(game["menu_scoreboard"]);
+	self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_ingame"]);
+	//self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_team"]);
 	self maps\mp\gametypes\global\_global::setClientCvar2("ui_allow_weaponchange", 0);
 	self maps\mp\gametypes\global\_global::setClientCvar2("ui_allow_changeteam", 0);
 	self thread maps\mp\gametypes\_menu_scoreboard::generatePlayerList();
@@ -3167,11 +3168,13 @@ menuWeapon(response)
 	primaryb = self getWeaponSlotWeapon("primaryb");
 
 	// After selecting a weapon, show "ingame" menu when ESC is pressed
-	//self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_ingame"]);
+	self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_ingame"]);
+	/*
 	if(self.pers["team"] == "allies")
 			self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_weapon_allies"]);
 	else if(self.pers["team"] == "axis")
 			self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_weapon_axis"]);
+	*/
 
 	// If newly selected weapon is same as actualy selected weapon and is in player slot -> do nothing
 	if(isdefined(self.pers["weapon"]))

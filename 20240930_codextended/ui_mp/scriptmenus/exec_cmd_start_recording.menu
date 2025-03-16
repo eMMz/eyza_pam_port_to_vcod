@@ -1,3 +1,6 @@
+#include "ui_mp/menudef.h"
+#include "ui_mp/macros.h"
+
 {
     menuDef
     {
@@ -11,6 +14,7 @@
             //execNow "vstr exec_cmd";
             exec "vstr exec_cmd";
             //close exec_cmd;
+            //scriptmenuresponse "lolwut";
         }
 		onClose
 		{

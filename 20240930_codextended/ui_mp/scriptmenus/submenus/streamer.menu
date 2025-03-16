@@ -26,8 +26,9 @@ menuDef
 		//uiScript openMenuOnDvar ui_scoreboard_show "sd" quickmessage_streamersystem_menu_scoreboard_sd_lines;
 		
 		open quickmessage_streamersystem_menu_bars_blue_red;
+		open quickmessage_streamersystem_menu_bars_blue_red2;
 		open quickmessage_streamersystem_menu_matchinfo_blue_red;
-		open quickmessage_streamersystem_menu_bars_cyan_purple;
+		//open quickmessage_streamersystem_menu_bars_cyan_purple;
 		//open quickmessage_streamersystem_menu_matchinfo_cyan_purple;
 		open quickmessage_streamersystem_menu_scoreboard_sd;
 		open quickmessage_streamersystem_menu_scoreboard_sd_lines;
@@ -41,8 +42,9 @@ menuDef
 		close "quickmessage_streamersystem_menu_scoreboard_sd";
 		close "quickmessage_streamersystem_menu_scoreboard_sd_lines";
 		close "quickmessage_streamersystem_menu_bars_blue_red";
+		close "quickmessage_streamersystem_menu_bars_blue_red2";
 		close "quickmessage_streamersystem_menu_matchinfo_blue_red";
-		close "quickmessage_streamersystem_menu_bars_cyan_purple";
+		//close "quickmessage_streamersystem_menu_bars_cyan_purple";
 		//close "quickmessage_streamersystem_menu_matchinfo_cyan_purple";
 		//close "quickmessage_streamersystem_menu_killcam";
 
@@ -313,10 +315,38 @@ menuDef
 	//ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team2_player4", "0", 640, 250,   .16 .28 .74 .9,   .5 .0 .0 .9,    .02 .04 .11 1,    .07 .0 .0 1)
 }
 
+menuDef
+{
+	name			"quickmessage_streamersystem_menu_bars_blue_red2"
+	rect			-128 0 896 480
+	//rect			0 0 640 480
+	//focuscolor		GLOBAL_FOCUSED_COLOR
+	focuscolor		1 1 1 1
+	style			WINDOW_STYLE_EMPTY
+	//blurWorld		0
+	onOpen
+	{
+		exec "set g_TeamColor_Allies .36 .48 .94 .9";
+		exec "set g_TeamColor_Axis .7 .0 .0 .9";
+	}
+
+	//ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team1_player0", "1", 128, 154,   .16 .28 .74 .9,   .5 .0 .0 .9,    .02 .04 .11 1,    .07 .0 .0 1)
+	//ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team1_player1", "2", 128, 178,   .16 .28 .74 .9,   .5 .0 .0 .9,    .02 .04 .11 1,    .07 .0 .0 1)
+	//ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team1_player2", "3", 128, 202,   .16 .28 .74 .9,   .5 .0 .0 .9,    .02 .04 .11 1,    .07 .0 .0 1)
+	//ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team1_player3", "4", 128, 226,   .16 .28 .74 .9,   .5 .0 .0 .9,    .02 .04 .11 1,    .07 .0 .0 1)
+	//ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team1_player4", "5", 128, 250,   .16 .28 .74 .9,   .5 .0 .0 .9,    .02 .04 .11 1,    .07 .0 .0 1)
+
+	ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team2_player0", "6", 640, 154,   .16 .28 .74 .9,   .5 .0 .0 .9,    .02 .04 .11 1,    .07 .0 .0 1)
+	ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team2_player1", "7", 640, 178,   .16 .28 .74 .9,   .5 .0 .0 .9,    .02 .04 .11 1,    .07 .0 .0 1)
+	ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team2_player2", "8", 640, 202,   .16 .28 .74 .9,   .5 .0 .0 .9,    .02 .04 .11 1,    .07 .0 .0 1)
+	ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team2_player3", "9", 640, 226,   .16 .28 .74 .9,   .5 .0 .0 .9,    .02 .04 .11 1,    .07 .0 .0 1)
+	ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team2_player4", "0", 640, 250,   .16 .28 .74 .9,   .5 .0 .0 .9,    .02 .04 .11 1,    .07 .0 .0 1)
+}
 
 
 
 
+/*
 menuDef
 {
   	name 			"quickmessage_streamersystem_menu_matchinfo_cyan_purple"
@@ -329,7 +359,9 @@ menuDef
 
 	MATCHINFO("ui_matchinfo_team1_team", "ui_matchinfo_team2_team", "ui_matchinfo_show", .0 .55 .51 .9,   .43 .0 .54 .9)
 }
+*/
 
+/*
 menuDef
 {
 	name			"quickmessage_streamersystem_menu_bars_cyan_purple"
@@ -356,6 +388,7 @@ menuDef
 	ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team2_player3", "9", 640, 226,   .0 .55 .51 .9,   .43 .0 .54 .9,    .0 .12 .11 1,    .1 .0 .12 1)
 	ITEM_STREAMERSYSTEM_LINE("ui_streamersystem_team2_player4", "0", 640, 250,   .0 .55 .51 .9,   .43 .0 .54 .9,    .0 .12 .11 1,    .1 .0 .12 1)
 }
+*/
 
 
 

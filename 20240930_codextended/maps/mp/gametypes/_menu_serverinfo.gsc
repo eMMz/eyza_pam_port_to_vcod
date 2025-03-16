@@ -47,6 +47,13 @@ onCvarChanged(cvar, value, isRegisterTime)
 // Called from menu wen serverinfo menu is opened
 updateServerInfo()
 {
+	// logprint("updateServeInfo:: " + level.motd + " " 
+	// + level.serverversion + " " 
+	// + level.serverinfo_left1 + " " 
+	// + level.serverinfo_left2 + " " 
+	// + level.serverinfo_right1 + " " 
+	// + level.serverinfo_right2 + "\n");
+
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_motd", level.motd);
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_serverversion", level.serverversion);
 
@@ -57,11 +64,14 @@ updateServerInfo()
 	// These are global
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_serverinfo_right1", level.serverinfo_right1);
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_serverinfo_right2", level.serverinfo_right2);
+
+	logprint("updateServerInfo:: done\n");
 }
 
 generateGlobalServerInfo()
 {
 	wait 0.05; // wait untill all other server change functions are processed
+	logprint("generateGlobalServerInfo:: start\n");
 
 	// Generate motd
 	motd = level.scr_motd;
@@ -183,4 +193,6 @@ generateGlobalServerInfo()
 
 	level.serverinfo_right1 = title;
 	level.serverinfo_right2 = value;
+
+	logprint("generateGlobalServerInfo:: stop\n");
 }
