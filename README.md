@@ -24,9 +24,9 @@ To do list:
 - replace nade follow to be the same as in current vCoD pam<br>
 - fix autorecord (when autorecord is working then, scoreboard_sd at the end of the map is not showing)<br>
 - improve new scoreboard:<br>
-	- fix hit logic<br>
-	- fix assists logic - implemenet CS2 assists counting logic because vCoD has no health recovery system as well<br>
-	- fix points counting<br>
+	- fix hit count logic<br>
+	- fix assists count logic - implemenet CS2 assists counting logic because vCoD has no health recovery system as well<br>
+	- fix points count logic<br>
 	- add some additional statistics<br>
 - add UO smoke to be available in vCoD and pickable via menu by X players (configurable)<br>
 ... to be continued
