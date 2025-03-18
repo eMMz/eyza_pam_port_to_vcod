@@ -18,6 +18,7 @@ To get back to streamer mode once 'ESC' is pressed in streamer mode repeat from 
 <br>
 To do list:
 <br>
+- import weapon menu from CoD2 pam
 - code cleanup ie. logging<br>
 - fix bomb explosion hit radius
 - sort out menus introduced in this PAM port - I have low knowledge of menus and I think it's not properly done by me<br>
