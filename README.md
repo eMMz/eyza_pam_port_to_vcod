@@ -29,4 +29,4 @@ To do list:
 	- fix points count logic<br>
 	- add some additional statistics<br>
 - add UO smoke to be available in vCoD and pickable via menu by X players (configurable)<br>
-... to be continued
+- <b>... to be continued</b>
