@@ -38,10 +38,7 @@ To do list:
 - <b>... to be continued</b>
 <br>
 <br>
-<br>
 Screenshots:<br>
 ![shot0035](https://github.com/user-attachments/assets/f934c8c1-59f3-413b-b285-e042299bed5b)<br>
 ![shot0036](https://github.com/user-attachments/assets/237c4638-60f0-4f1f-b756-e73f3ca77b84)<br>
 ![shot0037](https://github.com/user-attachments/assets/7c92d949-fc03-426f-a9e5-f5cdbc40d434)<br>
-
-
