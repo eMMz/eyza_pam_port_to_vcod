@@ -97,7 +97,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_shellshock", 0);					// Create shell shock effect when player is hitted
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_replace_russian", 1); 					// Replace russians with Americans / Brisith
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_blackout", 1); 						// If match is in progress, show map background all over the screen and disable sounds for connected player
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_recording", 1); 						// Starts automatically recording when match starts
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_recording", 0); 						// Starts automatically recording when match starts
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_matchinfo", 2); 						// Show match info in menu (1 = without team names, 2 = with team names)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_map_vote", 0);						// Open voting system so players can vote about next map
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_map_vote_replay", 0);					// Show option to replay this map in voting system

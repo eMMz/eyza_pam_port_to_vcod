@@ -91,7 +91,7 @@ onMenuResponse(menu, response)
 {
 	logprint("_record:: onMenuResponse menu=" + menu + ", response=" + response + "\n");
 	
-	if (!(menu == "exec_cmd_start_recording" || menu == "exec_cmd_stop_recording"))
+	if (!(menu == "startrecording_sd" || menu == "stoprecording_sd"))
 		return;
 
 	if (response == "start_recording")
@@ -416,8 +416,7 @@ execRecording()
 		//self maps\mp\gametypes\global\_global::setClientCvar2("exec_cmd", "clear; stoprecord; record " + demoName + "; openScriptMenu exec_cmd start_recording");
 		self maps\mp\gametypes\global\_global::setClientCvar2("exec_cmd", "clear; stoprecord; record " + demoName + ";");
 		//self openMenu(game["menu_exec_cmd"]);		// open menu via script
-		// self openMenu(game["menu_exec_cmd_start_recording"]);		// open menu via script
-		self openMenu("test_exec_cmd_start_recording");
+		self openMenu(game["menu_start_recording"]);		// open menu via script
 		self closeMenu();				// will only close menu opened by script
 
 		// Wait a second before next menu opening
@@ -444,6 +443,7 @@ stopRecordingForAll()
 	players = getentarray("player", "classname");
 	for(i = 0; i < players.size; i++)
 	{
+		logprint("stopRecordingForAll\n");
 		players[i] thread stopRecording();
 	}
 }
@@ -479,7 +479,7 @@ stopRecording()
 			//self closeInGameMenu();
 			//self maps\mp\gametypes\global\_global::setClientCvar2("exec_cmd", "stoprecord; openScriptMenu exec_cmd stop_recording");
 			self maps\mp\gametypes\global\_global::setClientCvar2("exec_cmd", "stoprecord;");
-			self openMenu(game["menu_exec_cmd_stop_recording"]);		// open menu via script
+			self openMenu(game["menu_stop_recording"]);		// open menu via script
 			self closeMenu();				// will only close menu opened by script
 		}
 

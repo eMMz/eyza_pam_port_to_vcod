@@ -1,23 +1,17 @@
 #include "ui_mp/menudef.h"
-#include "ui_mp/macros.h"
 
 {
     menuDef
     {
-        name           "exec_cmd_stop_recording"
+        name           "startrecording_sd"
         rect           0 0 1 1
         visible        0
         fullscreen     0
 
         onOpen
         {
-            //execNow "vstr exec_cmd";
             exec "vstr exec_cmd";
-            //close exec_cmd;
+            scriptmenuresponse "start_recording";
         }
-		onClose
-		{
-			scriptmenuresponse "stop_recording";
-		}
     }
 }

@@ -11,13 +11,12 @@
 		//blurWorld		0
 		onOpen
 		{
-      			//open scoreboard_lines_sd;
-				scriptmenuresponse "scoreboard_sd_opened";
+      		open scoreboard_lines_sd;
 		}
 		onEsc
 		{
-		      //close scoreboard_lines_sd;
-      		close scoreboard_sd;
+		    close scoreboard_lines_sd;
+			close scoreboard_sd;
 		}
 
 
@@ -110,4 +109,46 @@
 			decoration
 		}
 	}
+
+	menuDef
+	{
+		name			"scoreboard_lines_sd"
+		rect			120 48 400 430
+		focuscolor		1 1 1 1 //GLOBAL_FOCUSED_COLOR
+		style			WINDOW_STYLE_EMPTY
+		//blurWorld		0
+
+		onOpen
+		{
+			//exec "openscriptmenu ingame scoreboard_refresh";	// this will update info
+			scriptMenuResponse "ingame_scoreboard_refresh";
+		}
+
+		ITEM_SCOREBOARD(0, 0)
+
+		itemDef
+		{
+			visible			1
+			rect			11 380 380 15
+			type			ITEM_TYPE_BUTTON
+			forecolor		1 1 1 1
+			text			"^9[Enter]^7 Take Screenshot"
+			textfont		UI_FONT_NORMAL
+			textscale		0.23
+			textalign		ITEM_ALIGN_LEFT
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textaligny		15
+			action
+			{
+				play "mouse_click";
+				exec "screenshotJpeg";
+			}
+			onFocus
+			{
+				play "mouse_over";
+			}
+		}
+		execKeyInt 13 { play "mouse_click"; exec "screenshotJpeg"; } // enter
+		execKeyInt 178 { play "mouse_click"; exec "screenshotJpeg"; } // F12
+  	}
 }

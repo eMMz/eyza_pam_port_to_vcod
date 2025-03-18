@@ -20,6 +20,12 @@ init()
 
 onConnected()
 {
+	///// tmp
+	//self.pers["modDownloaded"] = true;
+	//self.pers["downloadDisableResponse"] = false;
+	//return;
+	//// end of tmp
+
 	logprint("_force_download::onConnected start\n");
 	// Define variables
 	if (!isDefined(self.pers["modDownloaded"]))

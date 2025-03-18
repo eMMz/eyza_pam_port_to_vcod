@@ -35,6 +35,7 @@ menuDef
 
 		// Overlay
 		open "quickmessage_streamersystem_menu_overlay";
+		scriptmenuresponse "streamersystem_menu_open";
 	}
 	onClose
 	{
@@ -54,6 +55,7 @@ menuDef
 		exec "setfromcvar g_TeamColor_Axis g_TeamColor_Axis_Original";
 		//exec "setfromdvar con_gamemessagetime con_gamemessagetime_original";
 		exec "setfromcvar con_gamemessagetime con_gamemessagetime_original";
+		scriptmenuresponse "streamersystem_menu_close";
 	}
 }
 

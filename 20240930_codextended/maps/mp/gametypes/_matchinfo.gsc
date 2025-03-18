@@ -77,7 +77,9 @@ onCvarChanged(cvar, value, isRegisterTime)
 		{
 			if (value == 1)
 			{
+				logprint("onCvarChanged before clear\n");
 				clear();
+				logprint("onCvarChanged after clear\n");
 				iprintln("Info about teams was cleared via rcon.");
 
 				maps\mp\gametypes\global\_global::changeCvarQuiet(cvar, 0);
@@ -284,9 +286,9 @@ refreshTeamNames()
 {
 	// Generate allies and axis team names
 	// Generate team names according to player names
-	wait level.fps_multiplier * 0.1;
+	wait level.fps_multiplier * 0.2;
 	maps\mp\gametypes\_teamname::refreshTeamName("allies"); // will update level.teamname_allies
-	wait level.fps_multiplier * 0.1;
+	wait level.fps_multiplier * 0.2;
 	maps\mp\gametypes\_teamname::refreshTeamName("axis"); // will update level.teamname_axis
 	wait level.frame;
 }
@@ -415,7 +417,9 @@ waitForPlayerOrClear(playersLast)
 		// We are sure to reset the match info
 		if (resetCount >= 4)
 		{
+			logprint("waitForPlayerOrClear and resetCount>=4\n");
 			clear();
+			logprint("waitForPlayerOrClear and resetCount>=4 after\n");
 			iprintln("Info about teams was cleared.");
 			return;
 		}
@@ -426,16 +430,20 @@ waitForPlayerOrClear(playersLast)
 
 clear()
 {
+	logprint("clear\n");
 	resetAll();
+	logprint("clear after resetAll\n");
 
 	if (level.in_readyup)
 	{
+		logprint("clear inside level.in_readyup\n");
 		// Stop demo recording if enabled
 		maps\mp\gametypes\_record::stopRecordingForAll();
 
 		//Reset Remaing Time in readyup to Clock
 		maps\mp\gametypes\_readyup::HUD_ReadyUp_ResumingIn_Delete();
 	}
+	logprint("clear end of function\n");
 }
 
 

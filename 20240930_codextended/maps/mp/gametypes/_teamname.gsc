@@ -134,6 +134,7 @@ Init()
 // Called from multiple places
 refreshTeamName(team)
 {
+	//logprint("refreshteamname for teamname=" + team + "\n");
   if (team == "allies")
   {
     level.teamname_allies = getTeamName(team);
@@ -160,7 +161,7 @@ getTeamName(team)
 		player = players[i];
 
 		// If team is not set, generate team name from all players
-		if (isDefined(player.pers["team"]) && (player.pers["team"] == team || team == ""))
+		if (isDefined(player) && isDefined(player.pers["team"]) && (player.pers["team"] == team || team == ""))
 		{
 			name_clean = maps\mp\gametypes\global\_global::removeColorsFromString(player.name);
 			names[names.size] = name_clean;

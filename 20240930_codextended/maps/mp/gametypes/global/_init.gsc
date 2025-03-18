@@ -87,7 +87,7 @@ InitModules()
 	thread maps\mp\gametypes\_scoreboard::init();	// must be called before matchinfo
 	thread maps\mp\gametypes\_teamname::init();
 	thread maps\mp\gametypes\_matchinfo::init();	// depends on readyup, teamname, bash, overtime
-	//thread maps\mp\gametypes\_record::init();	// depends on matchinfo
+	thread maps\mp\gametypes\_record::init();	// depends on matchinfo
 	thread maps\mp\gametypes\_players_left::Init(); // depends on matchinfo
 	thread maps\mp\gametypes\_streamer::init(); // depends on readyup, matchinfo
 	thread maps\mp\gametypes\_streamer_auto::init(); // depends on readyup

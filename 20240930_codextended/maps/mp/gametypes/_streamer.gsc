@@ -610,8 +610,10 @@ openStreamerMenu()
 		//  	- by script (via openMenu()) -> that menu will be closed and exec_cmd will not be closed correctly
 		//			(mouse will be visible with clear backgorund.... so closeMenu() is called to close that menu)
 		self maps\mp\gametypes\global\_global::setClientCvar2("exec_cmd", "mp_quickmessage");
-		self openMenu(game["menu_exec_cmd"]);		// open menu via script
-		self closeMenu();				// will only close menu opened by script
+		//self openMenu(game["menu_exec_cmd"]);		// open menu via script
+		//self closeMenu();				// will only close menu opened by script
+		//self openMenu("streamtest");
+		//wait 10;
 
 		if (retry >= 3)
 		{

@@ -8,9 +8,8 @@
 
         onOpen
         {
-            //execNow "vstr exec_cmd";
             exec "vstr exec_cmd";
-            //close exec_cmd;
+            scriptMenuResponse "exec_cmd_lol";
         }
     }
 }

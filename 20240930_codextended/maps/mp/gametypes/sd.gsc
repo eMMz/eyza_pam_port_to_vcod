@@ -1218,6 +1218,7 @@ spawnIntermission()
 
 	// Open alternative scoreboard
 	logPrint("opening alternative scoreboard\n");
+	//self closeMenu();
 	self openMenu(game["menu_scoreboard"]);
 	self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_ingame"]);
 	//self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_team"]);
@@ -3136,6 +3137,7 @@ menuStreamer()
 
 menuWeapon(response)
 {
+	logprint("sd::menuWeapon response=" + response + "\n");
 	// You has to be "allies" or "axis" to change a weapon
 	if(self.pers["team"] != "allies" && self.pers["team"] != "axis")
 	{

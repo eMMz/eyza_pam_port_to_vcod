@@ -267,11 +267,11 @@ itemDef  \
 	visible			1 \
 	rect			0 0 128 24 \
 	origin			origin_choice \
-	forecolor		1 1 1 0.2 \
+	forecolor		1 1 1 1 \
 	type			ITEM_TYPE_BUTTON \
 	text			textstring \
 	textfont		UI_FONT_NORMAL \
-	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
+	textscale		0.24 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	action \
@@ -297,7 +297,7 @@ itemDef  \
 	type			ITEM_TYPE_BUTTON \
 	text			textstring \
 	textfont		UI_FONT_NORMAL \
-	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
+	textscale		0.24 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	cvartest		cvarstring \
@@ -324,7 +324,7 @@ itemDef  \
 	type			ITEM_TYPE_BUTTON \
 	text			textstring \
 	textfont		UI_FONT_NORMAL \
-	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
+	textscale		0.24 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	cvartest		cvarstring \

@@ -26,15 +26,15 @@ onStartGameType()
 		game["menu_serverinfo"] = "serverinfo_" + level.gametype;
 		game["menu_callvote"] = "callvote";
 		game["menu_exec_cmd"] = "exec_cmd";
-		game["menu_exec_cmd_start_recording"] = "exec_cmd_start_recording";
-		game["menu_exec_cmd_stop_recording"] = "exec_cmd_stop_recording";
+		game["menu_start_recording"] = "startrecording_sd";
+		game["menu_stop_recording"] = "stoprecording_sd";
 		game["menu_quickcommands"] = "quickcommands";
 		game["menu_quickstatements"] = "quickstatements";
 		game["menu_quickresponses"] = "quickresponses";
 		game["menu_quicksettings"] = "quicksettings";
 		game["menu_mousesettings"] = "mousesettings";
 		game["menu_scoreboard"] = "scoreboard_sd";
-		game["menu_streamersystem"] = "streamersystem";
+		//game["menu_streamersystem"] = "streamersystem";
 		game["menu_strat_records"] = "strat_records";
 
 		precacheMenu(game["menu_moddownload"]);
@@ -45,16 +45,17 @@ onStartGameType()
 		//precacheMenu(game["menu_weapon_rifles"]);
 		precacheMenu(game["menu_serverinfo"]);
 		precacheMenu(game["menu_callvote"]);
-		precacheMenu(game["menu_exec_cmd"]);
-		precacheMenu(game["menu_exec_cmd_start_recording"]);
-		precacheMenu(game["menu_exec_cmd_stop_recording"]);
+		//precacheMenu(game["menu_exec_cmd"]);
+		precacheMenu(game["menu_start_recording"]);
+		precacheMenu(game["menu_stop_recording"]);
 		precacheMenu(game["menu_quickcommands"]);
 		precacheMenu(game["menu_quickstatements"]);
 		precacheMenu(game["menu_quickresponses"]);
+		
 		//precacheMenu(game["menu_quicksettings"]);
 		//precacheMenu(game["menu_mousesettings"]);
 		precacheMenu(game["menu_scoreboard"]);
-		precacheMenu(game["menu_streamersystem"]);
+		//precacheMenu(game["menu_streamersystem"]);
 		//precacheMenu(game["menu_strat_records"]);
 
 		/*
@@ -204,16 +205,20 @@ onJoinedTeam(team)
 
 	if(team == "allies")
 	{
-		self openMenu(game["menu_weapon_allies"]);
+		logprint("_menus:: openMenu weapon alies\n");
 		self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_weapon_allies"]);
+		self openMenu(game["menu_weapon_allies"]);
 	}
 	else if (team == "axis")
 	{
-		self openMenu(game["menu_weapon_axis"]);
+		logprint("_menus:: openMenu weapon axis\n");
 		self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_weapon_axis"]);
+		self openMenu(game["menu_weapon_axis"]);
+		logprint("openedpls?\n");
 	}
 	else if (team == "spectator" || team == "streamer")
 	{
+		logprint("_menus:: openMenu spec/streamer\n");
 		self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_ingame"]);
 		//self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_team"]);
 	}
@@ -229,12 +234,17 @@ Return true to indicate that menu response was handled in this function
 onMenuResponse(menu, response)
 {
 	logprint("_menus:: onMenuResponse start with menu=" + menu + ", response=" + response + " for player name " + self.name + "\n");
+	logprint("_menus:: g_scriptMainMenu=" + getCvar("g_scriptMainMenu") + "\n");
 	
 	// Pam is not installed correctly, ignore other responses
 	if (level.pam_installation_error)
 	{
 		logprint("_menus:: pam_installation_error at onMenuResponse\n");
 		return true;
+	}
+
+	if (menu == "-1" && (response == "autoasign" || response == "allies" || response == "axis" || response == "spectator" || response == "streamer")) {
+		menu = game["menu_team"];
 	}
 
 	
@@ -327,7 +337,7 @@ onMenuResponse(menu, response)
 	if (response == "team")
 	{
 		logprint("_menus:: response team at onMenuResponse\n");
-		//self closeMenu();
+		self closeMenu();
 		self openMenu(game["menu_team"]);
 		
 		return true;
@@ -340,7 +350,7 @@ onMenuResponse(menu, response)
 	{
 		if (response == "changeweapon" && game["state"] != "intermission")
 		{
-			self closeMenu();
+			//self closeMenu();
 			//self closeInGameMenu();
 			if(self.pers["team"] == "allies")
 				self openMenu(game["menu_weapon_allies"]);
@@ -350,7 +360,7 @@ onMenuResponse(menu, response)
 		}
 		if (response == "changeteam" && game["state"] != "intermission")
 		{
-			self closeMenu();
+			//self closeMenu();
 			//self closeInGameMenu();
 			self openMenu(game["menu_team"]);
 			return true;
@@ -423,7 +433,7 @@ onMenuResponse(menu, response)
 			break;
 		/*
 		case "options":
-			//self closeMenu();
+			self closeMenu();
 			//self closeInGameMenu();
 			self openMenu(game["menu_ingame"]);
 			break;

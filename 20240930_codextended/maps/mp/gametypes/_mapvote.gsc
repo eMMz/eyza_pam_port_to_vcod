@@ -295,7 +295,7 @@ PlayerVote()
 
 	//remove the scoreboard
 	self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", "");
-	self closeMenu();
+	//self closeMenu();
 
 	self allowSpectateTeam("allies", false);
 	self allowSpectateTeam("axis", false);

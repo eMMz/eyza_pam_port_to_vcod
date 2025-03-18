@@ -15,6 +15,12 @@ Init()
 
 onStartGameType()
 {
+	// ********** DISABLING AIM TRAINER
+	/// EVERYWHERE FOR VCOD
+	///////////////////////////////////
+	return;
+
+
 	// Load targets and activators
 	targets = 		getentarray("trainer_target", "targetname");
 	targets_damage = 	getentarray("trainer_trigger", "targetname");

@@ -42,6 +42,21 @@
 		DRAW_GRADIENT_LEFT_TO_RIGHT
 		DRAW_BARS
 
+		// Header: Teams
+		ITEM_TEXT_HEADING("@MENU_OPTIONS")
+
+
+		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE1, "1. Change Weapon", 		"ui_allow_weaponchange", showCvar{"1"}, ;, scriptMenuResponse "changeweapon" ; close ingame;)
+		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE1, "1. Change Weapon", 		"ui_allow_weaponchange", hideCvar{"1"}, ;)
+		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE2, "2. Change Team", 		"ui_allow_changeteam", showCvar{"1"}, ;, scriptMenuResponse "changeteam" ; close ingame;)
+		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE2, "2. Change Team", 		"ui_allow_changeteam", hideCvar{"1"}, ;)
+		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE3, "3. Call Vote", 		"ui_allowvote", showCvar{"1"}, ;, scriptMenuResponse "callvote" ; close ingame;)
+		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE3, "3. Call Vote", 		"ui_allowvote", hideCvar{"1"}, ;)
+
+		ITEM_CVAR("ui_timeout_info", 158, 175, 0.24, ITEM_ALIGN_LEFT, 1.0 1.0 1.0 1.0)
+
+
+
 		// Close
 		ITEM_BAR_BOTTOM_BUTTON("^9[ESC]^7 Close",	40, 70, CLOSE_ALL;)
 		// Main menu
@@ -50,15 +65,15 @@
 		ITEM_BAR_BOTTOM_BUTTON("^9[I]^7 Server Info",	280, 80, scriptMenuResponse "serverinfo"; close ingame;)
 
 
-		execKey "1" { play "mouse_click"; scriptMenuResponse "changeweapon"; /*exec "openscriptmenu ingame changeweapon"*/ }
-		execKey "2" { play "mouse_click"; scriptMenuResponse "changeteam"; /*exec "openscriptmenu ingame changeteam"*/ }
-		execKey "3" { play "mouse_click"; scriptMenuResponse "callvote"; /*exec "openscriptmenu ingame callvote"*/ }
-		execKey "4" { play "mouse_click"; scriptMenuResponse "timeout"; /*exec "openscriptmenu ingame timeout";*/ CLOSE_ALL;}
+		execKey "1" { play "mouse_click"; scriptMenuResponse "changeweapon"; close ingame; }
+		execKey "2" { play "mouse_click"; scriptMenuResponse "changeteam"; close ingame; }
+		execKey "3" { play "mouse_click"; scriptMenuResponse "callvote"; close ingame; }
+		execKey "4" { play "mouse_click"; scriptMenuResponse "timeout"; CLOSE_ALL;}
 		execKey "5" { play "mouse_click"; CLOSE_ALL; open leavegame }
 
 		execKeyInt 32 { play "mouse_click"; CLOSE_ALL; open main; } // space
-		execKeyInt 105 { play "mouse_click"; scriptMenuResponse "serverinfo"; close ingame; /*exec "openscriptmenu ingame serverinfo";*/  } // i
-		execKeyInt 116 { play "mouse_click"; scriptMenuResponse "timeout"; close ingame; /*exec "openscriptmenu ingame timeout";*/  } // t
+		execKeyInt 105 { play "mouse_click"; scriptMenuResponse "serverinfo"; close ingame; } // i
+		execKeyInt 116 { play "mouse_click"; scriptMenuResponse "timeout"; close ingame;  } // t
 
 
 		/////////////////////

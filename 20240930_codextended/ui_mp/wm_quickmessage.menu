@@ -5,35 +5,9 @@
 #define ORIGIN_QUICKMESSAGEWINDOW		32 256
 
 {
-
-	// NEW eyza's
 	menuDef
 	{
-		name "quickmessage"
-		visible 0
-		fullscreen 0
-		rect 0 0 640 480
-		focuscolor 1 1 1 1
-		disablecolor 0 0 0 0
-		style WINDOW_STYLE_EMPTY
-
-		onOpen
-		{
-			//uiScript openMenuOnDvar ui_quickmessage_streamer "0" quickmessage_default;
-			//uiScript openMenuOnDvar ui_quickmessage_streamer "1" quickmessage_streamersystem_menu;
-			
-			open quickmessage_streamersystem_menu;
-			
-			close quickmessage;
-		}
-	}
-	
-	#include "ui_mp/scriptmenus/submenus/streamer.menu"
-	// END eyza's
-	
-	menuDef
-	{
-		name			"quickmessage_default"
+		name			"quickmessage"
 		visible			0
 		fullscreen		0
 		rect			0 0 640 480
@@ -41,13 +15,19 @@
 		disablecolor		0 0 0 0
  		style			WINDOW_STYLE_EMPTY
 
+		onEsc
+		{
+			scriptMenuResponse "qm_esc";
+		}
 		onOpen
 		{
-			setCvar cl_bypassMouseInput "1"
+			setCvar cl_bypassMouseInput "1";
+			scriptmenuresponse "qm_open";
 		}
 		onClose
 		{
-			setCvar cl_bypassMouseInput "0"
+			setCvar cl_bypassMouseInput "0";
+			scriptmenuresponse "qm_close";
 		}
 
 // WINDOW BACKGROUND
@@ -145,10 +125,29 @@
 			textfont		UI_FONT_NORMAL
 			textscale		.24
 			textaligny		8
-			text			"@QUICKMESSAGE_1_COMMANDS"
+			text			"0. Streamer"
+			cvarTest 		"ui_quickmessage_streamer"
+			showCvar		{ "1"}
 			decoration
 		}
-		execKey "1" { close quickmessage; open quickcommands }
+		execKey "0" { open quickmessage_streamersystem_menu; close quickmessage; }
+
+		itemDef
+		{
+			name			"window"
+			visible			1
+			rect			16 20 0 0
+			origin			ORIGIN_QUICKMESSAGEWINDOW
+			forecolor		1 1 1 1
+			textfont		UI_FONT_NORMAL
+			textscale		.24
+			textaligny		8
+			text			"@QUICKMESSAGE_1_COMMANDS"
+			cvarTest 		"ui_quickmessage_streamer"
+			showCvar		{ "0"}
+			decoration
+		}
+		execKey "1" {  close quickmessage; open quickcommands; }
 	
 		itemDef
 		{
@@ -161,9 +160,11 @@
 			textscale		.24
 			textaligny		8
 			text			"@QUICKMESSAGE_2_STATEMENTS"
+			cvarTest 		"ui_quickmessage_streamer"
+			showCvar		{ "0"}
 			decoration
 		}
-		execKey "2" { close quickmessage; open quickstatements }
+		execKey "2" { close quickmessage; open quickstatements;  }
 	
 		itemDef
 		{
@@ -176,9 +177,11 @@
 			textscale		.24
 			textaligny		8
 			text			"@QUICKMESSAGE_3_RESPONSES"
+			cvarTest 		"ui_quickmessage_streamer"
+			showCvar		{ "0"}
 			decoration
 		}
-		execKey "3" { close quickmessage; open quickresponses }
+		execKey "3" {  close quickmessage; open quickresponses;  }
 
 		itemDef
 		{
@@ -194,4 +197,6 @@
 			decoration
 		}
 	}
+
+	#include "ui_mp/scriptmenus/submenus/streamer.menu"
 }

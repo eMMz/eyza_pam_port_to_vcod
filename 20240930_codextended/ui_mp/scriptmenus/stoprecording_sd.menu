@@ -4,21 +4,16 @@
 {
     menuDef
     {
-        name           "exec_cmd_start_recording"
+        name           "stoprecording_sd"
         rect           0 0 1 1
         visible        0
         fullscreen     0
 
         onOpen
         {
-            //execNow "vstr exec_cmd";
             exec "vstr exec_cmd";
-            //close exec_cmd;
-            //scriptmenuresponse "lolwut";
+            scriptmenuresponse "stop_recording";
+            
         }
-		onClose
-		{
-			scriptmenuresponse "start_recording";
-		}
     }
 }
