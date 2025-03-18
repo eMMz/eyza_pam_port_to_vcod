@@ -15,6 +15,7 @@ To get back to streamer mode once 'ESC' is pressed in streamer mode repeat from 
 To do list:
 <br>
 - code cleanup ie. logging<br>
+- fix bomb explosion hit radius
 - sort out menus introduced in this PAM port - I have low knowledge of menus and I think it's not properly done by me<br>
 - mp_depot is causing the server to crash<br>
 - german_town and xp_hanoi are not loading (doens't crash server though)<br>
