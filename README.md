@@ -2,6 +2,10 @@
 An attempt to port eyza's https://github.com/eyza-cod2/zpam3 CoD2 zpam to vCoD.<br>
 It requires libcod extension for 1.5 (https://github.com/cod1dev/libcod1/releases/tag/release) for the ported version to work with vCoD 1.5.<br>
 <br>
+What seems to be working (<b>not tested thoroughly!!!!</b>):
+- new scoreboard
+- streamer mode with CoD2 streamer features
+<br>
 <br>
 Entering streamer mode is slightly different from CoD2 version.
 1. Select streamer.
