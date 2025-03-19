@@ -7,7 +7,7 @@ init()
 	maps\mp\gametypes\global\_global::addEventListener("onStartGameType", ::onStartGameType);
 	maps\mp\gametypes\global\_global::addEventListener("onCvarChanged",   ::onCvarChanged);
 
-	maps\mp\gametypes\global\_global::registerCvarEx("I", "scr_motd", "STRING", "Welcome. This server is running zPAM3.33");	// ZPAM_RENAME
+	maps\mp\gametypes\global\_global::registerCvarEx("I", "scr_motd", "STRING", "Welcome. This server is running zPAM 3.33 for vCoD");	// ZPAM_RENAME
 
 	level.motd = "";
 	level.serverversion = "";

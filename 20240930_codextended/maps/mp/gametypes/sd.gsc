@@ -1405,16 +1405,16 @@ streamer_reset_round_kills()
 HUD_Clock(countDownTime)
 {
 	level.clock = maps\mp\gametypes\global\_global::newHudElem2();
-	level.clock.font = "default";
-	level.clock.fontscale = 2;
+	level.clock.font = "bigfixed";
+	//level.clock.fontscale = 2;
 	//level.clock.horzAlign = "center_safearea";
 	//level.clock.vertAlign = "top";
 	level.clock.alignX = "center";
-	level.clock.alignY = "top";
+	level.clock.alignY = "middle";
 	level.clock.color = (1, 1, 1);
 	//level.clock.x = 0;
 	level.clock.x = 320;
-	level.clock.y = 445;
+	level.clock.y = 460;
 	level.clock setTimer(countDownTime);
 
 	// If strattime is enabled, show fade-in animation
@@ -1462,16 +1462,16 @@ HUD_Clock(countDownTime)
 HUD_Clock_Bomb(countDownTime)
 {
 	level.clock = maps\mp\gametypes\global\_global::newHudElem2();
-	level.clock.font = "default";
-	level.clock.fontscale = 2;
-	level.clock.horzAlign = "center_safearea";
-	level.clock.vertAlign = "top";
-	level.clock.alignX = "left";
-	level.clock.alignY = "top";
+	level.clock.font = "bigfixed";
+	//level.clock.fontscale = 2;
+	//level.clock.horzAlign = "center_safearea";
+	//level.clock.vertAlign = "top";
+	level.clock.alignX = "center";
+	level.clock.alignY = "middle";
 	level.clock.color = (1, 1, 1);
 	//level.clock.x = 0;
 	level.clock.x = 320;
-	level.clock.y = 445;
+	level.clock.y = 460;
 	level.clock setTimer(countDownTime);
 
 	// If strattime is enabled, show fade-in animation
@@ -1520,12 +1520,21 @@ HUD_StratTime(time)
 
 	// Strat Time
 	//strattime = maps\mp\gametypes\global\_global::addHUD(0, 450, 2, (.98, .827, .58), "center", "bottom", "center_safearea", "top");
-	strattime = maps\mp\gametypes\global\_global::addHUD(320, 450, 2, (.98, .827, .58), "center", "bottom", "center_safearea", "top");
+	strattime = maps\mp\gametypes\global\_global::addHUD(320, 443, 2, (.98, .827, .58), "center", "middle", "center_safearea", "top");
 	strattime setText(game["STRING_STRAT_TIME"]);
 
 	// 0:05
 	//strat_clock = maps\mp\gametypes\global\_global::addHUD(0, 445, 2, (.98, .827, .58), "center", "top", "center_safearea", "top");
-	strat_clock = maps\mp\gametypes\global\_global::addHUD(320, 445, 2, (.98, .827, .58), "center", "top", "center_safearea", "top");
+	//strat_clock = maps\mp\gametypes\global\_global::addHUD(320, 460, 2, (.98, .827, .58), "center", "middle", "center_safearea", "top");
+	strat_clock = maps\mp\gametypes\global\_global::newHudElem2();
+	strat_clock.font = "bigfixed";
+	strat_clock.alignX = "center";
+	strat_clock.alignY = "middle";
+	strat_clock.color = (.98, .827, .58);
+	strat_clock.x = 320;
+	strat_clock.y = 460;
+	strat_clock setTimer(countDownTime);
+
 	strat_clock setTimer(time);
 
 
@@ -1555,11 +1564,11 @@ HUD_RoundInfo(time)
 	if (game["round"] == 1)
 	{
 		//roundInfo = maps\mp\gametypes\global\_global::addHUD(0, 430, 1.3, (.8, 1, 1), "center", "bottom", "center_safearea", "top");
-		roundInfo = maps\mp\gametypes\global\_global::addHUD(320, 430, 1.3, (.8, 1, 1), "center", "bottom", "center_safearea", "top");
+		roundInfo = maps\mp\gametypes\global\_global::addHUD(320, 435, 1.3, (.8, 1, 1), "center", "bottom", "center_safearea", "top");
 		roundInfo setText(game["STRING_ROUND_FIRST"]);
-		roundInfo.y = 360;
+		roundInfo.y = 365;
 		roundInfo moveovertime(3);
-		roundInfo.y = 428;
+		roundInfo.y = 433;
 		level waittill("strat_time_end");
 		roundInfo thread maps\mp\gametypes\global\_global::destroyHUDSmooth(.5);
 	}
@@ -1567,11 +1576,11 @@ HUD_RoundInfo(time)
 	else if (level.halfround > 0 && !game["is_halftime"] && game["round"] >= level.halfround)
 	{
 		//roundInfo = maps\mp\gametypes\global\_global::addHUD(0, 430, 1.3, (.8, 1, 1), "center", "bottom", "center_safearea", "top");
-		roundInfo = maps\mp\gametypes\global\_global::addHUD(320, 430, 1.3, (.8, 1, 1), "center", "bottom", "center_safearea", "top");
+		roundInfo = maps\mp\gametypes\global\_global::addHUD(320, 435, 1.3, (.8, 1, 1), "center", "bottom", "center_safearea", "top");
 		roundInfo setText(game["STRING_ROUND_LAST_HALF"]);
-		roundInfo.y = 360;
+		roundInfo.y = 365;
 		roundInfo moveovertime(3);
-		roundInfo.y = 428;
+		roundInfo.y = 433;
 		level waittill("strat_time_end");
 		roundInfo thread maps\mp\gametypes\global\_global::destroyHUDSmooth(.5);
 	}
@@ -1579,20 +1588,20 @@ HUD_RoundInfo(time)
 	else if (level.matchround > 0 && game["is_halftime"] && game["round"] >= level.matchround)
 	{
 		//roundInfo = maps\mp\gametypes\global\_global::addHUD(0, 430, 1.3, (.8, 1, 1), "center", "bottom", "center_safearea", "top");
-		roundInfo = maps\mp\gametypes\global\_global::addHUD(320, 430, 1.3, (.8, 1, 1), "center", "bottom", "center_safearea", "top");
+		roundInfo = maps\mp\gametypes\global\_global::addHUD(320, 435, 1.3, (.8, 1, 1), "center", "bottom", "center_safearea", "top");
 		roundInfo setText(game["STRING_ROUND_LAST"]);
-		roundInfo.y = 360;
+		roundInfo.y = 365;
 		roundInfo moveovertime(3);
-		roundInfo.y = 428;
+		roundInfo.y = 433;
 		level waittill("strat_time_end");
 		roundInfo thread maps\mp\gametypes\global\_global::destroyHUDSmooth(.5);
 	}
 	else
 	{
 		//roundInfo1 = maps\mp\gametypes\global\_global::addHUD(10, 428, 1.3, (.8, 1, 1), "right", "bottom", "center_safearea", "top");
-		roundInfo1 = maps\mp\gametypes\global\_global::addHUD(330, 428, 1.3, (.8, 1, 1), "right", "bottom", "center_safearea", "top");
+		roundInfo1 = maps\mp\gametypes\global\_global::addHUD(330, 433, 1.3, (.8, 1, 1), "right", "bottom", "center_safearea", "top");
 		//roundInfo2 = maps\mp\gametypes\global\_global::addHUD(14, 428, 1.3, (.8, 1, 1), "left", "bottom", "center_safearea", "top");
-		roundInfo2 = maps\mp\gametypes\global\_global::addHUD(334, 428, 1.3, (.8, 1, 1), "left", "bottom", "center_safearea", "top");
+		roundInfo2 = maps\mp\gametypes\global\_global::addHUD(334, 433, 1.3, (.8, 1, 1), "left", "bottom", "center_safearea", "top");
 
 		roundInfo1 setText(game["STRING_ROUND"]);
 		roundInfo2 setValue(game["round"]);
@@ -1616,24 +1625,25 @@ HUD_ShowBombTimers()
 
 	countDownTime = level.bombtimer; // seconds
 
-	level.bombtimerhud = maps\mp\gametypes\global\_global::addHUD(6, 76, undefined, undefined, "left", "top", "left", "top");
-	level.bombtimerhud maps\mp\gametypes\global\_global::showHUDSmooth(0.1);
+	//level.bombtimerhud = maps\mp\gametypes\global\_global::addHUD(6, 76, undefined, undefined, "left", "top", "left", "top");
+	//level.bombtimerhud maps\mp\gametypes\global\_global::showHUDSmooth(0.1);
 	//level.bombtimerhud.foreground = true;  // visible if menu opened
-	level.bombtimerhud setClock(countDownTime, 60, "hudStopwatch", 48, 48);
+	//level.bombtimerhud setClock(countDownTime, 60, "hudStopwatch", 48, 48);
 
 
 	level.clock = maps\mp\gametypes\global\_global::newHudElem2();
-	level.clock.font = "default";
-	level.clock.fontscale = 1.5;
+	level.clock.font = "bigfixed";
+	//level.clock.fontscale = 1.5;
 	//level.clock.horzAlign = "center_safearea";
 	//level.clock.vertAlign = "top";
 	level.clock.alignX = "center";
-	level.clock.alignY = "top";
+	level.clock.alignY = "middle";
 	level.clock.color = (1, 1, 1);
 	//level.clock.x = 0;
 	level.clock.x = 320;
-	level.clock.y = 445;
+	level.clock.y = 460;
 	//level.clock setTimer(countDownTime - 1.1);
+	level.clock setTimer(countDownTime);
 
 
 	time_start = gettime();
@@ -1653,7 +1663,7 @@ HUD_ShowBombTimers()
 
 		if (value != value_old)
 		{
-			level.clock setValue(value);
+			//level.clock setValue(value);
 
 			color = (1, 1, 1);
 			if      (value < 15)	color = (1, 0.25, 0.25); // Red
@@ -1764,11 +1774,17 @@ HUD_NextRound()
 stratTime_g_speed()
 {
 	// Disable players movement
-	//maps\mp\gametypes\global\cvar_system::setCvarQuiet("g_speed", 0);
+	maps\mp\gametypes\global\cvar_system::setCvarQuiet("g_speed", 0);
 
 	level waittill("strat_time_end");
 
-	//maps\mp\gametypes\global\cvar_system::restoreCvarQuiet("g_speed");
+	maps\mp\gametypes\global\cvar_system::restoreCvarQuiet("g_speed");
+	players = getentarray("player", "classname");
+	for(i = 0; i < players.size; i++)
+	{ 
+		player = players[i];
+		player.maxspeed = getCvar("g_speed");
+	}
 }
 
 

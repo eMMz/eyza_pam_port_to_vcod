@@ -78,7 +78,7 @@ Going to ScoreBoard
 HUD_Matchover()
 {
 	//x = -85;
-	x = 310;
+	x = 555;
 	y = 240;
 
 	// Its a TIE | Axis win! | Allies win!
@@ -101,4 +101,22 @@ HUD_Matchover()
 	goingto maps\mp\gametypes\global\_global::showHUDSmooth(.5);
 	goingto setText(game["STRING_GOING_TO_SCOREBOARD"]);
 
+	thread Destroy_HUD_Matchover_after(teamwin, goingto, 5);
+}
+
+Destroy_HUD_Matchover_after(teamwin, goingto, time)
+{
+	if (!isDefined(teamwin) || !isDefined(goingto))
+	{
+		logprint("_end_of_map::Destroy_HUD_Matchover_after - unable to destroy hud - teamwin or goingto is not defined.");
+		return;
+	}
+
+	if (!isDefined(time))
+        time = 1;
+	
+	wait time;
+	
+	teamwin thread maps\mp\gametypes\global\_global::hideHUDSmooth(.5);
+	goingto thread maps\mp\gametypes\global\_global::hideHUDSmooth(.5);
 }
