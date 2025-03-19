@@ -767,7 +767,39 @@ itemDef \
 	ITEM_CVAR_CVAR("ui_matchinfo_map3", -195, 28, .18, ITEM_ALIGN_LEFT, 1 1 1 1, cvar_show, showcvar { "1" })
 
 
-
+	#define MATCHINFO2(cvar_team1_team, cvar_team2_team, cvar_show, color_allies, color_axis) \
+	\
+		MATCHINFO_BGCOLOR(189 0 130 15, color_allies, cvar_team1_team, showcvar { "american"; "british"; "russian"; })  \
+		MATCHINFO_BGCOLOR(189 0 130 15, color_axis, cvar_team1_team, showcvar { "german" })  \
+	\
+		MATCHINFO_BGCOLOR(189 0 130 14, .1 .1 .1 .55, cvar_team1_team, showcvar { "american"; "british"; "russian"; "german" }) \
+		MATCHINFO_ICON(186 1, "gfx/hud/allied_icon.dds", cvar_team1_team, showcvar { "american" } ) \
+		MATCHINFO_ICON(186 1, "gfx/hud/allied_icon.dds", cvar_team1_team, showcvar { "british" } ) \
+		MATCHINFO_ICON(186 1, "gfx/hud/allied_icon.dds", cvar_team1_team, showcvar { "russian" } ) \
+		MATCHINFO_ICON(186 1, "gfx/hud/axis_icon.dds", cvar_team1_team, showcvar { "german" } ) \
+	\
+	\
+		MATCHINFO_BGCOLOR(321 0 130 15, color_allies, 		cvar_team2_team, showcvar { "american"; "british"; "russian"; }) \
+		MATCHINFO_BGCOLOR(321 0 130 15, color_axis, 		cvar_team2_team, showcvar { "german" }) \
+	\
+		MATCHINFO_BGCOLOR(321 0 130 14, .1 .1 .1 .55, 		cvar_team2_team, showcvar { "american"; "british"; "russian"; "german" }) \
+		MATCHINFO_ICON(323 1, "gfx/hud/allied_icon.dds", 		cvar_team2_team, showcvar { "american" } ) \
+		MATCHINFO_ICON(323 1, "gfx/hud/allied_icon.dds", 			cvar_team2_team, showcvar { "british" } ) \
+		MATCHINFO_ICON(323 1, "gfx/hud/allied_icon.dds", 			cvar_team2_team, showcvar { "russian" } ) \
+		MATCHINFO_ICON(323 1, "gfx/hud/axis_icon.dds", 			cvar_team2_team, showcvar { "german" } ) \
+	\
+		ITEM_CVAR_CVAR("ui_matchinfo_team1_name", 205, 12, .2, ITEM_ALIGN_LEFT, 1 1 1 1, cvar_show, showcvar { "1" }) \
+		ITEM_CVAR_CVAR("ui_matchinfo_team2_name", 336, 12, .2, ITEM_ALIGN_LEFT, 1 1 1 1, cvar_show, showcvar { "1" }) \
+	\
+		ITEM_CVAR_CVAR("ui_matchinfo_round", 320, 24, .18, ITEM_ALIGN_CENTER, 1 1 1 1, cvar_show, showcvar { "1" }) \
+	\
+		ITEM_CVAR_CVAR("ui_matchinfo_matchtime", 253, 24, .18, ITEM_ALIGN_CENTER, 1 1 1 1, cvar_show, showcvar { "1" }) \
+		ITEM_CVAR_CVAR("ui_matchinfo_halfInfo", 387, 24, .18, ITEM_ALIGN_CENTER, 1 1 1 1, cvar_show, showcvar { "1" }) \
+	\
+		ITEM_CVAR_CVAR("ui_matchinfo_map1", 125, 10, .18, ITEM_ALIGN_LEFT, 1 1 1 1, cvar_show, showcvar { "1" }) \
+		ITEM_CVAR_CVAR("ui_matchinfo_map2", 125, 19, .18, ITEM_ALIGN_LEFT, 1 1 1 1, cvar_show, showcvar { "1" }) \
+		ITEM_CVAR_CVAR("ui_matchinfo_map3", 125, 28, .18, ITEM_ALIGN_LEFT, 1 1 1 1, cvar_show, showcvar { "1" })
+	
 
 
 

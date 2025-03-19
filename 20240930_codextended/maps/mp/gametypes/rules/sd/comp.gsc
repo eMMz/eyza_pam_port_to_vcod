@@ -19,7 +19,7 @@ GetCvars(arr)
 
 	// Round options
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_strat_time", 10);	// Time before round starts where players cannot move
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_roundlength", 2);	// Time length of each round (min)
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_roundlength", 2.25);	// Time length of each round (min)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_end_time", 6);		// Time et the end of the round (after last player is killed) when you can finding weapons for the next round
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_count_draws", 0);	// If players are killed at same time - count this round (1) or play new round (0)?
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_round_report", 1);		// Print kill and damage stats at the end of the round
@@ -76,6 +76,7 @@ GetCvars(arr)
 
 	// Hud Options
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_players_left", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_players_names_left", 0);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_objective_icons", 0);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_hitblip", 0);
 

@@ -7,20 +7,21 @@ init()
 	maps\mp\gametypes\global\_global::addEventListener("onCvarChanged", ::onCvarChanged);
 
 	maps\mp\gametypes\global\_global::registerCvar("scr_show_players_left", "BOOL", 1);	    // level.scr_show_players_left // NOTE: after reset
+	maps\mp\gametypes\global\_global::registerCvar("scr_show_players_names_left", "BOOL", 0);
 
 	if(game["firstInit"])
 	{
-		maps\mp\gametypes\global\_global::precacheString2("STRING_ALLIES_LEFT", &"Allies Left");
-		maps\mp\gametypes\global\_global::precacheString2("STRING_AXIS_LEFT", &"Axis Left");
+		maps\mp\gametypes\global\_global::precacheString2("STRING_ALLIES_LEFT", &"Allies left");
+		maps\mp\gametypes\global\_global::precacheString2("STRING_AXIS_LEFT", &"Axis left");
 
-		maps\mp\gametypes\global\_global::precacheString2("STRING_ALLIES_ELIMINATED", &"Allies Eliminated");
-		maps\mp\gametypes\global\_global::precacheString2("STRING_AXIS_ELIMINATED", &"Axis Eliminated");
+		maps\mp\gametypes\global\_global::precacheString2("STRING_ALLIES_ELIMINATED", &"Allies eliminated");
+		maps\mp\gametypes\global\_global::precacheString2("STRING_AXIS_ELIMINATED", &"Axis eliminated");
 	}
 
 
 	maps\mp\gametypes\global\_global::addEventListener("onConnected",             ::onConnected);
 
-	if (!level.scr_show_players_left)
+	if (!level.scr_show_players_left && !level.scr_show_players_names_left)
 		return;
 
 	level.axis_alive = -1;
@@ -45,6 +46,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 	switch(cvar)
 	{
 		case "scr_show_players_left": 		level.scr_show_players_left = value; return true;
+		case "scr_show_players_names_left": level.scr_show_players_names_left = value; return true;
 	}
 	return false;
 }
@@ -88,18 +90,18 @@ createHUD()
 	self endon("disconnect");
 
 	// X coorinate is due to text chanigng references on multiple places
-	//level.playersLeft_myTeam_X = -275;
-	level.playersLeft_myTeam_X = 365;
-	//level.playersLeft_enemy_X = -185;
-	level.playersLeft_enemy_X = 455;
+	level.playersLeft_X = 400;
+	level.playersLeftNum_X = 450;
+	level.playersLeft_myTeam_Y = 460;
+	level.playersLeft_enemy_Y = 470;
 
 	//self.playersLeft_myTeam_num = maps\mp\gametypes\global\_global::addHUDClient(self, -280, 479, 1.3, undefined, "right", "bottom", "right");
-	self.playersLeft_myTeam_num = maps\mp\gametypes\global\_global::addHUDClient(self, 360, 479, 1.3, undefined, "right", "bottom", "right");
-	self.playersLeft_myTeam = maps\mp\gametypes\global\_global::addHUDClient(self, level.playersLeft_myTeam_X, 479, 1.2, undefined, "left", "bottom", "right");
+	self.playersLeft_myTeam_num = maps\mp\gametypes\global\_global::addHUDClient(self, level.playersLeftNum_X, level.playersLeft_myTeam_Y, .75, undefined, "left", "bottom");
+	self.playersLeft_myTeam = maps\mp\gametypes\global\_global::addHUDClient(self, level.playersLeft_X, level.playersLeft_myTeam_Y, .75, undefined, "left", "bottom");
 
 	//self.playersLeft_enemy_num = maps\mp\gametypes\global\_global::addHUDClient(self, -190, 479, 1.3, undefined, "right", "bottom", "right");
-	self.playersLeft_enemy_num = maps\mp\gametypes\global\_global::addHUDClient(self, 450, 479, 1.3, undefined, "right", "bottom", "right");
-	self.playersLeft_enemy = maps\mp\gametypes\global\_global::addHUDClient(self, level.playersLeft_enemy_X, 479, 1.2, undefined, "left", "bottom", "right");
+	self.playersLeft_enemy_num = maps\mp\gametypes\global\_global::addHUDClient(self, level.playersLeftNum_X, level.playersLeft_enemy_Y, .75, undefined, "left", "bottom");
+	self.playersLeft_enemy = maps\mp\gametypes\global\_global::addHUDClient(self, level.playersLeft_X, level.playersLeft_enemy_Y, .75, undefined, "left", "bottom");
 
 	self.playersLeft_myTeam_num.archived = false;
 	self.playersLeft_myTeam.archived = false;
@@ -115,7 +117,7 @@ updatePlayersCount()
 	level endon("playersleft_update");
 
 	//wait level.frame; // wait a frame to process a player disconnection
-	wait 5 * level.frame; // wait a frame to process a player disconnection
+	wait 2 * level.frame; // wait a frame to process a player disconnection
 
 	allies_alive = 0;
 	axis_alive = 0;
@@ -243,13 +245,13 @@ updateHUD(alliesChanged, axisChanged)
 	{
 		if (level.axis_alive > 0)
 		{
-			self.playersLeft_myTeam.alignX = "left";
+			//self.playersLeft_myTeam.alignX = "left";
 			self.playersLeft_myTeam setText(game["STRING_AXIS_LEFT"]);
 			self.playersLeft_myTeam_num.alpha = 1;
 		}
 		else
 		{
-			self.playersLeft_myTeam.alignX = "center";
+			//self.playersLeft_myTeam.alignX = "center";
 			self.playersLeft_myTeam setText(game["STRING_AXIS_ELIMINATED"]);
 			self.playersLeft_myTeam_num.alpha = 0;
 		}
@@ -258,13 +260,13 @@ updateHUD(alliesChanged, axisChanged)
 		{
 			self.playersLeft_enemy setText(game["STRING_ALLIES_LEFT"]);
 			self.playersLeft_enemy_num.alpha = 1;
-			self.playersLeft_enemy.x = level.playersLeft_enemy_X;
+			//self.playersLeft_enemy.x = level.playersLeft_X;
 		}
 		else
 		{
 			self.playersLeft_enemy setText(game["STRING_ALLIES_ELIMINATED"]);
 			self.playersLeft_enemy_num.alpha = 0;
-			self.playersLeft_enemy.x = level.playersLeft_enemy_X - 20;
+			//self.playersLeft_enemy.x = level.playersLeft_X - 20;
 		}
 
 		self.playersLeft_myTeam_num setValue(level.axis_alive);
@@ -274,13 +276,13 @@ updateHUD(alliesChanged, axisChanged)
 	{
 		if (level.allies_alive > 0)
 		{
-			self.playersLeft_myTeam.alignX = "left";
+			//self.playersLeft_myTeam.alignX = "left";
 			self.playersLeft_myTeam setText(game["STRING_ALLIES_LEFT"]);
 			self.playersLeft_myTeam_num.alpha = 1;
 		}
 		else
 		{
-			self.playersLeft_myTeam.alignX = "center";
+			//self.playersLeft_myTeam.alignX = "center";
 			self.playersLeft_myTeam setText(game["STRING_ALLIES_ELIMINATED"]);
 			self.playersLeft_myTeam_num.alpha = 0;
 		}
@@ -289,13 +291,13 @@ updateHUD(alliesChanged, axisChanged)
 		{
 			self.playersLeft_enemy setText(game["STRING_AXIS_LEFT"]);
 			self.playersLeft_enemy_num.alpha = 1;
-			self.playersLeft_enemy.x = level.playersLeft_enemy_X;
+			//self.playersLeft_enemy.x = level.playersLeft_X;
 		}
 		else
 		{
 			self.playersLeft_enemy setText(game["STRING_AXIS_ELIMINATED"]);
 			self.playersLeft_enemy_num.alpha = 0;
-			self.playersLeft_enemy.x = level.playersLeft_enemy_X - 20;
+			//self.playersLeft_enemy.x = level.playersLeft_X - 20;
 		}
 
 		self.playersLeft_myTeam_num setValue(level.allies_alive);
@@ -394,7 +396,7 @@ updateEnemyList()
 		return;
 	}
 
-	if (game["is_public_mode"] || !level.scr_show_players_left || self isEnabled() == false)
+	if (game["is_public_mode"] || /*!level.scr_show_players_left*/ !level.scr_show_players_names_left || self isEnabled() == false)
 	{
 		//logprint("_players_left:: ui_playersleft_list set to empty\n");
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_playersleft_list", "");
