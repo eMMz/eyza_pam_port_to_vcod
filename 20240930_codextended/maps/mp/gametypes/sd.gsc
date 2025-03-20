@@ -1801,6 +1801,8 @@ endRound(roundwinner)
 {
 	level endon("intermission");
 
+	logprint("_sd::endRound started\n");
+
 	// If this function was already called, dont do it again
 	if(level.roundended)
 		return;
@@ -1812,11 +1814,16 @@ endRound(roundwinner)
 	// End bombzone threads and remove related hud elements and objectives
 	level notify("round_ended");
 
+	logprint("_sd::endRound after notify round_ended\n");
+
 	// Remove plant progress if round ended when some player was planting
 	players = getentarray("player", "classname");
 	for(i = 0; i < players.size; i++)
 	{
 		player = players[i];
+
+		if(isDefined(player.planticon))
+			player.planticon destroy();
 
 		if(isDefined(player.defuseicon))
 			player.defuseicon destroy();
@@ -1831,15 +1838,22 @@ endRound(roundwinner)
 		player enableWeapon();
 	}
 
+	logprint("_sd::endRound after remove plant related hud\n");
+
 	objective_delete(0);
 	objective_delete(1);
+
+	logprint("_sd::endRound after objectives deletion\n");
 
 	// Say: Axis/Allies Win   after 2 sec
 	level thread announceWinner(roundwinner, 2);
 
+	logprint("_sd::started announce winner thread\n");
 
 	// Disable name changing to avoid spamming
 	setClientNameMode("auto_change"); // name is changed after map restart
+
+	logprint("_sd::after set client name mode to auto change\n");
 
 
 	if (level.in_bash)
@@ -1867,11 +1881,12 @@ endRound(roundwinner)
 		return;
 	}
 
+	logprint("_sd::before update sniper shotgun hud\n");
 
 	// Show weapon info about sniper and shotgun players
 	level thread maps\mp\gametypes\_sniper_shotgun_info::updateSniperShotgunHUD();
 
-
+	logprint("_sd::after update sniper shotgun hud\n");
 
 
 	if(roundwinner == "allies")
@@ -1948,7 +1963,7 @@ endRound(roundwinner)
 	if(ended) return;
 
 
-
+	logprint("_sd::endRound after check time/matchscore/matchround limit\n");
 
 
 	if(level.round_endtime > 0)
@@ -1967,6 +1982,7 @@ endRound(roundwinner)
 		wait level.fps_multiplier * 3;
 	}
 
+	logprint("_sd::endround before store living players weapons\n");
 
 	// for all living players store their weapons
 	players = getentarray("player", "classname");
@@ -2037,11 +2053,13 @@ endRound(roundwinner)
 		}
 	}
 
+	logprint("_sd::endround after store living players weapons\n");
+
 
 	// Wait for spectators in killcam
 	level maps\mp\gametypes\_streamer::waitForSpectatorsInKillcam();
 
-
+	logPrint("_sd:endRound after wait for spectators in killcam\n");
 
 	// Used for balance team at the end of the round
 	level notify("restarting");
@@ -2244,7 +2262,6 @@ bombzones()
 
 	if(array.size == 2)
 	{
-		logprint("sd::bombzones found 2 bombzones\n");
 		bombzone0 = array[0];
 		bombzone1 = array[1];
 		//bombzoneA = undefined;
@@ -2281,12 +2298,9 @@ bombzones()
 	}
 	else if (array.size == 1)
 	{
-		logprint("sd::bombzones found 1 bombzone\n");
 		bombzoneA = array[0];
 
 		bombzoneA thread bombzone_think();
-
-		wait 1;
 
 		objective_add(0, "current", bombzoneA.origin, "gfx/hud/hud@objectiveA.tga");
 		thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneA.origin, "0", "allies", "gfx/hud/hud@objectiveA.tga");
@@ -2677,8 +2691,8 @@ bomb_countdown()
 	// Bomb explosion parameters
 	origin = self getorigin();
 	range = 600;
-	maxdamage = 250;
-	mindamage = 0;
+	maxdamage = 100;
+	mindamage = 1;
 
 	logprint("sd:: calling delete on defuse trigger and bomb xmodel\n");
 	// Delete the defuse trigger and bomb xmodel
@@ -2707,7 +2721,9 @@ bomb_countdown()
 	// Add earth quake around bomb
 	earthquake(0.2, 2, origin, 1200);
 
-	level thread playSoundOnPlayers("mp_announcer_objdest");
+	logprint("sd:: after earthquake\n");
+
+	//level thread playSoundOnPlayers("mp_announcer_objdest");
 	level thread endRound(level.planting_team);
 }
 
@@ -3393,6 +3409,8 @@ menuWeapon(response)
 
 soundPlanted(player)
 {
+	level thread playSoundOnPlayers("MP_announcer_bomb_planted");
+	/*
 	if(game["allies"] == "british")
 		alliedsound = "UK_mp_explosivesplanted";
 	else if(game["allies"] == "russian")
@@ -3406,6 +3424,8 @@ soundPlanted(player)
 	level playSoundOnPlayers(axissound, "axis");
 	level playSoundOnPlayers(alliedsound, "spectator");
 	level playSoundOnPlayers(alliedsound, "streamer");
+
+	*/
 /*
 	wait level.fps_multiplier * 1.5;
 
