@@ -20,7 +20,7 @@ To do list:
 <br>
 - import weapon menu from CoD2 pam
 - import server settings menu from CoD2 pam
-- fix bomb explosion crashing the server (Stalingrad underground bombzone explosion)
+- ~~fix bomb explosion crashing the server (Stalingrad underground bombzone explosion) (set developer 1/2 was causing the issue)~~
 - code cleanup ie. logging<br>
 - fix bomb explosion hit radius
 - bomb defuse countdown seems to be off by 1 sec (60th second at countdown start takes 1sec instead go down to 59 immediately)
