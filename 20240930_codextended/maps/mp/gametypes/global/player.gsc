@@ -312,6 +312,7 @@ getFOV()
 		current = self getcurrentweapon(); // can be none
 		//zoom = self playerAds();	// 1 = zoom | 0 = no zoom
 		zoom = self aimButtonPressed();	// 1 = zoom | 0 = no zoom
+		//zoom = 0;
 
 		if (self.usingMG)
 		{

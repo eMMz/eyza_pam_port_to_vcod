@@ -5,7 +5,7 @@ init()
 	logprint("_killcam::init\n");
 	maps\mp\gametypes\global\_global::addEventListener("onCvarChanged",    	 	::onCvarChanged);
 
-	maps\mp\gametypes\global\_global::registerCvar("scr_killcam", "BOOL", 1);
+	maps\mp\gametypes\global\_global::registerCvar("scr_killcam", "BOOL", 0);
 
 	if(game["firstInit"])
 	{

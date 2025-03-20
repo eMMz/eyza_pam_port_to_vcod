@@ -53,7 +53,7 @@
 		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE3, "@MPMENU_3_AUTOASSIGN", "ui_allow_joinauto", showCvar{"2"}, ;)
 
 		// Bottom: 4. Spectate
-		ITEM_BUTTON			(ORIGIN_CHOICE4, "@MPMENU_4_SPECTATE", ;, scriptMenuResponse "spectator" ; close team_russiangerman;)
+		ITEM_BUTTON			(ORIGIN_CHOICE4, "@MPMENU_4_SPECTATE", ;, scriptMenuResponse "spectator"; close team_russiangerman;)
 
 		// Bottom: 5. Streamer
 		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE5, "5. Streamer", "ui_allow_joinstreamer", showCvar{"1"}, ; , scriptMenuResponse "streamer" ; close team_russiangerman;)

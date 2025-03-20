@@ -587,8 +587,9 @@ playerReadyUpThread()
 				if(self meleeButtonPressed() == false)
 					keyReleased = true;
 
-				//if (self meleebuttonpressed() /*&& self playerAds() != 1*/)
+				//if (self meleebuttonpressed() && self playerAds() != 1)
 				if (self meleebuttonpressed() && self aimButtonPressed() != 1)
+				//if (self meleebuttonpressed() /*&& self playerAds() != 1*/)
 					holdTime += 1;
 
 				/*

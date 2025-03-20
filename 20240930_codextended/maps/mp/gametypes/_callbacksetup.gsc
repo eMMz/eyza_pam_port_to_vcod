@@ -97,6 +97,8 @@ CodeCallback_StartGameType()
 	println("##### " + gettime() + " " + level.frame_num + " ##### Call: maps/mp/gametypes/_callback.gsc::CodeCallback_StartGameType()");
 	#/
 
+	logprint("##### " + gettime() + " ##### Call: maps/mp/gametypes/_callback.gsc::CodeCallback_StartGameType()\n");
+
 	// If the gametype has not beed started, run the startup
 	if(!isDefined(level.gametypestarted) || !level.gametypestarted)
 	{

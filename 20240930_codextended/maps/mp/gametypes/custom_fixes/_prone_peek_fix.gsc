@@ -94,6 +94,7 @@ pronePeekFix()
 		stanceHeight = distance((0, 0, head[2]), (0, 0, origin[2]));
 		//zoom = self playerAds();
 		zoom = self aimButtonPressed();
+		//zoom = 2;
 		zoomDirection = (zoom - zoomLast); // >1 = zooming | 0=no change | <1 unzooming
 		zoomLast = zoom;
 		/*

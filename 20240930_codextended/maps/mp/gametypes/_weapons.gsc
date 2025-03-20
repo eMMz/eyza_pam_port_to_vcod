@@ -340,8 +340,9 @@ precacheWeapons()
 
 		precacheItem("sten_mp");
 		precacheItem("enfield_mp");
-		precacheItem("m1garand_mp");
-		precacheItem("enfield_scope_mp");
+		//precacheItem("m1garand_mp");
+		//precacheItem("enfield_scope_mp");
+		precacheitem("springfield_mp");
 		//precacheItem("shotgun_mp");
 		precacheItem("thompson_mp");
 		precacheItem("bren_mp");

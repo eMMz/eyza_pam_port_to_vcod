@@ -106,7 +106,7 @@ Going to overtime
 HUD_GoingToOvertime()
 {
 	//x = -85;
-	x = 395;
+	x = 555;
 	y = 240;
 
 	// Its a TIE

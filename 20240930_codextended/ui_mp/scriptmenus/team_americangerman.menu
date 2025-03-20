@@ -86,5 +86,4 @@
 		execKeyInt 32 { play "mouse_click"; close team_americangerman; open main; } // space
 		execKeyInt 105 { play "mouse_click"; scriptMenuResponse "serverinfo"; close team_americangerman; } // i
 	}
-
 }

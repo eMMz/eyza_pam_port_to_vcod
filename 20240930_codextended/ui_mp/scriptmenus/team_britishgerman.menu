@@ -5,8 +5,8 @@
 	menuDef
 	{
 		name			"team_britishgerman"
-		rect			1 1 1 1
-		focuscolor		GLOBAL_FOCUSED_COLOR
+		rect			0 0 640 480
+		focuscolor		1 1 1 1
 		style			WINDOW_STYLE_EMPTY
 		//blurWorld		5.0
 		onOpen
@@ -40,23 +40,24 @@
 		ITEM_TEXT_HEADING("@MPMENU_TEAM")
 
 
-		// Bottom: 2. British
+		// Bottom: 1. British
 		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE1, "@MPMENU_1_BRITISH", "ui_allow_joinallies", showCvar{"1"}, ; show "allies_info", scriptMenuResponse "allies"; close team_britishgerman;)
 		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE1, "@MPMENU_1_BRITISH", "ui_allow_joinallies", showCvar{"2"}, ;)
 
-		// Bottom: 3. German
-		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE2, "@MPUI_3_GERMAN", "ui_allow_joinaxis", showCvar{"1"}, ; show "axis_info", scriptMenuResponse "axis"; close team_britishgerman;)
-		ITEM_BUTTON_ONDVAR_DISABLED	(ORIGIN_CHOICE2, "@MPUI_3_GERMAN", "ui_allow_joinaxis", showCvar{"2"}, ;)
+		// Bottom: 2. German
+		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE2, "@MPMENU_2_GERMAN", "ui_allow_joinaxis", showCvar{"1"}, ; show "axis_info", scriptMenuResponse "axis"; close team_britishgerman;)
+		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE2, "@MPMENU_2_GERMAN", "ui_allow_joinaxis", showCvar{"2"}, ;)
 
-        // Bottom: 1. Auto-Assign
-		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE3, "@MPUI_1_AUTOASSIGN", "ui_allow_joinauto", showCvar{"1"}, ; show "autoassign_info", scriptMenuResponse "autoassign"; close team_britishgerman;)
-		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE3, "@MPUI_1_AUTOASSIGN", "ui_allow_joinauto", showCvar{"2"}, ;)
+        // Bottom: 3. Auto-Assign
+		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE3, "@MPMENU_3_AUTOASSIGN", "ui_allow_joinauto", showCvar{"1"}, ; show "autoassign_info", scriptMenuResponse "autoassign"; close team_britishgerman;)
+		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE3, "@MPMENU_3_AUTOASSIGN", "ui_allow_joinauto", showCvar{"2"}, ;)
 
 		// Bottom: 4. Spectate
-		ITEM_BUTTON			(ORIGIN_CHOICE4, "@MPUI_4_SPECTATE", ;, scriptMenuResponse "spectator"; close team_britishgerman;)
+		ITEM_BUTTON			(ORIGIN_CHOICE4, "@MPMENU_4_SPECTATE", ;, scriptMenuResponse "spectator"; close team_britishgerman;)
 
 		// Bottom: 5. Streamer
 		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE5, "5. Streamer", "ui_allow_joinstreamer", showCvar{"1"}, ; , scriptMenuResponse "streamer"; close team_britishgerman;)
+
 
 
 		// Close

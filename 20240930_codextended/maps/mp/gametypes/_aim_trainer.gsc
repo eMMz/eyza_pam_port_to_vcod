@@ -280,6 +280,7 @@ getTargetPos(randomize)
 	isShotgun = false;
 	//zoom = self playerAds();
 	zoom = self aimButtonPressed();
+	//zoom = false;
 	fov = self maps\mp\gametypes\global\player::getFOV() / 80;
 
 

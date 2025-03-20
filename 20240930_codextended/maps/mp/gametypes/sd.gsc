@@ -262,8 +262,10 @@ precache()
 // Called again for every round in round-based gameplay
 onStartGameType()
 {
+	logprint("sd::onStartGameType start\n");
 	if(game["firstInit"])
 	{
+		logprint("sd::onStartGameType first init\n");
 		// defaults if not defined in level script
 		if(!isdefined(game["allies"]))
 			game["allies"] = "american";
@@ -318,7 +320,7 @@ onStartGameType()
 
 
 
-
+	logprint("sd::onStartGameType getting spawnpoints\n");
 	// Spawn points
 	//spawnpointname = "mp_sd_spawn_attacker";
 	spawnpointname = "mp_searchanddestroy_spawn_allied";
@@ -331,6 +333,7 @@ onStartGameType()
 		return;
 	}
 
+	logprint("sd::onStartGameType placing spawnpoints\n");
 	for(i = 0; i < spawnpoints.size; i++)
 		spawnpoints[i] placeSpawnpoint();
 
@@ -348,21 +351,24 @@ onStartGameType()
 	for(i = 0; i < spawnpoints.size; i++)
 		spawnpoints[i] PlaceSpawnpoint();
 
+	logprint("sd::onStartGameType loading bombexplosion\n");
+
 	//level._effect["bombexplosion"] = loadfx("fx/props/barrelexp.efx");
 	level._effect["bombexplosion"] = loadfx("fx/explosions/mp_bomb.efx");
 
+	logprint("sd::onStartGameType allowed gameobjects\n");
 	allowed[0] = "sd";
 	allowed[1] = "bombzone";
 	allowed[2] = "blocker";
 	maps\mp\gametypes\_gameobjects::main(allowed);
 
 
-
+	logprint("sd::onStartGameType starting serverinfo thread\n");
 
 	thread serverInfo();
 
 
-
+	logprint("sd::onStartGameType going to wait for atleast one player connected\n");
 	// Wait here untill there is atleast one player connected
 	if (game["firstInit"])
 	{
@@ -411,7 +417,7 @@ onStartGameType()
 		}
 	}
 
-
+	logprint("sd::onStartGameType first player connected, run bombzones thread\n");
 
 	thread bombzones();
 
@@ -419,6 +425,7 @@ onStartGameType()
 	level.starttime = getTime();
 	level.matchstarted = true;
 
+	logprint("sd::onStartGameType update sniper shotgun hud\n");
 	// Show weapon info about sniper and shotgun players
 	level thread maps\mp\gametypes\_sniper_shotgun_info::updateSniperShotgunHUD();
 
@@ -428,7 +435,7 @@ onStartGameType()
 	{
 		thread startRound();
 	}
-
+	logprint("sd::onStartGameType end\n");
 }
 
 
@@ -1533,7 +1540,7 @@ HUD_StratTime(time)
 	strat_clock.color = (.98, .827, .58);
 	strat_clock.x = 320;
 	strat_clock.y = 460;
-	strat_clock setTimer(countDownTime);
+	//strat_clock setTimer(countDownTime);
 
 	strat_clock setTimer(time);
 
@@ -1811,12 +1818,14 @@ endRound(roundwinner)
 	{
 		player = players[i];
 
+		if(isDefined(player.defuseicon))
+			player.defuseicon destroy();
+
 		if(isdefined(player.progressbackground))
 			player.progressbackground destroy();
 
 		if(isdefined(player.progressbar))
 			player.progressbar destroy();
-
 
 		player unlink();
 		player enableWeapon();
@@ -2209,6 +2218,7 @@ teamWinner(team) {
 // Called before round starts
 bombzones()
 {
+	logprint("sd::bombzones start\n");
 	maperrors = [];
 
 	//level.barsize = 192;
@@ -2234,6 +2244,7 @@ bombzones()
 
 	if(array.size == 2)
 	{
+		logprint("sd::bombzones found 2 bombzones\n");
 		bombzone0 = array[0];
 		bombzone1 = array[1];
 		//bombzoneA = undefined;
@@ -2256,31 +2267,30 @@ bombzones()
 			maperrors[maperrors.size] = "^1Bombmode original: Bombzone found with an invalid \"script_label\", must be \"A\" or \"B\"";
 		*/
 
+		bombzoneA thread bombzone_think(bombzoneB);
+		bombzoneB thread bombzone_think(bombzoneA);
+
+		wait 1;
+
 		objective_add(0, "current", bombzoneA.origin, "gfx/hud/hud@objectiveA.tga");
 		objective_add(1, "current", bombzoneB.origin, "gfx/hud/hud@objectiveB.tga");
-		//thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneA.origin, "0", "allies", "objpoint_A");
-		//thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneB.origin, "1", "allies", "objpoint_B");
-		//thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneA.origin, "0", "axis", "objpoint_A");
-		//thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneB.origin, "1", "axis", "objpoint_B");
 		thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneA.origin, "0", "allies", "gfx/hud/hud@objectiveA.tga");
 		thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneB.origin, "1", "allies", "gfx/hud/hud@objectiveB.tga");
 		thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneA.origin, "0", "axis", "gfx/hud/hud@objectiveA.tga");
 		thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneB.origin, "1", "axis", "gfx/hud/hud@objectiveB.tga");
-
-		bombzoneA thread bombzone_think(bombzoneB);
-		bombzoneB thread bombzone_think(bombzoneA);
 	}
 	else if (array.size == 1)
 	{
+		logprint("sd::bombzones found 1 bombzone\n");
 		bombzoneA = array[0];
 
+		bombzoneA thread bombzone_think();
+
+		wait 1;
+
 		objective_add(0, "current", bombzoneA.origin, "gfx/hud/hud@objectiveA.tga");
-		//thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneA.origin, "0", "allies", "objpoint_A");
-		//thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneA.origin, "0", "axis", "objpoint_A");
 		thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneA.origin, "0", "allies", "gfx/hud/hud@objectiveA.tga");
 		thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombzoneA.origin, "0", "axis", "gfx/hud/hud@objectiveA.tga");
-
-		bombzoneA thread bombzone_think();
 	}
 	else if(array.size > 2)
 		maperrors[maperrors.size] = "^1Bombmode original: More than 2 bombzones found with \"script_bombmode_original\" \"1\"";
@@ -2741,7 +2751,6 @@ bomb_think()
 					//player.progressbackground = maps\mp\gametypes\global\_global::addHUDClient(player, 0, 104, undefined, undefined, "center", "middle", "center_safearea", "center_safearea");
 					player.progressbackground = maps\mp\gametypes\global\_global::addHUDClient(player, 320, 385, undefined, undefined, "center", "middle", "center_safearea", "center_safearea");
 				}
-				player.progressbackground maps\mp\gametypes\global\_global::showHUDSmooth(0.2, 0, 0.5); // show from 0 to 0.5
 				player.progressbackground maps\mp\gametypes\global\_global::showHUDSmooth(0.2, 0, 0.5); // show from 0 to 0.5
 				player.progressbackground setShader("black", (level.barsize + 4), 12);
 
