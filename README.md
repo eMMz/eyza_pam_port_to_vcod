@@ -23,6 +23,7 @@ To do list:
 - fix bomb explosion crashing the server (Stalingrad underground bombzone explosion)
 - code cleanup ie. logging<br>
 - fix bomb explosion hit radius
+- bomb defuse countdown seems to be off by 1 sec (60th second at countdown start takes 1sec instead go down to 59 immediately)
 - sort out menus introduced in this PAM port - I have low knowledge of menus and I think it's not properly done by me<br>
 - ~~mp_depot is causing the server to crash<br>~~
 - ~~german_town and xp_hanoi are not loading (doens't crash server though)<br>~~
