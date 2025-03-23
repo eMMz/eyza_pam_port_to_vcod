@@ -127,7 +127,7 @@ itemDef \
 	visible			1 \
 	rect			0 0 w 24 \
 	origin			x 438 \
-	forecolor		1 1 1 0.2 \
+	forecolor		1 1 1 1 \
 	type			ITEM_TYPE_BUTTON \
 	text			textstring \
 	textfont		UI_FONT_NORMAL \
@@ -173,7 +173,7 @@ itemDef \
 itemDef \
 { \
 	style			WINDOW_STYLE_SHADER \
-	rect			-128 0 896 480 \
+	rect			-128 0 896 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN \
 	background		"gradient" \
 	visible			1 \
 	decoration \
@@ -368,11 +368,11 @@ itemDef \
 	visible			1 \
 	rect			0 0 128 24 \
 	origin			originpos \
-	forecolor		1 1 1 0.2 \
+	forecolor		1 1 1 1 \
 	type			ITEM_TYPE_BUTTON \
 	text			stringtext \
 	textfont		UI_FONT_NORMAL \
-	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
+	textscale		0.24 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	cvartest		cvartext \
@@ -395,11 +395,11 @@ itemDef  \
 	visible			1 \
 	rect			0 0 128 24 \
 	origin			originpos \
-	forecolor		1.0 1.0 0.0 1.0 /*GLOBAL_DISABLED_COLOR*/ \
+	forecolor		1 1 1 0.2 \
 	type			ITEM_TYPE_BUTTON \
 	text			"" \
 	textfont		UI_FONT_NORMAL \
-	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
+	textscale		0.24 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	cvartest		cvartext \
@@ -420,7 +420,7 @@ itemDef  \
 	type			ITEM_TYPE_BUTTON \
 	text			stringtext \
 	textfont		UI_FONT_NORMAL \
-	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
+	textscale		0.24 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	cvartest		cvartext \
@@ -438,7 +438,7 @@ itemDef  \
 	type			ITEM_TYPE_BUTTON \
 	text			stringtext \
 	textfont		UI_FONT_NORMAL \
-	textscale		1 /*GLOBAL_TEXT_SIZE*/ \
+	textscale		0.24 /*GLOBAL_TEXT_SIZE*/ \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		20 \
 	cvartest		cvartext \
@@ -463,17 +463,17 @@ itemDef \
 	rect			0 0 224 112 \
 	origin			ORIGIN_WEAPONIMAGE \
 	style			WINDOW_STYLE_SHADER \
-	background		weaponimage \
+	background		"ui_mp/assets/hud@" weaponimage ".tga" \
 	decoration \
 } \
 itemDef \
 { \
 	name			weaponimage \
 	visible 		0 \
-	rect			0 0 32 32 \
+	rect			0 0 0 0 \
 	origin			ORIGIN_GRENADESLOT1 \
 	style			WINDOW_STYLE_SHADER \
-	background		"gfx/icons/hud@" grenadeimage ".tga" \
+	background		"ui_mp/assets/hud@" grenadeimage ".tga" \
 	decoration \
 } \
 itemDef  \
@@ -481,7 +481,7 @@ itemDef  \
 	name			weaponimage \
 	visible			0 \
 	origin			ORIGIN_USEDBY \
-	forecolor		1 1 1 0.2 \
+	forecolor		1 1 1 1 \
 	text 			"Used by:" \
 	type			ITEM_TYPE_TEXT \
 	textfont		UI_FONT_NORMAL \
@@ -489,7 +489,7 @@ itemDef  \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textalign		ITEM_ALIGN_LEFT \
 	cvartest		"ui_weapons_usedby_" weaponname \
-	hidecvar		{ "" } \
+	hideCvar		{ "" } \
 	decoration \
 } \
 itemDef  \
@@ -497,16 +497,16 @@ itemDef  \
 	name			weaponimage \
 	visible			0 \
 	origin			ORIGIN_USEDBY2 \
-	forecolor		1 1 1 0.2 \
+	forecolor		1 1 1 1 \
 	text 			" " \
 	type			ITEM_TYPE_EDITFIELD \
 	textfont		UI_FONT_NORMAL \
 	textscale		0.25 \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textalign		ITEM_ALIGN_LEFT \
-	cvar			"ui_weapons_usedby_" weaponname  \
-	cvartest		"ui_weapons_usedby_" weaponname  \
-	hidecvar		{ "" } \
+	cvar			"ui_weapons_usedby_" weaponname \
+	cvartest		"ui_weapons_usedby_" weaponname \
+	hideCvar		{ "" } \
 	decoration \
 }
 
@@ -538,7 +538,7 @@ itemDef \
 	visible			1 \
 	rect			0 0 180 110 \
 	origin			170 180 \
-	forecolor		1 1 1 0.2 \
+	forecolor		1 1 1 1 \
 	cvar			"ui_serverinfo_left1" \
 	textfont		UI_FONT_NORMAL \
 	textscale		0.3 \
@@ -552,7 +552,7 @@ itemDef  \
 	visible			1 \
 	rect			0 0 128 110 \
 	origin			185 180 \
-	forecolor		1 1 1 0.2 \
+	forecolor		1 1 1 1 \
 	cvar			"ui_serverinfo_left2" \
 	textfont		UI_FONT_NORMAL \
 	textscale		0.3 \
@@ -566,7 +566,7 @@ itemDef \
 	visible			1 \
 	rect			0 0 180 110 \
 	origin			390 180 \
-	forecolor		1 1 1 0.2 \
+	forecolor		1 1 1 1 \
 	cvar			"ui_serverinfo_right1" \
 	textfont		UI_FONT_NORMAL \
 	textscale		0.3 \

@@ -40,9 +40,9 @@
 		ITEM_TEXT_HEADING("@MPMENU_TEAM")
 
 
-		// Bottom: 1. Russian
-		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE1, "@MPMENU_1_RUSSIAN", "ui_allow_joinallies", showCvar{"1"}, ; show "allies_info", scriptMenuResponse "allies" ; close team_americangerman;)
-		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE1, "@MPMENU_1_RUSSIAN", "ui_allow_joinallies", showCvar{"2"}, ;)
+		// Bottom: 1. American
+		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE1, "@MPMENU_1_AMERICAN", "ui_allow_joinallies", showCvar{"1"}, ; show "allies_info", scriptMenuResponse "allies" ; close team_americangerman;)
+		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE1, "@MPMENU_1_AMERICAN", "ui_allow_joinallies", showCvar{"2"}, ;)
 
 		// Bottom: 2. German
 		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE2, "@MPMENU_2_GERMAN", "ui_allow_joinaxis", showCvar{"1"}, ; show "axis_info", scriptMenuResponse "axis" ; close team_americangerman;)

@@ -138,7 +138,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_rifle_mode", 0);
 
 	// Nade spawn counts for each class
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_boltaction_nades", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_boltaction_nades", 2);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_semiautomatic_nades", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_smg_nades", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sniper_nades", 1);
@@ -200,6 +200,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_kar98ksniper", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_mp44", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_shotgun", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_fg42", 0);
 
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_pistols", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_turrets", 1);
