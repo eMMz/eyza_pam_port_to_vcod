@@ -173,7 +173,7 @@ itemDef \
 itemDef \
 { \
 	style			WINDOW_STYLE_SHADER \
-	rect			-128 0 896 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN \
+	rect			-128 0 896 480 \
 	background		"gradient" \
 	visible			1 \
 	decoration \
