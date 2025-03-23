@@ -12,6 +12,7 @@
 		//blurWorld		5.0
 		onOpen 
 		{
+			exec "set cg_drawstatus 0";
 			//scriptMenuResponse "open";
 			open serverinfo_sd_keys;
 
@@ -21,6 +22,7 @@
 		onClose
 		{
 			scriptMenuResponse "close";
+			exec "set cg_drawstatus 1";
 		}
 
 		// Background

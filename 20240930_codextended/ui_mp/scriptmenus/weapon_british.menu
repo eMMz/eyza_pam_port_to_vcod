@@ -14,6 +14,7 @@
 		onOpen
 		{
 			CLOSE_SUBMENUS;
+			exec "set cg_drawstatus 0";
 			open weapon_british_keys;
 
 			// Make sure cursor is enable (in case of spectator menu fails)
@@ -24,6 +25,7 @@
 		{
 			CLOSE_SUBMENUS;
 			close matchinfo;
+			exec "set cg_drawstatus 1";
 		}
 		onEsc
 		{
@@ -31,6 +33,7 @@
 			close weapon_british;
 			close matchinfo;
 			close weapon_british_keys;
+			exec "set cg_drawstatus 1";
 		}
 
 

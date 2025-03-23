@@ -11,6 +11,7 @@
 		//blurWorld		5.0
 		onOpen
 		{
+			exec "set cg_drawstatus 0";
 			//close matchinfo;
 			//close ingame_scoreboard_sd;
 
@@ -29,10 +30,12 @@
 		{
 			CLOSE_SUBMENUS;
 			close matchinfo;
+			exec "set cg_drawstatus 1";
 		}
 		onEsc
 		{
 			close ingame;
+			exec "set cg_drawstatus 1";
 		}
 
 
