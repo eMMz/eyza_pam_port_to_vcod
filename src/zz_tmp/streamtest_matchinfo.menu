@@ -1,0 +1,22 @@
+#include "ui_mp/menudef.h"
+#include "ui_mp/macros.h"
+
+{
+	menuDef
+	{
+		name 			"streamtest_matchinfo"
+		//rect 			0 0 200 40 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_TOP
+		rect 			320 0 200 40
+		//focuscolor		GLOBAL_FOCUSED_COLOR
+		focuscolor		1 1 1 1
+		style			WINDOW_STYLE_EMPTY
+		//blurWorld		0
+
+		onOpen
+        {
+            scriptMenuResponse "streamtest_matchinfoopen1";
+        }
+
+		MATCHINFO("ui_matchinfo_team1_team", "ui_matchinfo_team2_team", "ui_matchinfo_show", 0.3 0.3 0.9 .9, 0.7 0 0 .8)
+	}
+}
