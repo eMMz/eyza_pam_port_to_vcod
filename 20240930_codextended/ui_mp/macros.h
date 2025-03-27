@@ -164,9 +164,19 @@ itemDef \
 { \
 	style			WINDOW_STYLE_FILLED \
 	rect			0 0 640 480 \
-	backcolor		0.083 .129 0.168 .5 \
+	backcolor		0.083 .129 0.168 0 \
 	visible			1 \
 	decoration \
+}
+
+#define DRAW_TRANSPARENT_BACKGROUND \
+itemDef \
+{ \
+			visible			1 \
+			rect			-800 -100 2000 800 \
+			style			WINDOW_STYLE_SHADER  \
+			background		"ui_mp/assets/hud@window_background.tga" \
+			decoration \
 }
 
 #define	DRAW_GRADIENT_LEFT_TO_RIGHT \
@@ -416,7 +426,7 @@ itemDef  \
 	visible			1 \
 	rect			0 0 128 24 \
 	origin			originpos \
-	forecolor		1.0 1.0 0.0 1.0 /*GLOBAL_DISABLED_COLOR*/ \
+	forecolor		0.5 0.5 0.5 0.5 /*GLOBAL_DISABLED_COLOR*/ \
 	type			ITEM_TYPE_BUTTON \
 	text			stringtext \
 	textfont		UI_FONT_NORMAL \
@@ -434,7 +444,7 @@ itemDef  \
 	visible			1 \
 	rect			0 0 128 24 \
 	origin			originpos \
-	forecolor		.95 .84 .7 1  \
+	forecolor		1 1 1 1  \
 	type			ITEM_TYPE_BUTTON \
 	text			stringtext \
 	textfont		UI_FONT_NORMAL \

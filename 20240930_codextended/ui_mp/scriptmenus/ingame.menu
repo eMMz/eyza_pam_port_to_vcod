@@ -41,8 +41,9 @@
 
 		// Background
 		DRAW_MAP_BACKGROUND_IF_BLACKOUT
+		DRAW_TRANSPARENT_BACKGROUND
 		DRAW_BLUISH_BACKGROUND
-		DRAW_GRADIENT_LEFT_TO_RIGHT
+		//DRAW_GRADIENT_LEFT_TO_RIGHT
 		DRAW_BARS
 
 		// Header: Teams
@@ -55,6 +56,8 @@
 		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE2, "2. Change Team", 		"ui_allow_changeteam", hideCvar{"1"}, ;)
 		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE3, "3. Call Vote", 		"ui_allowvote", showCvar{"1"}, ;, scriptMenuResponse "callvote" ; close ingame;)
 		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE3, "3. Call Vote", 		"ui_allowvote", hideCvar{"1"}, ;)
+		
+		ITEM_BUTTON (ORIGIN_CHOICE4, "4. View Map",;, open "viewmap"; close ingame;)
 
 		ITEM_CVAR("ui_timeout_info", 158, 175, 0.24, ITEM_ALIGN_LEFT, 1.0 1.0 1.0 1.0)
 
@@ -71,7 +74,7 @@
 		execKey "1" { play "mouse_click"; scriptMenuResponse "changeweapon"; close ingame; }
 		execKey "2" { play "mouse_click"; scriptMenuResponse "changeteam"; close ingame; }
 		execKey "3" { play "mouse_click"; scriptMenuResponse "callvote"; close ingame; }
-		execKey "4" { play "mouse_click"; scriptMenuResponse "timeout"; CLOSE_ALL;}
+		execKey "4" { play "mouse_click"; open "viewmap"; close ingame;}
 		execKey "5" { play "mouse_click"; CLOSE_ALL; open leavegame }
 
 		execKeyInt 32 { play "mouse_click"; CLOSE_ALL; open main; } // space

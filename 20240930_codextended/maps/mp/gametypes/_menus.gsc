@@ -36,6 +36,7 @@ onStartGameType()
 		game["menu_scoreboard"] = "scoreboard_sd";
 		//game["menu_streamersystem"] = "streamersystem";
 		game["menu_strat_records"] = "strat_records";
+		game["menu_viewmap"] = "viewmap";
 
 		precacheMenu(game["menu_moddownload"]);
 		precacheMenu(game["menu_ingame"]);
@@ -51,6 +52,7 @@ onStartGameType()
 		precacheMenu(game["menu_quickcommands"]);
 		precacheMenu(game["menu_quickstatements"]);
 		precacheMenu(game["menu_quickresponses"]);
+		precacheMenu(game["menu_viewmap"]);
 		
 		//precacheMenu(game["menu_quicksettings"]);
 		//precacheMenu(game["menu_mousesettings"]);

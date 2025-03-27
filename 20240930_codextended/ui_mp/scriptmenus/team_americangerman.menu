@@ -35,8 +35,9 @@
 
 		// Background
 		DRAW_MAP_BACKGROUND_IF_BLACKOUT
+		DRAW_TRANSPARENT_BACKGROUND
 		DRAW_BLUISH_BACKGROUND
-		DRAW_GRADIENT_LEFT_TO_RIGHT
+		//DRAW_GRADIENT_LEFT_TO_RIGHT
 		DRAW_BARS
 
 
@@ -61,6 +62,9 @@
 
 		// Bottom: 5. Streamer
 		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE5, "5. Streamer", "ui_allow_joinstreamer", showCvar{"1"}, ; , scriptMenuResponse "streamer" ; close team_americangerman;)
+		
+		// Viewmap: 6. View map
+		ITEM_BUTTON (ORIGIN_CHOICE6, "6. View Map",;, open "viewmap"; close ingame;)
 
 
 
@@ -86,8 +90,123 @@
         execKey "3" { play "mouse_click"; scriptMenuResponse "autoassign" ; close team_americangerman; }
 		execKey "4" { play "mouse_click"; scriptMenuResponse "spectator" ; close team_americangerman; }
 		execKey "5" { play "mouse_click"; scriptMenuResponse "streamer" ; close team_americangerman; }
+		execKey "6" { play "mouse_click"; open "viewmap"; close ingame;}
 
 		execKeyInt 32 { play "mouse_click"; close team_americangerman; open main; } // space
 		execKeyInt 105 { play "mouse_click"; scriptMenuResponse "serverinfo"; close team_americangerman; } // i
+
+
+				/////////////////////
+		//// matchinfo
+		MATCHINFO2("ui_matchinfo_team1_team", "ui_matchinfo_team2_team", "ui_matchinfo_show", 0.3 0.3 0.9 .9, 0.7 0 0 .8)
+
+		itemDef
+		{
+			visible			1
+			rect				-100 0 200 24
+			origin			320 30
+			forecolor		1 1 1 0.5
+			type				ITEM_TYPE_BUTTON
+			text				"Show in game"
+			textfont		UI_FONT_NORMAL
+			textscale		.25
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textaligny	20
+			textalignx	100
+			textalign		ITEM_ALIGN_CENTER
+			Cvartest		"ui_matchinfo_ingame_show"
+			hideCvar		{ "1" }
+			action
+			{
+				play "mouse_click";
+				//exec "openscriptmenu quicksettings matchinfo";
+				scriptMenuResponse "quicksettings_matchinfo";
+			}
+			onFocus
+			{
+				play "mouse_over";
+			}
+		}
+
+
+		itemDef
+		{
+			visible			1
+			rect				-100 0 200 24
+			origin			320 30
+			forecolor		1 1 1 0.5
+			type				ITEM_TYPE_BUTTON
+			text				"Hide in game"
+			textfont		UI_FONT_NORMAL
+			textscale		.25
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textaligny	20
+			textalignx	100
+			textalign		ITEM_ALIGN_CENTER
+			Cvartest		"ui_matchinfo_ingame_show"
+			showCvar		{ "1" }
+			action
+			{
+				play "mouse_click";
+				//exec "openscriptmenu quicksettings matchinfo";
+				scriptMenuResponse "quicksettings_matchinfo";
+			}
+			onFocus
+			{
+				play "mouse_over";
+			}
+		}
+
+
+		/////////////////////////
+		/////// ingame_scoreboard_sd
+		itemDef
+		{
+			style			WINDOW_STYLE_FILLED
+			rect			220 84 400 330
+			backcolor		.0 .0 .0 .5
+			visible			1
+			decoration
+		}
+
+		// WINDOW LINES 400x430
+		itemDef // TOP
+		{
+			visible			1
+			rect			223 87 394 2
+			style			WINDOW_STYLE_FILLED
+			backcolor		1 1 1 .125
+			decoration
+		}
+		itemDef // RIGHT
+		{
+			visible			1
+			rect			615 89 2 320
+			style			WINDOW_STYLE_FILLED
+			backcolor		1 1 1 .125
+			decoration
+		}
+		itemDef // BOTTOM
+		{
+			visible			1
+			rect			223 409 394 2
+			style			WINDOW_STYLE_FILLED
+			backcolor		1 1 1 .125
+			decoration
+		}
+		itemDef // LEFT
+		{
+			visible			1
+			rect			223 89 2 320
+			style			WINDOW_STYLE_FILLED
+			backcolor		1 1 1 .125
+			decoration
+		}
+
+		ITEM_TEXT("Score:     Kill +1   |   Teamkill -1   |   Assist plant defuse +0.5",  229, 395, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
+		ITEM_TEXT("Hits:        Scope/Rifle +1   |   Semi/Automatic/Shotgun +0.5",  229, 406, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
+
+		ITEM_SCOREBOARD(220, 84)
 	}
 }
+

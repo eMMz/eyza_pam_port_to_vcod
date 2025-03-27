@@ -275,7 +275,13 @@ onStartGameType()
 			game["attackers"] = "allies";
 		if(!isdefined(game["defenders"]))
 			game["defenders"] = "axis";
-
+			
+		if(!isDefined(game["layoutimage"]))
+			game["layoutimage"] = "default";
+		layoutname = "levelshots/layouts/hud@layout_" + game["layoutimage"];
+		precacheShader(layoutname);
+		setCvar("scr_layoutimage", layoutname);
+		makeCvarServerInfo("scr_layoutimage", "");
 
 		// Main scores
 		game["allies_score"] = 0;

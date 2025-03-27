@@ -28,52 +28,52 @@ quickcommands(response)
 			switch(response)
 			{
 			case "1":
-				soundalias = "US_mp_cmd_followme";
+				soundalias = "american_follow_me";
 				saytext = &"QUICKMESSAGE_FOLLOW_ME";
 				//saytext = "Follow Me!";
 				break;
 
 			case "2":
-				soundalias = "US_mp_cmd_movein";
+				soundalias = "american_move_in";
 				saytext = &"QUICKMESSAGE_MOVE_IN";
 				//saytext = "Move in!";
 				break;
 
 			case "3":
-				soundalias = "US_mp_cmd_fallback";
+				soundalias = "american_fall_back";
 				saytext = &"QUICKMESSAGE_FALL_BACK";
 				//saytext = "Fall back!";
 				break;
 
 			case "4":
-				soundalias = "US_mp_cmd_suppressfire";
+				soundalias = "american_suppressing_fire";
 				saytext = &"QUICKMESSAGE_SUPPRESSING_FIRE";
 				//saytext = "Suppressing fire!";
 				break;
 
 			case "5":
-				soundalias = "US_mp_cmd_attackleftflank";
-				saytext = &"QUICKMESSAGE_ATTACK_LEFT_FLANK";
+				soundalias = "american_attack_left_flank";
+				saytext = &"QUICKMESSAGE_SQUAD_ATTACK_LEFT_FLANK";
 				//saytext = "Attack left flank!";
 				break;
 
 			case "6":
-				soundalias = "US_mp_cmd_attackrightflank";
-				saytext = &"QUICKMESSAGE_ATTACK_RIGHT_FLANK";
+				soundalias = "american_attack_right_flank";
+				saytext = &"QUICKMESSAGE_SQUAD_ATTACK_RIGHT_FLANK";
 				//saytext = "Attack right flank!";
 				break;
 
 			case "7":
-				soundalias = "US_mp_cmd_holdposition";
-				saytext = &"QUICKMESSAGE_HOLD_THIS_POSITION";
+				soundalias = "american_hold_position";
+				saytext = &"QUICKMESSAGE_SQUAD_HOLD_THIS_POSITION";
 				//saytext = "Hold this position!";
 				break;
 
 			default:
 				assert(response == "8");
-				soundalias = "US_mp_cmd_regroup";
-				saytext = &"QUICKMESSAGE_REGROUP";
-				//saytext = "Regroup!";
+				soundalias = "american_regroup";
+				saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
+				//saytext = "SQUAD_REGROUP!";
 				break;
 			}
 			break;
@@ -82,52 +82,52 @@ quickcommands(response)
 			switch(response)
 			{
 			case "1":
-				soundalias = "UK_mp_cmd_followme";
+				soundalias = "british_follow_me";
 				saytext = &"QUICKMESSAGE_FOLLOW_ME";
 				//saytext = "Follow Me!";
 				break;
 
 			case "2":
-				soundalias = "UK_mp_cmd_movein";
+				soundalias = "british_move_in";
 				saytext = &"QUICKMESSAGE_MOVE_IN";
 				//saytext = "Move in!";
 				break;
 
 			case "3":
-				soundalias = "UK_mp_cmd_fallback";
+				soundalias = "british_fall_back";
 				saytext = &"QUICKMESSAGE_FALL_BACK";
 				//saytext = "Fall back!";
 				break;
 
 			case "4":
-				soundalias = "UK_mp_cmd_suppressfire";
+				soundalias = "british_suppressing_fire";
 				saytext = &"QUICKMESSAGE_SUPPRESSING_FIRE";
 				//saytext = "Suppressing fire!";
 				break;
 
 			case "5":
-				soundalias = "UK_mp_cmd_attackleftflank";
-				saytext = &"QUICKMESSAGE_ATTACK_LEFT_FLANK";
+				soundalias = "british_attack_left_flank";
+				saytext = &"QUICKMESSAGE_SQUAD_ATTACK_LEFT_FLANK";
 				//saytext = "Attack left flank!";
 				break;
 
 			case "6":
-				soundalias = "UK_mp_cmd_attackrightflank";
-				saytext = &"QUICKMESSAGE_ATTACK_RIGHT_FLANK";
+				soundalias = "british_attack_right_flank";
+				saytext = &"QUICKMESSAGE_SQUAD_ATTACK_RIGHT_FLANK";
 				//saytext = "Attack right flank!";
 				break;
 
 			case "7":
-				soundalias = "UK_mp_cmd_holdposition";
-				saytext = &"QUICKMESSAGE_HOLD_THIS_POSITION";
+				soundalias = "british_hold_position";
+				saytext = &"QUICKMESSAGE_SQUAD_HOLD_THIS_POSITION";
 				//saytext = "Hold this position!";
 				break;
 
 			default:
 				assert(response == "8");
-				soundalias = "UK_mp_cmd_regroup";
-				saytext = &"QUICKMESSAGE_REGROUP";
-				//saytext = "Regroup!";
+				soundalias = "british_regroup";
+				saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
+				//saytext = "SQUAD_REGROUP!";
 				break;
 			}
 			break;
@@ -137,52 +137,52 @@ quickcommands(response)
 			switch(response)
 			{
 			case "1":
-				soundalias = "RU_mp_cmd_followme";
+				soundalias = "russian_follow_me";
 				saytext = &"QUICKMESSAGE_FOLLOW_ME";
 				//saytext = "Follow Me!";
 				break;
 
 			case "2":
-				soundalias = "RU_mp_cmd_movein";
+				soundalias = "russian_move_in";
 				saytext = &"QUICKMESSAGE_MOVE_IN";
 				//saytext = "Move in!";
 				break;
 
 			case "3":
-				soundalias = "RU_mp_cmd_fallback";
+				soundalias = "russian_fall_back";
 				saytext = &"QUICKMESSAGE_FALL_BACK";
 				//saytext = "Fall back!";
 				break;
 
 			case "4":
-				soundalias = "RU_mp_cmd_suppressfire";
+				soundalias = "russian_suppressing_fire";
 				saytext = &"QUICKMESSAGE_SUPPRESSING_FIRE";
 				//saytext = "Suppressing fire!";
 				break;
 
 			case "5":
-				soundalias = "RU_mp_cmd_attackleftflank";
-				saytext = &"QUICKMESSAGE_ATTACK_LEFT_FLANK";
+				soundalias = "russian_attack_left_flank";
+				saytext = &"QUICKMESSAGE_SQUAD_ATTACK_LEFT_FLANK";
 				//saytext = "Attack left flank!";
 				break;
 
 			case "6":
-				soundalias = "RU_mp_cmd_attackrightflank";
-				saytext = &"QUICKMESSAGE_ATTACK_RIGHT_FLANK";
+				soundalias = "russian_attack_right_flank";
+				saytext = &"QUICKMESSAGE_SQUAD_ATTACK_RIGHT_FLANK";
 				//saytext = "Attack right flank!";
 				break;
 
 			case "7":
-				soundalias = "RU_mp_cmd_holdposition";
-				saytext = &"QUICKMESSAGE_HOLD_THIS_POSITION";
+				soundalias = "russian_hold_position";
+				saytext = &"QUICKMESSAGE_SQUAD_HOLD_THIS_POSITION";
 				//saytext = "Hold this position!";
 				break;
 
 			default:
 				assert(response == "8");
-				soundalias = "RU_mp_cmd_regroup";
-				saytext = &"QUICKMESSAGE_REGROUP";
-				//saytext = "Regroup!";
+				soundalias = "russian_regroup";
+				saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
+				//saytext = "SQUAD_REGROUP!";
 				break;
 			}
 			break;
@@ -198,52 +198,52 @@ quickcommands(response)
 			switch(response)
 			{
 			case "1":
-				soundalias = "GE_mp_cmd_followme";
+				soundalias = "german_follow_me";
 				saytext = &"QUICKMESSAGE_FOLLOW_ME";
 				//saytext = "Follow Me!";
 				break;
 
 			case "2":
-				soundalias = "GE_mp_cmd_movein";
+				soundalias = "german_move_in";
 				saytext = &"QUICKMESSAGE_MOVE_IN";
 				//saytext = "Move in!";
 				break;
 
 			case "3":
-				soundalias = "GE_mp_cmd_fallback";
+				soundalias = "german_fall_back";
 				saytext = &"QUICKMESSAGE_FALL_BACK";
 				//saytext = "Fall back!";
 				break;
 
 			case "4":
-				soundalias = "GE_mp_cmd_suppressfire";
+				soundalias = "german_suppressing_fire";
 				saytext = &"QUICKMESSAGE_SUPPRESSING_FIRE";
 				//saytext = "Suppressing fire!";
 				break;
 
 			case "5":
-				soundalias = "GE_mp_cmd_attackleftflank";
-				saytext = &"QUICKMESSAGE_ATTACK_LEFT_FLANK";
+				soundalias = "german_attack_left_flank";
+				saytext = &"QUICKMESSAGE_SQUAD_ATTACK_LEFT_FLANK";
 				//saytext = "Attack left flank!";
 				break;
 
 			case "6":
-				soundalias = "GE_mp_cmd_attackrightflank";
-				saytext = &"QUICKMESSAGE_ATTACK_RIGHT_FLANK";
+				soundalias = "german_attack_right_flank";
+				saytext = &"QUICKMESSAGE_SQUAD_ATTACK_RIGHT_FLANK";
 				//saytext = "Attack right flank!";
 				break;
 
 			case "7":
-				soundalias = "GE_mp_cmd_holdposition";
-				saytext = &"QUICKMESSAGE_HOLD_THIS_POSITION";
+				soundalias = "german_hold_position";
+				saytext = &"QUICKMESSAGE_SQUAD_HOLD_THIS_POSITION";
 				//saytext = "Hold this position!";
 				break;
 
 			default:
 				assert(response == "8");
-				soundalias = "GE_mp_cmd_regroup";
-				saytext = &"QUICKMESSAGE_REGROUP";
-				//saytext = "Regroup!";
+				soundalias = "german_regroup";
+				saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
+				//saytext = "SQUAD_REGROUP!";
 				break;
 			}
 			break;
@@ -273,50 +273,50 @@ quickstatements(response)
 			switch(response)
 			{
 			case "1":
-				soundalias = "US_mp_stm_enemyspotted";
+				soundalias = "american_enemy_spotted";
 				saytext = &"QUICKMESSAGE_ENEMY_SPOTTED";
 				//saytext = "Enemy spotted!";
 				break;
 
 			case "2":
-				soundalias = "US_mp_stm_enemydown";
+				soundalias = "american_enemy_down";
 				saytext = &"QUICKMESSAGE_ENEMY_DOWN";
 				//saytext = "Enemy down!";
 				break;
 
 			case "3":
-				soundalias = "US_mp_stm_iminposition";
+				soundalias = "american_in_position";
 				saytext = &"QUICKMESSAGE_IM_IN_POSITION";
 				//saytext = "I'm in position.";
 				break;
 
 			case "4":
-				soundalias = "US_mp_stm_areasecure";
+				soundalias = "american_area_secure";
 				saytext = &"QUICKMESSAGE_AREA_SECURE";
 				//saytext = "Area secure!";
 				break;
 
 			case "5":
-				soundalias = "US_mp_stm_grenade";
+				soundalias = "american_grenade";
 				saytext = &"QUICKMESSAGE_GRENADE";
 				//saytext = "Grenade!";
 				break;
 
 			case "6":
-				soundalias = "US_mp_stm_sniper";
+				soundalias = "american_sniper";
 				saytext = &"QUICKMESSAGE_SNIPER";
 				//saytext = "Sniper!";
 				break;
 
 			case "7":
-				soundalias = "US_mp_stm_needreinforcements";
+				soundalias = "american_need_reinforcements";
 				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
 				//saytext = "Need reinforcements!";
 				break;
 
 			default:
 				assert(response == "8");
-				soundalias = "US_mp_stm_holdyourfire";
+				soundalias = "american_hold_fire";
 				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
 				//saytext = "Hold your fire!";
 				break;
@@ -327,50 +327,50 @@ quickstatements(response)
 			switch(response)
 			{
 			case "1":
-				soundalias = "UK_mp_stm_enemyspotted";
+				soundalias = "british_enemy_spotted";
 				saytext = &"QUICKMESSAGE_ENEMY_SPOTTED";
 				//saytext = "Enemy spotted!";
 				break;
 
 			case "2":
-				soundalias = "UK_mp_stm_enemydown";
+				soundalias = "british_enemy_down";
 				saytext = &"QUICKMESSAGE_ENEMY_DOWN";
 				//saytext = "Enemy down!";
 				break;
 
 			case "3":
-				soundalias = "UK_mp_stm_iminposition";
+				soundalias = "british_in_position";
 				saytext = &"QUICKMESSAGE_IM_IN_POSITION";
 				//saytext = "I'm in position.";
 				break;
 
 			case "4":
-				soundalias = "UK_mp_stm_areasecure";
+				soundalias = "british_area_secure";
 				saytext = &"QUICKMESSAGE_AREA_SECURE";
 				//saytext = "Area secure!";
 				break;
 
 			case "5":
-				soundalias = "UK_mp_stm_grenade";
+				soundalias = "british_grenade";
 				saytext = &"QUICKMESSAGE_GRENADE";
 				//saytext = "Grenade!";
 				break;
 
 			case "6":
-				soundalias = "UK_mp_stm_sniper";
+				soundalias = "british_sniper";
 				saytext = &"QUICKMESSAGE_SNIPER";
 				//saytext = "Sniper!";
 				break;
 
 			case "7":
-				soundalias = "UK_mp_stm_needreinforcements";
+				soundalias = "british_need_reinforcements";
 				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
 				//saytext = "Need reinforcements!";
 				break;
 
 			default:
 				assert(response == "8");
-				soundalias = "UK_mp_stm_holdyourfire";
+				soundalias = "british_hold_fire";
 				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
 				//saytext = "Hold your fire!";
 				break;
@@ -382,50 +382,50 @@ quickstatements(response)
 			switch(response)
 			{
 			case "1":
-				soundalias = "RU_mp_stm_enemyspotted";
+				soundalias = "russian_enemy_spotted";
 				saytext = &"QUICKMESSAGE_ENEMY_SPOTTED";
 				//saytext = "Enemy spotted!";
 				break;
 
 			case "2":
-				soundalias = "RU_mp_stm_enemydown";
+				soundalias = "russian_enemy_down";
 				saytext = &"QUICKMESSAGE_ENEMY_DOWN";
 				//saytext = "Enemy down!";
 				break;
 
 			case "3":
-				soundalias = "RU_mp_stm_iminposition";
+				soundalias = "russian_in_position";
 				saytext = &"QUICKMESSAGE_IM_IN_POSITION";
 				//saytext = "I'm in position.";
 				break;
 
 			case "4":
-				soundalias = "RU_mp_stm_areasecure";
+				soundalias = "russian_area_secure";
 				saytext = &"QUICKMESSAGE_AREA_SECURE";
 				//saytext = "Area secure!";
 				break;
 
 			case "5":
-				soundalias = "RU_mp_stm_grenade";
+				soundalias = "russian_grenade";
 				saytext = &"QUICKMESSAGE_GRENADE";
 				//saytext = "Grenade!";
 				break;
 
 			case "6":
-				soundalias = "RU_mp_stm_sniper";
+				soundalias = "russian_sniper";
 				saytext = &"QUICKMESSAGE_SNIPER";
 				//saytext = "Sniper!";
 				break;
 
 			case "7":
-				soundalias = "RU_mp_stm_needreinforcements";
+				soundalias = "russian_need_reinforcements";
 				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
 				//saytext = "Need reinforcements!";
 				break;
 
 			default:
 				assert(response == "8");
-				soundalias = "RU_mp_stm_holdyourfire";
+				soundalias = "russian_hold_fire";
 				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
 				//saytext = "Hold your fire!";
 				break;
@@ -443,50 +443,50 @@ quickstatements(response)
 			switch(response)
 			{
 			case "1":
-				soundalias = "GE_mp_stm_enemyspotted";
+				soundalias = "german_enemy_spotted";
 				saytext = &"QUICKMESSAGE_ENEMY_SPOTTED";
 				//saytext = "Enemy spotted!";
 				break;
 
 			case "2":
-				soundalias = "GE_mp_stm_enemydown";
+				soundalias = "german_enemy_down";
 				saytext = &"QUICKMESSAGE_ENEMY_DOWN";
 				//saytext = "Enemy down!";
 				break;
 
 			case "3":
-				soundalias = "GE_mp_stm_iminposition";
+				soundalias = "german_in_position";
 				saytext = &"QUICKMESSAGE_IM_IN_POSITION";
 				//saytext = "I'm in position.";
 				break;
 
 			case "4":
-				soundalias = "GE_mp_stm_areasecure";
+				soundalias = "german_area_secure";
 				saytext = &"QUICKMESSAGE_AREA_SECURE";
 				//saytext = "Area secure!";
 				break;
 
 			case "5":
-				soundalias = "GE_mp_stm_grenade";
+				soundalias = "german_grenade";
 				saytext = &"QUICKMESSAGE_GRENADE";
 				//saytext = "Grenade!";
 				break;
 
 			case "6":
-				soundalias = "GE_mp_stm_sniper";
+				soundalias = "german_sniper";
 				saytext = &"QUICKMESSAGE_SNIPER";
 				//saytext = "Sniper!";
 				break;
 
 			case "7":
-				soundalias = "GE_mp_stm_needreinforcements";
+				soundalias = "german_need_reinforcements";
 				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
 				//saytext = "Need reinforcements!";
 				break;
 
 			default:
 				assert(response == "8");
-				soundalias = "GE_mp_stm_holdyourfire";
+				soundalias = "german_hold_fire";
 				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
 				//saytext = "Hold your fire!";
 				break;
@@ -518,44 +518,44 @@ quickresponses(response)
 			switch(response)
 			{
 			case "1":
-				soundalias = "US_mp_rsp_yessir";
+				soundalias = "american_yes_sir";
 				saytext = &"QUICKMESSAGE_YES_SIR";
 				//saytext = "Yes Sir!";
 				break;
 
 			case "2":
-				soundalias = "US_mp_rsp_nosir";
+				soundalias = "american_no_sir";
 				saytext = &"QUICKMESSAGE_NO_SIR";
 				//saytext = "No Sir!";
 				break;
 
 			case "3":
-				soundalias = "US_mp_rsp_onmyway";
-				saytext = &"QUICKMESSAGE_IM_ON_MY_WAY";
+				soundalias = "american_on_my_way";
+				saytext = &"QUICKMESSAGE_ON_MY_WAY";
 				//saytext = "On my way.";
 				break;
 
 			case "4":
-				soundalias = "US_mp_rsp_sorry";
+				soundalias = "american_sorry";
 				saytext = &"QUICKMESSAGE_SORRY";
 				//saytext = "Sorry.";
 				break;
 
 			case "5":
-				soundalias = "US_mp_rsp_greatshot";
+				soundalias = "american_great_shot";
 				saytext = &"QUICKMESSAGE_GREAT_SHOT";
 				//saytext = "Great shot!";
 				break;
 
 			case "6":
-				soundalias = "US_mp_rsp_tooklongenough";
+				soundalias = "american_took_long_enough";
 				saytext = &"QUICKMESSAGE_TOOK_LONG_ENOUGH";
 				//saytext = "Took long enough!";
 				break;
 
 			default:
 				assert(response == "7");
-				soundalias = "US_mp_rsp_areyoucrazy";
+				soundalias = "american_youre_crazy";
 				saytext = &"QUICKMESSAGE_ARE_YOU_CRAZY";
 				//saytext = "Are you crazy?";
 				break;
@@ -566,44 +566,44 @@ quickresponses(response)
 			switch(response)
 			{
 			case "1":
-				soundalias = "UK_mp_rsp_yessir";
+				soundalias = "british_yes_sir";
 				saytext = &"QUICKMESSAGE_YES_SIR";
 				//saytext = "Yes Sir!";
 				break;
 
 			case "2":
-				soundalias = "UK_mp_rsp_nosir";
+				soundalias = "british_no_sir";
 				saytext = &"QUICKMESSAGE_NO_SIR";
 				//saytext = "No Sir!";
 				break;
 
 			case "3":
-				soundalias = "UK_mp_rsp_onmyway";
-				saytext = &"QUICKMESSAGE_IM_ON_MY_WAY";
+				soundalias = "british_on_my_way";
+				saytext = &"QUICKMESSAGE_ON_MY_WAY";
 				//saytext = "On my way.";
 				break;
 
 			case "4":
-				soundalias = "UK_mp_rsp_sorry";
+				soundalias = "british_sorry";
 				saytext = &"QUICKMESSAGE_SORRY";
 				//saytext = "Sorry.";
 				break;
 
 			case "5":
-				soundalias = "UK_mp_rsp_greatshot";
+				soundalias = "british_great_shot";
 				saytext = &"QUICKMESSAGE_GREAT_SHOT";
 				//saytext = "Great shot!";
 				break;
 
 			case "6":
-				soundalias = "UK_mp_rsp_tooklongenough";
+				soundalias = "british_took_long_enough";
 				saytext = &"QUICKMESSAGE_TOOK_LONG_ENOUGH";
 				//saytext = "Took long enough!";
 				break;
 
 			default:
 				assert(response == "7");
-				soundalias = "UK_mp_rsp_areyoucrazy";
+				soundalias = "british_youre_crazy";
 				saytext = &"QUICKMESSAGE_ARE_YOU_CRAZY";
 				//saytext = "Are you crazy?";
 				break;
@@ -615,44 +615,44 @@ quickresponses(response)
 			switch(response)
 			{
 			case "1":
-				soundalias = "RU_mp_rsp_yessir";
+				soundalias = "russian_yes_sir";
 				saytext = &"QUICKMESSAGE_YES_SIR";
 				//saytext = "Yes Sir!";
 				break;
 
 			case "2":
-				soundalias = "RU_mp_rsp_nosir";
+				soundalias = "russian_no_sir";
 				saytext = &"QUICKMESSAGE_NO_SIR";
 				//saytext = "No Sir!";
 				break;
 
 			case "3":
-				soundalias = "RU_mp_rsp_onmyway";
-				saytext = &"QUICKMESSAGE_IM_ON_MY_WAY";
+				soundalias = "russian_no_sir";
+				saytext = &"QUICKMESSAGE_ON_MY_WAY";
 				//saytext = "On my way.";
 				break;
 
 			case "4":
-				soundalias = "RU_mp_rsp_sorry";
+				soundalias = "russian_sorry";
 				saytext = &"QUICKMESSAGE_SORRY";
 				//saytext = "Sorry.";
 				break;
 
 			case "5":
-				soundalias = "RU_mp_rsp_greatshot";
+				soundalias = "russian_great_shot";
 				saytext = &"QUICKMESSAGE_GREAT_SHOT";
 				//saytext = "Great shot!";
 				break;
 
 			case "6":
-				soundalias = "RU_mp_rsp_tooklongenough";
+				soundalias = "russian_took_long_enough";
 				saytext = &"QUICKMESSAGE_TOOK_LONG_ENOUGH";
 				//saytext = "Took long enough!";
 				break;
 
 			default:
 				assert(response == "7");
-				soundalias = "RU_mp_rsp_areyoucrazy";
+				soundalias = "russian_youre_crazy";
 				saytext = &"QUICKMESSAGE_ARE_YOU_CRAZY";
 				//saytext = "Are you crazy?";
 				break;
@@ -670,44 +670,44 @@ quickresponses(response)
 			switch(response)
 			{
 			case "1":
-				soundalias = "GE_mp_rsp_yessir";
+				soundalias = "german_yes_sir";
 				saytext = &"QUICKMESSAGE_YES_SIR";
 				//saytext = "Yes Sir!";
 				break;
 
 			case "2":
-				soundalias = "GE_mp_rsp_nosir";
+				soundalias = "german_no_sir";
 				saytext = &"QUICKMESSAGE_NO_SIR";
 				//saytext = "No Sir!";
 				break;
 
 			case "3":
-				soundalias = "GE_mp_rsp_onmyway";
-				saytext = &"QUICKMESSAGE_IM_ON_MY_WAY";
+				soundalias = "german_on_my_way";
+				saytext = &"QUICKMESSAGE_ON_MY_WAY";
 				//saytext = "On my way.";
 				break;
 
 			case "4":
-				soundalias = "GE_mp_rsp_sorry";
+				soundalias = "german_sorry";
 				saytext = &"QUICKMESSAGE_SORRY";
 				//saytext = "Sorry.";
 				break;
 
 			case "5":
-				soundalias = "GE_mp_rsp_greatshot";
+				soundalias = "german_great_shot";
 				saytext = &"QUICKMESSAGE_GREAT_SHOT";
 				//saytext = "Great shot!";
 				break;
 
 			case "6":
-				soundalias = "GE_mp_rsp_tooklongenough";
+				soundalias = "german_took_long_enough";
 				saytext = &"QUICKMESSAGE_TOOK_LONG_ENOUGH";
 				//saytext = "Took long enough!";
 				break;
 
 			default:
 				assert(response == "7");
-				soundalias = "GE_mp_rsp_areyoucrazy";
+				soundalias = "german_are_you_crazy";
 				saytext = &"QUICKMESSAGE_ARE_YOU_CRAZY";
 				//saytext = "Are you crazy?";
 				break;

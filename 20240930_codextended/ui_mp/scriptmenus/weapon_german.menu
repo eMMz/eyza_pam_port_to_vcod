@@ -18,7 +18,7 @@
 			open weapon_german_keys;
 
 			// Make sure cursor is enable (in case of spectator menu fails)
-			setDvar cl_bypassMouseInput "0" // enable cursor movement
+			setCvar cl_bypassMouseInput "0" // enable cursor movement
 
 		}
 		onClose
@@ -38,8 +38,9 @@
 
 		// Background
 		DRAW_MAP_BACKGROUND_IF_BLACKOUT
+		DRAW_TRANSPARENT_BACKGROUND
 		DRAW_BLUISH_BACKGROUND
-		DRAW_GRADIENT_LEFT_TO_RIGHT
+		//DRAW_GRADIENT_LEFT_TO_RIGHT
 		DRAW_BARS
 
 		// Header
