@@ -275,7 +275,13 @@ onStartGameType()
 			game["attackers"] = "allies";
 		if(!isdefined(game["defenders"]))
 			game["defenders"] = "axis";
-
+			
+		if(!isDefined(game["layoutimage"]))
+			game["layoutimage"] = "default";
+		layoutname = "levelshots/layouts/hud@layout_" + game["layoutimage"];
+		precacheShader(layoutname);
+		setCvar("scr_layoutimage", layoutname);
+		makeCvarServerInfo("scr_layoutimage", "");
 
 		// Main scores
 		game["allies_score"] = 0;
@@ -1367,7 +1373,9 @@ startRound()
 
 
 	// Time expired
-	iprintln(&"SD_TIMEHASEXPIRED");
+	announcement(&"SD_TIMEHASEXPIRED");
+	level thread endRound("draw");
+	playSoundOnPlayers("MP_announcer_round_draw");
 
 	// If there is no opponent -> draw
 	if(!level.exist[game["attackers"]] || !level.exist[game["defenders"]])
@@ -1845,8 +1853,8 @@ endRound(roundwinner)
 
 	logprint("_sd::endRound after objectives deletion\n");
 
-	// Say: Axis/Allies Win   after 2 sec
-	level thread announceWinner(roundwinner, 2);
+	// Say: Axis/Allies Win   after 0 sec
+	level thread announceWinner(roundwinner, 0);
 
 	logprint("_sd::started announce winner thread\n");
 
@@ -2182,29 +2190,48 @@ updateTeamStatus()
 	// if both allies and axis were alive and now they are both dead in the same instance
 	if(oldvalue["allies"] && !level.exist["allies"] && oldvalue["axis"] && !level.exist["axis"])
 	{
-		if(level.bombplanted)
+		if(!level.bombplanted)
 		{
-			// if allies planted the bomb, allies win
-			iprintln(&"SD_ALLIEDMISSIONACCOMPLISHED");
-			level thread endRound("allies");
+			announcement(&"SD_ROUNDDRAW");
+			level thread endRound("draw");
 			return;
 		}
 
-		// if there is no bomb planted the round is a draw
-		iprintln(&"SD_ROUNDDRAW");
-		level thread endRound("draw");
+		if(game["attackers"] == "allies")
+		{
+			announcement(&"SD_ALLIEDMISSIONACCOMPLISHED");
+			level thread endRound("allies");		
+			return;
+		}
+
+		announcement(&"SD_AXISMISSIONACCOMPLISHED");
+		level thread endRound("axis");
 		return;
 	}
 
 	// if allies were alive and now they are not
 	if(oldvalue["allies"] && !level.exist["allies"])
 	{
-		// if allies planted the bomb, continue the round
-		if(level.bombplanted && level.planting_team == "allies")
+		// no bomb planted, axis win
+		if(!level.bombplanted)
+		{
+			announcement(&"SD_ALLIESHAVEBEENELIMINATED");
+			level thread endRound("axis");		
 			return;
+		}
 
-		thread teamWinner("allies");
-		level thread playSoundOnPlayers("mp_announcer_allieselim");
+		if(game["attackers"] == "allies")
+			return;
+		
+		// allies just died and axis have planted the bomb
+		if(level.exist["axis"])
+		{
+			announcement(&"SD_ALLIESHAVEBEENELIMINATED");
+			level thread endRound("axis");
+			return;
+		}
+
+		announcement(&"SD_AXISMISSIONACCOMPLISHED");
 		level thread endRound("axis");
 		return;
 	}
@@ -2212,26 +2239,42 @@ updateTeamStatus()
 	// if axis were alive and now they are not
 	if(oldvalue["axis"] && !level.exist["axis"])
 	{
-		// if axis planted the bomb, continue the round
-		if(level.bombplanted && level.planting_team == "axis")
+		// no bomb planted, allies win
+		if(!level.bombplanted)
+		{
+			announcement(&"SD_AXISHAVEBEENELIMINATED");
+			level thread endRound("allies");
 			return;
-
-		thread teamWinner("axis");
-		level thread playSoundOnPlayers("mp_announcer_axiselim");
+ 		}
+ 		
+ 		if(game["attackers"] == "axis")
+			return;
+		
+		// axis just died and allies have planted the bomb
+		if(level.exist["allies"])
+		{
+			announcement(&"SD_AXISHAVEBEENELIMINATED");
+			level thread endRound("allies");
+			return;
+		}
+		
+		announcement(&"SD_ALLIEDMISSIONACCOMPLISHED");
 		level thread endRound("allies");
 		return;
 	}
 }
 
-teamWinner(team) {
-	wait level.frame;
-
-	if (team == "axis") {
-		iprintln(&"SD_AXISHAVEBEENELIMINATED");
-	} else if (team == "allies") {
-		iprintln(&"SD_ALLIESHAVEBEENELIMINATED");
-	}
-}
+//teamWinner(team) {
+//	wait level.frame;
+//
+//	if (team == "axis") {
+//		announcement(&"SD_AXISHAVEBEENELIMINATED");
+//		level thread playSoundOnPlayers("MP_announcer_allies_win");		
+//	} else if (team == "allies") {
+//		announcement(&"SD_ALLIESHAVEBEENELIMINATED");
+//		level thread playSoundOnPlayers("MP_announcer_axis_win");		
+//	}
+//}
 
 // Called before round starts
 bombzones()
@@ -2422,8 +2465,8 @@ bombzone_think(bombzone_other)
 			
 			continue;
 		}
-
 		team = game["attackers"]; // team wich is able to planting
+
 
 		/*
 		// Restrict planting in some areas
@@ -2578,7 +2621,6 @@ bombzone_think(bombzone_other)
 
 					level.bombplanted = true;
 					level.bombtimerstart = gettime();
-					level.planting_team = player.pers["team"];
 					level.planting_player = player;
 
 					lpselfnum = player getEntityNumber();
@@ -2596,7 +2638,7 @@ bombzone_think(bombzone_other)
 					player maps\mp\gametypes\_player_stat::AddPlant();
 					player maps\mp\gametypes\_player_stat::AddScore(0.5);
 
-					iprintln(&"SD_EXPLOSIVESPLANTED");
+					announcement(&"SD_EXPLOSIVESPLANTED");
 
 					level thread soundPlanted(player);
 
@@ -2719,12 +2761,19 @@ bomb_countdown()
 	level.bombKill = false;
 
 	// Add earth quake around bomb
-	earthquake(0.2, 2, origin, 1200);
+	//earthquake(0.2, 2, origin, 1200);
 
 	logprint("sd:: after earthquake\n");
+	
+	if(game["attackers"] == "allies")
+		announcement(&"SD_ALLIEDMISSIONACCOMPLISHED");
+		
+	if(game["attackers"] == "axis")
+		announcement(&"SD_AXISMISSIONACCOMPLISHED");
+		
 
 	//level thread playSoundOnPlayers("mp_announcer_objdest");
-	level thread endRound(level.planting_team);
+	level thread endRound(game["attackers"]);
 }
 
 bomb_think()
@@ -2739,7 +2788,7 @@ bomb_think()
 		self waittill("trigger", player);
 
 		// check for having been triggered by a valid player
-		if(isPlayer(player) && (player.pers["team"] != level.planting_team) && player isOnGround())
+		if(isPlayer(other) && (other.pers["team"] == game["defenders"]) && other isOnGround())
 		{
 			if(!isDefined(player.defuseicon))
 			{
@@ -2832,8 +2881,15 @@ bomb_think()
 					//level.bombglow delete();
 					self delete();
 
-					iprintln(&"SD_EXPLOSIVESDEFUSED");
-					level thread playSoundOnPlayers("MP_announcer_bomb_defused");
+					announcement(&"SD_EXPLOSIVESDEFUSED");
+					
+					lpselfnum = other getEntityNumber();
+					lpselfguid = other getGuid();
+					logPrint("A;" + lpselfguid + ";" + lpselfnum + ";" + game["defenders"] + ";" + other.name + ";" + "bomb_defuse" + "\n");
+					
+					players = getentarray("player", "classname");
+					for(i = 0; i < players.size; i++)
+						players[i] playLocalSound("MP_announcer_bomb_defused");
 
 					lpselfnum = player getEntityNumber();
 					lpselfguid = player getGuid();
@@ -2849,7 +2905,7 @@ bomb_think()
 					player maps\mp\gametypes\_player_stat::AddDefuse();
 					player maps\mp\gametypes\_player_stat::AddScore(0.5);
 
-					level thread endRound(player.pers["team"]);
+					level thread endRound(game["defenders"]);
 
 					return;	//TEMP, script should stop after the wait level.frame
 				}
@@ -2956,7 +3012,7 @@ announceWinner(winner, delay)
 	}
 	else if(winner == "draw")
 	{
-		level thread playSoundOnPlayers("MP_announcer_round_draw");
+		//level thread playSoundOnPlayers("MP_announcer_round_draw");
 	}
 }
 
@@ -3412,11 +3468,11 @@ soundPlanted(player)
 	level thread playSoundOnPlayers("MP_announcer_bomb_planted");
 	/*
 	if(game["allies"] == "british")
-		alliedsound = "UK_mp_explosivesplanted";
+		alliedsound = "MP_bomb_plant";
 	else if(game["allies"] == "russian")
-		alliedsound = "RU_mp_explosivesplanted";
+		alliedsound = "MP_bomb_plant";
 	else
-		alliedsound = "US_mp_explosivesplanted";
+		alliedsound = "MP_bomb_plant";
 
 	axissound = "GE_mp_explosivesplanted";
 

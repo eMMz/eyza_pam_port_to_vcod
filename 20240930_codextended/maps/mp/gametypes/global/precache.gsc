@@ -4,8 +4,8 @@ Init()
 	// Common stuffs for all gametypes
 	precacheShader("black");
 	precacheShader("white");
-	precacheShader("$levelBriefing"); // map image
-	//precacheShader(game["layoutimage"]); // map image
+	//precacheShader("$levelBriefing"); // map image
+	precacheShader(game["layoutimage"]); // map image
 
 	// Stopwatch
 	precacheShader("hudStopwatch");
@@ -15,6 +15,7 @@ Init()
 	precacheStatusIcon("gfx/hud/hud@status_dead.tga");
 	//precacheStatusIcon("hud_status_connecting");
 	precacheStatusIcon("gfx/hud/hud@status_connecting.tga");
+	precacheStatusIcon("gfx/hud/headicon@re_objcarrier.tga");
 
 	precacheString2("STRING_EMPTY", &" ");
 }

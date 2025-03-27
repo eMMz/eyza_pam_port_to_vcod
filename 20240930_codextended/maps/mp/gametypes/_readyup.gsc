@@ -38,6 +38,7 @@ init()
 		game["STRING_READYUP_TIME_EXPIRED"] = 			"Time to Ready-Up is over.";
 		game["STRING_READYUP_TIME_EXPIRED_SKIP"] = 		"Set your team as ready to skip the Ready-Up.";
 
+		game["playername"] = level.R_U_Name[entity];
 
 		maps\mp\gametypes\global\_global::precacheString2("STRING_READYUP_SELECT_TEAM", &"Select team!");
 
@@ -59,8 +60,8 @@ init()
 		// Time to readyup expired
 		maps\mp\gametypes\global\_global::precacheString2("STRING_READYUP_SET_YOUR_TEAM_AS_READY", &"Time is over. Setting one team ready will skip the Ready-up.");
 
-		precacheStatusIcon("party_ready");
-		precacheStatusIcon("party_notready");
+		//precacheStatusIcon("headicon_carrier");
+		//precacheStatusIcon("party_notready");
 	}
 
 
@@ -246,8 +247,8 @@ onSpawned()
 	self.statusicon_before = self.statusicon;
 
 	// We are in readyup, so change icons in scoreboard table
-	if (self.isReady) 	self.statusicon = "party_ready";
-	else			self.statusicon = "party_notready";
+	if (self.isReady) 	self.statusicon = "gfx/hud/headicon@re_objcarrier.tga";
+	else			self.statusicon = "";
 
 	self PrintTeamAndHowToUse();
 
@@ -278,8 +279,8 @@ onJoinedTeam(teamName)
 	self.statusicon_before = self.statusicon;
 
 	// We are in readyup, so change icons in scoreboard table
-	if (self.isReady) 	self.statusicon = "party_ready";
-	else			self.statusicon = "party_notready";
+	if (self.isReady) 	self.statusicon = "gfx/hud/headicon@re_objcarrier.tga";
+	else			self.statusicon = "";
 }
 
 /*
@@ -423,12 +424,12 @@ playerReadyUpThread()
 	// When player connects while the readyup ends (server is counting down timer to match start) show readyicon and exit
 	if (level.playersready)
 	{
-		self.statusicon = "party_ready";
+		self.statusicon = "gfx/hud/headicon@re_objcarrier.tga";
 		return;
 	}
 
 	// Change status icon
-	self.statusicon = "party_notready";
+	self.statusicon = "";
 
 
 	//Set ready for bots
@@ -588,8 +589,8 @@ playerReadyUpThread()
 					keyReleased = true;
 
 				//if (self meleebuttonpressed() && self playerAds() != 1)
-				if (self meleebuttonpressed() && self aimButtonPressed() != 1)
-				//if (self meleebuttonpressed() /*&& self playerAds() != 1*/)
+				//if (self meleebuttonpressed() && self aimButtonPressed() != 1)
+				if (self meleebuttonpressed() /*&& self playerAds() != 1*/)
 					holdTime += 1;
 
 				/*
@@ -623,13 +624,14 @@ playerReadyUpThread()
     	self iprintlnbold(game["STRING_READYUP_ALL_PLAYERS_ARE_READY"]);
 
 
-	//self.statusicon = "party_ready";
+	//self.statusicon = "gfx/hud/headicon@re_objcarrier.tga";
 }
 
 setReady()
 {
 	self.isReady = true;
-	self.statusicon = "party_ready";
+	self.statusicon = "gfx/hud/headicon@re_objcarrier.tga";
+	iprintln(self.name + "^5 is Ready");
 
 	if (isDefined(self.readyhud))
 	{
@@ -641,12 +643,15 @@ setReady()
 unsetReady()
 {
 	self.isReady = false;
-	self.statusicon = "party_notready";
+	self.statusicon = "";
+	iprintln(self.name + "^1 is Not Ready");
+	
 
 	if (isDefined(self.readyhud))
 	{
 		self.readyhud.color = (1, .66, .66);
 		self.readyhud setText(game["STRING_READYUP_NOT_READY"]);
+		
 	}
 }
 
