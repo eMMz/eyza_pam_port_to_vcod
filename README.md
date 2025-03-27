@@ -7,6 +7,10 @@ What seems to be working (<b>not tested thoroughly!!!!</b>):
 - streamer mode with CoD2 streamer features
 <br>
 <br>
+Contributors:
+Maggot
+<br>
+<br>
 Entering streamer mode is slightly different from CoD2 version.
 1. Select streamer.
 2. Open quickmessages ('V' key by default in multiplayer options)
