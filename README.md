@@ -6,7 +6,7 @@ What seems to be working (<b>not tested thoroughly!!!!</b>):
 - new scoreboard
 - streamer mode with CoD2 streamer features
 <br>
-Contributors:
+Contributors:<br>
 Maggot
 <br>
 <br>
