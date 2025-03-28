@@ -15,10 +15,9 @@
 		{
 			CLOSE_SUBMENUS;
 			exec "set cg_drawstatus 0";
-			open weapon_russian_keys;
 
 			// Make sure cursor is enable (in case of spectator menu fails)
-			setDvar cl_bypassMouseInput "0" // enable cursor movement
+			setCvar cl_bypassMouseInput "0" // enable cursor movement
 		}
 		onClose
 		{
@@ -31,7 +30,6 @@
 			HIDE_ALL
 			close weapon_russian;
 			close matchinfo;
-			close weapon_russian_keys;
 			exec "set cg_drawstatus 1";
 		}
 
@@ -48,11 +46,11 @@
 
 
 		// MENU CHOICES
-		ITEM_WEAPON(ORIGIN_CHOICE1, "button_nagant", "mosin_nagant_mp", "@MPMENU_1_MOSINNAGANT", "ui_allow_nagant", "nagant", show nagant;, scriptMenuResponse "mosin_nagant_mp", grenadeimage, "boltaction";)
+		ITEM_WEAPON(ORIGIN_CHOICE1, "button_nagant", "mosin_nagant_mp", "@MPMENU_1_MOSINNAGANT", "ui_allow_nagant", "nagant", show nagant;, scriptMenuResponse "mosin_nagant_mp", "russian_grenade", "boltaction";)
 
-		ITEM_WEAPON(ORIGIN_CHOICE2, "button_ppsh", "ppsh_mp", "@MPMENU_2_PPSH", "ui_allow_ppsh", "ppsh" , show ppsh;, scriptMenuResponse "ppsh_mp", grenadeimage, "mg")
+		ITEM_WEAPON(ORIGIN_CHOICE2, "button_ppsh", "ppsh_mp", "@MPMENU_2_PPSH", "ui_allow_ppsh", "ppsh" , show ppsh;, scriptMenuResponse "ppsh_mp", "russian_grenade", "mg")
 
-		ITEM_WEAPON(ORIGIN_CHOICE3, "button_nagantnsiper", "mosin_nagant_sniper_mp", "@MPMENU_3_SCOPED_MOSINNAGANT", "ui_allow_nagantsniper", "nagantscoped" , show nagantscoped;, scriptMenuResponse "mosin_nagant_sniper_mp", grenadeimage, "sniper")
+		ITEM_WEAPON(ORIGIN_CHOICE3, "button_nagantnsiper", "mosin_nagant_sniper_mp", "@MPMENU_3_SCOPED_MOSINNAGANT", "ui_allow_nagantsniper", "nagantscoped" , show nagantscoped;, scriptMenuResponse "mosin_nagant_sniper_mp", "russian_grenade", "sniper")
 
 
 
@@ -60,17 +58,6 @@
 		ITEM_BAR_BOTTOM_BUTTON("^9[ESC]^7 Close",	40, 70, close weapon_russian;)
 		// Main menu
 		ITEM_BAR_BOTTOM_BUTTON("^9[SPACE]^7 Main Menu",	135, 120, close weapon_russian; open main;)
-	}
-
-
-	// Key choices has to be in different menu if we are using submenus
-	// This keys is opened as last and will be in focus - so keys from this submenu will be accepted
-	menuDef
-	{
-		name			"weapon_russian_keys"
-		rect			0 0 1 1
-		focuscolor		GLOBAL_FOCUSED_COLOR
-		style			WINDOW_STYLE_EMPTY
 
 		execKey "1" { play "mouse_click"; scriptMenuResponse "mosin_nagant_mp"; close weapon_russian }
 		execKey "2" { play "mouse_click"; scriptMenuResponse "ppsh_mp"; close weapon_russian }

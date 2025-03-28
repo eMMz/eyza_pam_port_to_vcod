@@ -483,10 +483,12 @@ Update_Client_Weapon(player, weaponname, team)
 
 		if (player.pers["team"] == "allies")
 		{
+			logprint("_weapon_limiter:: Update_Client_Weapon: allies ui_weapons_usedby_" + weaponname + " " + level.weapons[weaponname].allies_usedby + "\n");
 			player maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_weapons_usedby_"+weaponname, level.weapons[weaponname].allies_usedby);
 		}
 		else if (player.pers["team"] == "axis")
 		{
+			logprint("_weapon_limiter:: Update_Client_Weapon: axis ui_weapons_usedby_" + weaponname + " " + level.weapons[weaponname].axis_usedby + "\n");
 			player maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_weapons_usedby_"+weaponname, level.weapons[weaponname].axis_usedby);
 		}
 	}

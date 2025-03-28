@@ -16,10 +16,9 @@
 		{
 			CLOSE_SUBMENUS;
 			exec "set cg_drawstatus 0";
-			open weapon_american_keys;
 
 			// Make sure cursor is enable (in case of spectator menu fails)
-			setDvar cl_bypassMouseInput "0" // enable cursor movement
+			setCvar cl_bypassMouseInput "0" // enable cursor movement
 
 		}
 		onClose
@@ -33,7 +32,6 @@
 			HIDE_ALL
 			close weapon_american;
 			close matchinfo;
-			close weapon_american_keys;
 			exec "set cg_drawstatus 1";
 		}
 
@@ -50,15 +48,15 @@
 
 
 		// MENU CHOICES
-		ITEM_WEAPON(ORIGIN_CHOICE1, "button_m1carbine", "m1carbine_mp", "@MPMENU_1_M1A1_CARBINE", "ui_allow_m1carbine", "m1carbine", show m1carbine;, scriptMenuResponse "m1carbine_mp", grenadeimage, "semiautomatic";)
+		ITEM_WEAPON(ORIGIN_CHOICE1, "button_m1carbine", "m1carbine_mp", "@MPMENU_1_M1A1_CARBINE", "ui_allow_m1carbine", "m1carbine", show m1carbine;, scriptMenuResponse "m1carbine_mp", "us_grenade", "semiautomatic";)
 
-		ITEM_WEAPON(ORIGIN_CHOICE2, "button_m1garand", "m1garand_mp", "@MPMENU_2_M1_GARAND", "ui_allow_m1garand", "m1garand" , show m1garand;, scriptMenuResponse "m1garand_mp", grenadeimage, "semiautomatic")
+		ITEM_WEAPON(ORIGIN_CHOICE2, "button_m1garand", "m1garand_mp", "@MPMENU_2_M1_GARAND", "ui_allow_m1garand", "m1garand" , show m1garand;, scriptMenuResponse "m1garand_mp", "us_grenade", "semiautomatic")
 
-		ITEM_WEAPON(ORIGIN_CHOICE3, "button_thompson", "thompson_mp", "@MPMENU_3_THOMPSON", "ui_allow_thompson", "thompson" , show thompson;, scriptMenuResponse "thompson_mp", grenadeimage, "smg")
+		ITEM_WEAPON(ORIGIN_CHOICE3, "button_thompson", "thompson_mp", "@MPMENU_3_THOMPSON", "ui_allow_thompson", "thompson" , show thompson;, scriptMenuResponse "thompson_mp", "us_grenade", "smg")
 
-		ITEM_WEAPON(ORIGIN_CHOICE4, "button_bar", "bar_mp", "@MPMENU_4_BAR", "ui_allow_bar", "bar" , show bar;, scriptMenuResponse "bar_mp", grenadeimage, "mg")
+		ITEM_WEAPON(ORIGIN_CHOICE4, "button_bar", "bar_mp", "@MPMENU_4_BAR", "ui_allow_bar", "bar" , show bar;, scriptMenuResponse "bar_mp", "us_grenade", "mg")
 
-		ITEM_WEAPON(ORIGIN_CHOICE5, "button_springfield", "springfield_mp", "@MPMENU_5_SPRINGFIELD", "ui_allow_springfield", "springfield", show springfield;, scriptMenuResponse "springfield_mp", grenadeimage, "sniper")
+		ITEM_WEAPON(ORIGIN_CHOICE5, "button_springfield", "springfield_mp", "@MPMENU_5_SPRINGFIELD", "ui_allow_springfield", "springfield", show springfield;, scriptMenuResponse "springfield_mp", "us_grenade", "sniper")
 
 
 
@@ -66,17 +64,6 @@
 		ITEM_BAR_BOTTOM_BUTTON("^9[ESC]^7 Close",	40, 70, close weapon_american;)
 		// Main menu
 		ITEM_BAR_BOTTOM_BUTTON("^9[SPACE]^7 Main Menu",	135, 120, close weapon_american; open main;)
-	}
-
-
-	// Key choices has to be in different menu if we are using submenus
-	// This keys is opened as last and will be in focus - so keys from this submenu will be accepted
-	menuDef
-	{
-		name			"weapon_american_keys"
-		rect			0 0 1 1
-		focuscolor		GLOBAL_FOCUSED_COLOR
-		style			WINDOW_STYLE_EMPTY
 
 		execKey "1" { play "mouse_click"; scriptMenuResponse "m1carbine_mp" ; close weapon_american; }
 		execKey "2" { play "mouse_click"; scriptMenuResponse "m1garand_mp" ; close weapon_american; }

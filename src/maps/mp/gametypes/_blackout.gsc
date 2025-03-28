@@ -63,6 +63,7 @@ isBlackoutNeeded()
 
 spawnBlackout()
 {
+	logprint("_blackout::spawnBlackout start");
 	// Spawn spectator outside map
     [[level.spawnSpectator]]((999999, 999999, -999999), (90, 0, 0));
 
@@ -76,13 +77,16 @@ spawnBlackout()
 	self showWarningMessage();
 
 	self.in_blackout = true;
+	logprint("_blackout::spawnBlackout end");
 }
 
 
 showWarningMessage()
 {
+	logprint("_blackout::showWarningMessage start");
     if (!isDefined(self.blackout_bg))
     {
+		logprint("_blackout::showWarningMessage blackout_bg is not defined - showing now");
 		self.blackout_bg = maps\mp\gametypes\global\_global::newClientHudElem2(self);
 		//self.blackout_bg.horzAlign = "center_safearea"; //
 		//self.blackout_bg.vertAlign = "center_safearea"; // subtop top middle bottom fullscreen noscale alignto480 center_safearea
@@ -92,7 +96,8 @@ showWarningMessage()
 		self.blackout_bg.color = (1, 1, 1);
 		self.blackout_bg.sort = -9999999;
 		self.blackout_bg.foreground = false;
-		self.blackout_bg setShader("$levelBriefing", 896, 480);
+		//self.blackout_bg setShader("$levelBriefing", 896, 480);
+		self.blackout_bg setShader(game["layoutimage_sorted"], 896, 480);
 
 		self.blackout_info1 = maps\mp\gametypes\global\_global::newClientHudElem2(self);
 		self.blackout_info1.alignx = "center";
@@ -118,6 +123,7 @@ showWarningMessage()
 		self.blackout_info2.foreground = true;
 		self.blackout_info2 SetText(game["STRING_BLACKOUT_INFO"]);
     }
+	logprint("_blackout::showWarningMessage end");
 }
 
 removeBlackout()

@@ -152,7 +152,7 @@ itemDef \
 	visible 		1 \
 	backcolor 		1 1 1 1 \
 	style 			WINDOW_STYLE_FILLED \
-	background 		"$levelBriefing" \
+	background 		"hud@layout_default.dds" \
 	cvartest 		"ui_blackout" \
 	showcvar		{ "1" } \
 	decoration \
@@ -476,16 +476,6 @@ itemDef \
 	background		"ui_mp/assets/hud@" weaponimage ".tga" \
 	decoration \
 } \
-itemDef \
-{ \
-	name			weaponimage \
-	visible 		0 \
-	rect			0 0 0 0 \
-	origin			ORIGIN_GRENADESLOT1 \
-	style			WINDOW_STYLE_SHADER \
-	background		"ui_mp/assets/hud@" grenadeimage ".tga" \
-	decoration \
-} \
 itemDef  \
 { \
 	name			weaponimage \
@@ -508,8 +498,7 @@ itemDef  \
 	visible			0 \
 	origin			ORIGIN_USEDBY2 \
 	forecolor		1 1 1 1 \
-	text 			" " \
-	type			ITEM_TYPE_EDITFIELD \
+	type			ITEM_TYPE_TEXT \
 	textfont		UI_FONT_NORMAL \
 	textscale		0.25 \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \

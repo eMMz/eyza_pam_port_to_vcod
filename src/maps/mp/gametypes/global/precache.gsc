@@ -5,7 +5,7 @@ Init()
 	precacheShader("black");
 	precacheShader("white");
 	//precacheShader("$levelBriefing"); // map image
-	precacheShader(game["layoutimage"]); // map image
+	//precacheShader(game["layoutimage"]); // map image
 
 	// Stopwatch
 	precacheShader("hudStopwatch");

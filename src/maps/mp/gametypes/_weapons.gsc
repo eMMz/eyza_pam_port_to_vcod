@@ -87,6 +87,9 @@ registerCvars()
 	[[var]]("scr_allow_pistols", "BOOL", 1); 	// level.allow_pistols // NOTE: in sd next round
 	[[var]]("scr_allow_turrets", "BOOL", 1); 	// level.allow_turrets // NOTE: after map/round reset
 
+	[[var]]("scr_allow_panzerfaust", "BOOL", 1); // level.allow_panzerfaust
+	[[var]]("scr_allow_fg42", "BOOL", 1); // level.allow_fg42
+
 
 	[[var]]("scr_no_oneshot_pistol_kills", "BOOL", 0); 	//level.prevent_single_shot_pistol // Single Shot Kills
 	[[var]]("scr_no_oneshot_ppsh_kills", "BOOL", 0); 	//level.prevent_single_shot_ppsh // Single Shot Kills
@@ -187,7 +190,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 
 		case "scr_allow_grenade_drop": 		level.allow_nadedrops = value; return true;
-        	case "scr_allow_smoke_drop": 		level.allow_smokedrops = value; return true;
+        case "scr_allow_smoke_drop": 		level.allow_smokedrops = value; return true;
 
 
 
@@ -195,6 +198,9 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 		case "scr_allow_pistols": 		level.allow_pistols = value; return true;
 		case "scr_allow_turrets": 		level.allow_turrets = value; return true;
+
+		case "scr_allow_panzerfaust":	level.allow_panzerfaust = value; return true;
+		case "scr_allow_fg42":			level.allow_fg42 = value; return true;
 
 
 		case "scr_no_oneshot_pistol_kills": 		level.prevent_single_shot_pistol = value; return true;
@@ -245,6 +251,15 @@ onStartGameType()
 	{
 		deletePlacedEntity("misc_turret");
 		deletePlacedEntity("misc_mg42");
+	}
+
+	if (!level.allow_panzerfaust)
+	{
+		deletePlacedEntity("mpweapon_panzerfaust");
+	}
+	if (!level.allow_fg42)
+	{
+		deletePlacedEntity("mpweapon_fg42");
 	}
 }
 
