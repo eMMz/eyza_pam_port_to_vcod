@@ -53,15 +53,20 @@ setAllPlayersObjective() {
 setPlayerObjective()
 {
 	wait 0.05;
+
+	logprint("_objective::setPlayerObjective start\n");
 	
-	self setClientCvar("cg_objective", text);
-		game["ALLIES_OBJECTIVETEXT"] = 		"@SD_OBJ_SPECTATOR_ALLIESATTACKING";
-		game["AXIS_OBJECTIVETEXT"] = 		"@SD_OBJ_SPECTATOR_AXISATTACKING";
+	logprint("_objective::setPlayerObjective before step1\n");
+	
+	game["ALLIES_OBJECTIVETEXT"] = 		"@SD_OBJ_SPECTATOR_ALLIESATTACKING";
+	game["AXIS_OBJECTIVETEXT"] = 		"@SD_OBJ_SPECTATOR_AXISATTACKING";
 	
 	if(game["attackers"] == "allies")
 		self setClientCvar("cg_objective", game["ALLIES_OBJECTIVETEXT"]);
 	else if(game["attackers"] == "axis")
 		self setClientCvar("cg_objective", game["AXIS_OBJECTIVETEXT"]);
+
+	logprint("_objective::setPlayerObjective after step1\n");
 
 	if (self.sessionstate == "intermission")
 	{
@@ -182,9 +187,10 @@ setPlayerObjective()
 			}
 		}
 		break;
-	case "start":
+	case "strat":
 
 		self setClientCvar("cg_objectiveText", "Special mode used for practicing grenades or smoke, strategic plan making, jump learning and overall game testing.");
 	}
 
+	logprint("_objective::setPlayerObjective stop\n");
 }

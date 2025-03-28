@@ -1209,15 +1209,27 @@ HUD_ReadyUpMode()
 		level.readyup_mode SetText(game["STRING_READYUP_MODE_OVERTIME"]);
 	else
 		level.readyup_mode SetText(game["STRING_READYUP_MODE"]);
+	
+	level.readyup_dummy_clock = maps\mp\gametypes\global\_global::newHudElem2();
+	level.readyup_dummy_clock.font = "bigfixed";
+	level.readyup_dummy_clock.alignX = "center";
+	level.readyup_dummy_clock.alignY = "middle";
+	level.readyup_dummy_clock.color = (1, 1, 1);
+	level.readyup_dummy_clock.x = 320;
+	level.readyup_dummy_clock.y = 460;
+	level.readyup_dummy_clock setTimer(0);
 
     level waittill("rupover");
 
     level.readyup_mode FadeOverTime(1);
+	level.readyup_dummy_clock FadeOverTime(1);
     level.readyup_mode.alpha = 0;
+	level.readyup_dummy_clock.alpha = 0;
 
     wait level.fps_multiplier * 1;
 
 	level.readyup_mode destroy();
+	level.readyup_dummy_clock destroy();
 }
 
 HUD_WaitingOn_X_Players()

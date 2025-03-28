@@ -3481,6 +3481,8 @@ serverInfo()
 	title = "";
 	value = "";
 
+	logprint("_sd::serverInfo start\n");
+
 
 	if (level.timelimit > 0)
 	{
@@ -3556,6 +3558,7 @@ serverInfo()
 	level.serverinfo_right1 = title;
 	level.serverinfo_right2 = value;
 	
+	logprint("_sd::serverInfo stop\n");
 }
 
 
