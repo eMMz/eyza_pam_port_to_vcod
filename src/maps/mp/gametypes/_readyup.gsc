@@ -38,7 +38,6 @@ init()
 		game["STRING_READYUP_TIME_EXPIRED"] = 			"Time to Ready-Up is over.";
 		game["STRING_READYUP_TIME_EXPIRED_SKIP"] = 		"Set your team as ready to skip the Ready-Up.";
 
-		game["playername"] = level.R_U_Name[entity];
 
 		maps\mp\gametypes\global\_global::precacheString2("STRING_READYUP_SELECT_TEAM", &"Select team!");
 
@@ -589,8 +588,8 @@ playerReadyUpThread()
 					keyReleased = true;
 
 				//if (self meleebuttonpressed() && self playerAds() != 1)
-				//if (self meleebuttonpressed() && self aimButtonPressed() != 1)
-				if (self meleebuttonpressed() /*&& self playerAds() != 1*/)
+				if (self meleebuttonpressed() && self aimButtonPressed() != 1)
+				//if (self meleebuttonpressed() /*&& self playerAds() != 1*/)
 					holdTime += 1;
 
 				/*
