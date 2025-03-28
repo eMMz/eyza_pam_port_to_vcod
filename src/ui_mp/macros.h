@@ -515,7 +515,7 @@ itemDef  \
 
 
 
-#define SERVERINFO_DRAW_OBJECTIVE(objectivetext) \
+#define SERVERINFO_DRAW_OBJECTIVE \
 itemDef \
 { \
 	visible			1 \
@@ -523,9 +523,9 @@ itemDef \
 	origin			60 84 \
 	forecolor		1 1 1 1 \
 	autowrapped \
-	text			objectivetext \
+	cvar				"cg_objective" \
 	textfont		UI_FONT_NORMAL \
-	textscale		0.3 \
+	textscale		0.25 \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		16 \
 	decoration \
@@ -540,7 +540,7 @@ itemDef \
 	forecolor		1 1 1 1 \
 	cvar			"ui_serverinfo_left1" \
 	textfont		UI_FONT_NORMAL \
-	textscale		0.3 \
+	textscale		0.25 \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textalign		ITEM_ALIGN_RIGHT \
 	autowrapped \
@@ -554,7 +554,7 @@ itemDef  \
 	forecolor		1 1 1 1 \
 	cvar			"ui_serverinfo_left2" \
 	textfont		UI_FONT_NORMAL \
-	textscale		0.3 \
+	textscale		0.25 \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textalign		ITEM_ALIGN_LEFT \
 	autowrapped \
@@ -568,7 +568,7 @@ itemDef \
 	forecolor		1 1 1 1 \
 	cvar			"ui_serverinfo_right1" \
 	textfont		UI_FONT_NORMAL \
-	textscale		0.3 \
+	textscale		0.25 \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textalign		ITEM_ALIGN_RIGHT \
 	autowrapped \
@@ -579,10 +579,10 @@ itemDef  \
 	visible			1 \
 	rect			0 0 128 110 \
 	origin			405 180 \
-	forecolor		1 1 1 0.2 \
+	forecolor		1 1 1 1 \
 	cvar			"ui_serverinfo_right2" \
 	textfont		UI_FONT_NORMAL \
-	textscale		0.3 \
+	textscale		0.25 \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textalign		ITEM_ALIGN_LEFT \
 	autowrapped \
@@ -595,12 +595,12 @@ itemDef \
 	name			"text_motd" \
 	visible			1 \
 	rect			0 0 480 130 \
-	origin			60 305 \
+	origin			60 250 \
 	forecolor		1 1 1 1 \
 	autowrapped \
 	cvar			"ui_motd" \
 	textfont		UI_FONT_NORMAL \
-	textscale		0.3 \
+	textscale		0.25 \
 	textstyle		ITEM_TEXTSTYLE_SHADOWED \
 	textaligny		16 \
 	decoration \

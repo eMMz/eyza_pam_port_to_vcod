@@ -3520,28 +3520,42 @@ serverInfo()
 	}
 
 
-	title += "Strat time:\n";
-	value += maps\mp\gametypes\global\_global::plural_s(level.strat_time, "second") + "\n";
 
 	title +="Plant time:\n";
 	value += maps\mp\gametypes\global\_global::plural_s(level.planttime, "second") + "\n";
-
 	title +="Defuse time:\n";
 	value += maps\mp\gametypes\global\_global::plural_s(level.defusetime, "second") + "\n";
 
+
+
+	level.serverinfo_left1 = title;
+	level.serverinfo_left2 = value;
+	
+	title = "";
+	value = "";
+	
+	level.serverinfo_right1 = title;
+	level.serverinfo_right2 = value;
+	
+
 	title +="Round length:\n";
 	value += maps\mp\gametypes\global\_global::plural_s(level.roundlength, "minute") + "\n";
-
-
+	
+	title += "Strat time:\n";
+	value += maps\mp\gametypes\global\_global::plural_s(level.strat_time, "second") + "\n";
+	
 	title +="Overtime:\n";
 	if (level.scr_overtime)
 		value += "Yes" + "\n";
 	else
 		value += "No" + "\n";
-
-
-	level.serverinfo_left1 = title;
-	level.serverinfo_left2 = value;
+	
+	title += "PAM mode:\n";
+	value += level.pam_mode + "\n";
+	
+	level.serverinfo_right1 = title;
+	level.serverinfo_right2 = value;
+	
 }
 
 
