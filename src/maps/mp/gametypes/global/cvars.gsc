@@ -116,6 +116,7 @@ Register_Shared_Cvars()
 	[[sVar]]("scr_replace_russian", "BOOL", 0);              // level.scr_replace_russian  (can be changed only at start of the game, in progress it will mess up britsh/russians scripts...)
 	*/
 	[[sVar]]("scr_friendlyfire", "INT", 0, 0, 3); 	// level.scr_friendlyfire on, off, reflect, shared
+	[[sVar]]("r_fog", "BOOL", 0);
 }
 
 
@@ -141,11 +142,11 @@ onCvarChanged(cvar, value, isRegisterTime)
 			else
 			{
 				level.frame = 1.0 / value;
-				logprint("cvars:: level.frame=" + level.frame + "\n");
 				level.fps_multiplier = 0.05 / level.frame;
 			}
 			level.sv_fps = value;
 			//println("Server FPS is: " + value);
+			logprint("cvars:: level.frame=" + level.frame + " level.fps_multiplier=" + level.fps_multiplier + "\n");
 			logprint("Server FPS is: " + value + "\n");
 			return true;
 
@@ -200,6 +201,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "scr_remove_killtriggers":		level.scr_remove_killtriggers = value; return true;
 		case "scr_replace_russian": 		level.scr_replace_russian = value; return true;
 		case "scr_friendlyfire": 		level.scr_friendlyfire = value; return true;
+		case "r_fog":					level.r_fog = value; return true;
 	}
 	return false;
 }

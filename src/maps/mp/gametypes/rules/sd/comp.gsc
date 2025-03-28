@@ -120,7 +120,8 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "sv_maxRate", 25000);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "sv_timeout", 60);					// Time after 999 player is kicked
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "g_antilag", 0);					// Antilag 1 means that players ping is considered when calculating hit location - what you see on your monitor is also what the server will see
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "g_knockback", 0);					// Speed energy if player is hitted by grenade, other player, etc; turned off to avoid "sliding" effect
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "g_knockback", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "r_fog", 0);					// Speed energy if player is hitted by grenade, other player, etc; turned off to avoid "sliding" effect
 
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_fast_reload_fix", 1);				// Prevent players from shoting faster via double-scroll bug
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shotgun_consistent", 1);			// Enable consistent shotgun to fix long shot kills and short range hits

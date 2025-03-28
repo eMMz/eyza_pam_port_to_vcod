@@ -17,8 +17,8 @@ onConnected()
         self.pers["pbForcedCvarsLoaded"] = false;
 
     // Set cvars that are forced by PunkBuster do correct value to prevent PUNKBUSTER WARNINGS
-    if (!self.pers["pbForcedCvarsLoaded"])
-        self thread setForcedCvarsByPB();
+    //if (!self.pers["pbForcedCvarsLoaded"])
+        //self thread setForcedCvarsByPB();
 
     // Set some cvars to value that increase competitive quality
     self thread competitiveQuality();
@@ -33,7 +33,7 @@ competitiveQuality()
 	while (!isDefined(self.pers["firstTeamSelected"]))
 		wait level.frame;
 
-	wait level.fps_multiplier * 0.1;
+	wait level.fps_multiplier * 0.5;
 
 	// Wait more if player joined spectator (usefull especially for streamers - lot of cvars is beeing sent)
 	if (self.sessionstate == "spectator")
@@ -55,6 +55,8 @@ competitiveQuality()
 	// disable sun
 	self setClientCvar2("r_drawSun", 0);
 	*/
+
+	self setClientCvar("r_fog", level.r_fog);
 }
 
 
