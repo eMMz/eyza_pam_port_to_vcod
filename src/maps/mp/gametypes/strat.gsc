@@ -1095,9 +1095,10 @@ Watch_Grenade_Throw(is_strat)
 				for(i=0;i<grenades.size;i++) {
 					if(isDefined(grenades[i].origin) && !isDefined(grenades[i].running)) {
 						// Only if it's your own nade (close to the player)
-						if(distance(grenades[i].origin, self.origin) < 160) {
+						if(distance(grenades[i].origin, self.origin) < 100*100) {
 							grenades[i].running = true;
-							grenades[i] thread Fly(self);
+							//grenades[i] thread Fly(self);
+							self thread Fly(grenades[i]);
 						}
 					}
 				}
@@ -1111,91 +1112,120 @@ Watch_Grenade_Throw(is_strat)
 	}
 }
 
-Fly(player)
+Fly(nade)
 {
-	player notify("flying_ende");
-	player endon("flying_ende");
-	player endon("disconnect");
+	self notify("flying_ende");
+	self endon("flying_ende");
+	self endon("disconnect");
 
-	player.flying = true;
+	logprint(self.name + " fly ingress\n");
 
-	old_player_origin = player.origin;
+	self.flying = true;
+
+	// old_player_origin = player.origin;
+		
+	saved_angles = self.angles;
+	saved_origin = self.origin;
+
+	self disableWeapon();
 
 	// Link script_model to grenade from players position offset
-	player.hilfsObjekt = spawn("script_model", player.origin);
-	player.hilfsObjekt.angles = player.angles;
-	player.hilfsObjekt linkto(self);
+	// player.hilfsObjekt = spawn("script_model", player.origin);
+	// player.hilfsObjekt.angles = player.angles;
+	// player.hilfsObjekt linkto(self);
+
+	m = spawn("script_model", self.origin);
+    m.angles = self.angles;
+	m linkTo(nade);
+
+	self setOrigin(m.origin);
+	self linkTo(m);
 
 	// Wait untill greande is fully throwed to avoid interrupted jump
-	wait level.fps_multiplier * 0.13;
+	//wait level.fps_multiplier * 0.13;
 
 	// Link player to that script_model
-	player setOrigin(player.hilfsObjekt.origin);
-	player linkto(player.hilfsObjekt);
+	//player setOrigin(player.hilfsObjekt.origin);
+	//player linkto(player.hilfsObjekt);
 
 
 
-	old_origin = (0,0,0);
+	//old_origin = (0,0,0);
 
-	attack_button_pressed = false;
-	use_button_pressed = false;
+	// attack_button_pressed = false;
+	// use_button_pressed = false;
 
-	while(isDefined(self))
+	while(isDefined(nade) && self attackButtonPressed() == false)
 	{
 		// If grenade stops moving - break loop
-		if(self.origin == old_origin)
-			break;
+		//if(self.origin == old_origin)
+			//break;
 
-		old_origin = self.origin;
+		//old_origin = self.origin;
 
 		// Stop moving
-		if(player attackButtonPressed()) {
-			attack_button_pressed = true;
-			break;
-		}
+		// if(player attackButtonPressed()) {
+		// 	attack_button_pressed = true;
+		// 	break;
+		// }
 
 		// Restore position
-		if(player useButtonPressed()) {
-			use_button_pressed = true;
-			break;
-		}
+		// if(player useButtonPressed()) {
+		// {
+		// 	use_button_pressed = true;
+		// 	break;
+		// }
 
-		wait level.frame;
+		wait 0.05;
 	}
 
-	player.hilfsObjekt unlink();
+	logprint(self.name + " nade not defined or attackButtonPressed\n");
+
+	//player.hilfsObjekt unlink();
 
 
-	if(!use_button_pressed)
+	// if(!use_button_pressed)
+	// {
+	// 	if(attack_button_pressed)
+	// 	{
+	// 		for(i=0;i<3.5;i+=0.1) {
+
+	// 			wait level.fps_multiplier * 0.1;
+	// 			if(player useButtonPressed()) break;
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		player.hilfsObjekt moveto(player.origin+(0,0,20),0.1);
+	// 		wait level.fps_multiplier * 0.2;
+
+	// 		for(i=0;i<2;i+=0.1)
+	// 		{
+	// 			wait level.fps_multiplier * 0.1;
+	// 			if(player useButtonPressed()) break;
+	// 		}
+	// 	}
+	// }
+
+	// player.hilfsObjekt moveto(old_player_origin,0.1);
+	// wait level.fps_multiplier * 0.2;
+
+	// player unlink();
+	// if(isDefined(player.hilfsObjekt)) player.hilfsObjekt delete();
+
+	m unlink();
+	m moveTo(saved_origin,0.1);
+	wait 0.5;
+	self unlink();
+	self enableWeapon();
+	if (isDefined(m)) 
 	{
-		if(attack_button_pressed)
-		{
-			for(i=0;i<3.5;i+=0.1) {
-
-				wait level.fps_multiplier * 0.1;
-				if(player useButtonPressed()) break;
-			}
-		}
-		else
-		{
-			player.hilfsObjekt moveto(player.origin+(0,0,20),0.1);
-			wait level.fps_multiplier * 0.2;
-
-			for(i=0;i<2;i+=0.1)
-			{
-				wait level.fps_multiplier * 0.1;
-				if(player useButtonPressed()) break;
-			}
-		}
+		m delete();
 	}
 
-	player.hilfsObjekt moveto(old_player_origin,0.1);
-	wait level.fps_multiplier * 0.2;
+	self.flying = false;
 
-	player unlink();
-	if(isDefined(player.hilfsObjekt)) player.hilfsObjekt delete();
-
-	player.flying = false;
+	logprint(self.name + " fly egress\n");
 }
 
 /*

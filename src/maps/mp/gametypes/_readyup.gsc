@@ -1332,8 +1332,8 @@ HUD_ReadyUp_ResumingIn_ExtraTime()
 
 	// Set your team as ready to skip readyup
 	//level.setYourTeamAsReadyBG = maps\mp\gametypes\global\_global::addHUD(-160, 337, undefined, (1,1,1), "left", "top", "center", "top");
-	level.setYourTeamAsReadyBG = maps\mp\gametypes\global\_global::addHUD(160, 337, undefined, (1,1,1), "left", "top", "center", "top");
-    level.setYourTeamAsReadyBG setShader("black", 320, 20);
+	level.setYourTeamAsReadyBG = maps\mp\gametypes\global\_global::addHUD(140, 337, undefined, (1,1,1), "left", "top", "center", "top");
+    level.setYourTeamAsReadyBG setShader("black", 360, 20);
     level.setYourTeamAsReadyBG.alpha = 0.75;
 
     level.setYourTeamAsReady = maps\mp\gametypes\global\_global::newHudElem2();
