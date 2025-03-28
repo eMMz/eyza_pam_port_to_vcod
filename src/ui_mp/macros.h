@@ -355,8 +355,8 @@ itemDef  \
 #define ORIGIN_WEAPONIMAGE			310 110
 #define ORIGIN_GRENADESLOT1			310 170
 #define ORIGIN_GRENADESLOT2			330 170
-#define ORIGIN_USEDBY					302 250
-#define ORIGIN_USEDBY2					310 263
+#define ORIGIN_USEDBY						310 250
+#define ORIGIN_USEDBY2					320 263
 
 #define ITEM_WEAPON_SMOKE(originpos, stringname, weaponname, stringtext, cvartext, weaponimage, focusaction, doaction, grenadeimage, weaponclass) \
 ITEM_WEAPON(originpos, stringname, weaponname, stringtext, cvartext, weaponimage, focusaction, doaction, grenadeimage, weaponclass) \
