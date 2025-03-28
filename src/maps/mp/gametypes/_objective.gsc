@@ -53,6 +53,15 @@ setAllPlayersObjective() {
 setPlayerObjective()
 {
 	wait 0.05;
+	
+	self setClientCvar("cg_objective", text);
+		game["ALLIES_OBJECTIVETEXT"] = 		"@SD_OBJ_SPECTATOR_ALLIESATTACKING";
+		game["AXIS_OBJECTIVETEXT"] = 		"@SD_OBJ_SPECTATOR_AXISATTACKING";
+	
+	if(game["attackers"] == "allies")
+		self setClientCvar("cg_objective", game["ALLIES_OBJECTIVETEXT"]);
+	else if(game["attackers"] == "axis")
+		self setClientCvar("cg_objective", game["AXIS_OBJECTIVETEXT"]);
 
 	if (self.sessionstate == "intermission")
 	{
