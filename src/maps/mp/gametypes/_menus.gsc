@@ -142,8 +142,8 @@ onConnected()
 		self maps\mp\gametypes\global\_global::setClientCvar2("ui_allow_weaponchange", 1);
 
 		// If player have team, but not choozen weapon
-		if(!isDefined(self.pers["weapon"]))
-		{
+		// if(!isDefined(self.pers["weapon"]))
+		// {
 			if(self.pers["team"] == "allies")
 			{
 				scriptMainMenu = game["menu_weapon_allies"];
@@ -154,11 +154,11 @@ onConnected()
 				scriptMainMenu = game["menu_weapon_axis"];
 				self openMenu(game["menu_weapon_axis"]);
 			}
-		}
-		else // in team and with weapon
-		{
-			logprint("_menus:: in a team and with weapon\n");
-			scriptMainMenu = game["menu_ingame"];
+		// }
+		//else // in team and with weapon
+		//{
+			// logprint("_menus:: in a team and with weapon\n");
+			// scriptMainMenu = game["menu_ingame"];
 			/*
 			if(self.pers["team"] == "allies")
 			{
@@ -169,7 +169,7 @@ onConnected()
 				scriptMainMenu = game["menu_weapon_axis"];
 			}
 			*/
-		}
+		// }
 	}
 	else // spectator
 	{
@@ -216,7 +216,6 @@ onJoinedTeam(team)
 		logprint("_menus:: openMenu weapon axis\n");
 		self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_weapon_axis"]);
 		self openMenu(game["menu_weapon_axis"]);
-		logprint("openedpls?\n");
 	}
 	else if (team == "spectator" || team == "streamer")
 	{
@@ -236,7 +235,7 @@ Return true to indicate that menu response was handled in this function
 onMenuResponse(menu, response)
 {
 	logprint("_menus:: onMenuResponse start with menu=" + menu + ", response=" + response + " for player name " + self.name + "\n");
-	logprint("_menus:: g_scriptMainMenu=" + getCvar("g_scriptMainMenu") + "\n");
+	//logprint("_menus:: g_scriptMainMenu=" + getCvar("g_scriptMainMenu") + "\n");
 	
 	// Pam is not installed correctly, ignore other responses
 	if (level.pam_installation_error)
@@ -446,10 +445,19 @@ onMenuResponse(menu, response)
 	}
 	else if(menu == game["menu_weapon_allies"] || menu == game["menu_weapon_axis"])
 	{
-		if (response == "open" || response == "close") {
-			logPrint("_menus:: choosing weapon response=" + response + " - ignoring\n");
+		if (response == "ingame")
+		{
+			logPrint("_menus:: choosing menu_weapon response=" + response + " - opening ingame menu\n");
+			self closeMenu();
+			self openMenu(game["menu_ingame"]);
 			return true;
 		}
+		if (response == "open" || response == "close") 
+		{
+			logPrint("_menus:: choosing menu_weapon response=" + response + " - ignoring\n");
+			return true;
+		}
+
 		logprint("_menus:: choosing weapon " + response + " at onMenuResponse\n");
 		self closeMenu();
 		//self closeInGameMenu();

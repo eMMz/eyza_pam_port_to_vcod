@@ -3227,13 +3227,12 @@ menuWeapon(response)
 	primaryb = self getWeaponSlotWeapon("primaryb");
 
 	// After selecting a weapon, show "ingame" menu when ESC is pressed
-	self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_ingame"]);
-	/*
+	//self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_ingame"]);
 	if(self.pers["team"] == "allies")
-			self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_weapon_allies"]);
+		self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_weapon_allies"]);
 	else if(self.pers["team"] == "axis")
-			self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_weapon_axis"]);
-	*/
+		self maps\mp\gametypes\global\_global::setClientCvar2("g_scriptMainMenu", game["menu_weapon_axis"]);
+
 
 	// If newly selected weapon is same as actualy selected weapon and is in player slot -> do nothing
 	if(isdefined(self.pers["weapon"]))

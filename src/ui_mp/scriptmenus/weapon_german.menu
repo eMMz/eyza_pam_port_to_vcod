@@ -61,6 +61,8 @@
 		ITEM_BAR_BOTTOM_BUTTON("^9[ESC]^7 Close",	40, 70, close weapon_german;)
 		// Main menu
 		ITEM_BAR_BOTTOM_BUTTON("^9[SPACE]^7 Main Menu",	135, 120, close weapon_german; open main;)
+		// Ingame menu
+		ITEM_BAR_BOTTOM_BUTTON("^9[T]^7 Ingame Menu",	280, 100, scriptMenuResponse "ingame"; close weapon_german;)
 
 		execKey "1" { play "mouse_click"; scriptMenuResponse "kar98k_mp"; close weapon_german }
 		execKey "2" { play "mouse_click"; scriptMenuResponse "mp40_mp"; close weapon_german }
@@ -68,5 +70,6 @@
 		execKey "4" { play "mouse_click"; scriptMenuResponse "kar98k_sniper_mp"; close weapon_german }
 
 		execKeyInt 32 { play "mouse_click"; close weapon_german; open main; } // space
+		execKeyInt 116 { play "mouse_click"; close weapon_german; open ingame; } // 'T'
 	}
 }

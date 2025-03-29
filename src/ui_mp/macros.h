@@ -148,7 +148,7 @@ itemDef \
 #define DRAW_MAP_BACKGROUND_IF_BLACKOUT \
 itemDef \
 { \
-	rect 			-128 0 896 480 \
+	rect 			0 0 640 480 \
 	visible 		1 \
 	backcolor 		1 1 1 1 \
 	style 			WINDOW_STYLE_FILLED \

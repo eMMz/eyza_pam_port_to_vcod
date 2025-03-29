@@ -92,12 +92,14 @@ showWarningMessage()
 		//self.blackout_bg.vertAlign = "center_safearea"; // subtop top middle bottom fullscreen noscale alignto480 center_safearea
 		self.blackout_bg.alignx = "center";
 		self.blackout_bg.aligny = "middle";
+		self.blackout_bg.x = 320;
+		self.blackout_bg.y = 240;
 		self.blackout_bg.alpha = 1.0;
 		self.blackout_bg.color = (1, 1, 1);
 		self.blackout_bg.sort = -9999999;
 		self.blackout_bg.foreground = false;
 		//self.blackout_bg setShader("$levelBriefing", 896, 480);
-		self.blackout_bg setShader(game["layoutimage_sorted"], 896, 480);
+		self.blackout_bg setShader(game["layoutimage_sorted"], 640, 480);
 
 		self.blackout_info1 = maps\mp\gametypes\global\_global::newClientHudElem2(self);
 		self.blackout_info1.alignx = "center";

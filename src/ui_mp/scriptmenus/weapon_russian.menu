@@ -58,11 +58,14 @@
 		ITEM_BAR_BOTTOM_BUTTON("^9[ESC]^7 Close",	40, 70, close weapon_russian;)
 		// Main menu
 		ITEM_BAR_BOTTOM_BUTTON("^9[SPACE]^7 Main Menu",	135, 120, close weapon_russian; open main;)
+		// Ingame menu
+		ITEM_BAR_BOTTOM_BUTTON("^9[T]^7 Ingame Menu",	280, 100, scriptMenuResponse "ingame"; close weapon_russian;)
 
 		execKey "1" { play "mouse_click"; scriptMenuResponse "mosin_nagant_mp"; close weapon_russian }
 		execKey "2" { play "mouse_click"; scriptMenuResponse "ppsh_mp"; close weapon_russian }
 		execKey "3" { play "mouse_click"; scriptMenuResponse "mosin_nagant_sniper_mp"; close weapon_russian }
 
-		execKeyInt 32 { play "mouse_click"; close weapon_german; open main; } // space
+		execKeyInt 32 { play "mouse_click"; close weapon_russian; open main; } // space
+		execKeyInt 116 { play "mouse_click"; close weapon_russian; open ingame; } // 'T'
 	}
 }
