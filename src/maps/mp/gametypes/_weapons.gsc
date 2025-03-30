@@ -813,8 +813,7 @@ dropWeapon()
 
 	if(clipsize || reservesize) {
 		self dropItem(current);
-		wait 0.05; // wait before next "weapon_dropped" can be called
-		level notify("weapon_dropped", current, self);
+		level maps\mp\gametypes\_weapon_drop::handleWeaponDrop(current, self);
 	}
 
 }
@@ -884,8 +883,7 @@ dropNade()
 		{
 			grenadeType = self getWeaponSlotWeapon("grenade");
 			self dropItem(grenadeType);
-			wait 0.05;
-			level notify("weapon_dropped", grenadeType, self);
+			level maps\mp\gametypes\_weapon_drop::handleWeaponDrop(grenadeType, self);
 		}
 		
 		/*
@@ -932,8 +930,7 @@ dropSmoke()
 
 		if(ammosize) {
 			self dropItem(grenadetype);
-			wait 0.05; // wait before next "weapon_dropped" can be called
-			level notify("weapon_dropped", grenadetype, self);
+			level maps\mp\gametypes\_weapon_drop::handleWeaponDrop(grenadeType, self);
 		}
 	}
 }

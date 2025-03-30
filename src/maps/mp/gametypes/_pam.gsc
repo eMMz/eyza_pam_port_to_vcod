@@ -4,7 +4,7 @@ init()
 	logprint("_pam::init\n");
 	if(game["firstInit"])
 	{
-		maps\mp\gametypes\global\_global::precacheString2("STRING_VERSION_INFO", &"zPAM 3.33 for vCoD"); // ZPAM_RENAME
+		maps\mp\gametypes\global\_global::precacheString2("STRING_VERSION_INFO", &"zPAM 3.34 for vCoD"); // ZPAM_RENAME
 	}
 }
 

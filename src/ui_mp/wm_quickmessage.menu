@@ -125,12 +125,12 @@
 			textfont		UI_FONT_NORMAL
 			textscale		.24
 			textaligny		8
-			text			"0. Streamer"
+			text			"9. Streamer"
 			cvarTest 		"ui_quickmessage_streamer"
 			showCvar		{ "1"}
 			decoration
 		}
-		execKey "0" { open quickmessage_streamersystem_menu; close quickmessage; }
+		execKey "9" { open quickmessage_streamersystem_menu; close quickmessage; }
 
 		itemDef
 		{

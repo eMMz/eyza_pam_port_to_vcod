@@ -239,6 +239,8 @@ waitTime(time)
 	self endon("disconnect");
 	self endon("end_killcam");
 
+	if (time < 0) time = 0;
+
 	wait level.fps_multiplier * time;
 	self notify("end_killcam");
 }
@@ -248,7 +250,10 @@ waitKillcamTime()
 	self endon("disconnect");
 	self endon("end_killcam");
 
-	wait level.fps_multiplier * (self.archivetime - level.frame);
+	time = (self.archivetime - level.frame);
+	if (time < 0) time = 0;
+
+	wait level.fps_multiplier * time;
 	self notify("end_killcam");
 }
 

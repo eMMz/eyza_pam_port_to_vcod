@@ -2162,6 +2162,8 @@ updateTeamStatus()
 
 	resettimeout();
 
+	logprint("_sd::updateTeamStatus\n");
+
 	//PAM - Dont want a round to end during readyup
 	if (level.in_readyup)
 		return;
@@ -2189,6 +2191,7 @@ updateTeamStatus()
 	if(level.roundended)
 		return;
 
+	/*
 	// if both allies and axis were alive and now they are both dead in the same instance
 	if(oldvalue["allies"] && !level.exist["allies"] && oldvalue["axis"] && !level.exist["axis"])
 	{
@@ -2230,6 +2233,94 @@ updateTeamStatus()
 
 		thread teamWinner("axis");
 		level thread playSoundOnPlayers("MP_announcer_allies_win");
+		level thread endRound("allies");
+		return;
+	}
+	*/
+	if(oldvalue["allies"] && !level.exist["allies"] && oldvalue["axis"] && !level.exist["axis"])
+	{
+		if(!level.bombplanted)
+		{
+			logprint("_sd::updateTeamStatus 1\n");
+			announcement(&"SD_ROUNDDRAW");
+			level thread endRound("draw");
+			return;
+		}
+
+		if(game["attackers"] == "allies")
+		{
+			logprint("_sd::updateTeamStatus 2\n");
+			announcement(&"SD_ALLIEDMISSIONACCOMPLISHED");
+			level thread endRound("allies");
+			return;
+		}
+
+		logprint("_sd::updateTeamStatus 3\n");
+		announcement(&"SD_AXISMISSIONACCOMPLISHED");
+		level thread endRound("axis");
+		return;
+	}
+
+	if(oldvalue["allies"] && !level.exist["allies"])
+	{
+		// no bomb planted, axis win
+		if(!level.bombplanted)
+		{
+			logprint("_sd::updateTeamStatus 4\n");
+			announcement(&"SD_ALLIESHAVEBEENELIMINATED");
+			level thread endRound("axis");
+			return;
+		}
+
+		if(game["attackers"] == "allies")
+		{
+			logprint("_sd::updateTeamStatus no ann 1\n");
+			return;
+		}
+		
+		// allies just died and axis have planted the bomb
+		if(level.exist["axis"])
+		{
+			logprint("_sd::updateTeamStatus 5\n");
+			announcement(&"SD_ALLIESHAVEBEENELIMINATED");
+			level thread endRound("axis");
+			return;
+		}
+
+		logprint("_sd::updateTeamStatus 6\n");
+		announcement(&"SD_AXISMISSIONACCOMPLISHED");
+		level thread endRound("axis");
+		return;
+	}
+	
+	if(oldvalue["axis"] && !level.exist["axis"])
+	{
+		// no bomb planted, allies win
+		if(!level.bombplanted)
+		{
+			logprint("_sd::updateTeamStatus 7\n");
+			announcement(&"SD_AXISHAVEBEENELIMINATED");
+			level thread endRound("allies");
+			return;
+ 		}
+ 		
+ 		if(game["attackers"] == "axis")
+		{
+			logprint("_sd::updateTeamStatus no ann 2\n");
+			return;
+		}
+		
+		// axis just died and allies have planted the bomb
+		if(level.exist["allies"])
+		{
+			logprint("_sd::updateTeamStatus 8\n");
+			announcement(&"SD_AXISHAVEBEENELIMINATED");
+			level thread endRound("allies");
+			return;
+		}
+		
+		logprint("_sd::updateTeamStatus 9\n");
+		announcement(&"SD_ALLIEDMISSIONACCOMPLISHED");
 		level thread endRound("allies");
 		return;
 	}
@@ -2738,6 +2829,15 @@ bomb_countdown()
 
 	logprint("sd:: after earthquake\n");
 
+	if(game["attackers"] == "allies")
+	{
+		announcement(&"SD_ALLIEDMISSIONACCOMPLISHED");
+	}
+	else if(game["attackers"] == "axis")
+	{
+		announcement(&"SD_AXISMISSIONACCOMPLISHED");
+	}
+
 	//level thread playSoundOnPlayers("mp_announcer_objdest");
 	level thread endRound(level.planting_team);
 }
@@ -3202,14 +3302,27 @@ menuWeapon(response)
 		return;
 	}
 
+	primary = self getWeaponSlotWeapon("primary");
+	primaryb = self getWeaponSlotWeapon("primaryb");
+	grenadeSlotWeapon = self getWeaponSlotWeapon("grenade");
+
 	// Used by bots
 	if (response == "random")
 	{
 		logprint("_menuWeapon:: response is random\n");
 		response = self maps\mp\gametypes\_weapons::getRandomWeapon();
 	}
+	// Secondary replacement with pistol
+	else if (response == "pistol" && self maps\mp\gametypes\_weapon_limiter::isPistolSelectable())
+	{
+		//self takeWeapon(primaryb); // Remove weapon
+		//maps\mp\gametypes\_weapons::givePistol();
+		//self switchToWeapon(self getWeaponSlotWeapon("primaryb"));
+		logprint("sd::menuWeapon secondary slot replacement with pistol doesnt make sense in vCoD\n");
+		return;
+	}
 
-	// Weapon is not valid or is in use
+	// Weapon is not valid or is in use, or is pistol
 	if(!self maps\mp\gametypes\_weapon_limiter::isWeaponAvailable(response))
 	{
 		logprint("_menuWeapon:: weapon is not valid or is in use - opening weapon menu again\n");
@@ -3237,7 +3350,7 @@ menuWeapon(response)
 	// If newly selected weapon is same as actualy selected weapon and is in player slot -> do nothing
 	if(isdefined(self.pers["weapon"]))
 	{
-		if (self.pers["weapon"] == weapon && primary == weapon && maps\mp\gametypes\_weapons::isPistol(primaryb))
+		if (self.pers["weapon"] == weapon && primary == weapon)
 		{
 			logprint("_menuWeapon:: do nothing, weapon selected is in player slot already\n");
 			return;
@@ -3351,12 +3464,14 @@ menuWeapon(response)
 					maps\mp\gametypes\_weapons::givePistol();
 				}
 
+				/*
 				// If I select the same weapon that is already in slot, it means I want to remove secondary weapon to pistol
 				if (weapon == primary && maps\mp\gametypes\_weapons::isMainWeapon(primaryb))
 				{
 					self takeWeapon(primaryb); // Remove weapon
 					maps\mp\gametypes\_weapons::givePistol();
 				}
+				*/
 
 				self.spawnedWeapon = weapon;
 

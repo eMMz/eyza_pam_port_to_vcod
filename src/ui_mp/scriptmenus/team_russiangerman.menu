@@ -96,66 +96,7 @@
 		execKeyInt 32 { play "mouse_click"; close team_russiangerman; open main; } // space
 		execKeyInt 105 { play "mouse_click"; scriptMenuResponse "serverinfo"; close team_russiangerman; } // i
 		
-				/////////////////////
-		//// matchinfo
-		MATCHINFO2("ui_matchinfo_team1_team", "ui_matchinfo_team2_team", "ui_matchinfo_show", 0.3 0.3 0.9 .9, 0.7 0 0 .8)
 
-		itemDef
-		{
-			visible			1
-			rect				-100 0 200 24
-			origin			320 30
-			forecolor		1 1 1 0.5
-			type				ITEM_TYPE_BUTTON
-			text				"Show in game"
-			textfont		UI_FONT_NORMAL
-			textscale		.25
-			textstyle		ITEM_TEXTSTYLE_SHADOWED
-			textaligny	20
-			textalignx	100
-			textalign		ITEM_ALIGN_CENTER
-			Cvartest		"ui_matchinfo_ingame_show"
-			hideCvar		{ "1" }
-			action
-			{
-				play "mouse_click";
-				//exec "openscriptmenu quicksettings matchinfo";
-				scriptMenuResponse "quicksettings_matchinfo";
-			}
-			onFocus
-			{
-				play "mouse_over";
-			}
-		}
-
-
-		itemDef
-		{
-			visible			1
-			rect				-100 0 200 24
-			origin			320 30
-			forecolor		1 1 1 0.5
-			type				ITEM_TYPE_BUTTON
-			text				"Hide in game"
-			textfont		UI_FONT_NORMAL
-			textscale		.25
-			textstyle		ITEM_TEXTSTYLE_SHADOWED
-			textaligny	20
-			textalignx	100
-			textalign		ITEM_ALIGN_CENTER
-			Cvartest		"ui_matchinfo_ingame_show"
-			showCvar		{ "1" }
-			action
-			{
-				play "mouse_click";
-				//exec "openscriptmenu quicksettings matchinfo";
-				scriptMenuResponse "quicksettings_matchinfo";
-			}
-			onFocus
-			{
-				play "mouse_over";
-			}
-		}
 
 
 		/////////////////////////

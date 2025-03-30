@@ -596,8 +596,8 @@ player_loop()
 
 		if (firstRun)
 		{
-			self givemaxammo(weapon1);
-			self givemaxammo(weapon2);
+			//self givemaxammo(weapon1);
+			//self givemaxammo(weapon2);
 			//self setweaponclipammo(weapon1, 999);
 			//self setweaponclipammo(weapon2, 999);
 			self setWeaponSlotClipAmmo("weapon1", 999);

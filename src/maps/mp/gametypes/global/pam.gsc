@@ -14,8 +14,8 @@ init()
 
 	maps\mp\gametypes\global\_global::addEventListener("onCvarChanged", ::onCvarChanged);
 
-	//maps\mp\gametypes\global\_global::registerCvarEx("I", "pam_mode", "STRING", "comp", maps\mp\gametypes\global\rules::IsValidPAMMode);
-	maps\mp\gametypes\global\_global::registerCvarEx("I", "pam_mode", "STRING", "comp_mr1", maps\mp\gametypes\global\rules::IsValidPAMMode);
+	maps\mp\gametypes\global\_global::registerCvarEx("I", "pam_mode", "STRING", "comp", maps\mp\gametypes\global\rules::IsValidPAMMode);
+	//maps\mp\gametypes\global\_global::registerCvarEx("I", "pam_mode", "STRING", "comp_mr1", maps\mp\gametypes\global\rules::IsValidPAMMode);
 	maps\mp\gametypes\global\_global::registerCvarEx("I", "pam_mode_custom", "BOOL", false);
 
 
@@ -368,19 +368,7 @@ ChangeTo(mode)
 	// Reset custom cvars
 	setCvar("pam_mode_custom", 0);
 
-	russianSubModeChanged = maps\mp\gametypes\global\_global::contains(level.pam_mode, "russian") != maps\mp\gametypes\global\_global::contains(mode, "russian");
-
-	if (russianSubModeChanged)
-	{
-		//map(level.mapname, false);
-		logprint("pam:: Invoked exitLevel(false)\n");
-		exitLevel(false);
-	}
-	else
-	{
-		logprint("pam:: Invoked map_restart(false)\n");
-		map_restart(false); // fast_restart
-	}
+	map_restart(false); // fast_restart
 }
 
 

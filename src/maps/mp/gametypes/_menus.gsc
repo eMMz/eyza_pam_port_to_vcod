@@ -142,8 +142,8 @@ onConnected()
 		self maps\mp\gametypes\global\_global::setClientCvar2("ui_allow_weaponchange", 1);
 
 		// If player have team, but not choozen weapon
-		// if(!isDefined(self.pers["weapon"]))
-		// {
+		if(!isDefined(self.pers["weapon"]))
+		{
 			if(self.pers["team"] == "allies")
 			{
 				scriptMainMenu = game["menu_weapon_allies"];
@@ -154,7 +154,7 @@ onConnected()
 				scriptMainMenu = game["menu_weapon_axis"];
 				self openMenu(game["menu_weapon_axis"]);
 			}
-		// }
+		}
 		//else // in team and with weapon
 		//{
 			// logprint("_menus:: in a team and with weapon\n");

@@ -18,7 +18,12 @@ onConnected()
 // Is called only once when map_restart
 onConnectedAll()
 {
-    level thread Update_All_Weapon_Limits();
+	wait 0.05;
+
+	level thread onStratimeOver();
+
+	level thread Update_All_Weapon_Limits();
+	level thread Update_All_Pistol();
 }
 
 onDisconnect()
@@ -61,9 +66,35 @@ onWeaponChanged()
 
 
         level thread Update_All_Weapon_Limits();
+
+		if (isDefined(level.in_strattime) && level.in_strattime)
+			self Update_Client_Pistol();
     }
 }
 
+onStratimeOver()
+{
+	if (isDefined(level.in_strattime) && level.in_strattime)
+	{
+		level waittill("strat_time_end");
+		wait 0.05;
+
+		level thread Update_All_Pistol();
+	}
+}
+
+
+Update_All_Pistol()
+{
+	// Count number of used weapons in each class
+	players = getentarray("player", "classname");
+	for(p = 0; p < players.size; p++)
+	{
+		player = players[p];
+
+		player Update_Client_Pistol();
+	}
+}
 
 // Needs to be called when weapon statuses may have changed:
 // Player Disconnect, Player Changes Teams (allies,axis,spec), Player Changes weapon, Class-Cvar changed, weapon is dropped/taken
@@ -330,6 +361,18 @@ isWeaponSelectable(weaponname)
 	return true;
 }
 
+isPistolSelectable()
+{
+	primary = self getWeaponSlotWeapon("primary");
+	primaryb = self getWeaponSlotWeapon("primaryb");
+
+	if (!maps\mp\gametypes\_weapons::isPistol(primary) && maps\mp\gametypes\_weapons::isMainWeapon(primaryb) &&
+	  isDefined(self.pers["weapon"]) && !level.in_readyup && isDefined(level.in_strattime) && level.in_strattime)
+		return true;
+
+	return false;
+}
+
 
 getUsageOfWeaponClass(weaponclass, countSelf)
 {
@@ -493,4 +536,26 @@ Update_Client_Weapon(player, weaponname, team)
 		}
 	}
 
+}
+
+Update_Client_Pistol()
+{
+	/*
+	0 - hided
+	1 - visible
+	2 - disabled
+	*/
+	cvarValue = 0; // hided
+
+	if (level.gametype == "sd" && level.in_strattime)
+	{
+		if (self isPistolSelectable())
+			cvarValue = 1; // 1 = visible
+		else
+			cvarValue = 2; // disabled
+	}
+
+	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_allow_pistol", cvarValue);
+
+	//self iprintln("Update_Client_Pistol(" + cvarValue + ") for " + self.name);
 }

@@ -13,7 +13,7 @@
 		//blurWorld		5.0
 		onOpen
 		{
-			CLOSE_SUBMENUS;
+			//CLOSE_SUBMENUS;
 			exec "set cg_drawstatus 0";
 
 			// Make sure cursor is enable (in case of spectator menu fails)
@@ -22,15 +22,16 @@
 		}
 		onClose
 		{
-			CLOSE_SUBMENUS;
+			HIDE_ALL
+			//CLOSE_SUBMENUS;
 			close matchinfo;
 			exec "set cg_drawstatus 1";
 		}
 		onEsc
 		{
-			HIDE_ALL
+			//HIDE_ALL
 			close weapon_german;
-			close matchinfo;
+			//close matchinfo;
 			exec "set cg_drawstatus 1";
 		}
 		

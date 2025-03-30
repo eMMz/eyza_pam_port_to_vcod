@@ -118,7 +118,7 @@ onConnected()
 		if (game["scr_matchinfo"] == 2)
 		{
 			//waittillframeend;
-			wait 0.01;
+			wait 0.05;
 			// Update team names in scoreboard
 			self updateTeamNames();
 		}
@@ -542,15 +542,15 @@ UpdatePlayerCvars()
 
 		side_left_team = "";
 		side_right_team = "";
-		if (side_left == "allies")
-		{
-			side_left_team = game["allies"]; // american british russian
-			side_right_team = game["axis"];	 // german
-		}
-		else
+		if (side_left == "axis" || side_right == "allies")
 		{
 			side_left_team = game["axis"]; 	  // german
 			side_right_team = game["allies"]; // american british russian
+		}
+		else // also if sides not set
+		{
+			side_left_team = game["allies"]; // american british russian
+			side_right_team = game["axis"];	 // german
 		}
 
 

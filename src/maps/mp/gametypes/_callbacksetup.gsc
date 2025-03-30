@@ -355,6 +355,10 @@ CodeCallback_PlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath
 	// Don't do knockback if the damage direction was not specified
 	if(!isdefined(vDir))
 		iDFlags |= level.iDFLAGS_NO_KNOCKBACK;
+	
+	// Ignore grenade hit to dead player (happends when player is hitted by multiple players)
+	if (sMeansOfDeath == "MOD_GRENADE_SPLASH" && !isAlive(self))
+		return;
 
 	damageFeedback = 1;
 
