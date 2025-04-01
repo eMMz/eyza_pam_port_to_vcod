@@ -1334,7 +1334,15 @@ startRound()
 	// Hide score if it may be hidden
 	level maps\mp\gametypes\_hud_teamscore::hideScore(0.5);
 	// Show clock
-	level thread HUD_Clock(level.roundlength * 60);
+	level.clock = maps\mp\gametypes\global\_global::newHudElem2();
+	level.clock.font = "bigfixed";
+	level.clock.alignX = "center";
+	level.clock.alignY = "middle";
+	level.clock.color = (1, 1, 1);
+	level.clock.x = 320;
+	level.clock.y = 460;
+	//level.clock setTimer(countDownTime);
+	level thread HUD_ClockDecoration(level.roundlength * 60);
 	// Say "Movin!" objective
 	level thread sayObjective();
 
@@ -1370,9 +1378,19 @@ startRound()
 	// Disable name changing to avoid spamming
 	setClientNameMode("manual_change"); // name is changed after map restart
 
+	roundCountDownTime = level.roundlength * 60;
+	if (roundCountDownTime > 15) {
+		// until 15 secs is left, use timer w/o millis
+		roundCountDownTimeSubstracted = roundCountDownTime - 15;
+		level.clock setTimer(roundCountDownTime);
+		wait level.fps_multiplier * roundCountDownTimeSubstracted;
+	}
+	// when 15 secs is left, use timer w/ millis
+	level.clock setTenthsTimer(15);
+	wait level.fps_multiplier * 15;
 
 	// Wait until round time expires (2 min default)
-	wait level.fps_multiplier * level.roundlength * 60;
+	//wait level.fps_multiplier * level.roundlength * 60;
 
 
 	// Time expired
@@ -1419,20 +1437,20 @@ streamer_reset_round_kills()
 
 
 
-HUD_Clock(countDownTime)
+HUD_ClockDecoration(countDownTime)
 {
-	level.clock = maps\mp\gametypes\global\_global::newHudElem2();
-	level.clock.font = "bigfixed";
-	//level.clock.fontscale = 2;
-	//level.clock.horzAlign = "center_safearea";
-	//level.clock.vertAlign = "top";
-	level.clock.alignX = "center";
-	level.clock.alignY = "middle";
-	level.clock.color = (1, 1, 1);
-	//level.clock.x = 0;
-	level.clock.x = 320;
-	level.clock.y = 460;
-	level.clock setTimer(countDownTime);
+	// level.clock = maps\mp\gametypes\global\_global::newHudElem2();
+	// level.clock.font = "bigfixed";
+	// //level.clock.fontscale = 2;
+	// //level.clock.horzAlign = "center_safearea";
+	// //level.clock.vertAlign = "top";
+	// level.clock.alignX = "center";
+	// level.clock.alignY = "middle";
+	// level.clock.color = (1, 1, 1);
+	// //level.clock.x = 0;
+	// level.clock.x = 320;
+	// level.clock.y = 460;
+	// level.clock setTimer(countDownTime);
 
 	// If strattime is enabled, show fade-in animation
 	if (level.strat_time > 0)
@@ -1635,32 +1653,32 @@ HUD_RoundInfo(time)
 
 
 // self is bomb trigger
-HUD_ShowBombTimers()
+HUD_UpdateBombTimerColor()
 {
 	self endon("bomb_defused");
 	self endon("bomb_exploded");
 
-	countDownTime = level.bombtimer; // seconds
+	// countDownTime = level.bombtimer; // seconds
 
-	//level.bombtimerhud = maps\mp\gametypes\global\_global::addHUD(6, 76, undefined, undefined, "left", "top", "left", "top");
-	//level.bombtimerhud maps\mp\gametypes\global\_global::showHUDSmooth(0.1);
-	//level.bombtimerhud.foreground = true;  // visible if menu opened
-	//level.bombtimerhud setClock(countDownTime, 60, "hudStopwatch", 48, 48);
+	// //level.bombtimerhud = maps\mp\gametypes\global\_global::addHUD(6, 76, undefined, undefined, "left", "top", "left", "top");
+	// //level.bombtimerhud maps\mp\gametypes\global\_global::showHUDSmooth(0.1);
+	// //level.bombtimerhud.foreground = true;  // visible if menu opened
+	// //level.bombtimerhud setClock(countDownTime, 60, "hudStopwatch", 48, 48);
 
 
-	level.clock = maps\mp\gametypes\global\_global::newHudElem2();
-	level.clock.font = "bigfixed";
-	//level.clock.fontscale = 1.5;
-	//level.clock.horzAlign = "center_safearea";
-	//level.clock.vertAlign = "top";
-	level.clock.alignX = "center";
-	level.clock.alignY = "middle";
-	level.clock.color = (1, 1, 1);
-	//level.clock.x = 0;
-	level.clock.x = 320;
-	level.clock.y = 460;
-	//level.clock setTimer(countDownTime - 1.1);
-	level.clock setTimer(countDownTime);
+	// level.clock = maps\mp\gametypes\global\_global::newHudElem2();
+	// level.clock.font = "bigfixed";
+	// //level.clock.fontscale = 1.5;
+	// //level.clock.horzAlign = "center_safearea";
+	// //level.clock.vertAlign = "top";
+	// level.clock.alignX = "center";
+	// level.clock.alignY = "middle";
+	// level.clock.color = (1, 1, 1);
+	// //level.clock.x = 0;
+	// level.clock.x = 320;
+	// level.clock.y = 460;
+	// //level.clock setTimer(countDownTime - 1.1);
+	// level.clock setTimer(countDownTime);
 
 
 	time_start = gettime();
@@ -1702,8 +1720,8 @@ HUD_ShowBombTimers()
 // Called when bomb exploded or bomb is defused
 HUD_DeleteBombTimers()
 {
-	if (isDefined(level.bombtimerhud))
-		level.bombtimerhud destroy();
+	//if (isDefined(level.bombtimerhud))
+		//level.bombtimerhud destroy();
 
 	// Set real remaining time
 	if (isDefined(level.clock))
@@ -2763,12 +2781,37 @@ bomb_countdown()
 	self endon("bomb_defused");
 	level endon("intermission");
 
+	countDownTime = level.bombtimer; // seconds
 	//PAM
-	if (level.show_bombtimer)
-		self thread HUD_ShowBombTimers();
+	if (level.show_bombtimer) {
+		
+
+		level.clock = maps\mp\gametypes\global\_global::newHudElem2();
+		level.clock.font = "bigfixed";
+		level.clock.alignX = "center";
+		level.clock.alignY = "middle";
+		level.clock.color = (1, 1, 1);
+		level.clock.x = 320;
+		level.clock.y = 460;
+
+		self thread HUD_UpdateBombTimerColor();
+	}
+
 	level.bombmodel playLoopSound("bomb_tick");
 
-	wait level.fps_multiplier * level.bombtimer;
+	if (countDownTime > 15) {
+		// until 15 secs is left, use timer w/o millis
+		countDownTimeSubstracted = countDownTime - 15;
+		level.clock setTimer(countDownTime);
+		wait level.fps_multiplier * countDownTimeSubstracted;
+
+		
+	}
+	// when 15 secs is left, use timer w/ millis
+	level.clock setTenthsTimer(15);
+	wait level.fps_multiplier * 15;
+	//level.clock setTenthsTimer(countDownTime);
+	//wait level.fps_multiplier * countDownTime;
 
 	// bomb timer is up
 	objective_delete(0);
@@ -3006,10 +3049,10 @@ sayObjective()
 {
 	level endon("running_timeout");
 
-	attacksounds["american"] = "US_mp_cmd_movein";
-	attacksounds["british"] = "UK_mp_cmd_movein";
-	attacksounds["russian"] = "RU_mp_cmd_movein";
-	attacksounds["german"] = "GE_mp_cmd_movein";
+	attacksounds["american"] = "american_move_in";
+	attacksounds["british"] = "british_move_in";
+	attacksounds["russian"] = "russian_move_in";
+	attacksounds["german"] = "german_move_in";
 	defendsounds["american"] = "US_mp_defendbomb";
 	defendsounds["british"] = "UK_mp_defendbomb";
 	defendsounds["russian"] = "RU_mp_defendbomb";
