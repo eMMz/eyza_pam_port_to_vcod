@@ -316,7 +316,7 @@ onStartGameType()
 	level.roundended = false;
 	level.bombplanted = false;
 	level.bombexploded = false;
-	level.bombKill = false;
+	//level.bombKill = false;
 
 
 
@@ -641,13 +641,13 @@ onPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon,
 onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime)
 {
 	// If bomb explodes, set the planting player as the attacker of bomb explosion
-	if (level.bombKill && isDefined(level.planting_player) && isPlayer(level.planting_player) && eAttacker.classname == "worldspawn")
-	{
-		//iprintln("Killed by bomb!!");
-		// Prevent killing teammates by player - it can be abused to decrease player kill score
-		//if (self.pers["team"] != level.planting_player.pers["team"])
-		eAttacker = level.planting_player;
-	}
+	// if (level.bombKill && isDefined(level.planting_player) && isPlayer(level.planting_player) && eAttacker.classname == "worldspawn")
+	// {
+	// 	//iprintln("Killed by bomb!!");
+	// 	// Prevent killing teammates by player - it can be abused to decrease player kill score
+	// 	//if (self.pers["team"] != level.planting_player.pers["team"])
+	// 	eAttacker = level.planting_player;
+	// }
 
 	isFriendlyFire = false; // used for log
 
@@ -942,11 +942,11 @@ onAfterPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir,
 	{
 		doKillcam = false;
 
-		if (!level.bombKill) // Dont decrease score for planter if bomb kills friently
-		{
-			self.pers["score"]--;
-			self.score = self.pers["score"];
-		}
+		// if (!level.bombKill) // Dont decrease score for planter if bomb kills friently
+		// {
+		// 	self.pers["score"]--;
+		// 	self.score = self.pers["score"];
+		// }
 	}
 
 
@@ -2858,14 +2858,15 @@ bomb_countdown()
 	logprint("sd:: flame around bomb\n");
 
 	// Do damage to players near bomb
-	level.bombKill = true;
-	radiusDamage(origin, range, maxdamage, mindamage);
+	//level.bombKill = true;
+	//radiusDamage(origin, range, maxdamage, mindamage);
+	customRadiusDamage(origin);
 	
 	logprint("sd:: radius damage completed\n");
 
 	// Wait untill all kills are processed
 	wait 0.05;
-	level.bombKill = false;
+	//level.bombKill = false;
 
 	// Add earth quake around bomb
 	//earthquake(0.2, 2, origin, 1200);
@@ -2883,6 +2884,82 @@ bomb_countdown()
 
 	//level thread playSoundOnPlayers("mp_announcer_objdest");
 	level thread endRound(level.planting_team);
+}
+
+customRadiusDamage(bombOrigin)
+{
+	players = getentarray("player", "classname");
+	for(i = 0; i < players.size; i++)
+	{
+    	player = players[i];
+        selectedDmg = getBombDamageByDistanceForMap(distance(player.origin, bombOrigin), level.mapname);
+        if(selectedDmg > 0)
+        {
+			logprint("customRadiusDamage player " + player.name + " will receive " + selectedDmg + " damage from bomb.\n");
+            radiusDamage(player.origin, 0.01, selectedDmg, selectedDmg);
+        }
+		else
+		{
+			logprint("customRadiusDamage player=" + player.name + " is too far from bomb. No damamge.\n");
+		}
+	}
+}
+
+getBombDamageByDistanceForMap(distance, currentMap)
+{
+	maxDistance = 0;
+	switch(currentMap)
+	{
+		case "mp_brecourt":
+			maxDistance = 1200;
+			break;
+		case "mp_carentan":
+			maxDistance = 1000;
+			break;
+		case "mp_dawnville":
+			maxDistance = 1100;
+			break;
+		case "mp_depot":
+			maxDistance = 800;
+			break;
+		case "german_town":
+			maxDistance = 750;
+			break;
+		case "xp_hanoi":
+			maxDistance = 900;
+			break;
+		case "mp_harbor":
+			maxDistance = 1100;
+			break;
+		case "mp_neuville":
+			maxDistance = 1100;
+			break;
+		case "mp_powcamp":
+			maxDistance = 1000;
+			break;
+		case "mp_railyard":
+			maxDistance = 1300;
+			break;
+		case "mp_tigertown":
+			maxDistance = 1100;
+			break;
+		default:
+			logprint("Unknown map " + currentMap + " - setting default maxDistance to 1000\n");
+			maxDistance = 1000;
+			break;
+	}
+
+	logprint("current distance: " + distance + " on " + currentMap + ", maxDistance from bomb=" + maxDistance + "\n");
+
+	if (distance >= maxDistance)
+	{
+		return 0;
+	}
+	else
+	{
+		baseDamage = 250;
+		return baseDamage - (int)(baseDamage * (distance/maxDistance));
+	}
 }
 
 bomb_think()

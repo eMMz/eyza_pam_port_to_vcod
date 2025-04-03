@@ -34,6 +34,12 @@ CodeCallback_PlayerCommand(command_object)
 			self rupBots();
 			return;
 		}
+
+        if (command_object[0] == "distanceFromBomb")
+        {
+            self checkDistanceFromBomb();
+            return;
+        }
     }
     self processClientCommand();
 }
@@ -100,4 +106,16 @@ rupBots()
 {
 	for(i = 0; i < self.bots.size; i++)
         self.bots[i] thread botPressUse();
+}
+
+checkDistanceFromBomb()
+{
+    bombzone_A = getent("bombzone_A", "targetname");
+	bombzone_B = getent("bombzone_B", "targetname");
+
+    distFromA = distance(self.origin, bombzone_A.origin);
+    distFromB = distance(self.origin, bombzone_B.origin);
+
+    logprint("distFromA=" + distFromA + "\n");
+    logprint("distFromB=" + distFromB + "\n");
 }
