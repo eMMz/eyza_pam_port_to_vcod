@@ -373,6 +373,13 @@ onMenuResponse(menu, response)
 			self maps\mp\gametypes\_menu_serverinfo::updateServerInfo();
 			return true;
 		}
+		if (response == "viewmap")
+		{
+			logprint("_menus:: at menu_ingame and viewmap\n");
+			//self closeMenu();
+			self openMenu(game["menu_viewmap"]);
+			return true;
+		}
 		if (response == "callvote")
 		{
 			self closeMenu();
@@ -431,6 +438,11 @@ onMenuResponse(menu, response)
 			if(self.pers["team"] != teamBefore)
 				self thread printTeamChanged(self.name + " Joined as Streamer", "");
 			break;
+		case "viewmap":
+			logprint("_menus:: at menu_team and viewmap\n");
+			//self closeMenu();
+			self openMenu(game["menu_viewmap"]);
+			break;
 		/*
 		case "options":
 			self closeMenu();
@@ -482,7 +494,13 @@ onMenuResponse(menu, response)
 		return true;
 	}
 
-
+	if (menu == -1 && response == "viewmap")
+	{
+		logprint("_menus:: -1 and viewmap at onMenuResponse\n");
+		//self closeMenu();
+		self openMenu(game["menu_viewmap"]);
+		return true;
+	}
 }
 
 printTeamChanged(text, name) {

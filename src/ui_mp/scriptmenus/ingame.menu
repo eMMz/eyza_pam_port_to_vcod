@@ -57,7 +57,7 @@
 		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE3, "3. Call Vote", 		"ui_allowvote", showCvar{"1"}, ;, scriptMenuResponse "callvote" ; close ingame;)
 		ITEM_BUTTON_ONCVAR_DISABLED	(ORIGIN_CHOICE3, "3. Call Vote", 		"ui_allowvote", hideCvar{"1"}, ;)
 		
-		ITEM_BUTTON (ORIGIN_CHOICE4, "4. View Map",;, open "viewmap"; close ingame;)
+		ITEM_BUTTON (ORIGIN_CHOICE4, "4. View Map",;, scriptMenuResponse "viewmap"/*; close ingame;*/)
 
 		ITEM_CVAR("ui_timeout_info", 158, 175, 0.24, ITEM_ALIGN_LEFT, 1.0 1.0 1.0 1.0)
 
@@ -74,7 +74,7 @@
 		execKey "1" { play "mouse_click"; scriptMenuResponse "changeweapon"; close ingame; }
 		execKey "2" { play "mouse_click"; scriptMenuResponse "changeteam"; close ingame; }
 		execKey "3" { play "mouse_click"; scriptMenuResponse "callvote"; close ingame; }
-		execKey "4" { play "mouse_click"; open "viewmap"; close ingame;}
+		execKey "4" { play "mouse_click"; scriptMenuResponse "viewmap"/*; close ingame;*/}
 		execKey "5" { play "mouse_click"; CLOSE_ALL; open leavegame }
 
 		execKeyInt 32 { play "mouse_click"; CLOSE_ALL; open main; } // space
@@ -128,8 +128,8 @@
 			decoration
 		}
 
-		ITEM_TEXT("Score:     Kill +1   |   Teamkill -1   |   Assist plant defuse +0.5",  229, 395, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
-		ITEM_TEXT("Hits:        Scope/Rifle +1   |   Semi/Automatic/Shotgun +0.5",  229, 406, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
+		//ITEM_TEXT("Score:     Kill +1   |   Teamkill -1   |   Assist plant defuse +0.5",  229, 395, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
+		//ITEM_TEXT("Hits:        Scope/Rifle +1   |   Semi/Automatic/Shotgun +0.5",  229, 406, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
 
 		ITEM_SCOREBOARD(220, 84)
 	}

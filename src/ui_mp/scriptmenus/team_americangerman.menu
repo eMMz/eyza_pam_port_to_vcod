@@ -17,7 +17,7 @@
 			
 
 			// Make sure cursor is enable (in case of spectator menu fails)
-			setDvar cl_bypassMouseInput "0" // enable cursor movement
+			setCvar cl_bypassMouseInput "0" // enable cursor movement
 
 		}
 		onClose
@@ -64,7 +64,7 @@
 		ITEM_BUTTON_ONCVAR		(ORIGIN_CHOICE5, "5. Streamer", "ui_allow_joinstreamer", showCvar{"1"}, ; , scriptMenuResponse "streamer" ; close team_americangerman;)
 		
 		// Viewmap: 6. View map
-		ITEM_BUTTON (ORIGIN_CHOICE6, "6. View Map",;, open "viewmap"; close ingame;)
+		ITEM_BUTTON (ORIGIN_CHOICE6, "6. View Map",;, scriptMenuResponse "viewmap"; close ingame;)
 
 
 
@@ -90,7 +90,7 @@
         execKey "3" { play "mouse_click"; scriptMenuResponse "autoassign" ; close team_americangerman; }
 		execKey "4" { play "mouse_click"; scriptMenuResponse "spectator" ; close team_americangerman; }
 		execKey "5" { play "mouse_click"; scriptMenuResponse "streamer" ; close team_americangerman; }
-		execKey "6" { play "mouse_click"; open "viewmap"; close ingame;}
+		execKey "6" { play "mouse_click"; scriptMenuResponse "viewmap"; close ingame;}
 
 		execKeyInt 32 { play "mouse_click"; close team_americangerman; open main; } // space
 		execKeyInt 105 { play "mouse_click"; scriptMenuResponse "serverinfo"; close team_americangerman; } // i
@@ -143,8 +143,8 @@
 			decoration
 		}
 
-		ITEM_TEXT("Score:     Kill +1   |   Teamkill -1   |   Assist plant defuse +0.5",  229, 395, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
-		ITEM_TEXT("Hits:        Scope/Rifle +1   |   Semi/Automatic/Shotgun +0.5",  229, 406, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
+		//ITEM_TEXT("Score:     Kill +1   |   Teamkill -1   |   Assist plant defuse +0.5",  229, 395, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
+		//ITEM_TEXT("Hits:        Scope/Rifle +1   |   Semi/Automatic/Shotgun +0.5",  229, 406, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
 
 		ITEM_SCOREBOARD(220, 84)
 	}
