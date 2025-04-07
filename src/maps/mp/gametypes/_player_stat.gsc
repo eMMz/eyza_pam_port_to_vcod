@@ -146,24 +146,26 @@ print()
     data = game["playerstats"][i];
     if (data["deleted"] == false)
     {
-      println("game[playerstats]["+i+"][entityId]    = " + data["entityId"]);
-      println("game[playerstats]["+i+"][name]        = " + data["name"]);
-      println("game[playerstats]["+i+"][isConnected] = " + data["isConnected"]);
-      println("game[playerstats]["+i+"][lastTime]    = " + data["lastTime"]);
-      println("game[playerstats]["+i+"][kills]       = " + data["kills"]);
-      println("game[playerstats]["+i+"][damage]      = " + data["damage"]);
-      println("game[playerstats]["+i+"][assists]     = " + data["assists"]);
-      println("game[playerstats]["+i+"][deaths]      = " + data["deaths"]);
-      println("game[playerstats]["+i+"][kills]       = " + data["score"]);
-      println("game[playerstats]["+i+"][grenades]    = " + data["grenades"]);
-      println("game[playerstats]["+i+"][plants]      = " + data["plants"]);
-      println("game[playerstats]["+i+"][defuses]     = " + data["defuses"]);
+      logprint("game[playerstats]["+i+"][entityId]    = " + data["entityId"] + "\n");
+      logprint("game[playerstats]["+i+"][name]        = " + data["name"] + "\n");
+      logprint("game[playerstats]["+i+"][isConnected] = " + data["isConnected"] + "\n");
+      logprint("game[playerstats]["+i+"][lastTime]    = " + data["lastTime"] + "\n");
+      logprint("game[playerstats]["+i+"][score]       = " + data["score"] + "\n");
+      logprint("game[playerstats]["+i+"][kills]       = " + data["kills"] + "\n");
+      logprint("game[playerstats]["+i+"][assists]     = " + data["assists"] + "\n");
+      logprint("game[playerstats]["+i+"][deaths]      = " + data["deaths"] + "\n");
+      logprint("game[playerstats]["+i+"][adr]         = " + data["adr"] + "\n");
+      logprint("game[playerstats]["+i+"][damage]      = " + data["damage"] + "\n");
+      logprint("game[playerstats]["+i+"][grenade_damage] = " + data["grenade_damage"] + "\n");
+      logprint("game[playerstats]["+i+"][grenades]    = " + data["grenades"] + "\n");
+      logprint("game[playerstats]["+i+"][plants]      = " + data["plants"] + "\n");
+      logprint("game[playerstats]["+i+"][defuses]     = " + data["defuses"] + "\n");
     }
     else
     {
-      println("game[playerstats]["+i+"] - deleted");
+      logprint("game[playerstats]["+i+"] - deleted\n");
     }
-    println("");
+    logprint("\n");
   }
 }
 
@@ -230,11 +232,13 @@ onConnected()
 			game["playerstats"][newIndex]["team"] = self.sessionteam;
 			game["playerstats"][newIndex]["isConnected"] = true;
 			game["playerstats"][newIndex]["lastTime"] = getTime();
+      game["playerstats"][newIndex]["score"] = 0.0;
 			game["playerstats"][newIndex]["kills"] = 0;
 			game["playerstats"][newIndex]["assists"] = 0;
-			game["playerstats"][newIndex]["damage"] = 0;
-			game["playerstats"][newIndex]["deaths"] = 0;
-			game["playerstats"][newIndex]["score"] = 0.0;
+      game["playerstats"][newIndex]["deaths"] = 0;
+      game["playerstats"][newIndex]["adr"] = 0.0;
+      game["playerstats"][newIndex]["damage"] = 0;
+      game["playerstats"][newIndex]["grenade_damage"] = 0;
 			game["playerstats"][newIndex]["grenades"] = 0;
 			game["playerstats"][newIndex]["plants"] = 0;
 			game["playerstats"][newIndex]["defuses"] = 0;
@@ -306,10 +310,19 @@ AddDamage(iDamage)
     dataId = self getStatId();
     if (dataId >= 0)
     {
+      logPrint("adding damage=" + iDamage + "\n");
       game["playerstats"][dataId]["damage"] += iDamage;
     }
 }
 
+AddGrenadeDamage(iDamage)
+{
+  dataId = self getStatId();
+    if (dataId >= 0)
+    {
+      game["playerstats"][dataId]["grenade_damage"] += iDamage;
+    }
+}
 
 AddKill()
 {
@@ -317,6 +330,15 @@ AddKill()
     if (dataId >= 0)
     {
       game["playerstats"][dataId]["kills"] += 1;
+    }
+}
+
+AddTeamKill()
+{
+    dataId = self getStatId();
+    if (dataId >= 0)
+    {
+      game["playerstats"][dataId]["kills"] -= 1;
     }
 }
 
@@ -354,4 +376,30 @@ AddDefuse()
     {
       game["playerstats"][dataId]["defuses"] += 1;
     }
+}
+
+CalculatePlayersAdr()
+{
+  totalRoundsPlayed = game["totalroundsplayed"];
+  logprint("_player_stat:: CalculatePlayersAdr allies score: " + game["allies_score"] + ", axis score: " + game["axis_score"] + ", total roundsplayed: " + totalRoundsPlayed + "\n");
+  for (i = 0; i < game["playerstats"].size; i++)
+  {
+    data = game["playerstats"][i];
+    if (data["deleted"] == false)
+    {
+      if (totalRoundsPlayed > 0)
+        data["adr"] = data["damage"]/(totalRoundsPlayed*1.0);
+    }
+  }
+}
+
+CalculateAdr()
+{
+  totalRoundsPlayed = game["totalroundsplayed"];
+  dataId = self getStatId();
+  if (dataId >= 0)
+  {
+    if (totalRoundsPlayed > 0)
+      game["playerstats"][dataId]["adr"] = game["playerstats"][dataId]["damage"]/(totalRoundsPlayed*1.0);
+  }
 }

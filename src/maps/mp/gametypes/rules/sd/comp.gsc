@@ -29,8 +29,8 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_bombtimer", 60);		// Time untill bomb explodes. (seconds)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_PlantTime", 5);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_DefuseTime", 10);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_plant_points", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_defuse_points", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_plant_points", 0.5);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_defuse_points", 0.5);
 
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_sniper_shotgun_info", 1);	// Show weapon info about sniper and shotgun players
 
@@ -78,7 +78,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_players_left", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_players_names_left", 0);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_objective_icons", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_hitblip", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_hitblip", 1);
 
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_scoreboard", 1); 		//Score in the upper left corner [0 - 1] 0=hided  1=visible  (if 1, score can be still hided by player settings)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_scoreboard_limit", 1);

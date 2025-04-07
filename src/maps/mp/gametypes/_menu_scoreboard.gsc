@@ -68,12 +68,14 @@ hide_scoreboard(distributed)
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_scores", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_kills", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_assists", "");
-	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_damages", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_deaths", "");
+	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_adr", "");
+	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_damage", "");
+	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_nade_damage", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_grenades", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_plants", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_defuses", "");
-	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_ping", "");
+	//self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_ping", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_visible", "0");
 
 	if (isDefined(distributed) && distributed)
@@ -265,7 +267,7 @@ canBeColorChanged(player)
 }
 
 
-addLine(stats, name, score, kills, deaths, assists, damages, grenades, plants, defuses)
+addLine(stats, name, score, kills, deaths, assists, adr, damage, grenade_damage, grenades, plants, defuses)
 {
 	// Lines limit reached
 	if (self.scoreboard.i > level.scoreboard_lines)
@@ -290,7 +292,9 @@ addLine(stats, name, score, kills, deaths, assists, damages, grenades, plants, d
 		self.scoreboard.kills +=	kills;
 		self.scoreboard.deaths +=	deaths;
 		self.scoreboard.assists +=	assists;
-		self.scoreboard.damages +=	damages;
+		self.scoreboard.adr += 		adr;
+		self.scoreboard.damage +=	damage;
+		self.scoreboard.grenade_damage += grenade_damage;
 		self.scoreboard.grenades +=	grenades;
 		self.scoreboard.plants +=	plants;
 		self.scoreboard.defuses +=	defuses;
@@ -304,7 +308,9 @@ addLine(stats, name, score, kills, deaths, assists, damages, grenades, plants, d
 	self.scoreboard.kills +=	"\n^7";
 	self.scoreboard.deaths +=	"\n^7";
 	self.scoreboard.assists +=	"\n^7";
-	self.scoreboard.damages +=	"\n^7";
+	self.scoreboard.adr +=		"\n^7";
+	self.scoreboard.damage +=	"\n^7";
+	self.scoreboard.grenade_damage += "\n^7";
 	self.scoreboard.grenades +=	"\n^7";
 	self.scoreboard.plants +=	"\n^7";
 	self.scoreboard.defuses +=	"\n^7";
@@ -451,7 +457,9 @@ addPlayerLine(team, stats)
 		// Add line with player stats
 		score = "   -";
 		assists = "-";
+		adr = "   -";
 		damage = "   -";
+		grenade_damage = "   -";
 		plants = "-";
 		defuses = "-";
 		grenades = "-";
@@ -459,11 +467,18 @@ addPlayerLine(team, stats)
 		{
 			score = maps\mp\gametypes\global\_global::format_fractional(stats["score"], 1, 1);
 			assists = stats["assists"];
+			adr = maps\mp\gametypes\global\_global::format_fractional(stats["adr"], 1, 1);
 
-			damage = "";
-			if (stats["damage"] >= 500) damage = "^3";  // yellow
-			if (stats["damage"] >= 1000) damage = "^1"; // red
-			damage += maps\mp\gametypes\global\_global::format_fractional(stats["damage"] / 100, 1, 1);
+			//damage = "";
+			//if (stats["damage"] >= 500) damage = "^3";  // yellow
+			//if (stats["damage"] >= 1000) damage = "^1"; // red
+			//damage += maps\mp\gametypes\global\_global::format_fractional(stats["damage"] / 100, 1, 1);
+			//damage += stats["damage"];
+
+			grenade_damage = "";
+			if (stats["grenade_damage"] >= 500) grenade_damage = "^3";  // yellow
+			if (stats["grenade_damage"] >= 1000) grenade_damage = "^1"; // red
+			grenade_damage = stats["grenade_damage"];
 
 			plants = stats["plants"];
 			defuses = stats["defuses"];
@@ -472,7 +487,7 @@ addPlayerLine(team, stats)
 
 
 		//logprint("addLine with player stats: " + name + " " + score + " etc...\n");
-		addLine(stats, name, color + score, color + stats["kills"], color + stats["deaths"], color + assists, color + damage, color + grenades, color + plants, color + defuses);
+		addLine(stats, name, color + score, color + stats["kills"], color + stats["deaths"], color + assists, color + adr, color + damage, color + grenade_damage, color + grenades, color + plants, color + defuses);
 
 		// Debug
 		//addLine(player.name, 48, 32, 18, 4, 3.7, 2, 0);
@@ -480,7 +495,7 @@ addPlayerLine(team, stats)
 	else
 	{
 		//logprint("addLine blank\n");
-		addLine(stats, name, "", "", "", "", "", "", "", "");
+		addLine(stats, name, "", "", "", "", "", "", "", "", "", "");
 	}
 
 }
@@ -524,7 +539,9 @@ generatePlayerList(toggle)
 		self.scoreboard.kills = "";
 		self.scoreboard.deaths = "";
 		self.scoreboard.assists = "";
-		self.scoreboard.damages = "";
+		self.scoreboard.adr = "";
+		self.scoreboard.damage = "";
+		self.scoreboard.grenade_damage = "";
 		self.scoreboard.grenades = "";
 		self.scoreboard.plants = "";
 		self.scoreboard.defuses = "";
@@ -607,12 +624,13 @@ generatePlayerList(toggle)
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_scores", self.scoreboard.scores);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_kills", self.scoreboard.kills);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_assists", self.scoreboard.assists);
-		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_damages", self.scoreboard.damages);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_deaths", self.scoreboard.deaths);
+		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_adr", self.scoreboard.adr);
+		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_damage", self.scoreboard.damage);
+		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_grenade_damage", self.scoreboard.grenade_damage);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_grenades", self.scoreboard.grenades);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_plants", self.scoreboard.plants);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_defuses", self.scoreboard.defuses);
-		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_ping", "");
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_visible", "1");
 
 

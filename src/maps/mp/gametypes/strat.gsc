@@ -296,7 +296,7 @@ onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWe
 			iDamage = 1;
 
 		self finishPlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime);
-		self notify("damaged_player", iDamage);
+		//self notify("damaged_player", iDamage);
 
 		// Shellshock/Rumble
 		self thread maps\mp\gametypes\_shellshock::shellshockOnDamage(sMeansOfDeath, iDamage);

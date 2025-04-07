@@ -143,8 +143,8 @@
 			decoration
 		}
 
-		//ITEM_TEXT("Score:     Kill +1   |   Teamkill -1   |   Assist plant defuse +0.5",  229, 395, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
-		//ITEM_TEXT("Hits:        Scope/Rifle +1   |   Semi/Automatic/Shotgun +0.5",  229, 406, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
+		ITEM_TEXT("Score:     Kill +1   |   Teamkill -1   |   Assist plant defuse +0.5",  229, 395, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
+		ITEM_TEXT("Hits:        Scope/Rifle +1   |   Semi/Automatic +1",  229, 406, .20, ITEM_ALIGN_LEFT, 1 1 1 .25)
 
 		ITEM_SCOREBOARD(220, 84)
 	}

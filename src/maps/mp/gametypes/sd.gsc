@@ -149,8 +149,8 @@ main()
 	[[varRC]]("scr_sd_bombtimer_show", "BOOL", 1);		// Show bombtimr stopwatch
 	[[varRC]]("scr_sd_planttime", "FLOAT", 5, 0, 10);
 	[[varRC]]("scr_sd_defusetime", "FLOAT", 10, 0, 10);
-	[[varRC]]("scr_sd_plant_points", "INT", 0, 0, 10);	// Points for planter
-	[[varRC]]("scr_sd_defuse_points", "INT", 0, 0, 10);	// Points for defuser
+	[[varRC]]("scr_sd_plant_points", "FLOAT", 0.5, 0, 10);	// Points for planter
+	[[varRC]]("scr_sd_defuse_points", "FLOAT", 0.5, 0, 10);	// Points for defuser
 
 	[[varRC]]("scr_sd_sniper_shotgun_info", "BOOL", 0);	// Show weapon info about sniper and shotgun players
 
@@ -300,6 +300,7 @@ onStartGameType()
 		game["state"] = "playing";
 		game["roundsplayed"] = 0;
 		game["round"] = 0;
+		game["totalroundsplayed"] = 0;
 
 		// Counts length of all rounds (used for scr_sd_timelimit)
 		game["timepassed"] = 0;
@@ -616,25 +617,6 @@ self is the player that took damage.
 */
 onPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime)
 {
-	// check for completely getting out of the damage
-	if(!(iDFlags & level.iDFLAGS_NO_PROTECTION))
-	{
-		// Player's stats - increase damage points (_player_stat.gsc)
-		if (isDefined(eAttacker) && isPlayer(eAttacker) && eAttacker != self && eAttacker.pers["team"] != self.pers["team"] && !level.in_readyup && level.roundstarted && !level.roundended)
-		{
-			eAttacker thread watchPlayerDamageForStats(self, iDamage, sMeansOfDeath, sWeapon);
-
-			// For assists
-			if (isDefined(self.lastAttacker) && self.lastAttacker != eAttacker)
-			{
-				self.lastAttacker2 = self.lastAttacker;
-				self.lastAttackerTime2 = self.lastAttackerTime;
-			}
-
-			self.lastAttacker = eAttacker;
-			self.lastAttackerTime = gettime();
-		}
-	}
 }
 
 // Called as last funtction after all onPlayerDamaged events are processed
@@ -650,6 +632,7 @@ onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWe
 	// }
 
 	isFriendlyFire = false; // used for log
+	normalizedDamage = 0;
 
 	//println("^2"+self.name+" took damage " + iDamage + " idflags " + iDFlags);
 
@@ -664,8 +647,10 @@ onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWe
 				if(iDamage < 1)
 					iDamage = 1;
 
+				normalizedDamage = normalizeDamage(iDamage, self.health);
+
 				self finishPlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime);
-				self notify("damaged_player", iDamage);
+				//self notify("damaged_player", iDamage);
 
 				// Shellshock/Rumble
 				//self thread maps\mp\gametypes\_shellshock::shellshockOnDamage(sMeansOfDeath, iDamage);
@@ -680,8 +665,10 @@ onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWe
 				if(iDamage < 1)
 					iDamage = 1;
 
+				normalizedDamage = normalizeDamage(iDamage, self.health);
+
 				eAttacker finishPlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime);
-				eAttacker notify("damaged_player", iDamage);
+				//eAttacker notify("damaged_player", iDamage);
 				eAttacker.friendlydamage = undefined;
 
 				isFriendlyFire = true;
@@ -695,12 +682,14 @@ onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWe
 				// Make sure at least one point of damage is done
 				if(iDamage < 1)
 					iDamage = 1;
+				
+				normalizedDamage = normalizeDamage(iDamage, self.health);
 
 				self finishPlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime);
-				self notify("damaged_player", iDamage);
+				//self notify("damaged_player", iDamage);
 
 				eAttacker finishPlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime);
-				eAttacker notify("damaged_player", iDamage);
+				//eAttacker notify("damaged_player", iDamage);
 
 				eAttacker.friendlydamage = undefined;
 
@@ -716,84 +705,67 @@ onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWe
 			if(iDamage < 1)
 				iDamage = 1;
 
+			normalizedDamage = normalizeDamage(iDamage, self.health);
+
+			if (isPlayer(eAttacker) && self != eAttacker) {
+				eAttacker maps\mp\gametypes\_player_stat::AddDamage(normalizedDamage);
+				eAttacker maps\mp\gametypes\_player_stat::CalculateAdr();
+
+				if (sMeansOfDeath == "MOD_GRENADE_SPLASH")
+				{
+					eAttacker maps\mp\gametypes\_player_stat::AddGrenadeDamage(normalizedDamage);
+				}
+			}
+
 			self finishPlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime);
-			self notify("damaged_player", iDamage);
+			//self notify("damaged_player", iDamage);
 
 			// Shellshock/Rumble
 			//self thread maps\mp\gametypes\_shellshock::shellshockOnDamage(sMeansOfDeath, iDamage);
 		}
+
+		self markPossibleAssist(eAttacker, normalizedDamage);
 	}
 
 
 	if(self.sessionstate != "dead" && !level.in_readyup)
-		level notify("log_damage", self, eAttacker, sWeapon, iDamage, sMeansOfDeath, sHitLoc, isFriendlyFire);
+		maps\mp\gametypes\_log::logDamage(self, eAttacker, sWeapon, iDamage, sMeansOfDeath, sHitLoc, isFriendlyFire, normalizedDamage);
+		//level notify("log_damage", self, eAttacker, sWeapon, iDamage, sMeansOfDeath, sHitLoc, isFriendlyFire);
 }
 
-// Self if player who is hitting enemy
-watchPlayerDamageForStats(enemy, damage, sMeansOfDeath, sWeapon)
+normalizeDamage(iDamage, health)
 {
-	self endon("disconnect");
-	enemy endon("disconnect");
-
-	weapons["m1carbine_mp"] = 		50;
-	weapons["m1garand_mp"] = 		50;
-	weapons["thompson_mp"] = 		50;
-	weapons["bar_mp"] = 			50;
-	weapons["springfield_mp"] = 		100;
-	weapons["greasegun_mp"] = 		50;
-	weapons["shotgun_mp"] = 		50;
-	weapons["enfield_mp"] = 		100;
-	weapons["sten_mp"] = 			50;
-	weapons["bren_mp"] = 			50;
-	weapons["enfield_scope_mp"] = 		100;
-	weapons["mosin_nagant_mp"] = 		100;
-	weapons["SVT40_mp"] = 			50;
-	weapons["PPS42_mp"] = 			50;
-	weapons["ppsh_mp"] = 			50;
-	weapons["mosin_nagant_sniper_mp"] = 	100;
-	weapons["kar98k_mp"] = 			100;
-	weapons["g43_mp"] = 			50;
-	weapons["mp40_mp"] = 			50;
-	weapons["mp44_mp"] = 			50;
-	weapons["kar98k_sniper_mp"] = 		50;/*
-	weapons["colt_mp"] = 			50;
-	weapons["luger_mp"] = 			50;
-	weapons["tt30_mp"] = 			50;
-	weapons["webley_mp"] = 			50;*/
-	weapons["mg_mp"] = 			50;
-
-	if (self.usingMG)
-		sWeapon = "mg_mp";
-
-
-	// Decide damage poins
-	if (isDefined(weapons[sWeapon]) && (sMeansOfDeath == "MOD_PISTOL_BULLET" || sMeansOfDeath == "MOD_RIFLE_BULLET"))
-		damage = weapons[sWeapon];
-	else
-		return;
-
-	//self iprintln("^2Hits: " + damage);
-
-	// Make sure only 1 thread is running for player
-	self notify("watchPlayerDamageForStats_kill_" + enemy getEntityNumber());
-	self endon ("watchPlayerDamageForStats_kill_" + enemy getEntityNumber());
-
-	// Wait untill player starts healing
-	lastValue = enemy.health;
-	for(;;)
-	{
-		wait level.fps_multiplier * 1;
-		if (enemy.health > lastValue)
-			break;
-		if (enemy.health <= 0)	// if enemy is killed, dont count damage
-			return;
-		lastValue = enemy.health;
+	normalizedDamage = iDamage;
+	// If damage is above 100 then trim it to 100 or less depending on player HP left
+	if (normalizedDamage > 100)
+	{	
+		//logprint("_sd:: onAfterPlayerDamaged dmg above 100. Trimming it to 100 from: " + iDamage + "\n");
+		normalizedDamage = 100;
 	}
+	if (health < normalizedDamage)
+		normalizedDamage = health;
+	
+	return normalizedDamage;
+}
 
-	// Enemy was not killed in 5sec, count damage
-	self maps\mp\gametypes\_player_stat::AddDamage(damage);
-
-	//self iprintln("Hits: " + damage);
+markPossibleAssist(eAttacker, normalizedDamage)
+{
+	logprint("_sd::markPossibleAssist " + eAttacker.name + " " + normalizedDamage + "\n");
+	if (isDefined(eAttacker) && isPlayer(eAttacker) 
+			&& eAttacker != self && eAttacker.pers["team"] != self.pers["team"] 
+			&& !level.in_readyup && level.roundstarted && !level.roundended 
+			&& normalizedDamage >= 41)
+	{
+		logprint("_sd::markPossibleAssist 1st if start\n");
+		if (isDefined(self.lastAttacker) && self.lastAttackerDamage > normalizedDamage)
+		{
+			logprint("_sd::markPossibleAssist player " + eAttacker.name + " did less damage than " + self.lastAttacker.name + " - " + normalizedDamage + "<" + self.lastAttackerDamage + "\n");
+			return;
+		}
+		self.lastAttacker = eAttacker;
+		self.lastAttackerDamage = normalizedDamage;
+		logprint("_sd::markPossibleAssist 1st if stop\n");
+	}
 }
 
 /*
@@ -823,7 +795,10 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 	{
 		// Player's stats - increase kill points (_player_stat.gsc)
 		if (!level.in_readyup && level.roundstarted && !level.roundended)
+		{
 			self maps\mp\gametypes\_player_stat::AddDeath();
+			self maps\mp\gametypes\_player_stat::CalculateAdr();
+		}
 	}
 
 	if(isPlayer(attacker) && attacker != self)
@@ -833,6 +808,7 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 			// Player's stats - decrease score points (_player_stat.gsc)
 			if (!level.in_readyup && level.roundstarted && !level.roundended)
 				attacker maps\mp\gametypes\_player_stat::AddScore(-1);
+				attacker maps\mp\gametypes\_player_stat::AddTeamKill();
 		}
 		else
 		{
@@ -848,16 +824,20 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 				}
 
 				// For assists
-				if (isDefined(self.lastAttacker) && isDefined(self.lastAttacker2) && self.lastAttacker2 != attacker && (self.lastAttackerTime2 + 5000) > gettime())
+				if (isDefined(self.lastAttacker) && self.lastAttacker != attacker)
 				{
-					self.lastAttacker2 thread maps\mp\gametypes\_damagefeedback::updateAssistsFeedback();
+					self.lastAttacker thread maps\mp\gametypes\_damagefeedback::updateAssistsFeedback();
 
-					self.lastAttacker2 maps\mp\gametypes\_player_stat::AddAssist();
-					self.lastAttacker2 maps\mp\gametypes\_player_stat::AddScore(0.5);
+					self.lastAttacker maps\mp\gametypes\_player_stat::AddAssist();
+					self.lastAttacker maps\mp\gametypes\_player_stat::AddScore(0.5);
+
+					logprint("_sd::onPlayerKilled player " + self.lastAttacker.name + " receives assits for " + self.lastAttackerDamage + " damage to " + self.name + "\n");
 				}
-
 			}
 		}
+	} else {
+		// self kill or killed by world (explosion or fall damage)
+		self maps\mp\gametypes\_player_stat::AddTeamKill();
 	}
 }
 
@@ -915,6 +895,13 @@ onAfterPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir,
 					}
 				}
 			}
+			else
+			{
+				// self kill by fall damage or own grenade?
+				attacker.pers["score"]--;
+				attacker.score = attacker.pers["score"];
+				attacker.pers["round_kills"]--;
+			}
 
 			if(isdefined(attacker.friendlydamage))
 				attacker iprintln(&"MPSCRIPT_FRIENDLY_FIRE_WILL_NOT");
@@ -947,10 +934,15 @@ onAfterPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir,
 		// 	self.pers["score"]--;
 		// 	self.score = self.pers["score"];
 		// }
+
+		self.pers["score"]--;
+		self.score = self.pers["score"];
+		self.pers["round_kills"]--; // ?? shall I decrement
 	}
 
 
-	level notify("log_kill", self, attacker,  sWeapon, iDamage, sMeansOfDeath, sHitLoc);
+	maps\mp\gametypes\_log::logKill(self, attacker,  sWeapon, iDamage, sMeansOfDeath, sHitLoc);
+	//level notify("log_kill", self, attacker,  sWeapon, iDamage, sMeansOfDeath, sHitLoc);
 
 
 	self.pers["weapon1"] = undefined;
@@ -958,13 +950,13 @@ onAfterPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir,
 
 	// Wait before dead body is spawned to allow double kills (bullets may stop in this dead body)
 	// Ignore this for shotgun, because it create a smoke effect on dead body (for good feeling)
-	if (sWeapon != "shotgun_mp")
-		wait 0.05;
+	//if (sWeapon != "shotgun_mp")
+		//wait 0.05;
 
 	// Clone players model for death animations
 	body = undefined;
 	if(!isdefined(self.switching_teams))
-		body = self cloneplayer(deathAnimDuration);
+		body = self cloneplayer();
 
 
 	self.switching_teams = undefined;
@@ -975,19 +967,6 @@ onAfterPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir,
 
 	delay = 2;	// Delay the player becoming a spectator till after he's done dying
 	wait level.fps_multiplier * delay;	// ?? Also required for Callback_PlayerKilled to complete before killcam can execute
-
-
-	// Delete dead body if its close to bomb
-	if (isDefined(body) && isDefined(body.origin) && level.bombplanted && isDefined(level.bombmodel) && isDefined(level.bombmodel.origin))
-	{
-		distance = distance(body.origin, level.bombmodel.origin);
-
-		if (distance < 70.0)
-		{
-			//iprintln(distance);
-			body delete();
-		}
-	}
 
 
 	// If the last player on a team was just killed
@@ -1257,10 +1236,11 @@ startRound()
 
 
 	logPrint("RoundStart;\n");
-	logPrint("RoundInfo;score:"+game["allies_score"]+":"+game["axis_score"]+";round:"+game["round"]+"\n");
+	logPrint("RoundInfo;score:"+game["allies_score"]+":"+game["axis_score"]+";round:"+game["round"]+";totalroundsplayed:"+game["totalroundsplayed"]+"\n");
 
 	// Define round number
 	game["round"] = game["roundsplayed"] + 1;
+	game["totalroundsplayed"]++;
 
 
 	// If is bash, there is no time-limit
@@ -1971,6 +1951,8 @@ endRound(roundwinner)
 	// Show score even if is disabled
 	level maps\mp\gametypes\_hud_teamscore::showScore(0.5);
 
+	// Update players ADR
+	maps\mp\gametypes\_player_stat::CalculatePlayersAdr();
 
 	// Print damage stats
 	maps\mp\gametypes\_round_report::printToAll();

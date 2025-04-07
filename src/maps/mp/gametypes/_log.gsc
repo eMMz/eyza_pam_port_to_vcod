@@ -8,8 +8,8 @@ init()
     maps\mp\gametypes\global\_global::addEventListener("onDisconnect",    ::onDisconnect);
 
     level thread onReadyUpOver();
-    level thread onDamage();
-    level thread onPlayerKilled();
+    //level thread onDamage();
+    //level thread onPlayerKilled();
 
     level thread onRoundEnd();
 
@@ -77,6 +77,38 @@ onDamage()
     }
 }
 
+logDamage(player, eAttacker, sWeapon, iDamage, sMeansOfDeath, sHitLoc, isFriendlyFire, normalizedDamage)
+{
+    self_num = player getEntityNumber();
+	self_guid = player getGuid();
+	self_name = player.name;
+	self_team = player.pers["team"];
+
+    attack_num = -1;
+    attack_guid = "";
+    attack_name = "";
+    attack_team = "world";
+
+	if(isPlayer(eAttacker))
+	{
+		attack_num = eAttacker getEntityNumber();
+		attack_guid = eAttacker getGuid();
+		attack_name = eAttacker.name;
+		attack_team = eAttacker.pers["team"];
+	}
+
+    // This means that scr_friendlyfire is "reflected" or "shared" - it means attacker get hitted instead of self
+	if(isFriendlyFire)
+	{
+		attack_num = self_num;
+        attack_guid = self_guid;
+		attack_name = self_name;
+		attack_team = self_team;
+	}
+
+    logPrint("Damage;"+self_guid+";"+self_num+";"+self_name+";"+self_team+";"+attack_guid+";"+attack_num+";"+attack_name+";"+attack_team+";"+sWeapon+";"+iDamage+";"+sMeansOfDeath+";"+sHitLoc+";"+normalizedDamage+"\n");
+}
+
 onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration)
 {
     for (;;)
@@ -105,6 +137,29 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 
         logPrint("Kill;"+self_guid+";"+self_num+";"+self_name+";"+self_team+";"+attack_guid+";"+attack_num+";"+attack_name+";"+attack_team+";"+sWeapon+";"+iDamage+";"+sMeansOfDeath+";"+sHitLoc+"\n");
     }
+}
+
+logKill(player, attacker, sWeapon, iDamage, sMeansOfDeath, sHitLoc)
+{
+    self_num = player getEntityNumber();
+    self_guid = player getGuid();
+    self_name = player.name;
+    self_team = player.pers["team"];
+
+    attack_num = -1;
+    attack_guid = "";
+    attack_name = "";
+    attack_team = "world";
+
+    if(isPlayer(attacker))
+    {
+    	attack_num = attacker getEntityNumber();
+    	attack_guid = attacker getGuid();
+    	attack_name = attacker.name;
+    	attack_team = attacker.pers["team"];
+    }
+
+    logPrint("Kill;"+self_guid+";"+self_num+";"+self_name+";"+self_team+";"+attack_guid+";"+attack_num+";"+attack_name+";"+attack_team+";"+sWeapon+";"+iDamage+";"+sMeansOfDeath+";"+sHitLoc+"\n");
 }
 
 onRoundEnd()

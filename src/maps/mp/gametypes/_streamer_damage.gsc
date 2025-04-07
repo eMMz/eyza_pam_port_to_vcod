@@ -473,6 +473,7 @@ showTakenDamageInfo(iDamage, sHitLoc, sMeansOfDeath)
 		self.hud_takendamageinfo_loc.archived = false;
 	}
 
+	// If damage is above 100 then trim it to 100
 	if (iDamage > 100)
 		iDamage = 100;
 
