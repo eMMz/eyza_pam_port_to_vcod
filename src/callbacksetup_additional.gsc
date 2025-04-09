@@ -40,6 +40,11 @@ CodeCallback_PlayerCommand(command_object)
             self checkDistanceFromBomb();
             return;
         }
+
+        if (command_object[0] == "server16")
+        {
+            self parseSavedSettings();
+        }
     }
     self processClientCommand();
 }
@@ -118,4 +123,9 @@ checkDistanceFromBomb()
 
     logprint("distFromA=" + distFromA + "\n");
     logprint("distFromB=" + distFromB + "\n");
+}
+
+parseSavedSettings()
+{
+    logprint("parseSavedSettings handled\n");
 }

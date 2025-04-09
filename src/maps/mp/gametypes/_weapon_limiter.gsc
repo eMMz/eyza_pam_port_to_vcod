@@ -12,18 +12,22 @@ init()
 
 onConnected()
 {
+	logprint("_weapon_limiter::onConnected start\n");
     self thread onWeaponChanged();
+	logprint("_weapon_limiter::onConnected end\n");
 }
 
 // Is called only once when map_restart
 onConnectedAll()
 {
+	logprint("_weapon_limiter::onConnectedAll start\n");
 	wait 0.05;
 
 	level thread onStratimeOver();
 
 	level thread Update_All_Weapon_Limits();
 	level thread Update_All_Pistol();
+	logprint("_weapon_limiter::onConnectedAll end\n");
 }
 
 onDisconnect()
@@ -74,6 +78,7 @@ onWeaponChanged()
 
 onStratimeOver()
 {
+	logprint("_weapon_limiter::onStratimeOver start\n");
 	if (isDefined(level.in_strattime) && level.in_strattime)
 	{
 		level waittill("strat_time_end");
@@ -81,11 +86,13 @@ onStratimeOver()
 
 		level thread Update_All_Pistol();
 	}
+	logprint("_weapon_limiter::onStratimeOver end\n");
 }
 
 
 Update_All_Pistol()
 {
+	//logprint("_weapon_limiter::Update_All_Pistol start\n");
 	// Count number of used weapons in each class
 	players = getentarray("player", "classname");
 	for(p = 0; p < players.size; p++)
@@ -94,12 +101,14 @@ Update_All_Pistol()
 
 		player Update_Client_Pistol();
 	}
+	//logprint("_weapon_limiter::Update_All_Pistol end\n");
 }
 
 // Needs to be called when weapon statuses may have changed:
 // Player Disconnect, Player Changes Teams (allies,axis,spec), Player Changes weapon, Class-Cvar changed, weapon is dropped/taken
 Update_All_Weapon_Limits()
 {
+	//logprint("_weapon_limiter::Update_All_Weapon_Limits start\n");
 	 //iprintln("=====================Update_All_Weapon_Limits()=========================");
 
 	// wait until player is fully connected/disconnected
@@ -264,7 +273,7 @@ Update_All_Weapon_Limits()
 
 	// iprintln("----------------------------------------------------\n\n");
 
-
+	//logprint("_weapon_limiter::Update_All_Weapon_Limits end\n");
 }
 
 // Called only when weapon changed via menu
@@ -273,18 +282,18 @@ isWeaponAvailable(response)
 	// This weapon is not defined || is not allowed || is not available for my team
 	if (!isDefined(level.weapons[response]) || !level.weapons[response].allow || !(level.weapons[response].team == "both" || self.pers["team"] == level.weapons[response].team))
 	{
-		logprint("_weapon_limiter:: isWeaponAvailable (" + response + ") - not defined/not allowed/not available for my team\n");
+		//logprint("_weapon_limiter:: isWeaponAvailable (" + response + ") - not defined/not allowed/not available for my team\n");
 		return false;
 	}
 
 	//Weapon Limiter - check if weapon is in use
 	if (!self isWeaponSelectable(response))
 	{
-		logprint("_weapon_limiter:: isWeaponAvailable (" + response + ") - not selectable weapon\n");
+		//logprint("_weapon_limiter:: isWeaponAvailable (" + response + ") - not selectable weapon\n");
 		return false;
 	}
 	
-	logprint("_weapon_limiter:: isWeaponAvailable (" + response + ") - weapon is available\n");
+	//logprint("_weapon_limiter:: isWeaponAvailable (" + response + ") - weapon is available\n");
 	return true;
 }
 
@@ -353,11 +362,11 @@ isWeaponSelectable(weaponname)
 	// We are on maximum limit, so disable selection
 	if (weapon_class_count >= level.weaponclass[weaponclass].limit)
 	{
-		logprint("_weapon_limiter:: isWeaponSelectable (" + weaponname + ") - not selectable\n");
+		//logprint("_weapon_limiter:: isWeaponSelectable (" + weaponname + ") - not selectable\n");
 		return false;
 	}
 
-	logprint("_weapon_limiter:: isWeaponSelectable (" + weaponname + ") - selectable\n");
+	//logprint("_weapon_limiter:: isWeaponSelectable (" + weaponname + ") - selectable\n");
 	return true;
 }
 
@@ -526,12 +535,12 @@ Update_Client_Weapon(player, weaponname, team)
 
 		if (player.pers["team"] == "allies")
 		{
-			logprint("_weapon_limiter:: Update_Client_Weapon: allies ui_weapons_usedby_" + weaponname + " " + level.weapons[weaponname].allies_usedby + "\n");
+			//logprint("_weapon_limiter:: Update_Client_Weapon: allies ui_weapons_usedby_" + weaponname + " " + level.weapons[weaponname].allies_usedby + "\n");
 			player maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_weapons_usedby_"+weaponname, level.weapons[weaponname].allies_usedby);
 		}
 		else if (player.pers["team"] == "axis")
 		{
-			logprint("_weapon_limiter:: Update_Client_Weapon: axis ui_weapons_usedby_" + weaponname + " " + level.weapons[weaponname].axis_usedby + "\n");
+			//logprint("_weapon_limiter:: Update_Client_Weapon: axis ui_weapons_usedby_" + weaponname + " " + level.weapons[weaponname].axis_usedby + "\n");
 			player maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_weapons_usedby_"+weaponname, level.weapons[weaponname].axis_usedby);
 		}
 	}
@@ -540,6 +549,7 @@ Update_Client_Weapon(player, weaponname, team)
 
 Update_Client_Pistol()
 {
+	//logprint("_weapon_limiter::Update_Client_Pistol start\n");
 	/*
 	0 - hided
 	1 - visible
@@ -558,4 +568,5 @@ Update_Client_Pistol()
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_allow_pistol", cvarValue);
 
 	//self iprintln("Update_Client_Pistol(" + cvarValue + ") for " + self.name);
+	//logprint("_weapon_limiter::Update_Client_Pistol end\n");
 }

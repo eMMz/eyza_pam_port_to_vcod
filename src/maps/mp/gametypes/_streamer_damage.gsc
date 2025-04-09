@@ -58,8 +58,10 @@ init()
 
 onConnected()
 {
+	logprint("_streamer_damage::onConnected start\n");
 	if (!isDefined(self.pers["streamerSystem_damageInfo"]))
 		self.pers["streamerSystem_damageInfo"] = true;
+	logprint("_streamer_damage::onConnected end\n");
 }
 
 

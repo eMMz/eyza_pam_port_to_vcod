@@ -84,6 +84,7 @@ onStartGameType()
 // Create HUD elements for player
 onConnected()
 {
+	logprint("_hud_teamscore::onConnected start\n");
 	// Create hud elemtns (keep invisible)
 	self createPlayerScoreHUD();
 
@@ -92,6 +93,7 @@ onConnected()
 
 	// Show score by default
 	self showScore();
+	logprint("_hud_teamscore::onConnected end\n");
 }
 
 onSpawned()

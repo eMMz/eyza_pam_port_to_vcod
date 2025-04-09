@@ -36,11 +36,13 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 onConnected()
 {
+	logprint("_blackout::onConnected start\n");
     // Default variables for each player
     self.in_blackout = false;
 
 	// Make sure cvar is on 0 as default
 	self maps\mp\gametypes\global\_global::setClientCvar2("ui_blackout", "0");
+	logprint("_blackout::onConnected end\n");
 }
 
 

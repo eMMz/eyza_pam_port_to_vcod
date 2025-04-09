@@ -18,7 +18,9 @@ init()
 
 onConnected()
 {
+    logprint("_log::onConnected start\n");
     logPrint("Connected;"+self getGuid()+";"+self getEntityNumber()+";"+self.name+"\n");
+    logprint("_log::onConnected end\n");
 }
 
 onDisconnect()

@@ -35,6 +35,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 onConnected()
 {
 	self endon("disconnect");
+	logprint("_round_report::onConnected start\n");
 
 	self.round_report_array = [];
 	self.round_report_myKill = undefined;
@@ -51,6 +52,7 @@ onConnected()
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("pam_damage_debug4", "");
 		self.pers["round_report_debug_init"] = true;
 	}
+	logprint("_round_report::onConnected end\n");
 }
 
 /*
@@ -74,8 +76,8 @@ onPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon,
 			if (isDefined(lastRecord.enemy) && lastRecord.enemy == self)
 			{
 				// Shotgun hits (with different time) save as separated records
-				if (lastRecord.sWeapon == "shotgun_mp" && lastRecord.firstTime != gettime())
-					continue;
+				//if (lastRecord.sWeapon == "shotgun_mp" && lastRecord.firstTime != gettime())
+					//continue;
 
 				// Grenade & Bomb explosion hits save as separated records
 				if (lastRecord.sMeansOfDeath == "MOD_GRENADE_SPLASH" || lastRecord.sMeansOfDeath == "MOD_EXPLOSIVE")
@@ -88,26 +90,26 @@ onPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon,
 
 
 		// Debug information
-		if (sMeansOfDeath == "MOD_RIFLE_BULLET" || sWeapon == "shotgun_mp" || sMeansOfDeath == "MOD_GRENADE_SPLASH" || sMeansOfDeath == "MOD_EXPLOSIVE")
-		{
-			xyz_hit = "?";
-			if (isDefined(vPoint)) xyz_hit = vPoint;
+		// if (sMeansOfDeath == "MOD_RIFLE_BULLET" || sWeapon == "shotgun_mp" || sMeansOfDeath == "MOD_GRENADE_SPLASH" || sMeansOfDeath == "MOD_EXPLOSIVE")
+		// {
+		// 	xyz_hit = "?";
+		// 	if (isDefined(vPoint)) xyz_hit = vPoint;
 
-			damageDebug = getTimeString(gettime(), level.bombplanted) +
-				"|" + gettime() +
-				"|dmg:" + ((int)(iDamage*10)/10) +
-				"|health:" + self.health +
-				"|xyz_my:" + eAttacker.origin +
-				"|xyz_enemy:" + self.origin +
-				//"|dist:" + distance(eAttacker.origin, self.origin) +
-				"|" + sWeapon +
-				"|" + sHitLoc +
-				"|xyz_hit:" + xyz_hit +
-				"|head:" + self.headTag getOrigin() +
-				"|pelvis:" + self.pelvisTag getOrigin();
+		// 	damageDebug = getTimeString(gettime(), level.bombplanted) +
+		// 		"|" + gettime() +
+		// 		"|dmg:" + ((int)(iDamage*10)/10) +
+		// 		"|health:" + self.health +
+		// 		"|xyz_my:" + eAttacker.origin +
+		// 		"|xyz_enemy:" + self.origin +
+		// 		//"|dist:" + distance(eAttacker.origin, self.origin) +
+		// 		"|" + sWeapon +
+		// 		"|" + sHitLoc +
+		// 		"|xyz_hit:" + xyz_hit +
+		// 		"|head:" + self.headTag getOrigin() +
+		// 		"|pelvis:" + self.pelvisTag getOrigin();
 
-			eAttacker.round_report_debug[eAttacker.round_report_debug.size] = damageDebug;
-		}
+		// 	eAttacker.round_report_debug[eAttacker.round_report_debug.size] = damageDebug;
+		// }
 
 
 
@@ -279,7 +281,7 @@ print()
 
 	wait level.fps_multiplier * 1;
 
-	self thread sendDebugInfo();
+	//self thread sendDebugInfo();
 
 
 	if (self.round_report_array.size > 0)
@@ -356,6 +358,7 @@ print()
 				if (damage == 0) damage = 1;
 				strValue += " " + damage + "hp";
 
+				/*
 				if (log.sFirstWeapon == "shotgun_mp" && log.sFirstMeansOfDeath == "MOD_PISTOL_BULLET")
 				{
 					strValue += " " + log.pellets + " pellet";
@@ -375,6 +378,7 @@ print()
 					else if (log.adjustedBy == "consistent_shotgun_4")
 						strValue += " range-4";
 				}
+				*/
 
 				if (log.sFirstWeapon != "shotgun_mp")
 				{
@@ -439,6 +443,8 @@ getWeapon(sMeansOfDeath, sWeapon)
 		return "Grenade";
 	if (sMeansOfDeath == "MOD_EXPLOSIVE")
 		return "Bomb explosion";
+	if (sMeansOfDeath == "MOD_FALLING")
+		return "Downfall";
 
 	weaponsTexts["m1carbine_mp"] = "Carabine";
 	weaponsTexts["m1garand_mp"] = "M1 Garand";

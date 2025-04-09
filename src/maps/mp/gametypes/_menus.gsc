@@ -80,6 +80,7 @@ onStartGameType()
 
 onConnected()
 {
+	logprint("_menus::onConnected start\n");
 	scriptMainMenu = "";	// If ESC is pressed, open Main menu
 
 	// If pam is not installed correctly
@@ -186,6 +187,7 @@ onConnected()
 		logprint("_menus:: firstTeamSelected is defined - allowVote\n");
 		self maps\mp\gametypes\global\_global::setClientCvar2("ui_allowVote", level.allowvote);
 	}
+	logprint("_menus::onConnected end\n");
 }
 
 onJoinedTeam(team)
@@ -243,7 +245,7 @@ onMenuResponse(menu, response)
 		return true;
 	}
 
-	if (menu == "-1" && (response == "autoasign" || response == "allies" || response == "axis" || response == "spectator" || response == "streamer")) {
+	if (menu == "-1" && (response == "autoassign" || response == "allies" || response == "axis" || response == "spectator" || response == "streamer")) {
 		menu = game["menu_team"];
 	}
 

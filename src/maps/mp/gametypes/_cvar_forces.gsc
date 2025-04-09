@@ -13,6 +13,7 @@ init()
 
 onConnected()
 {
+	logprint("_cvar_forces::onConnected start\n");
     if (!isDefined(self.pers["pbForcedCvarsLoaded"]))
         self.pers["pbForcedCvarsLoaded"] = false;
 
@@ -22,6 +23,7 @@ onConnected()
 
     // Set some cvars to value that increase competitive quality
     self thread competitiveQuality();
+	logprint("_cvar_forces::onConnected end\n");
 }
 
 

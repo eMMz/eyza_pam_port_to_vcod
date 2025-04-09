@@ -13,7 +13,9 @@ init()
 
 onConnected()
 {
+	logprint("_objective::onConnected start\n");
 	self setPlayerObjective();
+	logprint("_objective::onConnected end\n");
 }
 
 onJoinedAlliesAxis()
@@ -114,12 +116,14 @@ setPlayerObjective()
 			else if(isdefined(winner))
 				self setClientCvar("cg_objectiveText", &"MPSCRIPT_WINS", winner);
 		}
+		logprint("_objective::setPlayerObjective return1\n");
 		return;
 	}
 
 	if (level.in_timeout)
 	{
 		self setClientCvar("cg_objectiveText", game["STRING_READYUP_KEY_ACTIVATE_PRESS"]);
+		logprint("_objective::setPlayerObjective return2\n");
 		return;
 	}
 
@@ -127,70 +131,12 @@ setPlayerObjective()
 	{
 		if (level.aimTargets.size == 0)	self setClientCvar("cg_objectiveText", game["STRING_READYUP_KEY_ACTIVATE_PRESS"] + "\n" + game["STRING_READYUP_KEY_MELEE_DOUBLEPRESS"]);
 		else				self setClientCvar("cg_objectiveText", game["STRING_READYUP_KEY_ACTIVATE_PRESS"] + "\n" + game["STRING_READYUP_KEY_MELEE_DOUBLEPRESS_TRAINER"] + "\n" + game["STRING_READYUP_KEY_MELEE_HOLD"]);
+		logprint("_objective::setPlayerObjective return3\n");
 		return;
 	}
 
 	// Empty
 	self setClientCvar("cg_objectiveText", "");
+	logprint("_objective::setPlayerObjective end\n");
 	return;
-
-	switch (level.gametype)
-	{
-	case "ctf":
-		if(level.scorelimit > 0)
-			self setClientCvar("cg_objectiveText", &"MP_CTF_OBJ_TEXT", level.scorelimit);
-		else
-			self setClientCvar("cg_objectiveText", &"MP_CTF_OBJ_TEXT_NOSCORE");
-		break;
-	case "dm":
-		if(level.scorelimit > 0)
-			self setClientCvar("cg_objectiveText", &"MP_GAIN_POINTS_BY_ELIMINATING", level.scorelimit);
-		else
-			self setClientCvar("cg_objectiveText", &"MP_GAIN_POINTS_BY_ELIMINATING_NOSCORE");
-
-		break;
-	case "hq":
-		if(level.scorelimit > 0)
-			self setClientCvar("cg_objectiveText", &"MP_OBJ_TEXT", level.scorelimit);
-		else
-			self setClientCvar("cg_objectiveText", &"MP_OBJ_TEXT_NOSCORE");
-
-		break;
-	case "tdm":
-		if(level.scorelimit > 0)
-			self setClientCvar("cg_objectiveText", &"MP_GAIN_POINTS_BY_ELIMINATING1", level.scorelimit);
-		else
-			self setClientCvar("cg_objectiveText", &"MP_GAIN_POINTS_BY_ELIMINATING1_NOSCORE");
-
-		break;
-	case "sd":
-
-		if (level.in_bash)
-		{
-			self setClientCvar("cg_objectiveText", "Eliminate your enemy, then choose side/map.");
-		}
-		else
-		{
-			if(level.scorelimit > 0)
-			{
-				if(self.pers["team"] == game["attackers"])
-					self setClientCvar("cg_objectiveText", &"MP_OBJ_ATTACKERS", level.scorelimit);
-				else if(self.pers["team"] == game["defenders"])
-					self setClientCvar("cg_objectiveText", &"MP_OBJ_DEFENDERS", level.scorelimit);
-			}
-			else
-			{
-				if(self.pers["team"] == game["attackers"])
-					self setClientCvar("cg_objectiveText", &"MP_OBJ_ATTACKERS_NOSCORE");
-				else if(self.pers["team"] == game["defenders"])
-					self setClientCvar("cg_objectiveText", &"MP_OBJ_DEFENDERS_NOSCORE");
-			}
-		}
-		break;
-	case "strat":
-
-		self setClientCvar("cg_objectiveText", "Special mode used for practicing grenades or smoke, strategic plan making, jump learning and overall game testing.");
-	}
-
-	logprint("_objective::setPlayerObjective stop\n");
 }

@@ -34,6 +34,7 @@ init()
 onConnected()
 {
 	self endon("disconnect");
+	logprint("_streamer::onConnected start\n");
 
 	if (!isDefined(self.pers["streamerSystem_menu_opened"]))
 	{
@@ -58,12 +59,15 @@ onConnected()
 		self thread maps\mp\gametypes\_streamer_hud::hide_player_boxes();
 		self thread maps\mp\gametypes\_streamer_hud::hide_player_progress();
 	}
+	logprint("_streamer::onConnected end\n");
 }
 
 onConnectedAll()
 {
+	logprint("_streamer::onConnectedAll start\n");
 	level thread spectating_loop();
 	level thread player_names();
+	logprint("_streamer::onConnectedAll end\n");
 }
 
 // Called even if streamer system is disabled
@@ -1381,6 +1385,7 @@ followNextPlayer()
 
 spectating_loop()
 {
+	logprint("_streamer::spectating_loop start\n");
 	selectedPlayer = getRecommandedPlayer();
 
 	// Follow recomanded player as first for some time before first switch
@@ -1392,8 +1397,10 @@ spectating_loop()
 
 
 	no_one = false;
+	logprint("_streamer::spectating_loop after selecting recommended player\n");
 	for(;;)
 	{
+		//logprint("_streamer::spectating_loop infinite loop start\n");
 		wait level.fps_multiplier * 0.1;
 
 
@@ -1535,10 +1542,12 @@ waitForSpectatorsInKillcam()
 
 player_names()
 {
+	logprint("_streamer::player_names start\n");
 	wait level.fps_multiplier * 0.123456;
 
 	for (;;)
 	{
+		//logprint("_streamer::player_names infinite loop start\n");
 		wait level.fps_multiplier * 1;
 
 		maxTime = 0;

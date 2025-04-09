@@ -47,11 +47,17 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 onConnected()
 {
+	logprint("_record::onConnected start\n");
 	if (!isDefined(self.pers["autorecording_enabled"]))
-		self.pers["autorecording_enabled"] = true;
+		self.pers["autorecording_enabled"] = false;
 
 	if (!level.scr_recording)
+	{
+		logprint("_record::onConnected end\n");
 		return;
+	}
+	
+	self.pers["autorecording_enabled"] = true;
 
 	if (!isDefined(self.pers["recording_executed"]))
 		self.pers["recording_executed"] = false;
@@ -62,6 +68,8 @@ onConnected()
 	// Shot text "Recording will start automatically"
 	if (isEnabled())
 		self show();
+	
+	logprint("_record::onConnected end\n");
 }
 
 

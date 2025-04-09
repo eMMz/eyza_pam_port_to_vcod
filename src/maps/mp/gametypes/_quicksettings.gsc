@@ -12,7 +12,7 @@ onConnected()
 {
 	self endon("disconnect");
 
-	logprint("_quickSettings::onConnected\n");
+	logprint("_quickSettings::onConnected start\n");
 
 	if (!isDefined(self.pers["quicksettings_saved"]))
 	{
@@ -34,7 +34,7 @@ onConnected()
 		self updateClientSettings("defaults");
 	}
 
-	logprint("_quickSettings::onConnected completed\n");
+	logprint("_quickSettings::onConnected end\n");
 }
 
 /*
@@ -146,6 +146,7 @@ updateClientSettings(reason)
 	//self iprintln("updateClientSettings("+reason+")");
 
 	strValue = "openscriptmenu quicksettings ";
+	//strValue = "say !server16 ";
 	delimiter = "|";
 
 	recording = self maps\mp\gametypes\_record::isEnabled();
@@ -165,6 +166,8 @@ updateClientSettings(reason)
 	strValue = strValue + "streamer_" + streamer;
 
 	self maps\mp\gametypes\global\_global::setClientCvar2("server16", strValue);
+
+	logprint("_quicksettings::updateClientSettings server16=" + strValue + "\n");
 
 	// Cvars for switching text in quick menu
 	self maps\mp\gametypes\global\_global::setClientCvar2("ui_quicksettings_autorecording", recording);

@@ -8,11 +8,13 @@ init()
 
 onConnected()
 {
+	logprint("_sniper_shotgun_info::onConnected start\n");
 	if ((level.gametype != "sd" && level.gametype != "re") || level.in_readyup)
 	{
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_sniper_info", "");
 		//self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_shotgun_info", "");
 	}
+	logprint("_sniper_shotgun_info::onConnected end\n");
 }
 
 

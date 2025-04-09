@@ -95,6 +95,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 onConnected()
 {
+	logprint("_matchinfo::onConnected start\n");
 	self endon("disconnect");
 
 	// Ingame match info bar
@@ -128,7 +129,7 @@ onConnected()
 		wait level.fps_multiplier * 0.2;
 		self maps\mp\gametypes\global\_global::setClientCvar2("ui_matchinfo_show", "0");
 	}
-
+	logprint("_matchinfo::onConnected end\n");
 }
 
 onJoinedTeam(teamName)
@@ -210,6 +211,7 @@ ingame_hide()
 
 updateTeamNames()
 {
+	//logprint("_matchinfo::updateTeamNames start\n");
 	//println("##updateTeamNames:"+game["match_team1_name"]);
 
 	teamname_allies = game["match_team1_name"];
@@ -240,6 +242,7 @@ updateTeamNames()
 	else
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("g_TeamName_Axis", "MPSCRIPT_GERMAN");
 
+	//logprint("_matchinfo::updateTeamNames end\n");
 }
 
 

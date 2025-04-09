@@ -48,16 +48,16 @@
 		ITEM_CVAR("ui_sniper_info", 0, 0, .20, ITEM_ALIGN_LEFT, 1 1 1 1)
 	}
 
-	menuDef
-	{
-	  	name shotguninfo
-	  	fullScreen MENU_FALSE
-	  	visible MENU_TRUE
+	//menuDef
+	//{
+	//  	name shotguninfo
+	//  	fullScreen MENU_FALSE
+	 // 	visible MENU_TRUE
 	    //rect 135 -26 200 80 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
-	    rect 135 454 200 80
-
-		ITEM_CVAR("ui_shotgun_info", 0, 0, .20, ITEM_ALIGN_LEFT, 1 1 1 1)
-	}
+	//    rect 135 454 200 80
+//
+	//	ITEM_CVAR("ui_shotgun_info", 0, 0, .20, ITEM_ALIGN_LEFT, 1 1 1 1)
+	//}
 
 	menuDef
 	{

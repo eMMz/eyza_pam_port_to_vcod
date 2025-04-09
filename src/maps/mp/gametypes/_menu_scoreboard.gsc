@@ -23,6 +23,7 @@ init()
 
 onConnected()
 {
+	logprint("_menu_scoreboard::onConnected start\n");
 	if (level.gametype == "sd")
 		self maps\mp\gametypes\global\_global::setClientCvar2("ui_scoreboard_show", "sd");
 	else
@@ -36,13 +37,16 @@ onConnected()
 	if (self.pers["scoreboard_keepRefreshing"] > 0)
 		self thread generatePlayerList();
 
-	self thread UpdateStandartScoreboard();
+	//self thread UpdateStandartScoreboard();
+	logprint("_menu_scoreboard::onConnected end\n");
 }
 
 
 UpdateStandartScoreboard()
 {
 	self endon("disconnect");
+
+	logprint("_menu_scoreboard::UpdateStandartScoreboard start\n");
 
 	wait level.fps_multiplier * 0.5;
 	wait level.frame * (self getentitynumber());
@@ -51,10 +55,12 @@ UpdateStandartScoreboard()
 	// Usefull when replaying demo since scoreboard is available only when was opened by player
 	while (1)
 	{
+		logprint("_menu_scoreboard::UpdateStandartScoreboard ShowScoreBoard()\n");
 		self ShowScoreBoard();
 		//self iprintln("updated");
 		wait level.fps_multiplier * 1;
 	}
+	logprint("_menu_scoreboard::UpdateStandartScoreboard end\n");
 }
 
 // Called also from streamersystem after automatically joined streamer (intermission)
@@ -503,6 +509,7 @@ addPlayerLine(team, stats)
 
 generatePlayerList(toggle)
 {
+	logprint("_menu_scoreboard::generatePlayerList start\n");
 	self endon("disconnect");
 
 	// Make sure onlny 1 thread is running
@@ -796,4 +803,5 @@ generatePlayerList(toggle)
 
 		//self iprintln("updating scoreboard...");
 	}
+	logprint("_menu_scoreboard::generatePlayerList end\n");
 }

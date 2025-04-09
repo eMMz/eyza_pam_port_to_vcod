@@ -53,6 +53,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 onConnected()
 {
+	logprint("_players_left::onConnected start\n");
 	// Enable player list by default, can be overwritten by player settings
 	if (!isDefined(self.pers["playersleft_list"]))
 		self.pers["playersleft_list"] = true;
@@ -61,6 +62,8 @@ onConnected()
 		self thread createHUD();
 	else
 		self hide(); // hide is set from previous map
+	
+	logprint("_players_left::onConnected end\n");
 }
 
 onDisconnect()

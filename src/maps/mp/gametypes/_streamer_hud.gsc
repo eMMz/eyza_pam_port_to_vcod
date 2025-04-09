@@ -26,8 +26,10 @@ init()
 
 onConnected()
 {
+	logprint("_streamer_hud::onConnected start\n");
 	if (!isDefined(self.pers["streamerSystem_keysVisible"]))
 		self.pers["streamerSystem_keysVisible"] = false;
+	logprint("_streamer_hud::onConnected end\n");
 }
 
 keys_toggle()

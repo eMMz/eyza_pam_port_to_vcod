@@ -40,10 +40,12 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 onConnected()
 {
+	logprint("_prone_peek_fix::onConnected start\n");
 	if (!level.scr_prone_peek_fix)
 		return;
 
 	//self thread pronePeekFix();
+	logprint("_prone_peek_fix::onConnected end\n");
 }
 
 onDisconnect()

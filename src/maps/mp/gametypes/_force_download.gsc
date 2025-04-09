@@ -50,7 +50,7 @@ onConnected()
 		// Message is not visible if menu is open and is removed when response comes
 		self showErrorMessage();
 	}
-	logprint("_force_download::onConnected stop\n");
+	logprint("_force_download::onConnected end\n");
 }
 
 // Called from _menus::OnConnected() when we are waiting for response

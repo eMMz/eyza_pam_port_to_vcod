@@ -43,10 +43,12 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 onConnected()
 {
+    logprint("_fast_reload::onConnected start\n");
     if (!level.scr_fast_reload_fix)
       return;
 
-    //self thread manageWeaponCycleDelay();
+    self thread manageWeaponCycleDelay();
+    logprint("_fast_reload::onConnected end\n");
 }
 
 
@@ -54,6 +56,8 @@ getCurrentWeaponSlot()
 {
     weapon1 = self getweaponslotweapon("primary");
 	weapon2 = self getweaponslotweapon("primaryb");
+    pistol = self getweaponslotweapon("pistol");
+    grenade = self getweaponslotweapon("grenade");
 
     current = self getcurrentweapon(); // can be none ()
 
@@ -61,6 +65,10 @@ getCurrentWeaponSlot()
 		return "primary";
 	else if(current == weapon2)
 		return "primaryb";
+    else if (current == pistol)
+        return "pistol";
+    else if (current == grenade)
+        return "grenade";
     else
         return "none";
 }
@@ -186,16 +194,22 @@ GetRechamberTime(weaponName)
     timer = 0;
     switch(weaponName)
     {
+        // vcod: fireTime\0.33\rechamberTime\1\rechamberBoltTime\0.4
         case "kar98k_mp":               timer = 1.33; break;
+        // vcod: fireTime\0.33\rechamberTime\1\rechamberBoltTime\0.4
         case "kar98k_sniper_mp":        timer = 1.33; break;
 
-        case "enfield_mp":              timer = 1.397; break;
-        case "enfield_scope_mp":        timer = 1.38; break;
+        // vcod: fireTime\0.33\rechamberTime\1.1\rechamberBoltTime\0.4
+        case "enfield_mp":              timer = 1.41; break;
+        //case "enfield_scope_mp":        timer = 1.38; break;
 
-        case "mosin_nagant_mp":         timer = 1.28; break;
-        case "mosin_nagant_sniper_mp":  timer = 1.33; break;
+        // vcod: fireTime\0.33\rechamberTime\1\rechamberBoltTime\0.4
+        case "mosin_nagant_mp":         timer = 1.33; break;
+        // vcod: fireTime\0.5\rechamberTime\1\rechamberBoltTime\0.4
+        case "mosin_nagant_sniper_mp":  timer = 1.5; break;
 
-        case "springfield_mp":          timer = 1.33; break;
+        // vcod: fireTime\0.33\rechamberTime\0.95\rechamberBoltTime\0.4
+        case "springfield_mp":          timer = 1.28; break;
 
         //case "shotgun_mp":              timer = 1.0163; break;
     }

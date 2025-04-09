@@ -42,14 +42,18 @@ init()
 
 onConnected()
 {
+	logprint("_streamer_auto::onConnected start\n");
 	self.streamerSystem_inCinematic = false;
+	logprint("_streamer_auto::onConnected end\n");
 }
 
 onConnectedAll()
 {
+	logprint("_streamer_auto::onConnectedAll start\n");
 	thread playersCanSeeEachOthers();
 	thread playersCloseToEachOther();
 	thread autoFollowedPlayer();
+	logprint("_streamer_auto::onConnectedAll end\n");
 }
 
 
@@ -202,8 +206,10 @@ printToAutoSpectators(text)
 
 playersCanSeeEachOthers()
 {
+	logprint("_streamer_auto::playersCanSeeEachOthers start\n");
 	for (;;)
 	{
+		//logprint("_streamer_auto::playersCanSeeEachOthers infinite loop start\n");
 		// Not enabled, wait
 		if (!level.streamerSystem_auto_runThreads)
 		{
@@ -335,8 +341,10 @@ playersCanSeeEachOthers()
 
 playersCloseToEachOther()
 {
+	logprint("_streamer_auto::playersCloseToEachOther start\n");
 	for (;;)
 	{
+		//logprint("_streamer_auto::playersCloseToEachOther infinite loop start\n");
 		// Not enabled, wait
 		if (!level.streamerSystem_auto_runThreads)
 		{
@@ -399,11 +407,13 @@ lockFor(time)
 
 autoFollowedPlayer()
 {
+	logprint("_streamer_auto::autoFollowedPlayer start\n");
 	level.streamerSystem_auto_lockedUntill = gettime() + 18000; // wait some time untill next change (also consider strat time)
 
 	followed_team_last = "";
 	for(;;)
 	{
+		//logprint("_streamer_auto::autoFollowedPlayer infinite loop start\n");
 		wait level.fps_multiplier * 0.1;
 
 		players = getentarray("player", "classname");

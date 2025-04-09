@@ -28,7 +28,9 @@ init()
 
 onConnected()
 {
+	logprint("_mg_fix::onConnected start\n");
 	self.usingMG = false;
+	logprint("_mg_fix::onConnected end\n");
 }
 
 // This function is called when cvar changes value.

@@ -120,9 +120,11 @@ onStartGameType()
 
 onConnected()
 {
+	logprint("_aim_trainer::onConnected start\n");
 	self.aimTrainerMode = 0;
 	self.aimTrainer_startAngles = (0, 0, 0);
 	self.aimTrainerActivatorDelay = 0;
+	logprint("_aim_trainer::onConnected end\n");
 }
 
 

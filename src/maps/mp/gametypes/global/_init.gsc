@@ -23,7 +23,7 @@ InitSystems()
 	{
 		logprint("Precache (only once) start\n");
 		maps\mp\gametypes\global\precache::Init();
-		logprint("Precache (only once) stop\n");
+		logprint("Precache (only once) end\n");
 	}
 
 	// Other system scripts
@@ -105,12 +105,12 @@ InitModules()
 	thread maps\mp\gametypes\_menu_scoreboard::init(); // depends on matchinfo
 
 
-	thread maps\mp\gametypes\custom_fixes\_fast_reload::init();
-	thread maps\mp\gametypes\custom_fixes\_prone_peek_fix::Init();
+	thread maps\mp\gametypes\custom\_fast_reload::init();
+	//thread maps\mp\gametypes\custom\_prone_peek_fix::Init();
 	thread maps\mp\gametypes\_mapvote::Init();
 	thread maps\mp\gametypes\_player_stat::init();
-	thread maps\mp\gametypes\custom_fixes\_mg_fix::init();
-	//thread maps\mp\gametypes\_climbing_sound_fix::init();
+	//thread maps\mp\gametypes\custom\_mg_fix::init();
+	thread maps\mp\gametypes\custom\_rpam_aimrun_fix::Init();
 	thread maps\mp\gametypes\_round_report::init();
 	thread maps\mp\gametypes\_score_set::init(); // depends on readyup, halftime, sd
 	thread maps\mp\gametypes\_sniper_shotgun_info::init();

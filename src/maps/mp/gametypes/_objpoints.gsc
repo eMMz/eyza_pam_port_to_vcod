@@ -45,7 +45,9 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 onConnected()
 {
+	logprint("_objpoints::onConnected start\n");
 	self.objpoints = [];
+	logprint("_objpoints::onConnected end\n");
 }
 
 onJoinedTeam(teamName)

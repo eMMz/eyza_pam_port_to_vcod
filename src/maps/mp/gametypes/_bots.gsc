@@ -84,11 +84,13 @@ onConnecting()
 
 onConnected()
 {
+	logprint("_bots::onConnected start\n");
 	// Run thread on bots again
 	if (self.pers["isBot"] && self.pers["isBotCustom"] == false)
 	{
 		self thread bot_think();
 	}
+	logprint("_bots::onConnected end\n");
 }
 
 isBotName()

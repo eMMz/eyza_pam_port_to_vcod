@@ -37,6 +37,7 @@ init()
 
 onConnected()
 {
+	logprint("_streamer_xray::onConnected start\n");
 	if (!isDefined(self.pers["streamerSystem_XRAY"]))
 		self.pers["streamerSystem_XRAY"] = false;
 
@@ -44,6 +45,7 @@ onConnected()
 
 	// Disable XRAY by default every round
 	self.pers["streamerSystem_XRAY"] = false;
+	logprint("_streamer_xray::onConnected end\n");
 }
 
 

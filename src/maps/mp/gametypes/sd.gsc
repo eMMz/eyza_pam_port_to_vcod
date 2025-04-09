@@ -210,23 +210,18 @@ onCvarChanged(cvar, value, isRegisterTime)
 // Is called only once per map
 precache()
 {
-	//precacheShader("plantbomb");
 	precacheShader("ui_mp/assets/hud@plantbomb.tga");
-	//precacheShader("defusebomb");
 	precacheShader("ui_mp/assets/hud@defusebomb.tga");
-	//precacheShader("objective");
-	precacheShader("gfx/hud/objective.tga");
-	//precacheShader("objectiveA");
 	precacheShader("gfx/hud/hud@objectiveA.tga");
-	//precacheShader("objectiveB");
+	precacheShader("gfx/hud/hud@objectiveA_up.tga");
+	precacheShader("gfx/hud/hud@objectiveA_down.tga");
 	precacheShader("gfx/hud/hud@objectiveB.tga");
-	//precacheShader("bombplanted");
+	precacheShader("gfx/hud/hud@objectiveB_up.tga");
+	precacheShader("gfx/hud/hud@objectiveB_down.tga");
 	precacheShader("gfx/hud/hud@bombplanted.tga");
-	//precacheShader("objpoint_bomb");
-	//precacheShader("objpoint_A");
-	//precacheShader("gfx/hud/hud@objectiveA.tga");
-	//precacheShader("objpoint_B");
-	//precacheShader("gfx/hud/hud@objectiveB.tga);
+	precacheShader("gfx/hud/hud@bombplanted_up.tga");
+	precacheShader("gfx/hud/hud@bombplanted_down.tga");
+	precacheShader("gfx/hud/hud@bombplanted_down.tga");
 	precacheShader("objpoint_star");
 	precacheString(&"SD_MATCHSTARTING");
 	precacheString(&"SD_MATCHRESUMING");
@@ -240,8 +235,6 @@ precache()
 	precacheString(&"SD_AXISHAVEBEENELIMINATED");
 	//precacheString(&"PLATFORM_HOLD_TO_PLANT_EXPLOSIVES");
 	//precacheString(&"PLATFORM_HOLD_TO_DEFUSE_EXPLOSIVES");
-	precacheShader("ui_mp/assets/hud@plantbomb.tga");
-	precacheShader("ui_mp/assets/hud@defusebomb.tga");
 	precacheModel("xmodel/mp_bomb1_defuse");
 	precacheModel("xmodel/mp_bomb1");
 	precacheStatusIcon("compassping_enemyfiring"); // for streamers
@@ -477,6 +470,7 @@ Called when player is fully connected to game
 */
 onConnected()
 {
+	logprint("_sd::onConnected start\n");
 	self.statusicon = "";
 
 	// Variables in self.pers[] stay defined after scriped map restart
@@ -519,6 +513,8 @@ onConnected()
 	// for streamer bars
 	if(!isdefined(self.pers["round_kills"]))
 		self.pers["round_kills"] = 0;
+	
+	logprint("_sd::onConnected end\n");
 }
 
 // This function is called as last after all events are processed
@@ -750,21 +746,21 @@ normalizeDamage(iDamage, health)
 
 markPossibleAssist(eAttacker, normalizedDamage)
 {
-	logprint("_sd::markPossibleAssist " + eAttacker.name + " " + normalizedDamage + "\n");
+	//logprint("_sd::markPossibleAssist " + eAttacker.name + " " + normalizedDamage + "\n");
 	if (isDefined(eAttacker) && isPlayer(eAttacker) 
 			&& eAttacker != self && eAttacker.pers["team"] != self.pers["team"] 
 			&& !level.in_readyup && level.roundstarted && !level.roundended 
 			&& normalizedDamage >= 41)
 	{
-		logprint("_sd::markPossibleAssist 1st if start\n");
+		//logprint("_sd::markPossibleAssist 1st if start\n");
 		if (isDefined(self.lastAttacker) && self.lastAttackerDamage > normalizedDamage)
 		{
-			logprint("_sd::markPossibleAssist player " + eAttacker.name + " did less damage than " + self.lastAttacker.name + " - " + normalizedDamage + "<" + self.lastAttackerDamage + "\n");
+			//logprint("_sd::markPossibleAssist player " + eAttacker.name + " did less damage than " + self.lastAttacker.name + " - " + normalizedDamage + "<" + self.lastAttackerDamage + "\n");
 			return;
 		}
 		self.lastAttacker = eAttacker;
 		self.lastAttackerDamage = normalizedDamage;
-		logprint("_sd::markPossibleAssist 1st if stop\n");
+		//logprint("_sd::markPossibleAssist 1st if end\n");
 	}
 }
 
@@ -822,22 +818,23 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 				{
 					attacker maps\mp\gametypes\_player_stat::AddGrenade();
 				}
-
-				// For assists
-				if (isDefined(self.lastAttacker) && self.lastAttacker != attacker)
-				{
-					self.lastAttacker thread maps\mp\gametypes\_damagefeedback::updateAssistsFeedback();
-
-					self.lastAttacker maps\mp\gametypes\_player_stat::AddAssist();
-					self.lastAttacker maps\mp\gametypes\_player_stat::AddScore(0.5);
-
-					logprint("_sd::onPlayerKilled player " + self.lastAttacker.name + " receives assits for " + self.lastAttackerDamage + " damage to " + self.name + "\n");
-				}
 			}
 		}
 	} else {
 		// self kill or killed by world (explosion or fall damage)
+		self maps\mp\gametypes\_player_stat::AddScore(-1);
 		self maps\mp\gametypes\_player_stat::AddTeamKill();
+	}
+
+	// For assists
+	if (isDefined(self.lastAttacker) && self.lastAttacker != attacker && self.pers["team"] != self.lastAttacker.pers["team"])
+	{
+		self.lastAttacker thread maps\mp\gametypes\_damagefeedback::updateAssistsFeedback();
+
+		self.lastAttacker maps\mp\gametypes\_player_stat::AddAssist();
+		self.lastAttacker maps\mp\gametypes\_player_stat::AddScore(0.5);
+
+		logprint("_sd::onPlayerKilled player " + self.lastAttacker.name + " receives assits for " + self.lastAttackerDamage + " damage to " + self.name + "\n");
 	}
 }
 
@@ -928,12 +925,6 @@ onAfterPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir,
 	else // If you weren't killed by a player, you were in the wrong place at the wrong time
 	{
 		doKillcam = false;
-
-		// if (!level.bombKill) // Dont decrease score for planter if bomb kills friently
-		// {
-		// 	self.pers["score"]--;
-		// 	self.score = self.pers["score"];
-		// }
 
 		self.pers["score"]--;
 		self.score = self.pers["score"];
@@ -2162,11 +2153,14 @@ updateTeamStatus()
 
 	resettimeout();
 
-	logprint("_sd::updateTeamStatus\n");
+	logprint("_sd::updateTeamStatus start\n");
 
 	//PAM - Dont want a round to end during readyup
 	if (level.in_readyup)
+	{
+		logprint("_sd::updateTeamStatus return1\n");
 		return;
+	}
 
 	oldvalue["allies"] = level.exist["allies"];
 	oldvalue["axis"] = level.exist["axis"];
@@ -2189,7 +2183,10 @@ updateTeamStatus()
 		level.didexist["axis"] = true;
 
 	if(level.roundended)
+	{
+		logprint("_sd::updateTeamStatus return2\n");
 		return;
+	}
 
 	/*
 	// if both allies and axis were alive and now they are both dead in the same instance
@@ -2324,6 +2321,7 @@ updateTeamStatus()
 		level thread endRound("allies");
 		return;
 	}
+	logprint("_sd::updateTeamStatus return3\n");
 }
 
 teamWinner(team) {
@@ -2675,7 +2673,7 @@ bombzone_think(bombzone_other)
 					bombtrigger.origin = level.bombmodel.origin;
 
 					//objective_add(0, "current", bombtrigger.origin, "objective");
-					objective_add(0, "current", bombtrigger.origin, "gfx/hud/objective.tga");
+					objective_add(0, "current", bombtrigger.origin, "gfx/hud/hud@bombplanted.tga");
 					thread maps\mp\gametypes\_objpoints::removeTeamObjpoints("allies");
 					thread maps\mp\gametypes\_objpoints::removeTeamObjpoints("axis");
 					thread maps\mp\gametypes\_objpoints::addTeamObjpoint(bombtrigger.origin, "bomb", "allies", "objpoint_star");
@@ -3774,7 +3772,7 @@ serverInfo()
 	level.serverinfo_right1 = title;
 	level.serverinfo_right2 = value;
 	
-	logprint("_sd::serverInfo stop\n");
+	logprint("_sd::serverInfo end\n");
 }
 
 

@@ -66,9 +66,11 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 onConnected()
 {
+	logprint("_timeout::onConnected start\n");
 	// Set actual timeout status on player connect + when round restart in SD
 	if (isDefined(self.pers["firstTeamSelected"])) // save cvars sent to player on first connect
 		self Update_Player_HUD_Cvar();
+	logprint("_timeout::onConnected end\n");
 }
 
 onJoinedTeam(teamName)

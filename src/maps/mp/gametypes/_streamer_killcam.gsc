@@ -34,11 +34,13 @@ init()
 
 onConnected()
 {
+	logprint("_streamer_killcam::onConnected start\n");
 	self.streamerSystem_killcam_indexes = [];
 	self.streamerSystem_killcam_proposingVisible = false;
 
 	if (self.pers["team"] == "streamer")
 		self HUD_SetRowsInMenu(); // set "No record to play!"
+	logprint("_streamer_killcam::onConnected end\n");
 }
 
 /*

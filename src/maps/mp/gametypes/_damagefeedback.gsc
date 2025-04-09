@@ -5,7 +5,7 @@ init()
 	logprint("_damagefeedback::init\n");
 	maps\mp\gametypes\global\_global::addEventListener("onCvarChanged", ::onCvarChanged);
 
-	maps\mp\gametypes\global\_global::registerCvar("scr_show_hitblip", "BOOL", 1);
+	maps\mp\gametypes\global\_global::registerCvar("scr_show_hitblip", "BOOL", 0);
 
 	if(game["firstInit"])
 	{
@@ -43,6 +43,7 @@ updateAssistsFeedback()
 				self.hud_assistfeedback.x = 320;
 				//self.hud_assistfeedback.y = 20;
 				self.hud_assistfeedback.y = 260;
+				self.hud_assistfeedback.alignX = "center";
 				self.hud_assistfeedback.alpha = 0;
 				self.hud_assistfeedback.archived = true;
 				self.hud_assistfeedback.color = (1,1,1);

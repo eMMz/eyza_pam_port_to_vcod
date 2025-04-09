@@ -23,7 +23,9 @@ init()
 
 onConnected()
 {
+	logprint("_warnings::onConnected start\n");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_serverinfo_hud", level.warnings_text);
+	logprint("_warnings::onConnected end\n");
 }
 
 sv_cheats_update()

@@ -73,13 +73,15 @@ onStartGameType()
 onConnected()
 {
 	self endon("disconnect");
-
+	logprint("_teams::onConnected start\n");
+	logprint("_teams::onConnected check: " + self.pers["modDownloaded"] + "\n");
 	// Wait till response about downloaded mod from player is received - we know player is not in lag
 	while (!self.pers["modDownloaded"])
 		wait level.frame;
 
 	self updateAutoAssignCvar();
 	level thread updateTeamChangeCvars();
+	logprint("_teams::onConnected end\n");
 }
 
 onDisconnect()

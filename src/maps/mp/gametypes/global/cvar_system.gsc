@@ -36,7 +36,7 @@ Init()
 onStartGameType()
 {
 	// Monitor cvar changes
-    	thread monitorCvarChanges();
+    thread monitorCvarChanges();
 }
 
 

@@ -61,10 +61,12 @@ Init()
 
 onConnected()
 {
+	logprint("_hud_system::onConnected start\n");
 	/#
 	self.HUDElementsArchived = 0;
 	self.HUDElementsNonArchived = 0;
 	#/
+	logprint("_hud_system::onConnected end\n");
 }
 
 

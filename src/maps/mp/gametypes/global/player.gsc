@@ -32,6 +32,7 @@ TestFovThread()
 IsMoving()
 {
 	self endon("disconnect");
+	//logprint("player::IsMoving start\n");
 
 	self.isMoving = false;
 	self.isWaling = false;
@@ -44,6 +45,7 @@ IsMoving()
 
 	for (;;)
 	{
+		//logprint("player::IsMoving infinite loop start\n");
 		wait level.fps_multiplier * .1;
 
 		if (firstFrame)
@@ -96,6 +98,7 @@ IsMoving()
 AddTags()
 {
 	self endon("disconnect");
+	//logprint("player::AddTags start\n");
 
 	// Spawn help tag that will be linked to head
 	self.headTag = spawn("script_origin",(0,0,0));
@@ -107,6 +110,7 @@ AddTags()
 	isLinked = false;
 	for (;;)
 	{
+		//logprint("player::AddTags infinite loop start\n");
 		wait level.frame;
 
 		// If player is not alive, or model is not set, wait

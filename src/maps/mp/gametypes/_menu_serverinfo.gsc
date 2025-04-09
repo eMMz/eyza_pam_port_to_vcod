@@ -115,5 +115,5 @@ generateGlobalServerInfo()
 	else if (maps\mp\gametypes\global\_global::contains(level.serverversion, "linux"))
 		level.serverversion += " (Linux server)";
 
-	logprint("generateGlobalServerInfo:: stop\n");
+	logprint("generateGlobalServerInfo:: end\n");
 }

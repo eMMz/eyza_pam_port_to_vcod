@@ -18,7 +18,9 @@ init()
 
 onConnected()
 {
+	logprint("_server_restart::onConnected start\n");
 	game["watchEmptyServer"] = true;
+	logprint("_server_restart::onConnected end\n");
 }
 
 onDisconnect()

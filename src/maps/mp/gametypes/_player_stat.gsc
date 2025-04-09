@@ -32,13 +32,16 @@ resetConnectedStatus()
 
 onConnectedAll()
 {
+    logprint("_player_stat::onConnectedAll start\n");
     level thread removeOld();
+    logprint("_player_stat::onConnectedAll end\n");
 }
 
 // Remove stats from disconnected players
 removeOld()
 {
   wait level.frame * 3; // wait untillplayers are fully proccesed on new round
+  logprint("_player_stat::removeOld start\n");
 
   time = getTime();
   for (i = 0; i < game["playerstats"].size; i++)
@@ -65,6 +68,7 @@ removeOld()
       //iprintln("Deleting old player stats for " + game["playerstats"][i]["name"] + "   " + data["isConnected"] + "  " + (time - data["lastTime"]));
     }
   }
+  logprint("_player_stat::removeOld end\n");
 }
 
 findData(name, entityId)
@@ -189,6 +193,7 @@ printThread()
 
 onConnected()
 {
+  logprint("_player_stat::onConnected start\n");
 	handleRename();
 
 	id = self getEntityNumber();
@@ -244,7 +249,7 @@ onConnected()
 			game["playerstats"][newIndex]["defuses"] = 0;
 		}
 	}
-
+  logprint("_player_stat::onConnected end\n");
 }
 
 onJoinedTeam(team)
@@ -273,6 +278,7 @@ onDisconnect()
 restoreScore(kills, deaths)
 {
   self endon("disconnect");
+  logprint("_player_stat::restoreScore start\n");
 
   wait level.frame; // wait untill score if properly initialized
 
@@ -284,6 +290,7 @@ restoreScore(kills, deaths)
     self.pers["deaths"] = deaths;
     self.deaths = deaths;
   }
+  logprint("_player_stat::restoreScore end\n");
 }
 
 

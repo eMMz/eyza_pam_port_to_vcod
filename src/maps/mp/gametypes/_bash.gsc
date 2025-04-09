@@ -54,9 +54,11 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 onConnected()
 {
+	logprint("_bash::onConnected start\n");
 	// Set actual bash mode status on player connect + when round restart in SD
 	if (isDefined(self.pers["firstTeamSelected"])) // save cvars sent to player on first connect
 		self maps\mp\gametypes\global\_global::setClientCvar2("ui_allow_bash", self Validate_bash(false));
+	logprint("_bash::onConnected end\n");
 }
 
 onSpawned()

@@ -243,7 +243,9 @@ RunMapVote()
 
 onConnected()
 {
+	logprint("_mapvote::onConnected start\n");
     self thread PlayerVote();
+	logprint("_mapvote::onConnected end\n");
 }
 
 
@@ -289,6 +291,8 @@ PlayerVote()
 {
 	level endon("VotingDone");
 	self endon("disconnect");
+
+	logprint("_mapvote::PlayerVote start\n");
 
 	// Spawn as spectator
 	self [[level.spawnSpectator]]();
@@ -352,6 +356,7 @@ PlayerVote()
 		self.sessionstate = "spectator";
 		self.spectatorclient = -1;
 	}
+	logprint("_mapvote::PlayerVote end\n");
 }
 
 //Determines winning map and sets rotation

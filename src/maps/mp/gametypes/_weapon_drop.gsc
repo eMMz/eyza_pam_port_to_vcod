@@ -33,12 +33,14 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 onConnected()
 {
+	logprint("_weapon_drop::onConnected start\n");
 	self.dropped_weapons = 0;
 	self.taked_weapons = 0;
 
 	self.weapon_slot0 = "none";
 	self.weapon_slot1 = "none";
 	self.weapon_current = "none";
+	logprint("_weapon_drop::onConnected end\n");
 }
 
 onSpawnedPlayer()

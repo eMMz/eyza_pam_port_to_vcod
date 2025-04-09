@@ -206,6 +206,7 @@ Start_Readyup_Mode(runned_in_middle_of_game)
 
 onConnected()
 {
+	logprint("_readyup::onConnected start\n");
 	// Readyup is over, ignore (in cause of finished timeout in time based gametypes - ctf, hq, tdm)
 	if (!level.in_readyup)
 		return false;
@@ -223,6 +224,7 @@ onConnected()
 
 	// Check if all players are ready
 	level thread Check_All_Ready(); // Sets level.playersready = true if all players are ready
+	logprint("_readyup::onConnected end\n");
 }
 
 onDisconnect()
@@ -469,7 +471,7 @@ playerReadyUpThread()
 		// Checking if player (self) is still defined
 		if (!isdefined(self) || !isPlayer(self))
 		{
-			logprint("Readyup error: self is undefined or is not player!");
+			//logprint("Readyup error: self is undefined or is not player!");
 			return;
 		}
 
@@ -870,7 +872,7 @@ End_Readyup_Mode()
 	{
 		if (!level.pam_mode_change)
 		{
-			logprint("_readyup:: Invoking map_restart(true) - level.pam_mode_change=" + level.pam_mode_change + "\n");
+			//logprint("_readyup:: Invoking map_restart(true) - level.pam_mode_change=" + level.pam_mode_change + "\n");
 			map_restart(true);
 		}
 	}
@@ -1415,58 +1417,58 @@ HUD_ReadyUp_ResumingIn_Delete()
 // Called each time player is spawned
 HUD_SelectTeam()
 {
-	logprint("_readyup:: HUD_SelectTeam - " + self.name + "\n");
+	//logprint("_readyup:: HUD_SelectTeam - " + self.name + "\n");
 	if (!isDefined(self.pers["firstTeamSelected"]))
 	{
-		logprint("_readyup:: HUD_SelectTeam - firstTeamSelected is not defined.\n");
+		//logprint("_readyup:: HUD_SelectTeam - firstTeamSelected is not defined.\n");
 		if (!isDefined(self.selectTeamInfoBG))
 		{
-			logprint("_readyup:: HUD_SelectTeam - selectTeamInfoBG is not defined.\n");
+			//logprint("_readyup:: HUD_SelectTeam - selectTeamInfoBG is not defined.\n");
 			// Set your team as ready to skip readyup
 			//self.selectTeamInfoBG = maps\mp\gametypes\global\_global::addHUDClient(self, -50, -23, undefined, (1,1,1), "left", "top", "center", "middle");
 			self.selectTeamInfoBG = maps\mp\gametypes\global\_global::addHUDClient(self, 270, 217, undefined, (1,1,1), "left", "top", "center", "middle");
 		    self.selectTeamInfoBG setShader("black", 100, 20);
 		    self.selectTeamInfoBG.alpha = 0.75;
 			
-			logprint("_readyup:: HUD_SelectTeam - (3) selectTeamInfoBG=" + isDefined(self.selectTeamInfoBG) + ", selectTeamInfo=" + isDefined(self.selectTeamInfo) + "\n");
+			//logprint("_readyup:: HUD_SelectTeam - (3) selectTeamInfoBG=" + isDefined(self.selectTeamInfoBG) + ", selectTeamInfo=" + isDefined(self.selectTeamInfo) + "\n");
 
 		    //self.selectTeamInfo = maps\mp\gametypes\global\_global::addHUDClient(self, 0, -20, 1.1, (1,1,1), "center", "top", "center", "middle");
 		    self.selectTeamInfo = maps\mp\gametypes\global\_global::addHUDClient(self, 320, 220, 1.1, (1,1,1), "center", "top", "center", "middle");
 			self.selectTeamInfo setText(game["STRING_READYUP_SELECT_TEAM"]);
 			
-			logprint("_readyup:: HUD_SelectTeam - (4) selectTeamInfoBG=" + isDefined(self.selectTeamInfoBG) + ", selectTeamInfo=" + isDefined(self.selectTeamInfo) + "\n");
+			//logprint("_readyup:: HUD_SelectTeam - (4) selectTeamInfoBG=" + isDefined(self.selectTeamInfoBG) + ", selectTeamInfo=" + isDefined(self.selectTeamInfo) + "\n");
 		} else 
 		{
-			logprint("_readyup:: HUD_SelectTeam - selectTeamInfoBG is defined.\n");
+			//logprint("_readyup:: HUD_SelectTeam - selectTeamInfoBG is defined.\n");
 		}
 
 	}
 	else if (isDefined(self.selectTeamInfo))
 	{
-		logprint("_readyup:: HUD_SelectTeam - selectTeamInfo is defined; destroying hud.\n");
+		//logprint("_readyup:: HUD_SelectTeam - selectTeamInfo is defined; destroying hud.\n");
 		
-		logprint("_readyup:: HUD_SelectTeam - (1) selectTeamInfoBG=" + isDefined(self.selectTeamInfoBG) + ", selectTeamInfo=" + isDefined(self.selectTeamInfo) + "\n");
+		//logprint("_readyup:: HUD_SelectTeam - (1) selectTeamInfoBG=" + isDefined(self.selectTeamInfoBG) + ", selectTeamInfo=" + isDefined(self.selectTeamInfo) + "\n");
 		if (isDefined(self.selectTeamInfoBG))
 		{
-			logprint("_readyup:: HUD_SelectTeam selectTeamInfoBG is defined - destroying\n");
+			//logprint("_readyup:: HUD_SelectTeam selectTeamInfoBG is defined - destroying\n");
 			self.selectTeamInfoBG destroy();
 			//self.selectTeamInfoBG destroy();
-			logprint("_readyup:: HUD_SelectTeam selectTeamInfoBG is defined - destroyed\n");
+			//logprint("_readyup:: HUD_SelectTeam selectTeamInfoBG is defined - destroyed\n");
 			//self.selectTeamInfoBG = undefined;
 		}
-		logprint("_readyup:: HUD_SelectTeam IN MIDDLE LOLWUT\n");
+		//logprint("_readyup:: HUD_SelectTeam IN MIDDLE LOLWUT\n");
 		if (isDefined(self.selectTeamInfo))
 		{
-			logprint("_readyup:: HUD_SelectTeam selectTeamInfo is defined - destroying\n");
+			//logprint("_readyup:: HUD_SelectTeam selectTeamInfo is defined - destroying\n");
 			self.selectTeamInfo destroy();
 			//self.selectTeamInfo destroy();
 			//self.selectTeamInfo = undefined;
 		}
 
-		logprint("_readyup:: HUD_SelectTeam - (2) selectTeamInfoBG=" + isDefined(self.selectTeamInfoBG) + ", selectTeamInfo=" + isDefined(self.selectTeamInfo) + "\n");
+		//logprint("_readyup:: HUD_SelectTeam - (2) selectTeamInfoBG=" + isDefined(self.selectTeamInfoBG) + ", selectTeamInfo=" + isDefined(self.selectTeamInfo) + "\n");
 	} else
 	{
-		logprint("_readyup:: HUD_SelectTeam - firstTeamSelected and selectTeamInfo not defined\n");
+		//logprint("_readyup:: HUD_SelectTeam - firstTeamSelected and selectTeamInfo not defined\n");
 	}
 }
 
