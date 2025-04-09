@@ -31,9 +31,9 @@ init()
 
 		// Strings (problem with precache...)
 		game["STRING_READYUP_KEY_ACTIVATE_PRESS"] = 		"Press the ^3[{+activate}] ^7button to Ready-Up.";
-		game["STRING_READYUP_KEY_MELEE_DOUBLEPRESS"] = 		"Double press ^3[{+melee_breath}] ^7to disable killing.";
-		game["STRING_READYUP_KEY_MELEE_DOUBLEPRESS_TRAINER"] = 	"Double press ^3[{+melee_breath}] ^7to disable killing or aim trainer.";
-		game["STRING_READYUP_KEY_MELEE_HOLD"] = 		"Hold ^3[{+melee_breath}] ^7to switch aim trainer modes.";
+		game["STRING_READYUP_KEY_MELEE_DOUBLEPRESS"] = 		"Double press ^3[{+activate}] ^7to disable killing.";
+		game["STRING_READYUP_KEY_MELEE_DOUBLEPRESS_TRAINER"] = 	"Double press ^3[{+activate}] ^7to disable killing or aim trainer.";
+		game["STRING_READYUP_KEY_MELEE_HOLD"] = 		"Hold ^3[{+activate}] ^7to switch aim trainer modes.";
 		game["STRING_READYUP_ALL_PLAYERS_ARE_READY"] = 		"All players are ready.";
 		game["STRING_READYUP_TIME_EXPIRED"] = 			"Time to Ready-Up is over.";
 		game["STRING_READYUP_TIME_EXPIRED_SKIP"] = 		"Set your team as ready to skip the Ready-Up.";
@@ -1041,7 +1041,7 @@ createLevelHUD()
 	//Remove MG nests (if is timeout remove only in sd)
 	if (!level.in_timeout || (level.in_timeout && (level.gametype == "sd" || level.gametype == "re")))
 	{
-		deletePlacedEntity("misc_turret");
+		//deletePlacedEntity("misc_turret");
 		deletePlacedEntity("misc_mg42");
 	}
 }

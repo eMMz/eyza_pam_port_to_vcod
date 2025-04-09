@@ -61,7 +61,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 start()
 {
-	handleTurretEntity("misc_turret");
+	//handleTurretEntity("misc_turret");
 	handleTurretEntity("misc_mg42");
 }
 

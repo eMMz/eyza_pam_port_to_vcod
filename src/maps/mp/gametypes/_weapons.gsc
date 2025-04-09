@@ -249,7 +249,7 @@ onStartGameType()
 	// Disable MG
 	if (!level.allow_turrets)
 	{
-		deletePlacedEntity("misc_turret");
+		//deletePlacedEntity("misc_turret");
 		deletePlacedEntity("misc_mg42");
 	}
 
@@ -716,14 +716,17 @@ giveGrenadesFor(weapon, count)
 		if (isDefined(count)) // replace count with own number
 			fraggrenadecount = count;
 
-		self giveWeapon(grenadetype);
-		//self setWeaponClipAmmo(grenadetype, fraggrenadecount);
-		//self switchtooffhand(grenadetype);
-		self setWeaponSlotWeapon("grenade", grenadetype);
-		self setWeaponSlotAmmo("grenade", fraggrenadecount);
-		//self switchToWeapon(grenadetype);
+		if (fraggrenadecount > 0)
+		{
+			//self giveWeapon(grenadetype);
+			//self setWeaponClipAmmo(grenadetype, fraggrenadecount);
+			//self switchtooffhand(grenadetype);
+			self setWeaponSlotWeapon("grenade", grenadetype);
+			self setWeaponSlotAmmo("grenade", fraggrenadecount);
+			//self switchToWeapon(grenadetype);
 
-		return fraggrenadecount;
+			return fraggrenadecount;
+		}
 	}
 	return 0;
 }

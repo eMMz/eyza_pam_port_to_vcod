@@ -1239,7 +1239,7 @@ startRound()
 	{
 		objective_delete(0);
 		objective_delete(1);
-		maps\mp\gametypes\_weapons::deletePlacedEntity("misc_turret");
+		//maps\mp\gametypes\_weapons::deletePlacedEntity("misc_turret");
 		maps\mp\gametypes\_weapons::deletePlacedEntity("misc_mg42");
 
 		level streamer_reset_round_kills();
