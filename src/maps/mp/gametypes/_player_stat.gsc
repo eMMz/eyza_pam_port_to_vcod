@@ -391,11 +391,13 @@ CalculatePlayersAdr()
   logprint("_player_stat:: CalculatePlayersAdr allies score: " + game["allies_score"] + ", axis score: " + game["axis_score"] + ", total roundsplayed: " + totalRoundsPlayed + "\n");
   for (i = 0; i < game["playerstats"].size; i++)
   {
-    data = game["playerstats"][i];
-    if (data["deleted"] == false)
+    if (game["playerstats"][i]["deleted"] == false)
     {
       if (totalRoundsPlayed > 0)
-        data["adr"] = data["damage"]/(totalRoundsPlayed*1.0);
+      {
+        game["playerstats"][i]["adr"] = game["playerstats"][i]["damage"]/(totalRoundsPlayed*1.0);
+        logprint(game["playerstats"][i]["name"] + ", adr=" + game["playerstats"][i]["adr"] + ", dmg=" + game["playerstats"][i]["damage"] + "\n");
+      }
     }
   }
 }
@@ -407,6 +409,9 @@ CalculateAdr()
   if (dataId >= 0)
   {
     if (totalRoundsPlayed > 0)
+    {
       game["playerstats"][dataId]["adr"] = game["playerstats"][dataId]["damage"]/(totalRoundsPlayed*1.0);
+      logprint(game["playerstats"][dataId]["name"] + ", adr=" + game["playerstats"][dataId]["adr"] + ", dmg=" + game["playerstats"][dataId]["damage"] + "\n");
+    }
   }
 }

@@ -1076,7 +1076,7 @@ spawnPlayer()
 	// Switch to pistol in bash mode
 	if (level.in_bash)
 	{
-		self setSpawnWeapon(self getweaponslotweapon("primaryb"));
+		self setSpawnWeapon(self getweaponslotweapon("pistol"));
 	}
 
 
@@ -1992,22 +1992,21 @@ endRound(roundwinner)
 		player = players[i];
 
 		/*
-		Recoded weapon saving system:
+		Recoded weapon saving system (adjusted to vCoD):
 
 		Round start  	| End of Round 	| Next round	| Case selected weapon is
 		Spawned weap 	| Weapon slots 	| Spawned weap	| changed to thompson during round
 		--------------------------------------------------------------------------------
-		M1		| M1	-	| M1	-	| thomp	-
-		M1		| -	M1	| M1	-	| thomp	-
-		M1		| M1	KAR	| M1	KAR	| thomp	KAR
-		M1		| KAR	M1	| KAR	M1	| thomp M1
-		M1		| KAR	MP44	| KAR	MP44	| thomp	MP44
-		M1		| KAR	-	| KAR	-	| thomp	-
-		M1		| -	KAR	| KAR	-	| thomp	-
-		M1		| M1	thomp	| M1	thomp	| thomp	-
-		M1		| thomp	M1	| thomp M1	| thomp M1
-		M1		| -	-	| M1	-	| thomp	-
-
+		M1				| M1	-		| M1	-		| thomp	-
+		M1				| -		M1		| M1	-		| thomp	-
+		M1				| M1	KAR		| M1	KAR		| thomp	KAR
+		M1				| KAR	M1		| M1	KAR		| thomp M1
+		M1				| KAR	MP44	| M1	MP44	| thomp	MP44
+		M1				| KAR	-		| M1	-		| thomp	-
+		M1				| -		KAR		| M1	-		| thomp	-
+		M1				| M1	thomp	| M1	thomp	| thomp	-
+		M1				| thomp	M1		| M1 	thomp	| thomp M1
+		M1				| -		-		| M1	-		| thomp	-
 		*/
 
 
@@ -2022,26 +2021,22 @@ endRound(roundwinner)
 			if (!player maps\mp\gametypes\_weapon_limiter::isWeaponSaveable(weapon2))
 				weapon2 = "none";
 
-			// Give player selected weapon if selected weapon is changed
-			if (player.selectedWeaponOnRoundStart != player.pers["weapon"])
-			{
-				weapon1 = player.pers["weapon"];
-				// In case we change to weapon, that is actually in slot, avoid duplicate
-				if (weapon1 == weapon2)
-					weapon2 = "none";
-			}
-
 			// Give player spawned weapon if there is no saveable weapons
 			if (weapon1 == "none" && weapon2 == "none")
 				weapon1 = player.pers["weapon"];
 
-			// Swap weapons if there is weapon in secondary slot only
-			if (weapon1 == "none" && weapon2 != "none")
+			// make sure that selected weapon is always in primary slot - weapon1
+			// weapon2 is selected weapon
+			if (weapon2 == player.pers["weapon"])
 			{
 				temp = weapon1;
 				weapon1 = weapon2;
 				weapon2 = temp;
 			}
+
+			// if weapon1 is not selected weapon, set weapon1 to selected weapon
+			if (weapon1 != player.pers["weapon"])
+				weapon1 = player.pers["weapon"];
 
 			// Save spawned weapon
 			player.pers["weapon1"] = weapon1;
@@ -3561,7 +3556,7 @@ menuWeapon(response)
 				{
 					self takeWeapon(primaryb); // Remove weapon
 
-					maps\mp\gametypes\_weapons::givePistol();
+					//maps\mp\gametypes\_weapons::givePistol();
 				}
 
 				/*

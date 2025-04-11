@@ -76,12 +76,10 @@ hide_scoreboard(distributed)
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_assists", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_deaths", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_adr", "");
-	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_damage", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_nade_damage", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_grenades", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_plants", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_defuses", "");
-	//self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_ping", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_visible", "0");
 
 	if (isDefined(distributed) && distributed)
@@ -119,43 +117,43 @@ onMenuResponse(menu, response)
 		return true;
 	}
 
-	if (maps\mp\gametypes\global\_global::startsWith(response, "scoreboard_setPlayer"))
-	{
-		substr = maps\mp\gametypes\global\_global::getsubstr(response, 20);
+	// if (maps\mp\gametypes\global\_global::startsWith(response, "scoreboard_setPlayer"))
+	// {
+	// 	substr = maps\mp\gametypes\global\_global::getsubstr(response, 20);
 
-		if (!maps\mp\gametypes\global\_global::isDigitalNumber(substr))
-			return true;
+	// 	if (!maps\mp\gametypes\global\_global::isDigitalNumber(substr))
+	// 		return true;
 
-		line = (int)(substr);
+	// 	line = (int)(substr);
 
-		//self iprintln(line);
+	// 	//self iprintln(line);
 
-		if (!isDefined(self.pers["scoreboard_lines_statIds"][line]))
-			return true;
+	// 	if (!isDefined(self.pers["scoreboard_lines_statIds"][line]))
+	// 		return true;
 
-		statsId = self.pers["scoreboard_lines_statIds"][line];
-		clickedPlayer = game["playerstats"][statsId]["player"];
+	// 	statsId = self.pers["scoreboard_lines_statIds"][line];
+	// 	clickedPlayer = game["playerstats"][statsId]["player"];
 
-		if (!isPlayer(clickedPlayer))
-			return true;
+	// 	if (!isPlayer(clickedPlayer))
+	// 		return true;
 
-		//self iprintln(clickedPlayer.name);
+	// 	//self iprintln(clickedPlayer.name);
 
-		if (!self canBeColorChanged(clickedPlayer))
-			return true;
+	// 	if (!self canBeColorChanged(clickedPlayer))
+	// 		return true;
 
-		if (!isDefined(clickedPlayer.pers["scoreboard_color"]))
-			clickedPlayer.pers["scoreboard_color"] = 1;
-		else if (clickedPlayer.pers["scoreboard_color"] < 2)
-			clickedPlayer.pers["scoreboard_color"]++;
-		else
-			clickedPlayer.pers["scoreboard_color"] = undefined;
+	// 	if (!isDefined(clickedPlayer.pers["scoreboard_color"]))
+	// 		clickedPlayer.pers["scoreboard_color"] = 1;
+	// 	else if (clickedPlayer.pers["scoreboard_color"] < 2)
+	// 		clickedPlayer.pers["scoreboard_color"]++;
+	// 	else
+	// 		clickedPlayer.pers["scoreboard_color"] = undefined;
 
 
-		self thread updatePlayerLists();
+	// 	self thread updatePlayerLists();
 
-		return true;
-	}
+	// 	return true;
+	// }
 }
 
 updatePlayerLists()
@@ -273,7 +271,7 @@ canBeColorChanged(player)
 }
 
 
-addLine(stats, name, score, kills, deaths, assists, adr, damage, grenade_damage, grenades, plants, defuses)
+addLine(stats, name, score, kills, deaths, assists, adr, grenade_damage, grenades, plants, defuses)
 {
 	// Lines limit reached
 	if (self.scoreboard.i > level.scoreboard_lines)
@@ -299,7 +297,6 @@ addLine(stats, name, score, kills, deaths, assists, adr, damage, grenade_damage,
 		self.scoreboard.deaths +=	deaths;
 		self.scoreboard.assists +=	assists;
 		self.scoreboard.adr += 		adr;
-		self.scoreboard.damage +=	damage;
 		self.scoreboard.grenade_damage += grenade_damage;
 		self.scoreboard.grenades +=	grenades;
 		self.scoreboard.plants +=	plants;
@@ -315,7 +312,6 @@ addLine(stats, name, score, kills, deaths, assists, adr, damage, grenade_damage,
 	self.scoreboard.deaths +=	"\n^7";
 	self.scoreboard.assists +=	"\n^7";
 	self.scoreboard.adr +=		"\n^7";
-	self.scoreboard.damage +=	"\n^7";
 	self.scoreboard.grenade_damage += "\n^7";
 	self.scoreboard.grenades +=	"\n^7";
 	self.scoreboard.plants +=	"\n^7";
@@ -464,7 +460,6 @@ addPlayerLine(team, stats)
 		score = "   -";
 		assists = "-";
 		adr = "   -";
-		damage = "   -";
 		grenade_damage = "   -";
 		plants = "-";
 		defuses = "-";
@@ -474,12 +469,7 @@ addPlayerLine(team, stats)
 			score = maps\mp\gametypes\global\_global::format_fractional(stats["score"], 1, 1);
 			assists = stats["assists"];
 			adr = maps\mp\gametypes\global\_global::format_fractional(stats["adr"], 1, 1);
-
-			//damage = "";
-			//if (stats["damage"] >= 500) damage = "^3";  // yellow
-			//if (stats["damage"] >= 1000) damage = "^1"; // red
-			//damage += maps\mp\gametypes\global\_global::format_fractional(stats["damage"] / 100, 1, 1);
-			//damage += stats["damage"];
+			//logprint("$$$$$$$$$$$$$$$$$$$$$ name=" + name + ", adr=" + adr + "\n");
 
 			grenade_damage = "";
 			if (stats["grenade_damage"] >= 500) grenade_damage = "^3";  // yellow
@@ -493,7 +483,7 @@ addPlayerLine(team, stats)
 
 
 		//logprint("addLine with player stats: " + name + " " + score + " etc...\n");
-		addLine(stats, name, color + score, color + stats["kills"], color + stats["deaths"], color + assists, color + adr, color + damage, color + grenade_damage, color + grenades, color + plants, color + defuses);
+		addLine(stats, name, color + score, color + stats["kills"], color + stats["deaths"], color + assists, color + adr, color + grenade_damage, color + grenades, color + plants, color + defuses);
 
 		// Debug
 		//addLine(player.name, 48, 32, 18, 4, 3.7, 2, 0);
@@ -501,7 +491,7 @@ addPlayerLine(team, stats)
 	else
 	{
 		//logprint("addLine blank\n");
-		addLine(stats, name, "", "", "", "", "", "", "", "", "", "");
+		addLine(stats, name, "", "", "", "", "", "", "", "", "");
 	}
 
 }
@@ -547,7 +537,6 @@ generatePlayerList(toggle)
 		self.scoreboard.deaths = "";
 		self.scoreboard.assists = "";
 		self.scoreboard.adr = "";
-		self.scoreboard.damage = "";
 		self.scoreboard.grenade_damage = "";
 		self.scoreboard.grenades = "";
 		self.scoreboard.plants = "";
@@ -625,6 +614,7 @@ generatePlayerList(toggle)
 			}
 		}
 
+		//logprint("&&&&&&&&&&&& " + self.scoreboard.names + ", adr=" + self.scoreboard.adr + "\n");
 		// Text separed by new lines
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_teams", self.scoreboard.teams);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_names", self.scoreboard.names);
@@ -633,7 +623,6 @@ generatePlayerList(toggle)
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_assists", self.scoreboard.assists);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_deaths", self.scoreboard.deaths);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_adr", self.scoreboard.adr);
-		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_damage", self.scoreboard.damage);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_grenade_damage", self.scoreboard.grenade_damage);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_grenades", self.scoreboard.grenades);
 		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_plants", self.scoreboard.plants);

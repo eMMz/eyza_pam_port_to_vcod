@@ -777,8 +777,8 @@ dropWeapon()
 
 	//iprintln(current);
 
-	if (current == "sprint_weap_mp")
-		return;
+	//if (current == "sprint_weap_mp")
+		//return;
 
 	if(current == "none")
 		return;
@@ -814,11 +814,8 @@ dropWeapon()
 			return;
 	}
 
-	if(clipsize || reservesize) {
-		self dropItem(current);
-		level maps\mp\gametypes\_weapon_drop::handleWeaponDrop(current, self);
-	}
-
+	self dropItem(current);
+	level maps\mp\gametypes\_weapon_drop::handleWeaponDrop(current, self);
 }
 
 dropNade()

@@ -26,7 +26,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 	switch(cvar)
 	{
 		case "scr_allow_primary_drop": 		level.allow_primary_drop = value; return true;
-        	case "scr_allow_secondary_drop": 	level.allow_secondary_drop = value; return true;
+        case "scr_allow_secondary_drop": 	level.allow_secondary_drop = value; return true;
 	}
 	return false;
 }

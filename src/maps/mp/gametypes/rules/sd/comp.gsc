@@ -3,7 +3,7 @@
 Load()
 {
 	game["rules_leagueString"] = &"Search and Destroy";
-	game["rules_formatString"] = &"MR12"; // default
+	game["rules_formatString"] = &"Classic"; // default
 
 	game["ruleCvars"] = GetCvars(game["ruleCvars"]);
 }
@@ -12,10 +12,10 @@ GetCvars(arr)
 {
 	// Match Style
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_timelimit", 0);		// Time limit for map. 0=disabled (minutes)
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_half_round", 12);	// Number of rounds when half-time starts. 0=ignored
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_half_round", 10);	// Number of rounds when half-time starts. 0=ignored
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_half_score", 0);	// Number of score when half-time starts. 0=ignored
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_end_round", 24);	// Number of rounds when map ends. 0=ignored
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_end_score", 13);	// Number of score when map ends. 0=ignored
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_end_round", 20);	// Number of rounds when map ends. 0=ignored
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_end_score", 0);	// Number of score when map ends. 0=ignored
 
 	// Round options
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_strat_time", 10);	// Time before round starts where players cannot move
@@ -54,7 +54,7 @@ GetCvars(arr)
 
 
 	// Are there OT Rules?
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_overtime", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_overtime", 0);
 
 	// OT Rules - MR3 format
   	if (isDefined(game["overtime_active"]) && game["overtime_active"])
@@ -81,7 +81,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_hitblip", 1);
 
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_scoreboard", 1); 		//Score in the upper left corner [0 - 1] 0=hided  1=visible  (if 1, score can be still hided by player settings)
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_scoreboard_limit", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_scoreboard_limit", 0);
 
 	// Health Regeneration
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_health_regen", 1); 	// 0=no regen, 1=refill health after "scr_regen_delay"
