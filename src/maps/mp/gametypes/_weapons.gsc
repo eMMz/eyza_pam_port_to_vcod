@@ -608,21 +608,27 @@ givePistol()
 				pistoltype = "colt_mp";
 				break;
 
-			default:
-				assert(game["allies"] == "russian");
+			case "russian":
+				//assert(game["allies"] == "russian");
 				//pistoltype = "TT30_mp";
 				pistoltype = "luger_mp";
+				break;
+			default:
+				pistoltype = "none";
 				break;
 			}
 		}
 		else
 		{
-			assert(self.pers["team"] == "axis");
+			//assert(self.pers["team"] == "axis");
 			switch(game["axis"])
 			{
-			default:
-				assert(game["axis"] == "german");
+			case "german":
+				//assert(game["axis"] == "german");
 				pistoltype = "luger_mp";
+				break;
+			default:
+				pistoltype = "none";
 				break;
 			}
 		}
@@ -634,12 +640,22 @@ givePistol()
 
 		if (!level.allow_pistols)
 			return;
+		
+		if (pistoltype == "none")
+		{
+			logprint("_weapons::givePistol unknown team type. Cannot assign pistoltype\n");
+			return;
+		}
 
 		//self giveWeapon(pistoltype);
 		self setWeaponSlotWeapon("pistol", pistoltype);
 		self setWeaponSlotAmmo("pistol", 999);
 		self setWeaponSlotClipAmmo("pistol", 999);
 		//self giveMaxAmmo(pistoltype);
+	} else {
+		logprint("_weapons::givePistol restoring ammo only for player=" + self.name + " \n");
+		self setWeaponSlotAmmo("pistol", 999);
+		self setWeaponSlotClipAmmo("pistol", 999);
 	}
 }
 
@@ -679,6 +695,11 @@ GetGrenadeTypeName()
 		}			
 	}
 
+	if (grenadetype == "none")
+	{
+		logprint("_weapons::GetGrenadeTypeName() - Unknown grenadetype.\n");
+	}
+
 	return grenadetype;
 }
 
@@ -710,6 +731,12 @@ giveGrenadesFor(weapon, count)
 
 	grenadetype = self GetGrenadeTypeName();
 	fraggrenadecount = getWeaponBasedGrenadeCount(weapon);
+
+	if (grenadetype == "none")
+	{
+		logprint("_weapons::giveGrenadesFor - Uknown grenadetype\n");
+		return 0;
+	}
 
 	if(fraggrenadecount)
 	{
@@ -786,19 +813,18 @@ dropWeapon()
 	if (level.gametype == "re" && self.obj_carrier)
 		return;
 
-	weapon1 = self getweaponslotweapon("primary");
-	weapon2 = self getweaponslotweapon("primaryb");
+	// weapon1 = self getweaponslotweapon("primary");
+	// weapon2 = self getweaponslotweapon("primaryb");
 
-	if(current == weapon1)
-		currentslot = "primary";
-	else
-	{
-		assert(current == weapon2);
-		currentslot = "primaryb";
-	}
+	// if(current == weapon1)
+	// 	currentslot = "primary";
+	// else if(current == weapon2)
+	// {
+	// 	currentslot = "primaryb";
+	// }
 
-	clipsize = self getweaponslotclipammo(currentslot);
-	reservesize = self getweaponslotammo(currentslot);
+	//clipsize = self getweaponslotclipammo(currentslot);
+	//reservesize = self getweaponslotammo(currentslot);
 
 	// Pistols are not defined in level.weapons - so check if this weapon exists
 	if (isDefined(level.weapons[current]))

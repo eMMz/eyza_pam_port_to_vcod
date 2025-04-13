@@ -55,8 +55,11 @@ onStartGameType()
 				break;
 		}
 
-		assert(game["axis"] == "german");
-		precacheShader("gfx/hud/hud@mpflag_german");
+		if (game["axis"] == "german")
+		{
+			precacheShader("gfx/hud/hud@mpflag_german");
+		}
+
 		precacheShader("gfx/hud/hud@mpflag_spectator");
 	}
 

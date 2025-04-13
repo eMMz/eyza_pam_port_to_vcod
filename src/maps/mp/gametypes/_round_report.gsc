@@ -445,6 +445,8 @@ getWeapon(sMeansOfDeath, sWeapon)
 		return "Bomb explosion";
 	if (sMeansOfDeath == "MOD_FALLING")
 		return "Downfall";
+	if (sMeansOfDeath == "MOD_SUICIDE")
+		return "Suicide";
 
 	weaponsTexts["m1carbine_mp"] = "Carabine";
 	weaponsTexts["m1garand_mp"] = "M1 Garand";

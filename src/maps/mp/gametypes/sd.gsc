@@ -237,7 +237,7 @@ precache()
 	//precacheString(&"PLATFORM_HOLD_TO_DEFUSE_EXPLOSIVES");
 	precacheModel("xmodel/mp_bomb1_defuse");
 	precacheModel("xmodel/mp_bomb1");
-	precacheStatusIcon("compassping_enemyfiring"); // for streamers
+	//precacheStatusIcon("compassping_enemyfiring"); // for streamers
 
 	maps\mp\gametypes\global\_global::precacheString2("STRING_ROUND", &"Round");
 	maps\mp\gametypes\global\_global::precacheString2("STRING_ROUND_STARTING", &"Starting");

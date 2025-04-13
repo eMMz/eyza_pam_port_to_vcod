@@ -28,9 +28,14 @@ Init()
 		//case "hq": 	loaded = Load_HQ_Rules(); break;
 		//case "htf": 	loaded = Load_HTF_Rules(); break;
 		//case "re": 	loaded = Load_RE_Rules(); break;
-		//case "strat": 	loaded = Load_Strat_Rules(); break;
+		case "strat": 	loaded = Load_Strat_Rules(); break;
 	}
-	logprint("assert loaded is true => loaded=" + loaded + "\n");
+	if (loaded) 
+	{
+		logprint("Rules loaded.\n");
+	} else {
+		logprint("Rules not loaded.\n");
+	}
 
 	/#
 	if (game["ruleCvars"].size == 0 && !game["is_public_mode"])
@@ -48,7 +53,11 @@ Init()
 
 	if (game["firstInit"] || overtime_changed)
 	{
-		assert(level.pam_mode != "");
+		//assert(level.pam_mode != "");
+		if (level.pam_mode != "")
+		{
+			logprint("_rules::Init - empty pam_mode!!\n");
+		}
 
 		_2v2 = PAMModeContains("2v2");
 		russian = PAMModeContains("russian");
@@ -613,6 +622,7 @@ Load_RE_Rules()
 
 	return true;
 }
+*/
 
 Load_Strat_Rules()
 {
@@ -620,4 +630,3 @@ Load_Strat_Rules()
 
     return true;
 }
-*/

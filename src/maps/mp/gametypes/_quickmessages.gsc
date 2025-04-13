@@ -20,6 +20,9 @@ quickcommands(response)
 
 	self.spamdelay = true;
 
+	soundalias = "none";
+	saytext = "none";
+
 	if(self.pers["team"] == "allies")
 	{
 		switch(game["allies"])
@@ -68,12 +71,13 @@ quickcommands(response)
 				saytext = &"QUICKMESSAGE_SQUAD_HOLD_THIS_POSITION";
 				//saytext = "Hold this position!";
 				break;
-
-			default:
-				assert(response == "8");
+			case "8":
 				soundalias = "american_regroup";
 				saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
 				//saytext = "SQUAD_REGROUP!";
+				break;
+			default:
+				logprint("_quickmessages::quickcommands unknown response=" + response + "\n");
 				break;
 			}
 			break;
@@ -122,18 +126,17 @@ quickcommands(response)
 				saytext = &"QUICKMESSAGE_SQUAD_HOLD_THIS_POSITION";
 				//saytext = "Hold this position!";
 				break;
-
-			default:
-				assert(response == "8");
+			case "8":
 				soundalias = "british_regroup";
 				saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
 				//saytext = "SQUAD_REGROUP!";
 				break;
+			default:
+				logprint("_quickmessages::quickcommands unknown response=" + response + "\n");
+				break;
 			}
 			break;
-
-		default:
-			assert(game["allies"] == "russian");
+		case "russian":
 			switch(response)
 			{
 			case "1":
@@ -177,24 +180,26 @@ quickcommands(response)
 				saytext = &"QUICKMESSAGE_SQUAD_HOLD_THIS_POSITION";
 				//saytext = "Hold this position!";
 				break;
-
-			default:
-				assert(response == "8");
+			case "8":
 				soundalias = "russian_regroup";
 				saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
 				//saytext = "SQUAD_REGROUP!";
 				break;
+			default:
+				logprint("_quickmessages::quickcommands unknown response=" + response + "\n");
+				break;
 			}
+			break;
+		default:
+			logprint("_quickmessages::quickcommands unknown game[allies]=" + game["allies"] + "\n");
 			break;
 		}
 	}
-	else
+	else if (self.pers["team"] == "axis")
 	{
-		assert(self.pers["team"] == "axis");
 		switch(game["axis"])
 		{
-		default:
-			assert(game["axis"] == "german");
+		case "german":
 			switch(response)
 			{
 			case "1":
@@ -238,16 +243,28 @@ quickcommands(response)
 				saytext = &"QUICKMESSAGE_SQUAD_HOLD_THIS_POSITION";
 				//saytext = "Hold this position!";
 				break;
-
-			default:
-				assert(response == "8");
+			case "8":
 				soundalias = "german_regroup";
 				saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
 				//saytext = "SQUAD_REGROUP!";
 				break;
+			default:
+				logprint("_quickmessages::quickcommands unknown response=" + response + "\n");
+				break;
 			}
 			break;
+		default:
+			logprint("_quickmessages::quickcommands unknown game[axis]=" + game["axis"] + "\n");
+			break;
 		}
+	} else {
+		logprint("_quickmessages::quickcommands unknown game[team]=" + game["team"] + "\n");
+	}
+
+	if (soundalias == "none" || saytext == "none")
+	{
+		logprint("_quickmessages::quickcommands soundalias or saytext is none\n");
+		return;
 	}
 
 	self saveHeadIcon();
@@ -264,6 +281,8 @@ quickstatements(response)
 		return;
 
 	self.spamdelay = true;
+	soundalias = "none";
+	saytext = "none";
 
 	if(self.pers["team"] == "allies")
 	{
@@ -313,12 +332,13 @@ quickstatements(response)
 				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
 				//saytext = "Need reinforcements!";
 				break;
-
-			default:
-				assert(response == "8");
+			case "8":
 				soundalias = "american_hold_fire";
 				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
 				//saytext = "Hold your fire!";
+				break;
+			default:
+				logprint("_quickmessages::quickstatements unknown response=" + response + "\n");
 				break;
 			}
 			break;
@@ -367,18 +387,18 @@ quickstatements(response)
 				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
 				//saytext = "Need reinforcements!";
 				break;
-
-			default:
-				assert(response == "8");
+			case "8":
 				soundalias = "british_hold_fire";
 				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
 				//saytext = "Hold your fire!";
 				break;
+			default:
+				logprint("_quickmessages::quickstatements unknown response=" + response + "\n");
+				break;
 			}
 			break;
 
-		default:
-			assert(game["allies"] == "russian");
+		case "russian":
 			switch(response)
 			{
 			case "1":
@@ -422,24 +442,26 @@ quickstatements(response)
 				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
 				//saytext = "Need reinforcements!";
 				break;
-
-			default:
-				assert(response == "8");
+			case "8":
 				soundalias = "russian_hold_fire";
 				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
 				//saytext = "Hold your fire!";
 				break;
+			default:
+				logprint("_quickmessages::quickstatements unknown response=" + response + "\n");
+				break;
 			}
+			break;
+		default:
+			logprint("_quickmessages::quickstatements unknown game[allies]=" + game["allies"] + "\n");
 			break;
 		}
 	}
-	else
+	else if (self.pers["team"] == "axis")
 	{
-		assert(self.pers["team"] == "axis");
 		switch(game["axis"])
 		{
-		default:
-			assert(game["axis"] == "german");
+		case "german":
 			switch(response)
 			{
 			case "1":
@@ -483,16 +505,28 @@ quickstatements(response)
 				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
 				//saytext = "Need reinforcements!";
 				break;
-
-			default:
-				assert(response == "8");
+			case "8":
 				soundalias = "german_hold_fire";
 				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
 				//saytext = "Hold your fire!";
 				break;
+			default:
+				logprint("_quickmessages::quickstatements unknown response=" + response + "\n");
+				break;
 			}
 			break;
+		default:
+			logprint("_quickmessages::quickstatements unknown game[axis]=" + game["axis"] + "\n");
+			break;
 		}
+	} else {
+		logprint("_quickmessages::statements unknown game[team]=" + game["team"] + "\n");
+	}
+
+	if (soundalias == "none" || saytext == "none")
+	{
+		logprint("_quickmessages::quickstatements soundalias or saytext is none\n");
+		return;
 	}
 
 	self saveHeadIcon();
@@ -509,6 +543,8 @@ quickresponses(response)
 		return;
 
 	self.spamdelay = true;
+	soundalias = "none";
+	saytext = "none";
 
 	if(self.pers["team"] == "allies")
 	{
@@ -552,12 +588,13 @@ quickresponses(response)
 				saytext = &"QUICKMESSAGE_TOOK_LONG_ENOUGH";
 				//saytext = "Took long enough!";
 				break;
-
-			default:
-				assert(response == "7");
+			case "7":
 				soundalias = "american_youre_crazy";
 				saytext = &"QUICKMESSAGE_ARE_YOU_CRAZY";
 				//saytext = "Are you crazy?";
+				break;
+			default:
+				logprint("_quickmessages::quickresponses unknown response=" + response + "\n");
 				break;
 			}
 			break;
@@ -601,17 +638,18 @@ quickresponses(response)
 				//saytext = "Took long enough!";
 				break;
 
-			default:
-				assert(response == "7");
+			case "7":
 				soundalias = "british_youre_crazy";
 				saytext = &"QUICKMESSAGE_ARE_YOU_CRAZY";
 				//saytext = "Are you crazy?";
 				break;
+			default:
+				logprint("_quickmessages::quickresponses unknown response=" + response + "\n");
+				break;
 			}
 			break;
 
-		default:
-			assert(game["allies"] == "russian");
+		case "russian":
 			switch(response)
 			{
 			case "1":
@@ -650,23 +688,26 @@ quickresponses(response)
 				//saytext = "Took long enough!";
 				break;
 
-			default:
-				assert(response == "7");
+			case "7":
 				soundalias = "russian_youre_crazy";
 				saytext = &"QUICKMESSAGE_ARE_YOU_CRAZY";
 				//saytext = "Are you crazy?";
 				break;
+			default:
+				logprint("_quickmessages::quickresponses unknown response=" + response + "\n");
+				break;
 			}
+			break;
+		default:
+			logprint("_quickmessages::quickresponses unknown game[allies]=" + game["allies"] + "\n");
 			break;
 		}
 	}
-	else
+	else if (self.pers["team"] == "axis")
 	{
-		assert(self.pers["team"] == "axis");
 		switch(game["axis"])
 		{
-		default:
-			assert(game["axis"] == "german");
+		case "german":
 			switch(response)
 			{
 			case "1":
@@ -704,16 +745,28 @@ quickresponses(response)
 				saytext = &"QUICKMESSAGE_TOOK_LONG_ENOUGH";
 				//saytext = "Took long enough!";
 				break;
-
-			default:
-				assert(response == "7");
+			case "7":
 				soundalias = "german_are_you_crazy";
 				saytext = &"QUICKMESSAGE_ARE_YOU_CRAZY";
 				//saytext = "Are you crazy?";
 				break;
+			default:
+				logprint("_quickmessages::quickresponses unknown response=" + response + "\n");
+				break;
 			}
 			break;
+		default:
+			logprint("_quickmessages::quickresponses unknown game[axis]=" + game["axis"] + "\n");
+			break;
 		}
+	} else {
+		logprint("_quickmessages::responses unknown game[team]=" + game["team"] + "\n");
+	}
+
+	if (soundalias == "none" || saytext == "none")
+	{
+		logprint("_quickmessages::quickresponses soundalias or saytext is none\n");
+		return;
 	}
 
 	self saveHeadIcon();
