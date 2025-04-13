@@ -76,8 +76,11 @@ getCurrentWeaponSlot()
 getClipAmmo()
 {
     currentSlot = getCurrentWeaponSlot();
-
-    return self getweaponslotclipammo(currentSlot);
+    logprint("currentSlot=" + currentSlot + "\n");
+    if (currentSlot != "none")
+        return self getweaponslotclipammo(currentSlot);
+    else
+        return 0;
 }
 
 manageWeaponCycleDelay()
@@ -123,7 +126,12 @@ manageWeaponCycleDelay()
         currentWeapon = self getcurrentweapon();
 
         // Player is planting, or is using ladder
-        if (currentWeapon == "none")
+        if (currentWeapon == "none"
+            || currentWeapon == "fraggrenade_mp" 
+            || currentWeapon == "mk1britishfrag_mp"
+            || currentWeapon == "rgd-33russianfrag_mp"
+            || currentWeapon == "stielhandgranate_mp"
+            )
         {
             cycleDelayTime = 0; // reset cycle delay
             continue;
@@ -146,13 +154,15 @@ manageWeaponCycleDelay()
         currentClipAmmo = self getClipAmmo();
 
         // If weapon fired
-        if (currentClipAmmo < lastClipAmmo)
+        if (currentClipAmmo < lastClipAmmo && currentClipAmmo != 0)
         {
             // Get time how long rechamber will take
             timer = GetRechamberTime(currentWeapon);
 
-      			if (timer > 0)
-      			{
+            logprint("currentWeapon=" + currentWeapon + ", timer=" + timer + "\n");
+
+      		if (timer > 0)
+      		{
   	            cycleDelayActivated = true;
   	            cycleDelayTime = timer - level.frame*3;
 
@@ -160,10 +170,11 @@ manageWeaponCycleDelay()
                 wait level.frame*3;
 
   	            if (level.debug_fastreload) self iprintln("^1Preventing fast reload bug");
-  	            self maps\mp\gametypes\global\_global::setClientCvar2("cg_weaponCycleDelay", "200");	// time in ms when player can change weapon again
-      			}
+  	                self maps\mp\gametypes\global\_global::setClientCvar2("cg_weaponCycleDelay", "200");	// time in ms when player can change weapon again
+      		}
         }
 
+        logprint("lastClipAmmo=" + lastClipAmmo + ", currentClipAmmo=" + currentClipAmmo + "\n");
         lastClipAmmo = currentClipAmmo;
     }
 }

@@ -1219,7 +1219,7 @@ HUD_ReadyUpMode()
 	level.readyup_dummy_clock.color = (1, 1, 1);
 	level.readyup_dummy_clock.x = 320;
 	level.readyup_dummy_clock.y = 460;
-	level.readyup_dummy_clock setTimer(0);
+	level.readyup_dummy_clock setTimer(0.1);
 
     level waittill("rupover");
 

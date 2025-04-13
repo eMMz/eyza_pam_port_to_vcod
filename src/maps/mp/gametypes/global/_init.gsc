@@ -105,12 +105,12 @@ InitModules()
 	thread maps\mp\gametypes\_menu_scoreboard::init(); // depends on matchinfo
 
 
-	thread maps\mp\gametypes\custom\_fast_reload::init();
-	//thread maps\mp\gametypes\custom\_prone_peek_fix::Init();
+	thread maps\mp\gametypes\_fast_reload::init();
+	//thread maps\mp\gametypes\_prone_peek_fix::Init();
 	thread maps\mp\gametypes\_mapvote::Init();
 	thread maps\mp\gametypes\_player_stat::init();
-	//thread maps\mp\gametypes\custom\_mg_fix::init();
-	thread maps\mp\gametypes\custom\_rpam_aimrun_fix::Init();
+	//thread maps\mp\gametypes\_mg_fix::init();
+	thread maps\mp\gametypes\_rpam_aimrun_fix::Init();
 	thread maps\mp\gametypes\_round_report::init();
 	thread maps\mp\gametypes\_score_set::init(); // depends on readyup, halftime, sd
 	thread maps\mp\gametypes\_sniper_shotgun_info::init();
