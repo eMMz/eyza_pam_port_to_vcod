@@ -28,7 +28,7 @@ Init()
 		//case "hq": 	loaded = Load_HQ_Rules(); break;
 		//case "htf": 	loaded = Load_HTF_Rules(); break;
 		//case "re": 	loaded = Load_RE_Rules(); break;
-		case "strat": 	loaded = Load_Strat_Rules(); break;
+		//case "strat": 	loaded = Load_Strat_Rules(); break;
 	}
 	if (loaded) 
 	{
@@ -624,9 +624,9 @@ Load_RE_Rules()
 }
 */
 
-Load_Strat_Rules()
-{
-    maps\mp\gametypes\rules\strat\strat::Load();
+// Load_Strat_Rules()
+// {
+//     maps\mp\gametypes\rules\strat\strat::Load();
 
-    return true;
-}
+//     return true;
+// }
