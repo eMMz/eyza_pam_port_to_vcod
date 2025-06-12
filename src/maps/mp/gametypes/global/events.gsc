@@ -421,7 +421,7 @@ _onMenuResponseCallEvents(menu, response)
 		}
 		else
 		{
-			logprint("events:: NOT HANDLED menu=" + menu + ", response=" + response + "\n");
+			//logprint("events:: NOT HANDLED menu=" + menu + ", response=" + response + "\n");
 		}
 	}
 }

@@ -238,7 +238,7 @@ precache()
 	precacheModel("xmodel/mp_bomb1_defuse");
 	precacheModel("xmodel/mp_bomb1");
 	// temporarily bringing back for no lib version
-	precacheStatusIcon("compassping_enemyfiring"); // for streamers
+	//precacheStatusIcon("compassping_enemyfiring"); // for streamers
 
 	maps\mp\gametypes\global\_global::precacheString2("STRING_ROUND", &"Round");
 	maps\mp\gametypes\global\_global::precacheString2("STRING_ROUND_STARTING", &"Starting");
@@ -1115,7 +1115,8 @@ spawnSpectator(origin, angles)
 	if(self.pers["team"] == "spectator")
 		self.statusicon = "";
 	else if(self.pers["team"] == "streamer")
-		self.statusicon = "compassping_enemyfiring"; // recording icon
+		//self.statusicon = "compassping_enemyfiring"; // recording icon
+		self.statusicon = ""; // recording icon
 	else if (self.pers["team"] == "allies" || self.pers["team"] == "axis") // dead team spectartor
 	{
 		//self.statusicon = "hud_status_dead";
@@ -1655,7 +1656,7 @@ HUD_UpdateBombTimerColor()
 
 	time_start = gettime();
 	value_old = 0;
-	color_old = (1, 1, 1);
+	color_old = (0.9, 1, 0.3);
 	for(;;)
 	{
 		remaining = level.bombtimer - (gettime() - time_start) / 1000; // decimal seconds
@@ -1672,7 +1673,7 @@ HUD_UpdateBombTimerColor()
 		{
 			//level.clock setValue(value);
 
-			color = (1, 1, 1);
+			color = (0.9, 1, 0.3);
 			if      (value < 15)	color = (1, 0.25, 0.25); // Red
 			else if (value < 20) 	color = (1, 0.6, 0.15); // Orange
 
@@ -1801,7 +1802,7 @@ endRound(roundwinner)
 {
 	level endon("intermission");
 
-	logprint("_sd::endRound started\n");
+	//logprint("_sd::endRound started\n");
 
 	// If this function was already called, dont do it again
 	if(level.roundended)
@@ -1838,12 +1839,12 @@ endRound(roundwinner)
 		player enableWeapon();
 	}
 
-	logprint("_sd::endRound after remove plant related hud\n");
+	//logprint("_sd::endRound after remove plant related hud\n");
 
 	objective_delete(0);
 	objective_delete(1);
 
-	logprint("_sd::endRound after objectives deletion\n");
+	//logprint("_sd::endRound after objectives deletion\n");
 
 	// Say: Axis/Allies Win   after 0 sec
 	level thread announceWinner(roundwinner, 0);
@@ -1853,7 +1854,7 @@ endRound(roundwinner)
 	// Disable name changing to avoid spamming
 	setClientNameMode("auto_change"); // name is changed after map restart
 
-	logprint("_sd::after set client name mode to auto change\n");
+	//logprint("_sd::after set client name mode to auto change\n");
 
 
 	if (level.in_bash)
@@ -2766,7 +2767,7 @@ bomb_countdown()
 		level.clock.font = "bigfixed";
 		level.clock.alignX = "center";
 		level.clock.alignY = "middle";
-		level.clock.color = (1, 1, 1);
+		level.clock.color = (0.9, 1, 0.3);
 		level.clock.x = 320;
 		level.clock.y = 460;
 
@@ -3390,7 +3391,7 @@ menuStreamer()
 
 menuWeapon(response)
 {
-	logprint("sd::menuWeapon response=" + response + "\n");
+	//logprint("sd::menuWeapon response=" + response + "\n");
 	// You has to be "allies" or "axis" to change a weapon
 	if(self.pers["team"] != "allies" && self.pers["team"] != "axis")
 	{
@@ -3414,7 +3415,7 @@ menuWeapon(response)
 		//self takeWeapon(primaryb); // Remove weapon
 		//maps\mp\gametypes\_weapons::givePistol();
 		//self switchToWeapon(self getWeaponSlotWeapon("primaryb"));
-		logprint("sd::menuWeapon secondary slot replacement with pistol doesnt make sense in vCoD\n");
+		//logprint("sd::menuWeapon secondary slot replacement with pistol doesnt make sense in vCoD\n");
 		return;
 	}
 

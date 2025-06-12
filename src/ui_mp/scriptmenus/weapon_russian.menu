@@ -48,11 +48,11 @@
 
 
 		// MENU CHOICES
-		ITEM_WEAPON(ORIGIN_CHOICE1, "button_nagant", "mosin_nagant_mp", "@MPMENU_1_MOSINNAGANT", "ui_allow_nagant", "nagant", show nagant;, scriptMenuResponse "mosin_nagant_mp", "russian_grenade", "boltaction";)
+		ITEM_WEAPON(ORIGIN_CHOICE1, "button_nagant", "mosin_nagant_mp", "@MPMENU_1_MOSINNAGANT", "ui_allow_nagant", "nagant", show nagant;, scriptMenuResponse "mosin_nagant_mp"; close weapon_russian;, "russian_grenade", "boltaction";)
 
-		ITEM_WEAPON(ORIGIN_CHOICE2, "button_ppsh", "ppsh_mp", "@MPMENU_2_PPSH", "ui_allow_ppsh", "ppsh" , show ppsh;, scriptMenuResponse "ppsh_mp", "russian_grenade", "mg")
+		ITEM_WEAPON(ORIGIN_CHOICE2, "button_ppsh", "ppsh_mp", "@MPMENU_2_PPSH", "ui_allow_ppsh", "ppsh" , show ppsh;, scriptMenuResponse "ppsh_mp"; close weapon_russian;, "russian_grenade", "mg")
 
-		ITEM_WEAPON(ORIGIN_CHOICE3, "button_nagantnsiper", "mosin_nagant_sniper_mp", "@MPMENU_3_SCOPED_MOSINNAGANT", "ui_allow_nagantsniper", "nagantscoped" , show nagantscoped;, scriptMenuResponse "mosin_nagant_sniper_mp", "russian_grenade", "sniper")
+		ITEM_WEAPON(ORIGIN_CHOICE3, "button_nagantnsiper", "mosin_nagant_sniper_mp", "@MPMENU_3_SCOPED_MOSINNAGANT", "ui_allow_nagantsniper", "nagantscoped" , show nagantscoped;, scriptMenuResponse "mosin_nagant_sniper_mp"; close weapon_russian;, "russian_grenade", "sniper")
 
 
 

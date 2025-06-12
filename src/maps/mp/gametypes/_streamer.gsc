@@ -1494,7 +1494,7 @@ waitForSpectatorsInKillcam()
 	if (in_killcam)
 	{
 		// HUD
-		hud = maps\mp\gametypes\global\_global::addHUD(-85, 280, 1.2, (1,1,0), "center", "middle", "right");
+		hud = maps\mp\gametypes\global\_global::addHUD(545, 280, 1.2, (1,1,0), "center", "middle", "right");
 		hud maps\mp\gametypes\global\_global::showHUDSmooth(.5);
 		hud setText(game["STRING_STREAMERSYSTEM_KILLCAM_REPLAY"]);
 

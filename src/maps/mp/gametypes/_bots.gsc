@@ -80,7 +80,7 @@ onConnecting()
 	// When bot is added by script, kick needs to be ignored
 	//if (self isBotName() && self.pers["isBot"] == false && game["bots_allow_connect"] == false)
 		//kick(self getEntityNumber());
-	logprint("Bots " + self.name + " should be deleted but vCoD doesn't support bot kick..\n");
+	//logprint("Bots " + self.name + " should be deleted but vCoD doesn't support bot kick..\n");
 }
 
 onConnected()

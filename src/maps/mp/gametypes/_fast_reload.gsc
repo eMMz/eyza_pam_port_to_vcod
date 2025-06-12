@@ -76,7 +76,7 @@ getCurrentWeaponSlot()
 getClipAmmo()
 {
     currentSlot = getCurrentWeaponSlot();
-    logprint("currentSlot=" + currentSlot + "\n");
+    //logprint("currentSlot=" + currentSlot + "\n");
     if (currentSlot != "none")
         return self getweaponslotclipammo(currentSlot);
     else
@@ -159,7 +159,7 @@ manageWeaponCycleDelay()
             // Get time how long rechamber will take
             timer = GetRechamberTime(currentWeapon);
 
-            logprint("currentWeapon=" + currentWeapon + ", timer=" + timer + "\n");
+            //logprint("currentWeapon=" + currentWeapon + ", timer=" + timer + "\n");
 
       		if (timer > 0)
       		{
@@ -174,7 +174,7 @@ manageWeaponCycleDelay()
       		}
         }
 
-        logprint("lastClipAmmo=" + lastClipAmmo + ", currentClipAmmo=" + currentClipAmmo + "\n");
+        //logprint("lastClipAmmo=" + lastClipAmmo + ", currentClipAmmo=" + currentClipAmmo + "\n");
         lastClipAmmo = currentClipAmmo;
     }
 }

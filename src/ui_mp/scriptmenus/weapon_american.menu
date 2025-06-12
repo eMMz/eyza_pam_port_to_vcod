@@ -49,15 +49,15 @@
 
 
 		// MENU CHOICES
-		ITEM_WEAPON(ORIGIN_CHOICE1, "button_m1carbine", "m1carbine_mp", "@MPMENU_1_M1A1_CARBINE", "ui_allow_m1carbine", "m1carbine", show m1carbine;, scriptMenuResponse "m1carbine_mp", "us_grenade", "semiautomatic";)
+		ITEM_WEAPON(ORIGIN_CHOICE1, "button_m1carbine", "m1carbine_mp", "@MPMENU_1_M1A1_CARBINE", "ui_allow_m1carbine", "m1carbine", show m1carbine;, scriptMenuResponse "m1carbine_mp"; close weapon_american;, "us_grenade", "semiautomatic";)
 
-		ITEM_WEAPON(ORIGIN_CHOICE2, "button_m1garand", "m1garand_mp", "@MPMENU_2_M1_GARAND", "ui_allow_m1garand", "m1garand" , show m1garand;, scriptMenuResponse "m1garand_mp", "us_grenade", "semiautomatic")
+		ITEM_WEAPON(ORIGIN_CHOICE2, "button_m1garand", "m1garand_mp", "@MPMENU_2_M1_GARAND", "ui_allow_m1garand", "m1garand" , show m1garand;, scriptMenuResponse "m1garand_mp"; close weapon_american;, "us_grenade", "semiautomatic")
 
-		ITEM_WEAPON(ORIGIN_CHOICE3, "button_thompson", "thompson_mp", "@MPMENU_3_THOMPSON", "ui_allow_thompson", "thompson" , show thompson;, scriptMenuResponse "thompson_mp", "us_grenade", "smg")
+		ITEM_WEAPON(ORIGIN_CHOICE3, "button_thompson", "thompson_mp", "@MPMENU_3_THOMPSON", "ui_allow_thompson", "thompson" , show thompson;, scriptMenuResponse "thompson_mp"; close weapon_american;, "us_grenade", "smg")
 
-		ITEM_WEAPON(ORIGIN_CHOICE4, "button_bar", "bar_mp", "@MPMENU_4_BAR", "ui_allow_bar", "bar" , show bar;, scriptMenuResponse "bar_mp", "us_grenade", "mg")
+		ITEM_WEAPON(ORIGIN_CHOICE4, "button_bar", "bar_mp", "@MPMENU_4_BAR", "ui_allow_bar", "bar" , show bar;, scriptMenuResponse "bar_mp"; close weapon_american;, "us_grenade", "mg")
 
-		ITEM_WEAPON(ORIGIN_CHOICE5, "button_springfield", "springfield_mp", "@MPMENU_5_SPRINGFIELD", "ui_allow_springfield", "springfield", show springfield;, scriptMenuResponse "springfield_mp", "us_grenade", "sniper")
+		ITEM_WEAPON(ORIGIN_CHOICE5, "button_springfield", "springfield_mp", "@MPMENU_5_SPRINGFIELD", "ui_allow_springfield", "springfield", show springfield;, scriptMenuResponse "springfield_mp"; close weapon_american;, "us_grenade", "sniper")
 
 
 

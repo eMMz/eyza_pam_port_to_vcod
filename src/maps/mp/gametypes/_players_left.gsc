@@ -322,8 +322,8 @@ updateHUD(alliesChanged, axisChanged)
 			self.playersLeft_myTeam.color = (1,0.2,0.2);
 		// 0 Allies left is showed
 		} else {
-			self.playersLeft_myTeam.color = (.580,.961,.573);
-			self.playersLeft_myTeam_num.color = (.580,.961,.573);
+			self.playersLeft_myTeam.color = (1, 1, 1);
+			self.playersLeft_myTeam_num.color = (1, 1, 1);
 		}
 
 
@@ -333,8 +333,8 @@ updateHUD(alliesChanged, axisChanged)
 			self.playersLeft_enemy.color = (1,0.2,0.2);
 		// 0 Allies left is showed
 		} else {
-			self.playersLeft_enemy.color = (.055,.855,.996);
-			self.playersLeft_enemy_num.color = (.055,.855,.996);
+			self.playersLeft_enemy.color = (1, 1, 1);
+			self.playersLeft_enemy_num.color = (1, 1, 1);
 		}
 	}
 }
