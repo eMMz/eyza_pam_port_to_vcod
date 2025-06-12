@@ -180,9 +180,9 @@ removeColorsFromString(string, onlyDoubleColors)
 {
 	return maps\mp\gametypes\global\string::removeColorsFromString(string, onlyDoubleColors);
 }
-formatTime(timeSec, separator)
+formatTime(timeSec, separator, printSeconds)
 {
-	return maps\mp\gametypes\global\string::formatTime(timeSec, separator);
+	return maps\mp\gametypes\global\string::formatTime(timeSec, separatorm, printSeconds);
 }
 plural_s(num, text)
 {

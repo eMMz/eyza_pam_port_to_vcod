@@ -1200,7 +1200,7 @@ HUD_ReadyUpMode()
 	level.readyup_mode.alignY = "top";
 	level.readyup_mode.color = (.8, 1, 1);
 	level.readyup_mode.x = 320;
-	level.readyup_mode.y = 374;
+	level.readyup_mode.y = 390;
 	level.readyup_mode.fontScale = 1.4;
 	level.readyup_mode.font = "default";
     if (level.in_timeout)

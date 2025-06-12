@@ -776,9 +776,9 @@ refresh()
 		else
 		{
 			if (!isDefined(game["match_starttime"]))
-				game["match_starttime"] = getTime();
+				game["match_starttime"] = getTime()/60000; // minutes
 
-			game["match_totaltime"] = game["match_totaltime_prev"] + (getTime() - game["match_starttime"]);
+			game["match_totaltime"] = game["match_totaltime_prev"] + ((getTime()/60000) - game["match_starttime"]);
 		}
 
 		if (game["match_exists"])
@@ -787,7 +787,8 @@ refresh()
 
 		elapsedTime = 0; // in seconds
 		if (isDefined(game["match_starttime"]))
-			elapsedTime = (int)((getTime() - game["match_starttime"]) / 1000);
+			elapsedTime = (int)(((getTime()/1000) - (game["match_starttime"]*60)));
+			//elapsedTime = (int)((getTime() - game["match_starttime"]) / 1000);
 
 
 		// Readyup is over, teams are set
@@ -827,10 +828,13 @@ refresh()
 		// Total time
 		if (game["match_totaltime"] > 0)
 		{
-			game["match_totaltime_text"] = maps\mp\gametypes\global\_global::formatTime((int)(game["match_totaltime"] / 1000));
+			logprint("_matchinfo:: match_totaltime " + game["match_totaltime"] + "\n");
+			game["match_totaltime_text"] = maps\mp\gametypes\global\_global::formatTime((int)(game["match_totaltime"] * 60), ":", false);
+			//game["match_totaltime_text"] = maps\mp\gametypes\global\_global::formatTime((int)(game["match_totaltime"] / 1000));
 		}
 		else
 		{
+			logprint("_matchinfo:: 2222 match_totaltime " + game["match_totaltime"] + "\n");
 			game["match_totaltime_text"] = "";
 		}
 

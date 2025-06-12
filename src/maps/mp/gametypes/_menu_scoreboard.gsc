@@ -76,8 +76,8 @@ hide_scoreboard(distributed)
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_assists", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_deaths", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_adr", "");
-	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_nade_damage", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_grenades", "");
+	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_grenade_damage", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_plants", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_defuses", "");
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_scoreboard_visible", "0");

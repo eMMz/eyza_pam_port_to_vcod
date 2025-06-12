@@ -106,14 +106,14 @@ onPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon,
 			adjustedBy = eAttacker.hitData[self_num].adjustedBy;
 
 			// In readyup show for regular players
-			if (forPlayer)
-			{
-				// For shotgun show accumulated damage
-				if (isShotgun) 	damage = eAttacker.hitData[self_num].damage_comulated;
-				else		damage = eAttacker.hitData[self_num].damage;
+			// if (forPlayer)
+			// {
+			// 	// For shotgun show accumulated damage
+			// 	if (isShotgun) 	damage = eAttacker.hitData[self_num].damage_comulated;
+			// 	else		damage = eAttacker.hitData[self_num].damage;
 
-				eAttacker thread showDamageInfoReadyup(damage, sHitLoc, sMeansOfDeath, pellets, adjustedBy);
-			}
+			// 	eAttacker thread showDamageInfoReadyup(damage, sHitLoc, sMeansOfDeath, pellets, adjustedBy);
+			// }
 
 			// Show to all spectators
 			if (forSpectators)

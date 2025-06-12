@@ -226,6 +226,8 @@ precache()
 	precacheString(&"SD_MATCHSTARTING");
 	precacheString(&"SD_MATCHRESUMING");
 	precacheString(&"SD_EXPLOSIVESPLANTED");
+	//Bomb Plant Announcement
+	precacheString(&"Explosives Planted");
 	precacheString(&"SD_EXPLOSIVESDEFUSED");
 	precacheString(&"SD_ROUNDDRAW");
 	precacheString(&"SD_TIMEHASEXPIRED");
@@ -704,7 +706,7 @@ onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWe
 
 			normalizedDamage = normalizeDamage(iDamage, self.health);
 
-			if (isPlayer(eAttacker) && self != eAttacker) {
+			if (isDefined(eAttacker) && isPlayer(eAttacker) && self != eAttacker && !level.in_readyup && level.roundstarted && !level.roundended) {
 				eAttacker maps\mp\gametypes\_player_stat::AddDamage(normalizedDamage);
 				eAttacker maps\mp\gametypes\_player_stat::CalculateAdr();
 
@@ -712,6 +714,10 @@ onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWe
 				{
 					eAttacker maps\mp\gametypes\_player_stat::AddGrenadeDamage(normalizedDamage);
 				}
+
+				logprint("_sd::onPlayerDamaged adding damage to attacker " + eAttacker.name + "\n");
+
+				self markPossibleAssist(eAttacker, normalizedDamage);
 			}
 
 			self finishPlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime);
@@ -720,8 +726,6 @@ onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWe
 			// Shellshock/Rumble
 			//self thread maps\mp\gametypes\_shellshock::shellshockOnDamage(sMeansOfDeath, iDamage);
 		}
-
-		self markPossibleAssist(eAttacker, normalizedDamage);
 	}
 
 
@@ -748,20 +752,17 @@ normalizeDamage(iDamage, health)
 markPossibleAssist(eAttacker, normalizedDamage)
 {
 	//logprint("_sd::markPossibleAssist " + eAttacker.name + " " + normalizedDamage + "\n");
-	if (isDefined(eAttacker) && isPlayer(eAttacker) 
-			&& eAttacker != self && eAttacker.pers["team"] != self.pers["team"] 
-			&& !level.in_readyup && level.roundstarted && !level.roundended 
-			&& normalizedDamage >= 41)
+	if (normalizedDamage >= 41)
 	{
 		//logprint("_sd::markPossibleAssist 1st if start\n");
 		if (isDefined(self.lastAttacker) && self.lastAttackerDamage > normalizedDamage)
 		{
-			//logprint("_sd::markPossibleAssist player " + eAttacker.name + " did less damage than " + self.lastAttacker.name + " - " + normalizedDamage + "<" + self.lastAttackerDamage + "\n");
+			logprint("_sd::markPossibleAssist player " + eAttacker.name + " did less damage than " + self.lastAttacker.name + " - " + normalizedDamage + "<" + self.lastAttackerDamage + "\n");
 			return;
 		}
 		self.lastAttacker = eAttacker;
 		self.lastAttackerDamage = normalizedDamage;
-		//logprint("_sd::markPossibleAssist 1st if end\n");
+		logprint("_sd::markPossibleAssist attacker " + self.lastAttacker.name + " is considered for an assit\n");
 	}
 }
 
@@ -795,6 +796,8 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 		{
 			self maps\mp\gametypes\_player_stat::AddDeath();
 			self maps\mp\gametypes\_player_stat::CalculateAdr();
+
+			logprint("_sd::onPlayerKilled increasing killed player " + self.name + " death stats\n");
 		}
 	}
 
@@ -804,8 +807,12 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 		{
 			// Player's stats - decrease score points (_player_stat.gsc)
 			if (!level.in_readyup && level.roundstarted && !level.roundended)
+			{
 				attacker maps\mp\gametypes\_player_stat::AddScore(-1);
 				attacker maps\mp\gametypes\_player_stat::AddTeamKill();
+
+				logprint("_sd::onPlayerKilled decreasing attacker " + attacker.name + " stats\n");
+			}
 		}
 		else
 		{
@@ -819,23 +826,33 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 				{
 					attacker maps\mp\gametypes\_player_stat::AddGrenade();
 				}
+
+				logprint("_sd::onPlayerKilled increasing attacker " + attacker.name + " stats\n");
 			}
 		}
 	} else {
 		// self kill or killed by world (explosion or fall damage)
-		self maps\mp\gametypes\_player_stat::AddScore(-1);
-		self maps\mp\gametypes\_player_stat::AddTeamKill();
+		if (!level.in_readyup && level.roundstarted && !level.roundended)
+		{
+			// self kill or killed by world (explosion or fall damage)
+			self maps\mp\gametypes\_player_stat::AddScore(-1);
+			self maps\mp\gametypes\_player_stat::AddTeamKill();
+			logprint("_sd::onPlayerKilled player " + self.name + " killed by suicide or world\n");
+		}
 	}
 
 	// For assists
 	if (isDefined(self.lastAttacker) && self.lastAttacker != attacker && self.pers["team"] != self.lastAttacker.pers["team"])
 	{
-		self.lastAttacker thread maps\mp\gametypes\_damagefeedback::updateAssistsFeedback();
+		if (!level.in_readyup && level.roundstarted && !level.roundended)
+		{
+			self.lastAttacker thread maps\mp\gametypes\_damagefeedback::updateAssistsFeedback();
 
-		self.lastAttacker maps\mp\gametypes\_player_stat::AddAssist();
-		self.lastAttacker maps\mp\gametypes\_player_stat::AddScore(0.5);
+			self.lastAttacker maps\mp\gametypes\_player_stat::AddAssist();
+			self.lastAttacker maps\mp\gametypes\_player_stat::AddScore(0.5);
 
-		logprint("_sd::onPlayerKilled player " + self.lastAttacker.name + " receives assits for " + self.lastAttackerDamage + " damage to " + self.name + "\n");
+			logprint("_sd::onPlayerKilled player " + self.lastAttacker.name + " receives assits for " + self.lastAttackerDamage + " damage to " + self.name + "\n");
+		}
 	}
 }
 
@@ -2697,7 +2714,8 @@ bombzone_think(bombzone_other)
 					player maps\mp\gametypes\_player_stat::AddScore(0.5);
 
 					// iprintln(&"SD_EXPLOSIVESPLANTED");
-					announcement(&"SD_EXPLOSIVESPLANTED");
+					//announcement(&"SD_EXPLOSIVESPLANTED");
+					thread HUD_Bomb_Planted();
 
 					level thread soundPlanted(player);
 
@@ -2942,6 +2960,8 @@ getBombDamageByDistanceForMap(distance, currentMap)
 bomb_think()
 {
 	self endon("bomb_exploded");
+
+	thread Destroy_HUD_Planted();
 
 	//self setteamfortrigger(game["defenders"]);
 	//self setHintString(&"PLATFORM_HOLD_TO_DEFUSE_EXPLOSIVES");
@@ -3797,4 +3817,22 @@ deadchat()
 
 		wait level.fps_multiplier * 1;
 	}
+}
+
+HUD_Bomb_Planted()
+{
+	level.hudplanted = newHudElem();
+	level.hudplanted.x = 234;
+	level.hudplanted.y = 464;
+	level.hudplanted.alignX = "center";
+	level.hudplanted.alignY = "middle";
+	level.hudplanted.color = (1, 1, 0);
+	level.hudplanted setText(&"Explosives Planted");
+	level.hudplanted.fontScale = .84;
+}
+
+Destroy_HUD_Planted()
+{
+	wait 6;
+	level.hudplanted destroy();
 }
