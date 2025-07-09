@@ -578,24 +578,24 @@ HUD_PlayerBoxes_Loop()
 
 
 		// Player progress
-		playerProgress = "";
-		for (i = 0; i < game["streamerSystem_playerProgress"].size; i++)
-		{
-			data = game["streamerSystem_playerProgress"][i];
+		// playerProgress = "";
+		// for (i = 0; i < game["streamerSystem_playerProgress"].size; i++)
+		// {
+		// 	data = game["streamerSystem_playerProgress"][i];
 
-			// If match info is enabled, ensure teams are in correct sides
-			alive_text = data.allies_alive + "v" + data.axis_alive;
-			if (teamLeft == "axis")
-				alive_text = data.axis_alive + "v" + data.allies_alive;
+		// 	// If match info is enabled, ensure teams are in correct sides
+		// 	alive_text = data.allies_alive + "v" + data.axis_alive;
+		// 	if (teamLeft == "axis")
+		// 		alive_text = data.axis_alive + "v" + data.allies_alive;
 
-			color = "^7";
-			if (data.winner == "allies") 	color = allies_color;
-			else if (data.winner == "axis") color = axis_color;
+		// 	color = "^7";
+		// 	if (data.winner == "allies") 	color = allies_color;
+		// 	else if (data.winner == "axis") color = axis_color;
 
-			playerProgress += color + alive_text + "  ";
-			//logprint("_streamer_hud:: playerProgress=" + "\n");
-		}
-		self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_playerProgress", playerProgress);
+		// 	playerProgress += color + alive_text + "  ";
+		// 	//logprint("_streamer_hud:: playerProgress=" + "\n");
+		// }
+		// self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_playerProgress", playerProgress);
 
 
 

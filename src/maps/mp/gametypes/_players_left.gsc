@@ -175,8 +175,8 @@ updatePlayersCount()
 		if (axisDeaths < 0) 		level.axis_alive = axis_alive;
 
 		// Player history for streamers
-		if (level.gametype == "sd" || level.gametype == "re")
-			level maps\mp\gametypes\_streamer_hud::PlayerProgress_Add(level.allies_alive, level.axis_alive, winner);
+		//if (level.gametype == "sd" || level.gametype == "re")
+		//	level maps\mp\gametypes\_streamer_hud::PlayerProgress_Add(level.allies_alive, level.axis_alive, winner);
 	}
 
 	level.axis_alive = axis_alive;

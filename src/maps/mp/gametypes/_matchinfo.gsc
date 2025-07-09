@@ -828,13 +828,13 @@ refresh()
 		// Total time
 		if (game["match_totaltime"] > 0)
 		{
-			logprint("_matchinfo:: match_totaltime " + game["match_totaltime"] + "\n");
+			//logprint("_matchinfo:: match_totaltime " + game["match_totaltime"] + "\n");
 			game["match_totaltime_text"] = maps\mp\gametypes\global\_global::formatTime((int)(game["match_totaltime"] * 60), ":", false);
 			//game["match_totaltime_text"] = maps\mp\gametypes\global\_global::formatTime((int)(game["match_totaltime"] / 1000));
 		}
 		else
 		{
-			logprint("_matchinfo:: 2222 match_totaltime " + game["match_totaltime"] + "\n");
+			//logprint("_matchinfo:: 2222 match_totaltime " + game["match_totaltime"] + "\n");
 			game["match_totaltime_text"] = "";
 		}
 

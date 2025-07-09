@@ -300,18 +300,21 @@ dropped_weapon_think(weaponname)
 				if (weaponname == player getWeaponSlotWeapon("primary"))
 				{
 					player setWeaponSlotWeapon("primary", weaponname);
-					player setWeaponSlotAmmo("primary", 999);
+					//player setWeaponSlotAmmo("primary", 999);
+					player setWeaponSlotAmmo("primary", maps\mp\gametypes\_weapons::GetGunAmmo(weaponname));
 					player setWeaponSlotClipAmmo("primary", 999);
 				} else if (weaponname == player getWeaponSlotWeapon("primaryb"))
 				{
 					player setWeaponSlotWeapon("primaryb", weaponname);
-					player setWeaponSlotAmmo("primaryb", 999);
+					// player setWeaponSlotAmmo("primaryb", 999);
+					player setWeaponSlotAmmo("primaryb", maps\mp\gametypes\_weapons::GetGunAmmo(weaponname));
 					player setWeaponSlotClipAmmo("primaryb", 999);
 				}
 			} else if (maps\mp\gametypes\_weapons::isPistol(weaponname))
 			{
 				player setWeaponSlotWeapon("pistol", weaponname);
-				player setWeaponSlotAmmo("pistol", 999);
+				// player setWeaponSlotAmmo("pistol", 999);
+				player setWeaponSlotAmmo("pistol", maps\mp\gametypes\_weapons::GetPistolAmmo(weaponname));
 				player setWeaponSlotClipAmmo("pistol", 999);
 			}
 		}

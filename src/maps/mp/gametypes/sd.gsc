@@ -1052,12 +1052,14 @@ spawnPlayer()
 	if(isdefined(self.pers["weapon1"]) && isdefined(self.pers["weapon2"]))
 	{
 	 	self setWeaponSlotWeapon("primary", self.pers["weapon1"]);
-		self setWeaponSlotAmmo("primary", 999);
+		//self setWeaponSlotAmmo("primary", 999);
+		self setWeaponSlotAmmo("primary", maps\mp\gametypes\_weapons::GetGunAmmo(self.pers["weapon1"]));
 		self setWeaponSlotClipAmmo("primary", 999);
 		//self giveMaxAmmo(self.pers["weapon1"]);
 
 	 	self setWeaponSlotWeapon("primaryb", self.pers["weapon2"]);
-		self setWeaponSlotAmmo("primaryb", 999);
+		// self setWeaponSlotAmmo("primaryb", 999);
+		self setWeaponSlotAmmo("primaryb", maps\mp\gametypes\_weapons::GetGunAmmo(self.pers["weapon2"]));
 		self setWeaponSlotClipAmmo("primaryb", 999);
 		//self giveMaxAmmo(self.pers["weapon2"]);
 
@@ -1068,7 +1070,8 @@ spawnPlayer()
 	else
 	{
 		self setWeaponSlotWeapon("primary", self.pers["weapon"]);
-		self setWeaponSlotAmmo("primary", 999);
+		// self setWeaponSlotAmmo("primary", 999);
+		self setWeaponSlotAmmo("primary", maps\mp\gametypes\_weapons::GetGunAmmo(self.pers["weapon"]));
 		self setWeaponSlotClipAmmo("primary", 999);
 		//self giveMaxAmmo(self.pers["weapon"]);
 
@@ -3499,7 +3502,8 @@ menuWeapon(response)
 
 			// Give weapon to primary slot
 			self setWeaponSlotWeapon("primary", weapon);
-			self setWeaponSlotAmmo("primary", 999);
+			// self setWeaponSlotAmmo("primary", 999);
+			self setWeaponSlotAmmo("primary", maps\mp\gametypes\_weapons::GetGunAmmo(weapon));
 			self setWeaponSlotClipAmmo("primary", 999);
 			//self giveMaxAmmo(weapon);
 
@@ -3594,7 +3598,8 @@ menuWeapon(response)
 
 				// Set new selected weapon into first slot
 				self setWeaponSlotWeapon("primary", weapon);
-				self setWeaponSlotAmmo("primary", 999);
+				// self setWeaponSlotAmmo("primary", 999);
+				self setWeaponSlotAmmo("primary", maps\mp\gametypes\_weapons::GetGunAmmo(weapon));
 				self setWeaponSlotClipAmmo("primary", 999);
 				//self giveMaxAmmo(weapon);
 

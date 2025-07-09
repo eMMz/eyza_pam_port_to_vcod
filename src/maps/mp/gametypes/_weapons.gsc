@@ -649,12 +649,14 @@ givePistol()
 
 		//self giveWeapon(pistoltype);
 		self setWeaponSlotWeapon("pistol", pistoltype);
-		self setWeaponSlotAmmo("pistol", 999);
+		//self setWeaponSlotAmmo("pistol", 999);
+		self setWeaponSlotAmmo("pistol", maps\mp\gametypes\_weapons::GetPistolAmmo(pistoltype));
 		self setWeaponSlotClipAmmo("pistol", 999);
 		//self giveMaxAmmo(pistoltype);
 	} else {
-		logprint("_weapons::givePistol restoring ammo only for player=" + self.name + " \n");
-		self setWeaponSlotAmmo("pistol", 999);
+		//logprint("_weapons::givePistol restoring ammo only for player=" + self.name + " \n");
+		// self setWeaponSlotAmmo("pistol", 999);
+		self setWeaponSlotAmmo("pistol", maps\mp\gametypes\_weapons::GetPistolAmmo(pistoltype));
 		self setWeaponSlotClipAmmo("pistol", 999);
 	}
 }
@@ -1470,4 +1472,78 @@ keepMaxAmmo()
 keepMaxAmmoStop()
 {
 	self notify("keepMaxAmmo_end");
+}
+
+// ----------------------------------------------------------------------------------
+//	GetGunAmmo
+//
+// 		returns the ammo count that the player will get for the weapon
+// ----------------------------------------------------------------------------------
+GetGunAmmo(weapon)
+{	
+	switch(weapon)
+	{
+		//American Weapons
+		case "m1carbine_mp":
+			return 60;
+		case "m1garand_mp":
+			return 72;
+		case "springfield_mp": 
+			return 25;
+		case "thompson_mp": 
+		case "thompson_semi_mp": 
+			return 90;
+		case "bar_mp": 
+		case "bar_slow_mp": 
+			return 80;
+		//British Weapons
+		case "enfield_mp":
+			return 20;
+		case "sten_mp": 
+		case "sten_silenced_mp":
+			return 96;
+		case "bren_mp": 
+			return 90;
+		//Russian Weapons
+		case "mosin_nagant_mp":
+			return 25;
+		case "mosin_nagant_sniper_mp":
+			return 25;
+		case "ppsh_mp":
+		case "ppsh_semi_mp":
+			return 142;
+		//German Weapons
+		case "kar98k_mp": 
+			return 25;
+		case "kar98k_sniper_mp":
+			return 25;
+		case "mp40_mp":
+			return 96;
+		case "mp44_mp":
+		case "mp44_semi_mp":
+			return 90;
+		// unrecognized weapon
+		default:
+		   	return 0;
+		}
+		
+	return 0;
+}
+
+// ----------------------------------------------------------------------------------
+//	GetPistolAmmo
+//
+// 		returns the ammo count that the player will get for the weapon
+// ----------------------------------------------------------------------------------
+GetPistolAmmo(weapon)
+{
+	switch(weapon)
+	{
+		case "luger_mp":
+			return 32;
+		case "colt_mp":
+			return 28;
+		default:
+			return 0;
+	}
 }
