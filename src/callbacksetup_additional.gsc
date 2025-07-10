@@ -1,3 +1,9 @@
+/* 
+custom lib features:
+- getPlayerAngles();
+- aimbuttonpressed();
+*/
+
 CodeCallback_PlayerCommand(command_object)
 {
     if((command_object[0] == "say" || command_object[0] == "say_team")
