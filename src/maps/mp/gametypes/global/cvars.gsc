@@ -118,6 +118,7 @@ Register_Shared_Cvars()
 	[[sVar]]("scr_friendlyfire", "INT", 0, 0, 3); 	// level.scr_friendlyfire on, off, reflect, shared
 	[[sVar]]("scr_posters", "BOOL", 0);              // level.scr_posters
 	[[sVar]]("r_fog", "BOOL", 0);
+	[[sVar]]("rpam_ambientsounds", "BOOL", 0);
 }
 
 
