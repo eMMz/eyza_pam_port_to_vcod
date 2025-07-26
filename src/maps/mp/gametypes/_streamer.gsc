@@ -575,8 +575,8 @@ openStreamerMenu()
 
 	spectatorclient = self.spectatorclient;
 	origin = self getOrigin();
-	angles = self getPlayerAngles();
-	//angles = self.angles;
+	//angles = self getPlayerAngles();
+	angles = self.angles;
 
 	// Black fullscreen backgound with animation
 	if (isDefined(self.spectator_blackbg))
