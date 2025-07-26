@@ -592,8 +592,8 @@ deletePlacedEntity(entity)
 // Adds pistol to pistol slot only if empty
 givePistol()
 {
-	weapon2 = self getweaponslotweapon("pistol");
-	if(weapon2 == "none")
+	weap_pistol = self getweaponslotweapon("pistol");
+	if(weap_pistol == "none")
 	{
 		if(self.pers["team"] == "allies")
 		{
@@ -656,7 +656,7 @@ givePistol()
 	} else {
 		//logprint("_weapons::givePistol restoring ammo only for player=" + self.name + " \n");
 		// self setWeaponSlotAmmo("pistol", 999);
-		self setWeaponSlotAmmo("pistol", maps\mp\gametypes\_weapons::GetPistolAmmo(pistoltype));
+		self setWeaponSlotAmmo("pistol", maps\mp\gametypes\_weapons::GetPistolAmmo(weap_pistol));
 		self setWeaponSlotClipAmmo("pistol", 999);
 	}
 }
