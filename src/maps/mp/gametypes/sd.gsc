@@ -433,7 +433,7 @@ onStartGameType()
 
 	logprint("sd::onStartGameType update sniper shotgun hud\n");
 	// Show weapon info about sniper and shotgun players
-	level thread maps\mp\gametypes\_sniper_shotgun_info::updateSniperShotgunHUD();
+	//level thread maps\mp\gametypes\_sniper_shotgun_info::updateSniperShotgunHUD();
 
 	thread deadchat();
 
@@ -988,13 +988,16 @@ onAfterPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir,
 
 	// Do killcam - if enabled, wait here until killcam is done
 	if(doKillcam && level.scr_killcam && !level.roundended)
+	{
 		self maps\mp\gametypes\_killcam::killcam(attackerNum, 7, 8, psOffsetTime);
+	} else
+	{
+		// In SD - show score for dead player even if score is disabled
+		//self maps\mp\gametypes\_hud_teamscore::showScore(0.5);
 
-	// In SD - show score for dead player even if score is disabled
-	self maps\mp\gametypes\_hud_teamscore::showScore(0.5);
-
-	// Spawn from "dead" player session to spectator
-	self thread spawnSpectator(self.origin + (0, 0, 60), self.angles);
+		// Spawn from "dead" player session to spectator
+		self thread spawnSpectator(self.origin + (0, 0, 60), self.angles);
+	}
 }
 
 spawnPlayer()
@@ -1906,7 +1909,7 @@ endRound(roundwinner)
 	logprint("_sd::before update sniper shotgun hud\n");
 
 	// Show weapon info about sniper and shotgun players
-	level thread maps\mp\gametypes\_sniper_shotgun_info::updateSniperShotgunHUD();
+	// level thread maps\mp\gametypes\_sniper_shotgun_info::updateSniperShotgunHUD();
 
 	logprint("_sd::after update sniper shotgun hud\n");
 
@@ -1963,7 +1966,7 @@ endRound(roundwinner)
 	thread maps\mp\gametypes\_pam::PAM_Header(true); // true = fadein
 
 	// Show score even if is disabled
-	level maps\mp\gametypes\_hud_teamscore::showScore(0.5);
+	//level maps\mp\gametypes\_hud_teamscore::showScore(0.5);
 
 	// Update players ADR
 	maps\mp\gametypes\_player_stat::CalculatePlayersAdr();
@@ -2709,17 +2712,15 @@ bombzone_think(bombzone_other)
 
 					if (level.bomb_plant_points)
 					{
-						player.pers["score"] = player.pers["score"] + level.bomb_plant_points;
-						player.score = player.pers["score"];
+						logprint("adding plant points\n");
+						// Player's stats - increase plant points (_player_stat.gsc)
+						player maps\mp\gametypes\_player_stat::AddPlant();
+						player maps\mp\gametypes\_player_stat::AddScore(level.bomb_plant_points);
 					}
-
-					// Player's stats - increase plant points (_player_stat.gsc)
-					player maps\mp\gametypes\_player_stat::AddPlant();
-					player maps\mp\gametypes\_player_stat::AddScore(0.5);
 
 					// iprintln(&"SD_EXPLOSIVESPLANTED");
 					//announcement(&"SD_EXPLOSIVESPLANTED");
-					thread HUD_Bomb_Planted();
+					//thread HUD_Bomb_Planted();
 
 					level thread soundPlanted(player);
 
@@ -2966,7 +2967,7 @@ bomb_think()
 {
 	self endon("bomb_exploded");
 
-	thread Destroy_HUD_Planted();
+	//thread Destroy_HUD_Planted();
 
 	//self setteamfortrigger(game["defenders"]);
 	//self setHintString(&"PLATFORM_HOLD_TO_DEFUSE_EXPLOSIVES");
@@ -3079,13 +3080,11 @@ bomb_think()
 
 					if (level.bomb_defuse_points)
 					{
-						player.pers["score"] = player.pers["score"] + level.bomb_defuse_points;
-						player.score = player.pers["score"];
+						logprint("adding defuse points\n");
+						// Player's stats - increase defuse points (_player_stat.gsc)
+						player maps\mp\gametypes\_player_stat::AddDefuse();
+						player maps\mp\gametypes\_player_stat::AddScore(level.bomb_defuse_points);
 					}
-
-					// Player's stats - increase defuse points (_player_stat.gsc)
-					player maps\mp\gametypes\_player_stat::AddDefuse();
-					player maps\mp\gametypes\_player_stat::AddScore(0.5);
 
 					level thread endRound(player.pers["team"]);
 

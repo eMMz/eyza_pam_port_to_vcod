@@ -3,7 +3,7 @@
 Load()
 {
 	game["rules_leagueString"] = &"Search and Destroy";
-	game["rules_formatString"] = &"Classic"; // default
+	game["rules_formatString"] = &"MR12"; // default
 
 	game["ruleCvars"] = GetCvars(game["ruleCvars"]);
 }
@@ -32,7 +32,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_plant_points", 0.5);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_defuse_points", 0.5);
 
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_sniper_shotgun_info", 1);	// Show weapon info about sniper and shotgun players
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_sniper_shotgun_info", 0);	// Show weapon info about sniper and shotgun players
 
 
 
