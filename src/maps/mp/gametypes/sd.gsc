@@ -1379,6 +1379,7 @@ startRound()
 		wait level.fps_multiplier * roundCountDownTimeSubstracted;
 	}
 	// when 15 secs is left, use timer w/ millis
+	level.clock.x = 336;
 	level.clock setTenthsTimer(15);
 	wait level.fps_multiplier * 15;
 
@@ -2806,6 +2807,7 @@ bomb_countdown()
 		
 	}
 	// when 15 secs is left, use timer w/ millis
+	level.clock.x = 336;
 	level.clock setTenthsTimer(15);
 	wait level.fps_multiplier * 15;
 	//level.clock setTenthsTimer(countDownTime);
