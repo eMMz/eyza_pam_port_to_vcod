@@ -108,8 +108,8 @@ cannon_effect()
 	if(!isdefined(self.script_fxid))
 		return;
 
-	logprint("_utility::cannon-effect() " + self.target + "\n");
-	logprint("_utility:cannon-effect " + (getent(self.target, "targetname")).origin + "\n");
+	//logprint("_utility::cannon-effect() " + self.target + "\n");
+	//logprint("_utility:cannon-effect " + (getent(self.target, "targetname")).origin + "\n");
 
 	if(isdefined(self.target))
 		org = (getent(self.target, "targetname")).origin;

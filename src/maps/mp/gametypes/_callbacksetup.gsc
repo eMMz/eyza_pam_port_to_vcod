@@ -102,17 +102,10 @@ CodeCallback_StartGameType()
 	// If the gametype has not beed started, run the startup
 	if(!isDefined(level.gametypestarted) || !level.gametypestarted)
 	{
-		if (getCvar("g_gametype") != "sd")
+		// Process onStartGameType events
+		for (i = 0; i < level.events.onStartGameType.size; i++)
 		{
-			[[level.callbackStartGameType]]();
-		}
-		else
-		{
-			// Process onStartGameType events
-			for (i = 0; i < level.events.onStartGameType.size; i++)
-			{
-				self thread [[level.events.onStartGameType[i]]]();
-			}
+			self thread [[level.events.onStartGameType[i]]]();
 		}
 
 		level.gametypestarted = true; // so we know that the gametype has been started up
@@ -158,41 +151,33 @@ CodeCallback_PlayerConnect()
 	//self.alreadyConnected = true;
 	println("##### " + gettime() + " " + level.frame_num + " ##### Connecting: " + self.name);
 	#/
-	
-	if (getCvar("g_gametype") != "sd")
-	{
-		[[level.callbackPlayerConnect]]();
-	}
+
+	self.sessionteam = "none"; // show player in "none" team in scoreboard while connecting
+
+	self thread maps\mp\gametypes\global\events::notifyConnecting();
+
+	// Wait here until player is fully connected
+	self waittill("begin");
+
+	/#
+	println("##### " + gettime() + " " + level.frame_num + " ##### Connected: " + self.name);
+	#/
+
+	//self thread emptyName();
+
+	self thread maps\mp\gametypes\global\events::notifyConnected();
+
+	// If pam is not installed correctly, spawn outside
+	if (level.pam_installation_error)
+		[[level.spawnSpectator]]((999999, 999999, -999999), (90, 0, 0)); // Spawn spectator outside map
+	// Mod is not downloaded
+	else if (self maps\mp\gametypes\_force_download::modIsNotDownloadedForSure())
+		self maps\mp\gametypes\_force_download::spawnModNotDownloaded();
 	else
 	{
-		self.sessionteam = "none"; // show player in "none" team in scoreboard while connecting
-
-		self thread maps\mp\gametypes\global\events::notifyConnecting();
-
-		// Wait here until player is fully connected
-		self waittill("begin");
-
-		/#
-		println("##### " + gettime() + " " + level.frame_num + " ##### Connected: " + self.name);
-		#/
-
-		//self thread emptyName();
-
-		self thread maps\mp\gametypes\global\events::notifyConnected();
-
-		// If pam is not installed correctly, spawn outside
-		if (level.pam_installation_error)
-			[[level.spawnSpectator]]((999999, 999999, -999999), (90, 0, 0)); // Spawn spectator outside map
-
-		// Mod is not downloaded
-		else if (self maps\mp\gametypes\_force_download::modIsNotDownloadedForSure())
-			self maps\mp\gametypes\_force_download::spawnModNotDownloaded();
-
-		else
-		{
-			[[level.onAfterConnected]]();
-		}
+		[[level.onAfterConnected]]();
 	}
+
 }
 
 
@@ -252,14 +237,7 @@ CodeCallback_PlayerDisconnect()
 	println("##### " + gettime() + " " + level.frame_num + " ##### Disconnected: " + self.name);
 	#/
 	
-	if (getCvar("g_gametype") != "sd")
-	{
-		[[level.callbackPlayerDisconnect]]();
-	}
-	else
-	{
-		self thread maps\mp\gametypes\global\events::notifyDisconnect();
-	}
+	self thread maps\mp\gametypes\global\events::notifyDisconnect();
 }
 
 
@@ -304,16 +282,6 @@ CodeCallback_PlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath
 
 	// Resets the infinite loop check timer, to prevent an incorrect infinite loop error when a lot of script must be run
 	resettimeout();
-	
-	if (getCvar("g_gametype") != "sd")
-	{
-		/#
-		println("##### " + gettime() + " " + level.frame_num + " ##### PlayerDamage: " + self.name);
-		#/
-		[[level.callbackPlayerDamage]](eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc);
-		
-		return;
-	}
 
 	// Do debug print if it's enabled
 	if(level.g_debugDamage)
@@ -508,16 +476,6 @@ CodeCallback_PlayerKilled(eInflictor, eAttacker, iDamage, sMeansOfDeath, sWeapon
 
 	// Resets the infinite loop check timer, to prevent an incorrect infinite loop error when a lot of script must be run
 	resettimeout();
-	
-	if (getCvar("g_gametype") != "sd")
-	{
-		/#
-		println("##### " + gettime() + " " + level.frame_num + " ##### PlayerDamage: " + self.name);
-		#/
-		[[level.callbackPlayerKilled]](eInflictor, eAttacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc);
-		
-		return;
-	}
 
 	/#
 	strAttacker = "undefined"; if (isDefined(eAttacker)) if (isPlayer(eAttacker)) strAttacker = "#" + (eAttacker getEntityNumber()) + " " + eAttacker.name; else strAttacker = "-entity-";
