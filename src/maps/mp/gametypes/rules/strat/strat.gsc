@@ -10,7 +10,7 @@ Load()
 GetCvars(arr)
 {
 	// Are there OT Rules?
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_overtime", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_overtime", 0);
 
 	// Readyup
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_readyup", 0); 				// Enable readyup [0, 1] 0 = disbled  1 = enabled
@@ -63,12 +63,13 @@ GetCvars(arr)
 
 
 
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_fast_reload_fix", 1);				// Prevent players from shoting faster via double-scroll bug
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_fast_reload_fix", 0);				// Prevent players from shoting faster via double-scroll bug
 	// arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shotgun_consistent", 1);			// Enable consistent shotgun to fix long shot kills and short range hits
 	// arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_prone_peek_fix", 1);				// Prevent players from doing fast peeks from prone (time, after player can prone again will be increased)
 	// arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_mg_peek_fix", 1);				// When mg is dropped, player is spawned right behid mg
 	// arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_hitbox_hand_fix", 1);				// Damage to left hand is adjusted for rifles and scopes.
-	// arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_hitbox_torso_fix", 1);					// Damage of M1, rifles, scopes and shotgun is adjusted to have less hits in game
+	// arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_hitbox_torso_fix", 1);				// Damage of M1, rifles, scopes and shotgun is adjusted to have less hits in game
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_rpam_aimrun_fix", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_killcam", 0);					// Killcam
 
 
