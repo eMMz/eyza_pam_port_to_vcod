@@ -39,7 +39,7 @@ GetCvars(arr)
 	// Hud Options
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_players_left", 0);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_objective_icons", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_hitblip", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_hitblip", 0);
 
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_scoreboard", 0); 		//Score in the upper left corner [0 - 1] 0=hided  1=visible  (if 1, score can be still hided by player settings)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_scoreboard_limit", 0);

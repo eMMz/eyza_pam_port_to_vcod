@@ -339,7 +339,7 @@ onPlayerKilling(eInflictor, eAttacker, iDamage, sMeansOfDeath, sWeapon, vDir, sH
 		self.sessionstate = "dead";
 
 		if (!isDefined(self.switching_teams))
-			self thread respawnOnKilled(sWeapon, deathAnimDuration);
+			self thread respawnOnKilled(sWeapon);
 	}
 
 	// Reset flag that means that this kill was executed while player is chaging sides via menu (suicide() was called)
@@ -349,7 +349,7 @@ onPlayerKilling(eInflictor, eAttacker, iDamage, sMeansOfDeath, sWeapon, vDir, sH
 	// this is because ctf, htf, hq need to do some job when player is killed (because of team swap or /kill) in timeout - flag needs to be dropped or some hud removed
 }
 
-respawnOnKilled(sWeapon, deathAnimDuration)
+respawnOnKilled(sWeapon)
 {
 	self endon("disconnect");
 	self endon("spawned");
@@ -362,7 +362,7 @@ respawnOnKilled(sWeapon, deathAnimDuration)
 	// Clone players model for death animations
 	body = undefined;
 	if(!isdefined(self.switching_teams))
-		body = self cloneplayer(deathAnimDuration);
+		body = self cloneplayer();
 
 	wait level.fps_multiplier * 2;
 
