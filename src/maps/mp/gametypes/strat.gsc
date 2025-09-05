@@ -304,7 +304,7 @@ onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWe
 	if(self.sessionstate != "dead")
 	{
 		// level notify("log_damage", self, eAttacker, sWeapon, iDamage, sMeansOfDeath, sHitLoc, false);
-		maps\mp\gametypes\_log::logDamage(self, eAttacker, sWeapon, iDamage, sMeansOfDeath, sHitLoc, isFriendlyFire);
+		maps\mp\gametypes\_log::logDamage(self, eAttacker, sWeapon, iDamage, sMeansOfDeath, sHitLoc, false);
 	}
 }
 
@@ -351,9 +351,10 @@ onAfterPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir,
 		self.spawnAngles = undefined;
 	}
 
-	self notify("killed_player");
+	// self notify("killed_player");
 
-	level notify("log_kill", self, attacker,  sWeapon, iDamage, sMeansOfDeath, sHitLoc);
+	// level notify("log_kill", self, attacker,  sWeapon, iDamage, sMeansOfDeath, sHitLoc);
+	maps\mp\gametypes\_log::logKill(self, attacker,  sWeapon, iDamage, sMeansOfDeath, sHitLoc);
 
 	// Wait before dead body is spawned to allow double kills (bullets may stop in this dead body)
 	// Ignore this for shotgun, because it create a smoke effect on dead body (for good feeling)

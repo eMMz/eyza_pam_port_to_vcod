@@ -108,6 +108,11 @@ logDamage(player, eAttacker, sWeapon, iDamage, sMeansOfDeath, sHitLoc, isFriendl
 		attack_team = self_team;
 	}
 
+    if(!isDefined(normalizedDamage))
+    {
+        normalizedDamage = "";
+    }
+
     logPrint("Damage;"+self_guid+";"+self_num+";"+self_name+";"+self_team+";"+attack_guid+";"+attack_num+";"+attack_name+";"+attack_team+";"+sWeapon+";"+iDamage+";"+sMeansOfDeath+";"+sHitLoc+";"+normalizedDamage+"\n");
 }
 
