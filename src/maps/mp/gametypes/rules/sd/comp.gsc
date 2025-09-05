@@ -50,7 +50,7 @@ GetCvars(arr)
 	// Time-out
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_timeouts", 4);			// Total timeouts for one team
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_timeouts_half", 2); 		// How many per side
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_timeout_length", 2); 		// Length in minutes
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_timeout_length", 5); 		// Length in minutes
 
 
 	// Are there OT Rules?
@@ -70,7 +70,7 @@ GetCvars(arr)
 		// Time-out
 		arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_timeouts", 2);			// Total timeouts for one team
 		arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_timeouts_half", 1); 		// How many per side
-		arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_timeout_length", 1); 		// Length in minutes
+		arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_timeout_length", 5); 		// Length in minutes
 	}
 
 
@@ -96,7 +96,7 @@ GetCvars(arr)
 
 
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_shellshock", 0);					// Create shell shock effect when player is hitted
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_replace_russian", 1); 					// Replace russians with Americans / Brisith
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_replace_russian", 0); 					// Replace russians with Americans / Brisith
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_blackout", 1); 						// If match is in progress, show map background all over the screen and disable sounds for connected player
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_recording", 0); 						// Starts automatically recording when match starts
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_matchinfo", 2); 						// Show match info in menu (1 = without team names, 2 = with team names)

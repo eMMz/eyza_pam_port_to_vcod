@@ -128,7 +128,19 @@ onStartGameType()
 
 	// Precache gametype specific stuff
 	if (game["firstInit"])
+	{
 		precache();
+
+		// vCoD server code
+		if(!isDefined(game["layoutimage"]))
+			game["layoutimage"] = "default";
+		layoutname = "levelshots/layouts/hud@layout_" + game["layoutimage"];
+		logprint("_dm:onStartGameType layoutname=" + layoutname + "\n");
+		precacheShader(layoutname);
+		game["layoutimage_sorted"] = layoutname;
+		setCvar("scr_layoutimage", layoutname);
+		makeCvarServerInfo("scr_layoutimage", "");
+	}
 
 
 	// Spawn points
@@ -461,7 +473,7 @@ onAfterPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir,
 
 	body = undefined;
 	if(!isdefined(self.switching_teams))
-		body = self cloneplayer(deathAnimDuration);
+		body = self cloneplayer();
 	self.switching_teams = undefined;
 
 	delay = level.fps_multiplier * 1.5;
@@ -766,8 +778,17 @@ stratTime_g_speed()
 
 	level waittill("strat_time_end");
 
-	if (!level.in_timeout)
+	if (!level.in_timeout) 
+	{
 		maps\mp\gametypes\global\cvar_system::restoreCvarQuiet("g_speed");
+
+		players = getentarray("player", "classname");
+		for(i = 0; i < players.size; i++)
+		{ 
+			player = players[i];
+			player.maxspeed = getCvar("g_speed");
+		}
+	}
 }
 
 

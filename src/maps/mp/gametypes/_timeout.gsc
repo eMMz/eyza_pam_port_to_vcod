@@ -100,15 +100,15 @@ Return true to indicate that menu response was handled in this function
 onMenuResponse(menu, response)
 {
 	logprint("_timeout::onMenuResponse - " + menu + " " + response + "\n");
-	/*
 	if (menu == game["menu_ingame"] && response == "timeout")
 	{
+		logprint("_timeout::onMenuResponse calling timeout\n");
+		
 		self closeMenu();
 		//self closeInGameMenu();
 		self callTimeout();
 		return true;
 	}
-	*/
 }
 
 

@@ -39,7 +39,7 @@ GetCvars(arr)
 	// Hud Options
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_players_left", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_objective_icons", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_hitblip", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_hitblip", 0);
 
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_scoreboard", 1); 		//Score in the upper left corner [0 - 1] 0=hided  1=visible  (if 1, score can be still hided by player settings)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_show_scoreboard_limit", 0);
@@ -59,7 +59,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_shellshock", 0);					// Create shell shock effect when player is hitted
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_replace_russian", 0); 					// Replace russians with Americans / Brisith
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_blackout", 1); 						// If match is in progress, show map background all over the screen and disable sounds for connected player
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_recording", 1); 						// Starts automatically recording when match starts
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_recording", 0); 						// Starts automatically recording when match starts
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_matchinfo", 2); 						// Show match info in menu (1 = without team names, 2 = with team names)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_map_vote", 0);							// Open voting system so players can vote about next map
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_map_vote_replay", 0);					// Show option to replay this map in voting system

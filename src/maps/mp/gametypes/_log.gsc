@@ -13,7 +13,7 @@ init()
 
     level thread onRoundEnd();
 
-    level thread onServerRestart();
+    // level thread onServerRestart();
 }
 
 onConnected()
