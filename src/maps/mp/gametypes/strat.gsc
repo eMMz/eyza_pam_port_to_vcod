@@ -1287,6 +1287,14 @@ Show_HUD_Global()
 	level.clock setText(&"Clock");
 	level.clocktimer = maps\mp\gametypes\global\_global::addHUD(605, 295, 1, (.98, .98, .60), "right", "top", "right");
 	level.clocktimer SetTimerUp(0.1);
+
+	level.mainClock = maps\mp\gametypes\global\_global::newHudElem2();
+	level.mainClock.x = 320;
+	level.mainClock.y = 460;
+	level.mainClock.alignX = "center";
+	level.mainClock.alignY = "middle";
+	level.mainClock.font = "bigfixed";
+	level.mainClock setTimer(1);
 }
 
 Show_HUD_Player()
