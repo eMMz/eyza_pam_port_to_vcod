@@ -109,6 +109,7 @@ main()
 	[[varAEL]]("onPlayerKilling", ::onPlayerKilling);
 	[[varAEL]]("onPlayerKilled", ::onPlayerKilled);
 	[[varAEL]]("onCvarChanged", ::onCvarChanged);
+	[[varAEL]]("onSpawnedPlayer", ::onSpawnedPlayer);
 
 	// Events for this gametype that are called last after all events are processed
 	level.onAfterConnected = ::onAfterConnected;
@@ -1087,12 +1088,20 @@ spawnPlayer()
 	if(level.in_readyup)
 	{
 		//maps\mp\gametypes\_weapons::giveSmokesFor(self.spawnedWeapon, 0);
-		maps\mp\gametypes\_weapons::giveGrenadesFor(self.spawnedWeapon, 0); // grenades are handled in readyup now
+		maps\mp\gametypes\_weapons::giveGrenadesFor(self.spawnedWeapon); // grenades are handled in readyup now
+
+		// if (level.scr_readyup_nadetraining)
+    	// {
+		// 	if (!level.in_timeout)
+		// 	{
+		// 		self maps\mp\gametypes\_weapons::giveGrenadesFor(self.spawnedWeapon);
+		// 	}
+		// }
 	}
 	else
 	{
 		//maps\mp\gametypes\_weapons::giveSmokesFor(self.spawnedWeapon, 0);
-		maps\mp\gametypes\_weapons::giveGrenadesFor(self.spawnedWeapon, 0);	// grenades will be added after start time
+		maps\mp\gametypes\_weapons::giveGrenadesFor(self.spawnedWeapon);	// grenades will be added after start time
 	}
 	maps\mp\gametypes\_weapons::givePistol();
 	//maps\mp\gametypes\_weapons::giveBinoculars();
@@ -1344,8 +1353,6 @@ startRound()
 
 	level streamer_reset_round_kills();
 
-
-
 	players = getentarray("player", "classname");
 	for(i = 0; i < players.size; i++)
 	{
@@ -1362,12 +1369,11 @@ startRound()
 		}
 
 		// To all living player give grenades
-		if (isDefined(player.selectedWeaponOnRoundStart) && player.sessionstate == "playing" && (player.pers["team"] == "allies" || player.pers["team"] == "axis") && !level.in_bash)
-		{
-			//player maps\mp\gametypes\_weapons::giveSmokesFor(player.selectedWeaponOnRoundStart);
-			player maps\mp\gametypes\_weapons::giveGrenadesFor(player.selectedWeaponOnRoundStart);
-		}
-
+		// if (isDefined(player.selectedWeaponOnRoundStart) && player.sessionstate == "playing" && (player.pers["team"] == "allies" || player.pers["team"] == "axis") && !level.in_bash)
+		// {
+		// 	//player maps\mp\gametypes\_weapons::giveSmokesFor(player.selectedWeaponOnRoundStart);
+		// 	player maps\mp\gametypes\_weapons::giveGrenadesFor(player.selectedWeaponOnRoundStart);
+		// }
 	}
 
 
@@ -1816,6 +1822,7 @@ stratTime_g_speed()
 	{ 
 		player = players[i];
 		player.maxspeed = getCvar("g_speed");
+		player enableWeapon();
 	}
 }
 
@@ -3425,7 +3432,7 @@ menuWeapon(response)
 
 	primary = self getWeaponSlotWeapon("primary");
 	primaryb = self getWeaponSlotWeapon("primaryb");
-	grenadeSlotWeapon = self getWeaponSlotWeapon("grenade");
+	// grenadeSlotWeapon = self getWeaponSlotWeapon("grenade");
 
 	// Used by bots
 	if (response == "random")
@@ -3511,7 +3518,15 @@ menuWeapon(response)
 			// Give pistol to secondary slot + give grenades and smokes
 			maps\mp\gametypes\_weapons::givePistol();
 			//maps\mp\gametypes\_weapons::giveSmokesFor(weapon, 0);
-			maps\mp\gametypes\_weapons::giveGrenadesFor(weapon, 0);
+			maps\mp\gametypes\_weapons::giveGrenadesFor(weapon);
+
+			// if (level.scr_readyup_nadetraining)
+    		// {
+			// 	if (!level.in_timeout)
+			// 	{
+			// 		self maps\mp\gametypes\_weapons::giveGrenadesFor(weapon);
+			// 	}
+			// }
 
 			// Switch to main weapon
 			self switchToWeapon(weapon);
@@ -3606,7 +3621,15 @@ menuWeapon(response)
 
 				// Give empty grenade/smoke slots
 				//self maps\mp\gametypes\_weapons::giveSmokesFor(weapon, 0);
-				self maps\mp\gametypes\_weapons::giveGrenadesFor(weapon, 0);
+				self maps\mp\gametypes\_weapons::giveGrenadesFor(weapon);
+
+				// if (level.scr_readyup_nadetraining)
+    			// {
+				// 	if (!level.in_timeout)
+				// 	{
+				// 		self maps\mp\gametypes\_weapons::giveGrenadesFor(weapon, 0);
+				// 	}
+				// }
 
 				// Switch to new selected weapon
 				self switchToWeapon(weapon);
@@ -3841,4 +3864,15 @@ Destroy_HUD_Planted()
 {
 	wait 6;
 	level.hudplanted destroy();
+}
+
+onSpawnedPlayer()
+{
+	// logprint("sd::onSpawnedPlayer " + self.name + " start\n");
+	if (!level.in_readyup && level.strat_time > 0)
+	{
+		// logprint("sd::onSpawnedPlayer disabling weapon for " + self.name + "\n");
+		self disableWeapon();
+	}
+	// logprint("sd::onSpawnedPlayer " + self.name + " end\n");
 }

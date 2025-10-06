@@ -483,7 +483,7 @@ spawnPlayer()
 	maps\mp\gametypes\_weapons::givePistol();
 	// maps\mp\gametypes\_weapons::giveBinoculars();
 
-	maps\mp\gametypes\_weapons::giveGrenadesFor(self.pers["weapon"], 0);
+	maps\mp\gametypes\_weapons::giveGrenadesFor(self.pers["weapon"]);
 
 	self setSpawnWeapon(self.pers["weapon"]);
 
@@ -776,7 +776,7 @@ menuWeapon(response)
 		// Give pistol to secondary slot + give grenades and smokes
 		maps\mp\gametypes\_weapons::givePistol();
 		//maps\mp\gametypes\_weapons::giveSmokesFor(weapon, 0);
-		maps\mp\gametypes\_weapons::giveGrenadesFor(weapon, 0);
+		maps\mp\gametypes\_weapons::giveGrenadesFor(weapon);
 
 		// Switch to main weapon
 		self switchToWeapon(weapon);
@@ -1034,6 +1034,7 @@ Watch_Grenade_Throw(is_strat)
 	// nadename = self maps\mp\gametypes\_weapons::GetGrenadeTypeName();
 	//smokename = self maps\mp\gametypes\_weapons::GetSmokeTypeName();
 
+	/*
 	if (is_strat)
 	{
 		//self giveWeapon(nadename);
@@ -1046,19 +1047,30 @@ Watch_Grenade_Throw(is_strat)
 
 		self setWeaponSlotWeapon("grenade", self maps\mp\gametypes\_weapons::GetGrenadeTypeName());
 		self setWeaponSlotAmmo("grenade", 999);
-	}
+	}*/
 
-	grenade_count_old	 = self maps\mp\gametypes\_weapons::getFragGrenadeCount();
+	//grenade_count_old	 = self maps\mp\gametypes\_weapons::getFragGrenadeCount();
 	//smokegrenade_count_old = self maps\mp\gametypes\_weapons::getSmokeGrenadeCount();
 
-	for(;;)
+	while (self.sessionstate == "playing")
 	{
-		grenade_count 	= self maps\mp\gametypes\_weapons::getFragGrenadeCount();
+		grenade_count 	= self getWeaponSlotAmmo("grenade");
+		// grenade_count 	= self maps\mp\gametypes\_weapons::getFragGrenadeCount();
 		//smokegrenade_count 	= self maps\mp\gametypes\_weapons::getSmokeGrenadeCount();
 
-		if(grenade_count != grenade_count_old /*|| smokegrenade_count != smokegrenade_count_old*/) {
+		// if(grenade_count != grenade_count_old /*|| smokegrenade_count != smokegrenade_count_old*/ && self.sessionstate == "playing") 
+		// {
+		while (grenade_count == self getWeaponSlotAmmo("grenade") && self.sessionstate == "playing") {
+			wait 0.05;
+        }
 
+		if (self.sessionstate != "playing") 
+		{
+			logprint(self.name + " nade_count has changed but sessionstate is not playing: " + self.sessionstate + " - nade_training egress\n");
+            return;
+        }
 
+			/*
 			if (is_strat)
 			{
 				// Refill grenades
@@ -1071,30 +1083,38 @@ Watch_Grenade_Throw(is_strat)
 				if (grenade_count != grenade_count_old)
 					self thread HUD_Grenade_Releases_In();
 			}
+			*/
 
-			// Follow nade if enabled
-			if (self.flaying_enabled)
-			{
-				// Loop grenades in map
-				grenades = getentarray("grenade","classname");
-				for(i=0;i<grenades.size;i++) {
-					if(isDefined(grenades[i].origin) && !isDefined(grenades[i].running)) {
-						// Only if it's your own nade (close to the player)
-						if(distance(grenades[i].origin, self.origin) < 100*100) {
-							grenades[i].running = true;
-							//grenades[i] thread Fly(self);
-							self thread Fly(grenades[i]);
-						}
+		self setWeaponSlotAmmo("grenade", 999);
+
+		// Show explode in timer text
+		//if (grenade_count != grenade_count_old)
+			// self thread HUD_Grenade_Releases_In();
+
+		// Follow nade if enabled
+		if (self.flaying_enabled)
+		{
+			// Loop grenades in map
+			grenades = getentarray("grenade","classname");
+			for(i=0;i<grenades.size;i++) {
+				if(isDefined(grenades[i].origin) && !isDefined(grenades[i].running)) {
+					// Only if it's your own nade (close to the player)
+					if(distanceSquared(grenades[i].origin, self.origin) < 100*100) {
+						grenades[i].running = true;
+						//grenades[i] thread Fly(self);
+						self thread Fly(grenades[i]);
 					}
 				}
 			}
 		}
 
-		grenade_count_old	 = grenade_count;
+		// grenade_count_old	 = grenade_count;
 		//smokegrenade_count_old = smokegrenade_count;
 
-		wait level.fps_multiplier * 0.1;
+		//wait level.fps_multiplier * 0.1;
+		// wait 0.05;
 	}
+	logprint(self.name + " nade_training egress\n");
 }
 
 Fly(nade)

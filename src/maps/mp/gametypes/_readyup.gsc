@@ -265,7 +265,7 @@ onSpawned()
 				self thread maps\mp\gametypes\strat::Watch_Grenade_Throw(false);
 
 	            // Keep adding grenades in readyup
-	            thread giveGrenadesInReadyup();
+	            // self thread giveGrenadesInReadyup();
 		}
     }
 }
