@@ -54,7 +54,7 @@ Init()
 	if (game["firstInit"] || overtime_changed)
 	{
 		//assert(level.pam_mode != "");
-		if (level.pam_mode != "")
+		if (level.pam_mode == "")
 		{
 			logprint("_rules::Init - empty pam_mode!!\n");
 		}
@@ -148,6 +148,7 @@ Init()
 		precacheString(game["leagueOptionsString"]);
 	}
 
+	logprint("Loaded rules for pam mode: " + level.pam_mode);
 	println("Loaded rules for pam mode: " + level.pam_mode);
 }
 

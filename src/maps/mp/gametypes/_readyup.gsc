@@ -14,6 +14,8 @@ init()
 	maps\mp\gametypes\global\_global::registerCvar("scr_readyup_nadetraining", "BOOL", 0);
 	maps\mp\gametypes\global\_global::registerCvar("scr_readyup_start_timer", "FLOAT", 0, 0, 10);
 
+	maps\mp\gametypes\global\_global::registerCvarEx("C", "scr_readyup_forceall", "BOOL", 0);
+
 	if(game["firstInit"])
 	{
 		// Ready-up
@@ -101,6 +103,13 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "scr_readyup_autoresume_map": 	level.scr_readyup_autoresume_map = value; return true;
 		case "scr_readyup_nadetraining":level.scr_readyup_nadetraining = value; return true;
 		case "scr_readyup_start_timer": 	level.scr_readyup_start_timer = value; return true;
+		case "scr_readyup_forceall":
+			if (value == 1)
+			{
+				thread forceAllReady();
+				maps\mp\gametypes\global\_global::changeCvarQuiet("scr_readyup_forceall", 0);
+			}
+			return true;
 	}
 	return false;
 }
@@ -1563,4 +1572,15 @@ playLastManSound()
 	wait level.fps_multiplier * 30;
 
 	self.lastMan = false;
+}
+
+forceAllReady()
+{
+	players = getentarray("player", "classname");
+	for(i = 0; i < players.size; i++)
+	{
+		players[i] setReady();
+	}
+
+	level Check_All_Ready();
 }

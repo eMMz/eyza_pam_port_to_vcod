@@ -25,7 +25,7 @@ GetCvars(arr)
 	*******************************/
 
 	// Readyup
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_readyup", 1); 				// Enable readyup [0, 1] 0 = disbled  1 = enabled
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_readyup", 0); 				// Enable readyup [0, 1] 0 = disbled  1 = enabled
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_readyup_autoresume_half", 2); 	// Minutes to auto-resume halftime [0 - 10] 0 = disabled
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_readyup_autoresume_map", 5); 	// Minutes to auto-resume between maps [0 - 10] 0 = disabled
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_readyup_nadetraining", 1); 	// Enable strat grenade fly mode in readyup
