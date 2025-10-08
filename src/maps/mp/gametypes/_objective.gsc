@@ -127,7 +127,7 @@ setPlayerObjective()
 		logprint("3\n");
 		if (level.aimTargets.size == 0)	{
 			self setClientCvar("cg_objectiveText", game["STRING_READYUP_KEY_ACTIVATE_PRESS"] + "\n" + game["STRING_READYUP_KEY_MELEE_DOUBLEPRESS"]);
-			self setClientCvar("cg_objective", "@" + game["STRING_READYUP_KEY_ACTIVATE_PRESS"] + "\n" + "@" + game["STRING_READYUP_KEY_MELEE_DOUBLEPRESS"]);
+			self setClientCvar("cg_objective", "@" + game["STRING_READYUP_KEY_ACTIVATE_PRESS"] + "\n" + game["STRING_READYUP_KEY_MELEE_DOUBLEPRESS"]);
 		} else {				
 			self setClientCvar("cg_objectiveText", game["STRING_READYUP_KEY_ACTIVATE_PRESS"] + "\n" + game["STRING_READYUP_KEY_MELEE_DOUBLEPRESS_TRAINER"] + "\n" + game["STRING_READYUP_KEY_MELEE_HOLD"]);
 			self setClientCvar("cg_objective", "@" + game["STRING_READYUP_KEY_ACTIVATE_PRESS"] + "\n" + "@" + game["STRING_READYUP_KEY_MELEE_DOUBLEPRESS_TRAINER"] + "\n" + game["STRING_READYUP_KEY_MELEE_HOLD"]);
