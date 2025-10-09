@@ -65,10 +65,10 @@
 Init()
 {
 	logprint("_callbacksetup::init\n");
-	/#
-	thread frame_counter();
-	println("##### " + gettime() + " " + level.frame_num + " ##### Call: maps/mp/gametypes/" + getcvar("g_gametype") + ".gsc::main()");
-	#/
+	// /#
+	// thread frame_counter();
+	// println("##### " + gettime() + " " + level.frame_num + " ##### Call: maps/mp/gametypes/" + getcvar("g_gametype") + ".gsc::main()");
+	// #/
 
 	SetupCallbacks();
 }
@@ -145,12 +145,12 @@ CodeCallback_PlayerConnect()
 {
 	self endon("disconnect");
 
-	/#
+	// /#
 	//if (isDefined(self.alreadyConnected))
 	//	assertMsg("Duplicated connection for " + self.name);
 	//self.alreadyConnected = true;
-	println("##### " + gettime() + " " + level.frame_num + " ##### Connecting: " + self.name);
-	#/
+	// println("##### " + gettime() + " " + level.frame_num + " ##### Connecting: " + self.name);
+	// #/
 
 	self.sessionteam = "none"; // show player in "none" team in scoreboard while connecting
 
@@ -296,14 +296,14 @@ CodeCallback_PlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath
 			self iprintln("You recieved " + iDamage + " damage (" + sHitLoc + ", "+ sMeansOfDeath +")");
 	}
 
-	/#
-	dist = -1; if (isDefined(eAttacker) && isPlayer(eAttacker)) dist = (int)(distance(self getOrigin(), eAttacker getOrigin()));
-	strAttacker = "undefined"; if (isDefined(eAttacker)) if (isPlayer(eAttacker)) strAttacker = "#" + (eAttacker getEntityNumber()) + " " + eAttacker.name; else strAttacker = "-entity-";
-	sPoint = "undefined";	if (isDefined(vPoint)) sPoint = vPoint;
+	// /#
+	// dist = -1; if (isDefined(eAttacker) && isPlayer(eAttacker)) dist = (int)(distance(self getOrigin(), eAttacker getOrigin()));
+	// strAttacker = "undefined"; if (isDefined(eAttacker)) if (isPlayer(eAttacker)) strAttacker = "#" + (eAttacker getEntityNumber()) + " " + eAttacker.name; else strAttacker = "-entity-";
+	// sPoint = "undefined";	if (isDefined(vPoint)) sPoint = vPoint;
 
-	println("##### " + gettime() + " " + level.frame_num + " ##### PlayerDamage: " + strAttacker + " -> #" + self getEntityNumber() + " " + self.name + " health:" + self.health + " damage:" + iDamage + " hitLoc:" + sHitLoc + " iDFlags:" + iDFlags +
-	" sMeansOfDeath:" + sMeansOfDeath + " sWeapon:" + sWeapon + " vPoint:" + sPoint + " distance:" + dist);
-	#/
+	// println("##### " + gettime() + " " + level.frame_num + " ##### PlayerDamage: " + strAttacker + " -> #" + self getEntityNumber() + " " + self.name + " health:" + self.health + " damage:" + iDamage + " hitLoc:" + sHitLoc + " iDFlags:" + iDFlags +
+	// " sMeansOfDeath:" + sMeansOfDeath + " sWeapon:" + sWeapon + " vPoint:" + sPoint + " distance:" + dist);
+	// #/
 
 
 	// Protection - players in spectator inflict damage
