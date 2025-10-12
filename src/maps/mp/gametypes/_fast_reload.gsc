@@ -86,6 +86,8 @@ getClipAmmo()
 manageWeaponCycleDelay()
 {
     self endon("disconnect");
+    self notify("manageWeaponCycleDelay");
+	self endon("manageWeaponCycleDelay");
 
     lastClipAmmo = 0;
     lastWeapon = "";

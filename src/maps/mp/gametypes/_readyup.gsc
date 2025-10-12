@@ -864,6 +864,7 @@ PrintTeamAndHowToUse()
 End_Readyup_Mode()
 {
 	level notify("rupover");
+	maps\mp\gametypes\_log::logOnReadyUpOver();
 
 	// Black background, countdowntime, First half starting with timer
 	thread HUD_Half_Start(level.scr_readyup_start_timer);

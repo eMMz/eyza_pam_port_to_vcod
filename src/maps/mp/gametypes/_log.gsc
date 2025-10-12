@@ -7,7 +7,7 @@ init()
     maps\mp\gametypes\global\_global::addEventListener("onConnected",     ::onConnected);
     maps\mp\gametypes\global\_global::addEventListener("onDisconnect",    ::onDisconnect);
 
-    level thread onReadyUpOver();
+    // level thread onReadyUpOver();
     //level thread onDamage();
     //level thread onPlayerKilled();
 
@@ -32,6 +32,11 @@ onReadyUpOver()
 {
     level waittill("rupover");
 
+    logPrint("ReadyupDone;\n");
+}
+
+logOnReadyUpOver()
+{
     logPrint("ReadyupDone;\n");
 }
 
