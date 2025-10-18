@@ -2618,6 +2618,7 @@ bombzone_think(bombzone_other)
 				// Player ("player" variable) can disconnect here, so we need to make sure he is still defined
 				while(isDefined(player) && isAlive(player) && player useButtonPressed() && (self.progresstime < level.planttime))
 				{
+					player disableWeapon();
 					self.progresstime += level.frame;
 					wait level.frame;
 				}
@@ -3034,6 +3035,7 @@ bomb_think()
 				// Player ("player" variable) can disconnect here, so we need to make sure he is still defined
 				while(isDefined(player) && isAlive(player) && player useButtonPressed() && (self.progresstime < level.defusetime))
 				{
+					player disableWeapon();
 					self.progresstime += level.frame;
 					wait level.frame;
 				}
