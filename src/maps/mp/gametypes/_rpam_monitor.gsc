@@ -66,8 +66,8 @@ monitor(fastshoot, aimrun)
 	
 	slots[0] = "primary";
 	slots[1] = "primaryb";
-	// slots[2] = "pistol";
-	// slots[slots.size] = "grenade";
+	slots[2] = "pistol";
+	slots[slots.size] = "grenade";
 
 	// Save current clip ammo of all slots.
 	for (i = 0; i < slots.size; i++) {
@@ -166,11 +166,13 @@ _check_aim_run(slot)
 	// Aim running is done with a bolt action rifle by holding the attack button at reloading.
 	// While holding the attack button after reloading, a player can aim while maintaining regular speed.
 
-	if (slot != "primary" && slot != "primaryb") {
+	if (slot != "primary" && slot != "primaryb" && slot != "pistol") {
 		return;
 	}
 
 	weapon = self getWeaponSlotWeapon(slot);
+
+	// logprint("_rpam_monitor::_check_aim_rum slot=" + slot + ", weapon=" + weapon + "\n");
 
 	if (
 		weapon != "enfield_mp" &&
@@ -198,11 +200,11 @@ _check_aim_run(slot)
 	// Check during the next 0.5 second window for holding it.
 	for (tick = 0; tick < 10 && self.sessionstate == "playing"; tick++) {
 		// If a shot was fired (by pressing attack), aimrunning isn't relevant anymore.
-		if (self getWeaponSlotClipAmmo(slot) != ammo) {
+		if (self getWeaponSlotClipAmmo(slot) != ammo || self getCurrentWeapon() != weapon) {
 			break;
 		}
 
-		if (self attackButtonPressed()) {
+		if (self attackButtonPressed() && self getCurrentWeapon() == weapon) {
 			self disableWeapon();
 		}
 
