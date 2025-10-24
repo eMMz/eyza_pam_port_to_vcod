@@ -1817,12 +1817,16 @@ stratTime_g_speed()
 	level waittill("strat_time_end");
 
 	maps\mp\gametypes\global\cvar_system::restoreCvarQuiet("g_speed");
+
 	players = getentarray("player", "classname");
 	for(i = 0; i < players.size; i++)
 	{ 
 		player = players[i];
+		if (!level.in_timeout)
+		{
+			player enableWeapon();
+		}
 		player.maxspeed = getCvar("g_speed");
-		player enableWeapon();
 	}
 }
 
@@ -2931,10 +2935,10 @@ getBombDamageByDistanceForMap(distance, currentMap)
 		case "mp_depot":
 			maxDistance = 800;
 			break;
-		case "german_town":
+		case "mp_germantown":
 			maxDistance = 750;
 			break;
-		case "xp_hanoi":
+		case "mp_hanoi":
 			maxDistance = 900;
 			break;
 		case "mp_harbor":
