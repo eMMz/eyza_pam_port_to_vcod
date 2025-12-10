@@ -855,7 +855,7 @@ fill_box(index, barSide, teamname, player)
 
 
 	//logPrint("fillbox " + name + "\n");
-	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_num",		(index+1));
+	//self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_num",		(index+1));
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_health",		health);
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_name",		name);
 	self maps\mp\gametypes\global\_global::setClientCvarIfChanged("ui_streamersystem_team"+teamNum+"_player"+index+"_score",		player.score + " / " + player.deaths);
