@@ -1087,7 +1087,7 @@ spawnPlayer()
 	// Give grenades only if we are in readyup
 	if(level.in_readyup)
 	{
-		//maps\mp\gametypes\_weapons::giveSmokesFor(self.spawnedWeapon, 0);
+		maps\mp\gametypes\_weapons::giveSmokesFor(self.spawnedWeapon);
 		maps\mp\gametypes\_weapons::giveGrenadesFor(self.spawnedWeapon); // grenades are handled in readyup now
 
 		// if (level.scr_readyup_nadetraining)
@@ -1100,7 +1100,7 @@ spawnPlayer()
 	}
 	else
 	{
-		//maps\mp\gametypes\_weapons::giveSmokesFor(self.spawnedWeapon, 0);
+		maps\mp\gametypes\_weapons::giveSmokesFor(self.spawnedWeapon);
 		maps\mp\gametypes\_weapons::giveGrenadesFor(self.spawnedWeapon);	// grenades will be added after start time
 	}
 	maps\mp\gametypes\_weapons::givePistol();
@@ -3523,7 +3523,7 @@ menuWeapon(response)
 
 			// Give pistol to secondary slot + give grenades and smokes
 			maps\mp\gametypes\_weapons::givePistol();
-			//maps\mp\gametypes\_weapons::giveSmokesFor(weapon, 0);
+			maps\mp\gametypes\_weapons::giveSmokesFor(weapon);
 			maps\mp\gametypes\_weapons::giveGrenadesFor(weapon);
 
 			// if (level.scr_readyup_nadetraining)
@@ -3626,7 +3626,7 @@ menuWeapon(response)
 				//self giveMaxAmmo(weapon);
 
 				// Give empty grenade/smoke slots
-				//self maps\mp\gametypes\_weapons::giveSmokesFor(weapon, 0);
+				self maps\mp\gametypes\_weapons::giveSmokesFor(weapon);
 				self maps\mp\gametypes\_weapons::giveGrenadesFor(weapon);
 
 				// if (level.scr_readyup_nadetraining)

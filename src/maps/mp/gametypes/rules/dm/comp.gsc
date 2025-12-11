@@ -107,12 +107,12 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shotgun_nades", 1);
 
 	// Smoke spawn counts for each class
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_boltaction_smokes", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_semiautomatic_smokes", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_smg_smokes", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sniper_smokes", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_mg_smokes", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shotgun_smokes", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_boltaction_smokes", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_semiautomatic_smokes", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_smg_smokes", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sniper_smokes", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_mg_smokes", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shotgun_smokes", 1);
 
 	// Weapon Limits by class per team
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_boltaction_limit", 99);
@@ -132,7 +132,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_pistol_allow_drop", 1);
 
 	// Allow grenade / smoke drop when player die
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_grenade_drop", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_grenade_drop", 0);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_smoke_drop", 0);
 
 	// Player's weapon drop

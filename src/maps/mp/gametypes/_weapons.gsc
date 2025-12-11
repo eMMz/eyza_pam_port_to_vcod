@@ -351,6 +351,8 @@ precacheWeaponsRifle()
 		break;
 	}
 
+	precacheItem("smokegrenade_mp");
+
 	precacheItem("kar98k_mp");
 	precacheItem("enfield_mp");
 	precacheItem("mosin_nagant_mp");
@@ -489,6 +491,7 @@ precacheWeapons()
 
 
 	// Weapons for all
+	precacheItem("smokegrenade_mp");
 	//precacheItem("shotgun_mp");
 	//precacheItem("binoculars_mp");
 }
@@ -776,9 +779,9 @@ GetSmokeTypeName()
 {
 	grenadetype = "none";
 	if(self.pers["team"] == "allies")
-		grenadetype = "smoke_grenade_" + game["allies"] + "_mp";
+		grenadetype = "smokegrenade_mp";
 	else if (self.pers["team"] == "axis")
-		grenadetype = "smoke_grenade_" + game["axis"] + "_mp";
+		grenadetype = "smokegrenade_mp";
 
 	return grenadetype;
 }
@@ -827,31 +830,40 @@ giveGrenadesFor(weapon, count)
 	return 0;
 }
 
-/*
 giveSmokesFor(weapon, count)
 {
 	// remove all smokes
-	self takeWeapon("smoke_grenade_american_mp");
-	self takeWeapon("smoke_grenade_british_mp");
-	self takeWeapon("smoke_grenade_russian_mp");
-	self takeWeapon("smoke_grenade_german_mp");
+	// self takeWeapon("smoke_grenade_american_mp");
+	// self takeWeapon("smoke_grenade_british_mp");
+	// self takeWeapon("smoke_grenade_russian_mp");
+	// self takeWeapon("smoke_grenade_german_mp");
+	self takeWeapon("smokegrenade_mp");
 
 	smokegrenadetype = self GetSmokeTypeName();
 	smokegrenadecount = getWeaponBasedSmokeGrenadeCount(weapon);
 
-	if(smokegrenadecount > 0)
+	if (smokegrenadetype == "none")
+	{
+		logprint("_weapons::giveSmokesFor - Uknown smoketype\n");
+		return 0;
+	}
+
+	if (smokegrenadecount) 
 	{
 		if (isDefined(count)) // replace count with own number
 			smokegrenadecount = count;
+		
+		if(smokegrenadecount > 0)
+		{
 
-		self giveWeapon(smokegrenadetype);
-		self setWeaponClipAmmo(smokegrenadetype, smokegrenadecount);
+			self setWeaponSlotWeapon("smokegrenade", smokegrenadetype);
+			self setWeaponSlotAmmo("smokegrenade", smokegrenadecount);
 
-		return smokegrenadecount;
+			return smokegrenadecount;
+		}
 	}
 	return 0;
 }
-*/
 
 /*
 giveBinoculars()
@@ -864,7 +876,7 @@ dropWeapons()
 {
 	self thread dropWeapon();
 	self thread dropNade();
-	//self thread dropSmoke();
+	self thread dropSmoke();
 }
 
 dropWeapon()
@@ -1011,7 +1023,6 @@ dropNade()
 	}
 }
 
-/*
 dropSmoke()
 {
 	if (!level.allow_smokedrops)
@@ -1021,15 +1032,14 @@ dropSmoke()
 
 	if(grenadetype != "none")
 	{
-		ammosize = self getammocount(grenadetype);
-
-		if(ammosize) {
-			self dropItem(grenadetype);
+		if (self getWeaponSlotAmmo("smokegrenade") > 0)
+		{
+			grenadeType = self getWeaponSlotWeapon("smokegrenade");
+			self dropItem(grenadeType);
 			level maps\mp\gametypes\_weapon_drop::handleWeaponDrop(grenadeType, self);
 		}
 	}
 }
-*/
 
 // Get number of greandes based on selected weapon
 getWeaponBasedGrenadeCount(weapon)
@@ -1040,7 +1050,6 @@ getWeaponBasedGrenadeCount(weapon)
 	return getCvarInt(cvarNades);
 }
 
-/*
 getWeaponBasedSmokeGrenadeCount(weapon)
 {
 	className = level.weapons[weapon].classname;
@@ -1048,7 +1057,6 @@ getWeaponBasedSmokeGrenadeCount(weapon)
 
 	return getCvarInt(cvarSmokes);
 }
-*/
 
 getFragGrenadeCount()
 {
@@ -1069,6 +1077,7 @@ getSmokeGrenadeCount()
 {
 	// Because player can pickup nades also from enemy team, all grenade types are counted
 	count = 0;
+	count += self getWeaponSlotAmmo("smokegrenade");
 	/*
 	count += self getammocount("smoke_grenade_american_mp");
 	count += self getammocount("smoke_grenade_british_mp");

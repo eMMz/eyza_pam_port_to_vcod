@@ -548,7 +548,7 @@ spawnPlayer()
 	// self giveMaxAmmo(self.pers["weapon"]);
 
 	maps\mp\gametypes\_weapons::givePistol();
-	// maps\mp\gametypes\_weapons::giveSmokesFor(self.pers["weapon"]);
+	maps\mp\gametypes\_weapons::giveSmokesFor(self.pers["weapon"]);
 	maps\mp\gametypes\_weapons::giveGrenadesFor(self.pers["weapon"]);
 	// maps\mp\gametypes\_weapons::giveBinoculars();
 

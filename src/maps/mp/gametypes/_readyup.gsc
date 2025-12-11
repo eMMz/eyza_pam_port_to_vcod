@@ -271,7 +271,9 @@ onSpawned()
 		if (!level.in_timeout)
 		{
 			if (!self.pers["isBot"])
+			{
 				self thread maps\mp\gametypes\strat::Watch_Grenade_Throw(false);
+			}
 
 	            // Keep adding grenades in readyup
 	            // self thread giveGrenadesInReadyup();
