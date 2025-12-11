@@ -1,7 +1,7 @@
 #include "ui_mp/menudef.h"
 #include "ui_mp/macros.h"
 
-#define HIDE_ALL hide enfield; hide sten; hide bren; hide springfield;
+#define HIDE_ALL hide enfield; hide sten; hide bren; hide springfield; hide mg30cal;
 
 {
 	menuDef
@@ -56,6 +56,7 @@
 
 		ITEM_WEAPON(ORIGIN_CHOICE4, "button_springfield", "springfield_mp", "@MPMENU_4_SPRINGFIELD", "ui_allow_springfield", "springfield" , show springfield;, scriptMenuResponse "springfield_mp"; close weapon_british;, "british_grenade", "sniper")
 
+		ITEM_WEAPON(ORIGIN_CHOICE5, "button_30cal", "mg30cal_mp", "@GMI_MPMENU_5_30CAL", "ui_allow_mg30cal", "mg30cal", show mg30cal;, scriptMenuResponse "mg30cal_mp"; close weapon_british;, "british_grenade", "mg")
 
 
 		// Close
@@ -69,6 +70,7 @@
 		execKey "2" { play "mouse_click"; scriptMenuResponse "sten_mp"; close weapon_british }
 		execKey "3" { play "mouse_click"; scriptMenuResponse "bren_mp"; close weapon_british }
 		execKey "4" { play "mouse_click"; scriptMenuResponse "springfield_mp"; close weapon_british }
+		execKey "5" { play "mouse_click"; scriptMenuResponse "mg30cal_mp"; close weapon_british }
 
 		execKeyInt 32 { play "mouse_click"; close weapon_british; open main; } // space
 		execKeyInt 116 { play "mouse_click"; close weapon_british; open ingame; } // 'T'

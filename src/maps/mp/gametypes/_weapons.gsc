@@ -71,9 +71,12 @@ registerCvars()
 	[[var]]("scr_allow_ppsh", "BOOL", 1);
 	[[var]]("scr_allow_mp40", "BOOL", 1);
 	[[var]]("scr_allow_kar98k", "BOOL", 1);
-	[[var]]("scr_allow_g43", "BOOL", 1);
+	[[var]]("scr_allow_gewehr43", "BOOL", 1);
 	[[var]]("scr_allow_kar98ksniper", "BOOL", 1);
 	[[var]]("scr_allow_mp44", "BOOL", 1);
+	[[var]]("scr_allow_mg34", "BOOL", 1);
+	[[var]]("scr_allow_mg30cal", "BOOL", 1);	
+	[[var]]("scr_allow_dp28", "BOOL", 1);
 	[[var]]("scr_allow_shotgun", "BOOL", 1);
 
 
@@ -180,10 +183,13 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "scr_allow_ppsh":
 		case "scr_allow_mp40":
 		case "scr_allow_kar98k":
-		case "scr_allow_g43":
+		case "scr_allow_gewehr43":
 		case "scr_allow_kar98ksniper":
 		case "scr_allow_mp44":
 		case "scr_allow_shotgun":
+		case "scr_allow_mg34":
+		case "scr_allow_dp28":
+		case "scr_allow_mg30cal":
 			if (!isRegisterTime) thread updateAllowed(cvar, value);
 		return true;
 
@@ -279,16 +285,16 @@ precacheWeaponsRifle()
 
 		precacheItem("mk1britishfrag_mp");
 		//precacheItem("smoke_grenade_british_mp");
-		//precacheItem("webley_mp");
-		precacheItem("colt_mp");
+		precacheItem("webley_mp");
+		//precacheItem("colt_mp");
 		break;
 
 	case "russian":
 
 		precacheItem("rgd-33russianfrag_mp");
 		//precacheItem("smoke_grenade_russian_mp");
-		//precacheItem("TT30_mp");
-		precacheItem("luger_mp");
+		precacheItem("tt33_mp");
+		//precacheItem("luger_mp");
 		break;
 	}
 
@@ -334,6 +340,7 @@ precacheWeapons()
 		//precacheItem("shotgun_mp");
 		precacheItem("thompson_mp");
 		precacheItem("bar_mp");
+		precacheItem("mg30cal_mp");
 
 		if (level.scr_smoke_fix) // new way
 		{
@@ -361,6 +368,7 @@ precacheWeapons()
 		//precacheItem("shotgun_mp");
 		precacheItem("thompson_mp");
 		precacheItem("bren_mp");
+		precacheItem("mg30cal_mp");
 
 		if (level.scr_smoke_fix) // new way
 		{
@@ -368,8 +376,8 @@ precacheWeapons()
 			//precacheItem("smoke_grenade_british_mp");
 		}
 
-		//precacheItem("webley_mp");
-		precacheItem("colt_mp");
+		precacheItem("webley_mp");
+		//precacheItem("colt_mp");
 
 		break;
 
@@ -383,11 +391,12 @@ precacheWeapons()
 
 		//precacheItem("PPS42_mp");
 		precacheItem("mosin_nagant_mp");
-		//precacheItem("SVT40_mp");
+		precacheItem("svt40_mp");
 		precacheItem("mosin_nagant_sniper_mp");
 		//precacheItem("shotgun_mp");
 		precacheItem("ppsh_mp"); //PPSH_CHANGE
 		//precacheItem("vpo135_mp");
+		precacheItem("dp28_mp");
 
 		if (level.scr_smoke_fix) // new way
 		{
@@ -395,8 +404,8 @@ precacheWeapons()
 			//precacheItem("smoke_grenade_russian_mp");
 		}
 
-		//precacheItem("TT30_mp");
-		precacheItem("luger_mp");
+		precacheItem("tt33_mp");
+		//precacheItem("luger_mp");
 
 		break;
 	}
@@ -410,10 +419,11 @@ precacheWeapons()
 
 	precacheItem("mp40_mp");
 	precacheItem("kar98k_mp");
-	//precacheItem("g43_mp");
+	precacheItem("gewehr43_mp");
 	precacheItem("kar98k_sniper_mp");
 	//precacheItem("shotgun_mp");
 	precacheItem("mp44_mp");
+	precacheItem("mg34_mp");
 
 	if (level.scr_smoke_fix) // new way
 	{
@@ -468,6 +478,7 @@ defineWeapons()
 		addWeapon("springfield_mp", 	"sniper", 			"allies", 	"scr_allow_springfield", 	"ui_allow_springfield");
 		addWeapon("thompson_mp", 		"smg", 				"allies", 	"scr_allow_thompson", 		"ui_allow_thompson");
 		addWeapon("bar_mp", 			"mg", 				"allies", 	"scr_allow_bar", 			"ui_allow_bar");
+		addWeapon("mg30cal_mp", 		"mg", 				"allies", 	"scr_allow_mg30cal", 		"ui_allow_mg30cal");		
 		break;
 
 	case "british":
@@ -478,24 +489,27 @@ defineWeapons()
 		addWeapon("springfield_mp", 		"sniper",			"allies", 	"scr_allow_springfield", 	"ui_allow_springfield");
 		//addWeapon("thompson_mp", 			"smg", 				"allies", 	"scr_allow_thompson", 		"ui_allow_thompson");
 		addWeapon("bren_mp", 				"mg", 				"allies", 	"scr_allow_bren", 			"ui_allow_bren");
+		addWeapon("mg30cal_mp", 			"mg", 			 	"allies",  	"scr_allow_mg30cal", 	 	"ui_allow_mg30cal");		
 		break;
 
 	case "russian":
 		//addWeapon("PPS42_mp", 			"smg", 				"allies", 	"scr_allow_pps42", 			"ui_allow_pps42");
 		addWeapon("mosin_nagant_mp", 		"boltaction", 		"allies", 	"scr_allow_nagant", 		"ui_allow_nagant");
-		//addWeapon("SVT40_mp", 			"semiautomatic", 	"allies", 	"scr_allow_svt40", 			"ui_allow_svt40");
+		addWeapon("svt40_mp", 				"semiautomatic", 	"allies", 	"scr_allow_svt40", 			"ui_allow_svt40");
 		addWeapon("mosin_nagant_sniper_mp", "sniper", 			"allies", 	"scr_allow_nagantsniper", 	"ui_allow_nagantsniper");
 		addWeapon("ppsh_mp", 				"smg", 				"allies", 	"scr_allow_ppsh", 			"ui_allow_ppsh"); //PPSH_CHANGE
 		//addWeapon("vpo135_mp", 			"smg", 				"allies", 	"scr_allow_ppsh", 			"ui_allow_ppsh");
+		addWeapon("dp28_mp", 				"mg", 				"allies", 	"scr_allow_dp28", 			"ui_allow_dp28");
 		break;
 	}
 
 	// Germans
 	addWeapon("mp40_mp", 			"smg", 				"axis", 	"scr_allow_mp40", 			"ui_allow_mp40");
 	addWeapon("kar98k_mp", 			"boltaction", 		"axis", 	"scr_allow_kar98k", 		"ui_allow_kar98k");
-	//addWeapon("g43_mp", 			"semiautomatic", 	"axis", 	"scr_allow_g43", 			"ui_allow_g43");
+	addWeapon("gewehr43_mp", 			"semiautomatic", 	"axis", 	"scr_allow_gewehr43", 			"ui_allow_gewehr43");
 	addWeapon("kar98k_sniper_mp", 	"sniper", 			"axis", 	"scr_allow_kar98ksniper", 	"ui_allow_kar98ksniper");
 	addWeapon("mp44_mp", 			"mg", 				"axis", 	"scr_allow_mp44", 			"ui_allow_mp44");
+	addWeapon("mg34_mp", 			"mg", 				"axis", 	"scr_allow_mg34", 			"ui_allow_mg34");
 
 	// All teams
 	//addWeapon("shotgun_mp", 		"shotgun", 		"both", 	"scr_allow_shotgun", 		"ui_allow_shotgun");
@@ -604,14 +618,14 @@ givePistol()
 				break;
 
 			case "british":
-				//pistoltype = "webley_mp";
-				pistoltype = "colt_mp";
+				pistoltype = "webley_mp";
+				//pistoltype = "colt_mp";
 				break;
 
 			case "russian":
 				//assert(game["allies"] == "russian");
-				//pistoltype = "TT30_mp";
-				pistoltype = "luger_mp";
+				pistoltype = "tt33_mp";
+				//pistoltype = "luger_mp";
 				break;
 			default:
 				pistoltype = "none";
@@ -634,8 +648,8 @@ givePistol()
 		}
 
 		self takeWeapon("colt_mp");
-		//self takeWeapon("webley_mp");
-		//self takeWeapon("TT30_mp");
+		self takeWeapon("webley_mp");
+		self takeWeapon("tt33_mp");
 		self takeWeapon("luger_mp");
 
 		if (!level.allow_pistols)
@@ -1017,9 +1031,9 @@ isPistol(weapon)
 	switch(weapon)
 	{
 	case "colt_mp":
-	//case "webley_mp":
+	case "webley_mp":
 	case "luger_mp":
-	//case "TT30_mp":
+	case "tt33_mp":
 		return true;
 	default:
 		return false;
@@ -1104,6 +1118,10 @@ getWeaponName(weapon)
 	case "shotgun_mp":
 		weaponname = &"WEAPON_SHOTGUN";
 		break;
+		
+	case "mg30cal_mp":
+		weaponname = &"GMI_WEAPON_30CAL";
+		break;
 
 	// British
 	case "enfield_mp":
@@ -1127,8 +1145,8 @@ getWeaponName(weapon)
 		weaponname = &"WEAPON_MOSINNAGANT";
 		break;
 
-	case "SVT40_mp":
-		weaponname = &"WEAPON_SVT40";
+	case "svt40_mp":
+		weaponname = &"GMI_WEAPON_SVT40";
 		break;
 
 	case "PPS42_mp":
@@ -1147,14 +1165,18 @@ getWeaponName(weapon)
 	case "mosin_nagant_sniper_mp":
 		weaponname = &"WEAPON_SCOPEDMOSINNAGANT";
 		break;
+		
+	case "dp28_mp":
+		weaponname = &"GMI_WEAPON_DP28";
+		break;	
 
 	//German
 	case "kar98k_mp":
 		weaponname = &"WEAPON_KAR98K";
 		break;
 
-	case "g43_mp":
-		weaponname = &"WEAPON_G43";
+	case "gewehr43_mp":
+		weaponname = &"GMI_WEAPON_GEWEHR43";
 		break;
 
 	case "mp40_mp":
@@ -1168,6 +1190,10 @@ getWeaponName(weapon)
 	case "kar98k_sniper_mp":
 		weaponname = &"WEAPON_SCOPEDKAR98K";
 		break;
+		
+	case "mg34_mp":
+		weaponname = &"GMI_WEAPON_MG34";
+		break;	
 
 
 	default:
@@ -1211,6 +1237,10 @@ getWeaponName2(weapon)
 	case "shotgun_mp":
 		weaponname = "Shotgun";
 		break;
+		
+	case "mg30cal_mp":
+		weaponname = "M1919A6 .30 cal";
+		break;	
 
 	// British
 	case "enfield_mp":
@@ -1234,7 +1264,7 @@ getWeaponName2(weapon)
 		weaponname = "Mosin-Nagant";
 		break;
 
-	case "SVT40_mp":
+	case "svt40_mp":
 		weaponname = "SVT40";
 		break;
 
@@ -1254,13 +1284,17 @@ getWeaponName2(weapon)
 	case "mosin_nagant_sniper_mp":
 		weaponname = "Scope";
 		break;
+		
+	case "dp28_mp":
+		weaponname = "DP28";
+		break;			
 
 	//German
 	case "kar98k_mp":
 		weaponname = "Kar98k";
 		break;
 
-	case "g43_mp":
+	case "gewehr43_mp":
 		weaponname = "Gewehr 43";
 		break;
 
@@ -1275,12 +1309,16 @@ getWeaponName2(weapon)
 	case "kar98k_sniper_mp":
 		weaponname = "Scope";
 		break;
+		
+	case "mg34_mp":
+		weaponname = "MG34";
+		break;	
 
 	// Pistols
 	case "colt_mp":
-	//case "webley_mp":
+	case "webley_mp":
 	case "luger_mp":
-	//case "TT30_mp":
+	case "TT30_mp":
 		weaponname = "Pistol";
 		break;
 
@@ -1487,40 +1525,51 @@ GetGunAmmo(weapon)
 		case "m1carbine_mp":
 			return 60;
 		case "m1garand_mp":
-			return 72;
+			return 56;
 		case "springfield_mp": 
 			return 25;
 		case "thompson_mp": 
 		case "thompson_semi_mp": 
-			return 90;
+			return 120;
 		case "bar_mp": 
 		case "bar_slow_mp": 
 			return 80;
+		case "mg30cal_mp":
+			return 225;
 		//British Weapons
 		case "enfield_mp":
-			return 20;
+			return 60;
 		case "sten_mp": 
 		case "sten_silenced_mp":
-			return 96;
+			return 128;
 		case "bren_mp": 
 			return 90;
 		//Russian Weapons
 		case "mosin_nagant_mp":
-			return 25;
+			return 60;
+		case "svt40_mp":
+			return 60;
 		case "mosin_nagant_sniper_mp":
 			return 25;
 		case "ppsh_mp":
 		case "ppsh_semi_mp":
 			return 142;
+		case "dp28_mp":
+			return 225;
 		//German Weapons
 		case "kar98k_mp": 
-			return 25;
+			return 60;
+		case "gewehr43_mp":
+			return 60;
 		case "kar98k_sniper_mp":
 			return 25;
 		case "mp40_mp":
-			return 96;
+			return 128;
 		case "mp44_mp":
 		case "mp44_semi_mp":
+			return 90;
+		case "mg34_mp":
+			return 225;
 			return 90;
 		// unrecognized weapon
 		default:
@@ -1542,6 +1591,10 @@ GetPistolAmmo(weapon)
 		case "luger_mp":
 			return 32;
 		case "colt_mp":
+			return 28;
+		case "webley_mp":
+			return 24;
+		case "tt33_mp":
 			return 28;
 		default:
 			return 0;
