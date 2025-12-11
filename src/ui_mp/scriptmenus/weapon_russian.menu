@@ -1,7 +1,7 @@
 #include "ui_mp/menudef.h"
 #include "ui_mp/macros.h"
 
-#define HIDE_ALL hide nagant; hide ppsh; hide nagantscoped; hide svt40; hide dp28;
+#define HIDE_ALL hide nagant; hide ppsh; hide nagantscoped;
 
 {
 	menuDef
@@ -51,12 +51,8 @@
 		ITEM_WEAPON(ORIGIN_CHOICE1, "button_nagant", "mosin_nagant_mp", "@MPMENU_1_MOSINNAGANT", "ui_allow_nagant", "nagant", show nagant;, scriptMenuResponse "mosin_nagant_mp"; close weapon_russian;, "russian_grenade", "boltaction";)
 
 		ITEM_WEAPON(ORIGIN_CHOICE2, "button_ppsh", "ppsh_mp", "@MPMENU_2_PPSH", "ui_allow_ppsh", "ppsh" , show ppsh;, scriptMenuResponse "ppsh_mp"; close weapon_russian;, "russian_grenade", "mg")
-		
-		ITEM_WEAPON(ORIGIN_CHOICE3, "button_svt40", "svt40_mp", "@GMI_MPMENU_3_SVT40", "ui_allow_svt40", "svt40" , show svt40;, scriptMenuResponse "svt40_mp"; close weapon_russian;, "russian_grenade", "semiautomatic")		
 
-		ITEM_WEAPON(ORIGIN_CHOICE4, "button_nagantnsiper", "mosin_nagant_sniper_mp", "@GMI_MPMENU_4_SCOPED_MOSINNAGANT", "ui_allow_nagantsniper", "nagantscoped" , show nagantscoped;, scriptMenuResponse "mosin_nagant_sniper_mp"; close weapon_russian;, "russian_grenade", "sniper")
-
-		ITEM_WEAPON(ORIGIN_CHOICE5, "button_dp28", "dp28_mp", "@GMI_MPMENU_5_DP28", "ui_allow_dp28", "dp28" , show dp28;, scriptMenuResponse "dp28_mp"; close weapon_russian;, "russian_grenade", "mg")
+		ITEM_WEAPON(ORIGIN_CHOICE3, "button_nagantnsiper", "mosin_nagant_sniper_mp", "@MPMENU_3_SCOPED_MOSINNAGANT", "ui_allow_nagantsniper", "nagantscoped" , show nagantscoped;, scriptMenuResponse "mosin_nagant_sniper_mp"; close weapon_russian;, "russian_grenade", "sniper")
 
 
 
@@ -69,9 +65,7 @@
 
 		execKey "1" { play "mouse_click"; scriptMenuResponse "mosin_nagant_mp"; close weapon_russian }
 		execKey "2" { play "mouse_click"; scriptMenuResponse "ppsh_mp"; close weapon_russian }
-		execKey "3" { play "mouse_click"; scriptMenuResponse "svt40_mp"; close weapon_russian }
-		execKey "4" { play "mouse_click"; scriptMenuResponse "mosin_nagant_sniper_mp"; close weapon_russian }
-		execKey "5" { play "mouse_click"; scriptMenuResponse "dp28_mp"; close weapon_russian }
+		execKey "3" { play "mouse_click"; scriptMenuResponse "mosin_nagant_sniper_mp"; close weapon_russian }
 
 		execKeyInt 32 { play "mouse_click"; close weapon_russian; open main; } // space
 		execKeyInt 116 { play "mouse_click"; close weapon_russian; open ingame; } // 'T'
