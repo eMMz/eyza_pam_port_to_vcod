@@ -96,6 +96,10 @@ registerCvars()
 	[[var]]("scr_allow_flamethrower", "BOOL", 1); // level.allow_flamethrower
 	[[var]]("scr_allow_panzershreck", "BOOL", 1); // level.allow_panzershreck
 	[[var]]("scr_allow_bazooka", "BOOL", 1); // level.allow_bazooka
+	
+	[[var]]("scr_allow_tanks", "BOOL", 1); // level.allow_tanks	
+	[[var]]("scr_allow_jeeps", "BOOL", 1); // level.allow_jeeps	
+	[[var]]("scr_allow_flak88", "BOOL", 1); // level.allow_flak88	
 
 
 	[[var]]("scr_no_oneshot_pistol_kills", "BOOL", 0); 	//level.prevent_single_shot_pistol // Single Shot Kills
@@ -215,6 +219,10 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "scr_allow_flamethrower":	level.allow_flamethrower = value; return true;
 		case "scr_allow_panzershreck":	level.allow_panzershreck = value; return true;
 		case "scr_allow_bazooka":		level.allow_bazooka = value; return true;
+		
+		case "scr_allow_jeeps":			level.allow_jeeps = value; return true;
+		case "scr_allow_tanks":			level.allow_tanks = value; return true;
+		case "scr_allow_flak88":		level.allow_flak88 = value; return true;		
 
 
 		case "scr_no_oneshot_pistol_kills": 		level.prevent_single_shot_pistol = value; return true;
@@ -290,6 +298,27 @@ onStartGameType()
 	if (!level.allow_flamethrower)
 	{
 		deletePlacedEntity("mpweapon_flamethrower");
+	}
+	if(!level.allow_tanks)
+	{
+		deletePlacedEntity("t34_mp");
+		deletePlacedEntity("shermantank_mp");
+		deletePlacedEntity("panzeriv_mp");
+		deletePlacedEntity("elefant_mp");
+		deletePlacedEntity("su152_mp");
+		return;
+	}
+	if(!level.allow_jeeps)
+	{
+		deletePlacedEntity("willyjeep_mp");
+		deletePlacedEntity("gaz67b_mp");
+		deletePlacedEntity("horch_mp");
+		return;
+	}
+	if(!level.allow_flak88)
+	{
+		deletePlacedEntity("Flak88_MP");
+		deletePlacedEntity("flak88_mp");
 	}
 }
 

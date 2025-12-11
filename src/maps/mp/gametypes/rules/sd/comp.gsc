@@ -213,6 +213,14 @@ GetCvars(arr)
 
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_panzerfaust", 0);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_fg42", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_panzershreck", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_satchel", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_bazooka", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_flamethrower", 0);
+	
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_tanks", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_jeeps", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_flak88", 0);
 
 	// Single Shot Kills
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_no_oneshot_pistol_kills", 0);
