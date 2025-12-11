@@ -37,6 +37,8 @@ onStartGameType()
 		//game["menu_streamersystem"] = "streamersystem";
 		game["menu_strat_records"] = "strat_records";
 		game["menu_viewmap"] = "viewmap";
+		game["menu_quickvehicles"] = "quickvehicles";
+		game["menu_quickrequests"] = "quickrequests";
 
 		precacheMenu(game["menu_moddownload"]);
 		precacheMenu(game["menu_ingame"]);
@@ -53,6 +55,8 @@ onStartGameType()
 		precacheMenu(game["menu_quickstatements"]);
 		precacheMenu(game["menu_quickresponses"]);
 		precacheMenu(game["menu_viewmap"]);
+		precacheMenu(game["menu_quickvehicles"]);
+		precacheMenu(game["menu_quickrequests"]);
 		
 		//precacheMenu(game["menu_quicksettings"]);
 		//precacheMenu(game["menu_mousesettings"]);
@@ -503,7 +507,18 @@ onMenuResponse(menu, response)
 		maps\mp\gametypes\_quickmessages::quickresponses(response);
 		return true;
 	}
-
+	else if(menu == game["menu_quickvehicles"])
+	{
+		logprint("_menus:: quickvehicles at onMenuResponse\n");
+		maps\mp\gametypes\_quickmessages::quickvehicles(response);
+		return true;
+	}
+	else if(menu == game["menu_quickrequests"])
+	{
+		logprint("_menus:: quickrequests at onMenuResponse\n");
+		maps\mp\gametypes\_quickmessages::quickrequests(response);
+		return true;
+	}
 	if (menu == -1 && response == "viewmap")
 	{
 		logprint("_menus:: -1 and viewmap at onMenuResponse\n");

@@ -72,10 +72,28 @@ quickcommands(response)
 				//saytext = "Hold this position!";
 				break;
 			case "8":
-				soundalias = "american_regroup";
-				saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
+				//soundalias = "american_regroup";
+				//saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
 				//saytext = "SQUAD_REGROUP!";
+				temp = randomInt(2);
+				if(temp)
+				{
+					soundalias = "american_regroup";
+					saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
+					//saytext = "Squad, regroup!";
+				}
+				else
+				{
+					soundalias = "american_stick_together";
+					saytext = &"QUICKMESSAGE_SQUAD_STICK_TOGETHER";
+					//saytext = "Squad, stick together!";
+				}
 				break;
+			case "9":
+				soundalias = "us_redeploy";
+				saytext = &"GMI_QUICKMESSAGE_REDEPLOY_FORWARD";
+				break;
+
 			default:
 				logprint("_quickmessages::quickcommands unknown response=" + response + "\n");
 				break;
@@ -126,10 +144,25 @@ quickcommands(response)
 				saytext = &"QUICKMESSAGE_SQUAD_HOLD_THIS_POSITION";
 				//saytext = "Hold this position!";
 				break;
+				
 			case "8":
-				soundalias = "british_regroup";
-				saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
-				//saytext = "SQUAD_REGROUP!";
+				temp = randomInt(2);
+				if(temp)
+				{
+					soundalias = "british_regroup";
+					saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
+					//saytext = "Squad, regroup!";
+				}
+				else
+				{
+					soundalias = "british_stick_together";
+					saytext = &"QUICKMESSAGE_SQUAD_STICK_TOGETHER";
+					//saytext = "Squad, stick together!";
+				}
+				break;
+			case "9":
+				soundalias = "uk_redeploy";
+				saytext = &"GMI_QUICKMESSAGE_REDEPLOY_FORWARD";
 				break;
 			default:
 				logprint("_quickmessages::quickcommands unknown response=" + response + "\n");
@@ -184,6 +217,10 @@ quickcommands(response)
 				soundalias = "russian_regroup";
 				saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
 				//saytext = "SQUAD_REGROUP!";
+				break;
+			case "9":
+				soundalias = "ru_redeploy";
+				saytext = &"GMI_QUICKMESSAGE_REDEPLOY_FORWARD";
 				break;
 			default:
 				logprint("_quickmessages::quickcommands unknown response=" + response + "\n");
@@ -247,6 +284,10 @@ quickcommands(response)
 				soundalias = "german_regroup";
 				saytext = &"QUICKMESSAGE_SQUAD_REGROUP";
 				//saytext = "SQUAD_REGROUP!";
+				break;
+			case "9":
+				soundalias = "ge_redeploy";
+				saytext = &"GMI_QUICKMESSAGE_REDEPLOY_FORWARD";
 				break;
 			default:
 				logprint("_quickmessages::quickcommands unknown response=" + response + "\n");
@@ -328,14 +369,16 @@ quickstatements(response)
 				break;
 
 			case "7":
-				soundalias = "american_need_reinforcements";
-				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
-				//saytext = "Need reinforcements!";
+				soundalias = "us_smokeout";
+				saytext = &"GMI_QUICKMESSAGE_SMOKE_OUT";
 				break;
 			case "8":
-				soundalias = "american_hold_fire";
-				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
-				//saytext = "Hold your fire!";
+				soundalias = "us_spotted";
+				saytext = &"GMI_QUICKMESSAGE_ENEMY_SPOTTED_AHEAD";
+				break;
+			case "9":
+				soundalias = "us_behind";
+				saytext = &"GMI_QUICKMESSAGE_ENEMY_BEHIND";
 				break;
 			default:
 				logprint("_quickmessages::quickstatements unknown response=" + response + "\n");
@@ -383,14 +426,16 @@ quickstatements(response)
 				break;
 
 			case "7":
-				soundalias = "british_need_reinforcements";
-				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
-				//saytext = "Need reinforcements!";
+				soundalias = "uk_smokeout";
+				saytext = &"GMI_QUICKMESSAGE_SMOKE_OUT";
 				break;
 			case "8":
-				soundalias = "british_hold_fire";
-				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
-				//saytext = "Hold your fire!";
+				soundalias = "uk_spotted";
+				saytext = &"GMI_QUICKMESSAGE_ENEMY_SPOTTED_AHEAD";
+				break;
+			case "9":
+				soundalias = "uk_behind";
+				saytext = &"GMI_QUICKMESSAGE_ENEMY_BEHIND";
 				break;
 			default:
 				logprint("_quickmessages::quickstatements unknown response=" + response + "\n");
@@ -438,14 +483,16 @@ quickstatements(response)
 				break;
 
 			case "7":
-				soundalias = "russian_need_reinforcements";
-				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
-				//saytext = "Need reinforcements!";
+				soundalias = "ru_smokeout";
+				saytext = &"GMI_QUICKMESSAGE_SMOKE_OUT";
 				break;
 			case "8":
-				soundalias = "russian_hold_fire";
-				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
-				//saytext = "Hold your fire!";
+				soundalias = "ru_spotted";
+				saytext = &"GMI_QUICKMESSAGE_ENEMY_SPOTTED_AHEAD";
+				break;
+			case "9":
+				soundalias = "ru_behind";
+				saytext = &"GMI_QUICKMESSAGE_ENEMY_BEHIND";
 				break;
 			default:
 				logprint("_quickmessages::quickstatements unknown response=" + response + "\n");
@@ -501,14 +548,16 @@ quickstatements(response)
 				break;
 
 			case "7":
-				soundalias = "german_need_reinforcements";
-				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
-				//saytext = "Need reinforcements!";
+				soundalias = "ge_smokeout";
+				saytext = &"GMI_QUICKMESSAGE_SMOKE_OUT";
 				break;
 			case "8":
-				soundalias = "german_hold_fire";
-				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
-				//saytext = "Hold your fire!";
+				soundalias = "ge_spotted";
+				saytext = &"GMI_QUICKMESSAGE_ENEMY_SPOTTED_AHEAD";
+				break;
+			case "9":
+				soundalias = "ge_behind";
+				saytext = &"GMI_QUICKMESSAGE_ENEMY_BEHIND";
 				break;
 			default:
 				logprint("_quickmessages::quickstatements unknown response=" + response + "\n");
@@ -588,6 +637,7 @@ quickresponses(response)
 				saytext = &"QUICKMESSAGE_TOOK_LONG_ENOUGH";
 				//saytext = "Took long enough!";
 				break;
+				
 			case "7":
 				// soundalias = "american_youre_crazy";
 				// saytext = &"QUICKMESSAGE_ARE_YOU_CRAZY";
@@ -613,6 +663,11 @@ quickresponses(response)
 					saytext = &"QUICKMESSAGE_YOURE_NUTS";
 					//saytext = "You're nuts!";
 				}
+				break;
+				
+			case "8":
+				soundalias = "us_thanks";
+				saytext = &"GMI_QUICKMESSAGE_THANK_YOU";
 				break;
 			default:
 				logprint("_quickmessages::quickresponses unknown response=" + response + "\n");
@@ -661,8 +716,13 @@ quickresponses(response)
 
 			case "7":
 				soundalias = "british_youre_crazy";
-				saytext = &"QUICKMESSAGE_ARE_YOU_CRAZY";
-				//saytext = "Are you crazy?";
+				saytext = &"QUICKMESSAGE_YOURE_CRAZY";
+				//saytext = "You're crazy!";
+				break;
+				
+			case "8":
+				soundalias = "uk_thanks";
+				saytext = &"GMI_QUICKMESSAGE_THANK_YOU";
 				break;
 			default:
 				logprint("_quickmessages::quickresponses unknown response=" + response + "\n");
@@ -711,8 +771,13 @@ quickresponses(response)
 
 			case "7":
 				soundalias = "russian_youre_crazy";
-				saytext = &"QUICKMESSAGE_ARE_YOU_CRAZY";
-				//saytext = "Are you crazy?";
+				saytext = &"QUICKMESSAGE_YOURE_CRAZY";
+				//saytext = "You're crazy!";
+				break;
+				
+			case "8":
+				soundalias = "ru_thanks";
+				saytext = &"GMI_QUICKMESSAGE_THANK_YOU";
 				break;
 			default:
 				logprint("_quickmessages::quickresponses unknown response=" + response + "\n");
@@ -766,10 +831,16 @@ quickresponses(response)
 				saytext = &"QUICKMESSAGE_TOOK_LONG_ENOUGH";
 				//saytext = "Took long enough!";
 				break;
+				
 			case "7":
 				soundalias = "german_are_you_crazy";
 				saytext = &"QUICKMESSAGE_ARE_YOU_CRAZY";
 				//saytext = "Are you crazy?";
+				break;
+				
+			case "8":
+				soundalias = "ge_thanks";
+				saytext = &"GMI_QUICKMESSAGE_THANK_YOU";
 				break;
 			default:
 				logprint("_quickmessages::quickresponses unknown response=" + response + "\n");
@@ -787,6 +858,419 @@ quickresponses(response)
 	// if (soundalias == "none" || saytext == "none")
 	// {
 	// 	logprint("_quickmessages::quickresponses soundalias or saytext is none\n");
+	// 	return;
+	// }
+
+	self saveHeadIcon();
+	self doQuickMessage(soundalias, saytext);
+
+	wait level.fps_multiplier * 2;
+	self.spamdelay = undefined;
+	self restoreHeadIcon();
+}
+
+quickvehicles(response)
+{
+	if(!isdefined(self.pers["team"]) || (self.pers["team"] != "allies" && self.pers["team"] != "axis") || isdefined(self.spamdelay))
+		return;
+
+	self.spamdelay = true;
+	// soundalias = "none";
+	// saytext = "none";
+
+	if(self.pers["team"] == "allies")
+	{
+		switch(game["allies"])		
+		{
+		case "american":
+			switch(response)		
+			{
+			case "1":
+				soundalias = "us_pickup";
+				saytext = &"GMI_QUICKMESSAGE_NEED_PICKUP";
+				break;
+
+			case "2":
+				soundalias = "us_getin_jeep";
+				saytext = &"GMI_QUICKMESSAGE_GET_IN_JEEP";
+				break;
+
+			case "3":
+				soundalias = "us_jeep_full";
+				saytext = &"GMI_QUICKMESSAGE_JEEP_FULL";
+				break;
+
+			case "4":
+				soundalias = "us_geton_50";
+				saytext = &"GMI_QUICKMESSAGE_GET_ON_GUN";
+				break;
+
+			case "5":
+				soundalias = "us_jeep";
+				saytext = &"GMI_QUICKMESSAGE_JEEP_SPOTTED";
+				break;
+
+			case "6":
+				soundalias = "us_tank";
+				saytext = &"GMI_QUICKMESSAGE_TANK_SPOTTED";
+				break;
+
+			case "7":
+				soundalias = "us_heavy_tank";
+				saytext = &"GMI_QUICKMESSAGE_HEAVY_TANK_SPOTTED";
+				break;
+			case "8":
+				soundalias = "us_tank2";
+				saytext = &"GMI_QUICKMESSAGE_INCOMING_ARMOR";
+				break;
+			default:
+				logprint("_quickmessages::quickvehicles unknown response=" + response + "\n");
+				break;
+			}
+			break;
+
+		case "british":
+			switch(response)		
+			{
+			case "1":
+				soundalias = "uk_pickup";
+				saytext = &"GMI_QUICKMESSAGE_NEED_PICKUP";
+				break;
+
+			case "2":
+				soundalias = "uk_getin_jeep";
+				saytext = &"GMI_QUICKMESSAGE_GET_IN_JEEP";
+				break;
+
+			case "3":
+				soundalias = "uk_jeep_full";
+				saytext = &"GMI_QUICKMESSAGE_JEEP_FULL";
+				break;
+
+			case "4":
+				soundalias = "uk_geton_50";
+				saytext = &"GMI_QUICKMESSAGE_GET_ON_GUN";
+				break;
+
+			case "5":
+				soundalias = "uk_jeep";
+				saytext = &"GMI_QUICKMESSAGE_JEEP_SPOTTED";
+				break;
+
+			case "6":
+				soundalias = "uk_tank";
+				saytext = &"GMI_QUICKMESSAGE_TANK_SPOTTED";
+				break;
+
+			case "7":
+				soundalias = "uk_heavy_tank";
+				saytext = &"GMI_QUICKMESSAGE_HEAVY_TANK_SPOTTED";
+				break;
+			case "8":
+				soundalias = "uk_tank2";
+				saytext = &"GMI_QUICKMESSAGE_INCOMING_ARMOR";
+				break;
+			default:
+				logprint("_quickmessages::quickvehicles unknown response=" + response + "\n");
+				break;
+			}
+			break;
+
+		case "russian":
+			switch(response)		
+			{
+			case "1":
+				soundalias = "ru_pickup";
+				saytext = &"GMI_QUICKMESSAGE_NEED_PICKUP";
+				break;
+
+			case "2":
+				soundalias = "ru_getin_jeep";
+				saytext = &"GMI_QUICKMESSAGE_GET_IN_JEEP";
+				break;
+
+			case "3":
+				soundalias = "ru_jeep_go";
+				saytext = &"GMI_QUICKMESSAGE_JEEP_FULL";
+				break;
+
+			case "4":
+				soundalias = "ru_machingun";
+				saytext = &"GMI_QUICKMESSAGE_GET_ON_GUN";
+				break;
+
+			case "5":
+				soundalias = "ru_jeep";
+				saytext = &"GMI_QUICKMESSAGE_JEEP_SPOTTED";
+				break;
+
+			case "6":
+				soundalias = "ru_tank";
+				saytext = &"GMI_QUICKMESSAGE_TANK_SPOTTED";
+				break;
+
+			case "7":
+				soundalias = "ru_heavy_tank";
+				saytext = &"GMI_QUICKMESSAGE_HEAVY_TANK_SPOTTED";
+				break;
+			case "8":
+				soundalias = "ru_tank2";
+				saytext = &"GMI_QUICKMESSAGE_INCOMING_ARMOR";
+				break;
+			default:
+				logprint("_quickmessages::quickvehicles unknown response=" + response + "\n");
+				break;
+			}
+			break;
+		default:
+			logprint("_quickmessages::quickvehicles unknown game[allies]=" + game["allies"] + "\n");
+			break;
+		}
+	}
+	else if(self.pers["team"] == "axis")
+	{
+		switch(game["axis"])
+		{
+		case "german":
+			switch(response)		
+			{
+			case "1":
+				soundalias = "ge_pickup";
+				saytext = &"GMI_QUICKMESSAGE_NEED_PICKUP";
+				break;
+
+			case "2":
+				soundalias = "ge_getin_jeep";
+				saytext = &"GMI_QUICKMESSAGE_GET_IN_JEEP";
+				break;
+
+			case "3":
+				soundalias = "ge_jeep_full";
+				saytext = &"GMI_QUICKMESSAGE_JEEP_FULL";
+				break;
+
+			case "4":
+				soundalias = "ge_machingun";
+				saytext = &"GMI_QUICKMESSAGE_GET_ON_GUN";
+				break;
+
+			case "5":
+				soundalias = "ge_jeep";
+				saytext = &"GMI_QUICKMESSAGE_JEEP_SPOTTED";
+				break;
+
+			case "6":
+				soundalias = "ge_tank";
+				saytext = &"GMI_QUICKMESSAGE_TANK_SPOTTED";
+				break;
+
+			case "7":
+				soundalias = "ge_heavy_tank";
+				saytext = &"GMI_QUICKMESSAGE_HEAVY_TANK_SPOTTED";
+				break;
+			case "8":
+				soundalias = "ge_tank2";
+				saytext = &"GMI_QUICKMESSAGE_INCOMING_ARMOR";
+				break;
+			default:
+				logprint("_quickmessages::quickvehicles unknown response=" + response + "\n");
+				break;
+			}
+			break;
+		default:
+			logprint("_quickmessages::quickvehicles unknown game[axis]=" + game["axis"] + "\n");
+			break;
+		}			
+	} else {
+		logprint("_quickmessages::quickcommands unknown game[team]=" + game["team"] + "\n");
+	}
+
+	self.spamdelay = true;
+	
+	self saveHeadIcon();
+	self doQuickMessage(soundalias, saytext);
+
+	wait 2;
+	self.spamdelay = undefined;
+
+	self restoreHeadIcon();	
+}
+
+quickrequests(response)
+{
+	if(!isdefined(self.pers["team"]) || (self.pers["team"] != "allies" && self.pers["team"] != "axis") || isdefined(self.spamdelay))
+		return;
+
+	self.spamdelay = true;
+
+	// soundalias = "none";
+	// saytext = "none";
+
+	if(self.pers["team"] == "allies")
+	{
+		switch(game["allies"])		
+		{
+		case "american":
+			switch(response)		
+			{
+			case "1":
+				soundalias = "american_hold_fire";
+				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
+				//saytext = "Hold your fire!";
+				break;
+
+			case "2":
+				soundalias = "american_need_reinforcements";
+				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
+				//saytext = "Need reinforcements!";
+				break;
+
+			case "3":
+				soundalias = "us_bazooka";
+				saytext = &"GMI_QUICKMESSAGE_NEED_BAZOOKA";
+				break;
+
+			case "4":
+				soundalias = "us_armor";
+				saytext = &"GMI_QUICKMESSAGE_NEED_ARMOR";
+				break;
+
+			case "5":
+				soundalias = "us_need_arty_support";
+				saytext = &"GMI_QUICKMESSAGE_NEED_ARTILLERY";
+				break;
+			default:
+				logprint("_quickmessages::quickrequests unknown response=" + response + "\n");
+				break;
+			}
+			break;
+
+		case "british":
+			switch(response)		
+			{
+			case "1":
+				soundalias = "british_hold_fire";
+				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
+				//saytext = "Hold your fire!";
+				break;
+
+			case "2":
+				soundalias = "british_need_reinforcements";
+				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
+				//saytext = "Need reinforcements!";
+				break;
+
+			case "3":
+				soundalias = "uk_bazooka";
+				saytext = &"GMI_QUICKMESSAGE_NEED_BAZOOKA";
+				break;
+
+			case "4":
+				soundalias = "uk_armor";
+				saytext = &"GMI_QUICKMESSAGE_NEED_ARMOR";
+				break;
+
+			case "5":
+				soundalias = "uk_need_arty_support";
+				saytext = &"GMI_QUICKMESSAGE_NEED_ARTILLERY";
+				break;
+
+			default:
+				logprint("_quickmessages::quickrequests unknown response=" + response + "\n");
+				break;
+			}
+			break;
+
+		case "russian":
+			switch(response)		
+			{
+			case "1":
+				soundalias = "russian_hold_fire";
+				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
+				//saytext = "Hold your fire!";
+				break;
+
+			case "2":
+				soundalias = "russian_need_reinforcements";
+				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
+				//saytext = "Need reinforcements!";
+				break;
+
+			case "3":
+				soundalias = "ru_bazooka";
+				saytext = &"GMI_QUICKMESSAGE_NEED_BAZOOKA";
+				break;
+
+			case "4":
+				soundalias = "ru_armor";
+				saytext = &"GMI_QUICKMESSAGE_NEED_ARMOR";
+				break;
+
+			case "5":
+				soundalias = "ru_need_arty_support";
+				saytext = &"GMI_QUICKMESSAGE_NEED_ARTILLERY";
+				break;
+
+			default:
+				logprint("_quickmessages::quickrequests unknown response=" + response + "\n");
+				break;
+			}
+			break;
+		default:
+			logprint("_quickmessages::quickrequests unknown game[allies]=" + game["allies"] + "\n");
+			break;
+		}
+	}
+	else if(self.pers["team"] == "axis")
+	{
+		switch(game["axis"])
+		{
+		case "german":
+			switch(response)		
+			{
+			case "1":
+				soundalias = "german_hold_fire";
+				saytext = &"QUICKMESSAGE_HOLD_YOUR_FIRE";
+				//saytext = "Hold your fire!";
+				break;
+
+			case "2":
+				soundalias = "german_need_reinforcements";
+				saytext = &"QUICKMESSAGE_NEED_REINFORCEMENTS";
+				//saytext = "Need reinforcements!";
+				break;
+
+			case "3":
+				soundalias = "ge_bazooka";
+				saytext = &"GMI_QUICKMESSAGE_NEED_BAZOOKA";
+				break;
+
+			case "4":
+				soundalias = "ge_armor";
+				saytext = &"GMI_QUICKMESSAGE_NEED_ARMOR";
+				break;
+
+			case "5":
+				soundalias = "ge_need_arty_support";
+				saytext = &"GMI_QUICKMESSAGE_NEED_ARTILLERY";
+				break;
+
+			default:
+				logprint("_quickmessages::quickrequests unknown response=" + response + "\n");
+				break;
+			}
+			break;
+		default:
+			logprint("_quickmessages::quickrequests unknown game[axis]=" + game["axis"] + "\n");
+			break;
+		}
+	} else {
+		logprint("_quickmessages::responses unknown game[team]=" + game["team"] + "\n");
+	}
+
+	// if (soundalias == "none" || saytext == "none")
+	// {
+	// 	logprint("_quickmessages::quickrequests soundalias or saytext is none\n");
 	// 	return;
 	// }
 
