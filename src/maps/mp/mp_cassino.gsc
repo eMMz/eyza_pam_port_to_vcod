@@ -63,8 +63,6 @@ main()
 		precacheShader(game["hud_axis_victory_image"]);
 	}
 
-	//block any map exploits
-	fixExploits();
 
 }
 
@@ -91,21 +89,6 @@ flag_def()
 	flag5.description = (&"GMI_DOM_FLAG5_MP_CASSINO");
 }
 
-fixExploits() {
-//original fix by innocent bystander, www.after-hourz.com
-//additional contributions by tazanimal
-
-	// Block roof access to exploit
-	thread maps\mp\_exploit_blocker::blockBox((60,710,400), (35,1,80));
-	
-	//allied spawn opposite side of above
-	thread maps\mp\_exploit_blocker::blockBox((-440,710,400), (35,1,80));
-	
-	//axis spawn to keep people from juming across flower boxes to the roofs
-	//down left side of street
-	thread maps\mp\_exploit_blocker::blockBox((5200,-2200,345), (1,5,50));	
-	
-}
 
 pam_ambientsounds()
 {

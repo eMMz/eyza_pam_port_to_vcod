@@ -94,14 +94,7 @@ firesounds()
 	org2 playloopsound ("medfire");
 }
 
-fixExploits() {
-//fixes by innocent bystander, www.after-hourz.com
 
-	// Block access to exploits
-	thread maps\mp\_exploit_blocker::blockBox((803, -6042, 188), (2,1,1));
-	thread maps\mp\_exploit_blocker::blockBox((732, -5575, 162), (1,1,1));
-	
-}
 
 pam_ambientsounds()
 {

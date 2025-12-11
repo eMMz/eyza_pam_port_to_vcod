@@ -85,8 +85,6 @@ main()
 		precacheShader(game["hud_axis_victory_image"]);
 	}
 
-	//block any map exploits
-	fixExploits();	
 
 	wait 0.5;
 }
@@ -136,13 +134,7 @@ cull_entities()
 
 }
 
-fixExploits() {
-//fix by innocent bystander, www.after-hourz.com
 
-	//check for and nerf any landsharks
- 	level thread maps\mp\_exploit_blocker::sharkScanner(-159.875, 3, "eq");
-
-}
 
 pam_ambientsounds()
 {

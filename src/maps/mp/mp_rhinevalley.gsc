@@ -105,8 +105,6 @@ main()
 		precacheShader(game["hud_axis_victory_image"]);
 	}
 
-	//block any map exploits
-	fixExploits();
 }
 
 
@@ -209,14 +207,6 @@ layout_images()
 	
 }
 
-fixExploits() {
-//fix by innocent bystander, www.after-hourz.com
-
-	// Block roofs in town for linux
-	level thread maps\mp\_exploit_blocker::blockBox((-4074,-8204,2329), (60,1,40));
-	level thread maps\mp\_exploit_blocker::blockBox((-4126,-8177,2300), (1,65,80));
-	level thread maps\mp\_exploit_blocker::blockBox((-4300,-7282,2295), (1,350,40));
-}
 
 pam_ambientsounds()
 {

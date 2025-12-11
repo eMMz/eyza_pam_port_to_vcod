@@ -92,6 +92,10 @@ registerCvars()
 
 	[[var]]("scr_allow_panzerfaust", "BOOL", 1); // level.allow_panzerfaust
 	[[var]]("scr_allow_fg42", "BOOL", 1); // level.allow_fg42
+	[[var]]("scr_allow_satchel", "BOOL", 1); // level.allow_fg42
+	[[var]]("scr_allow_flamethrower", "BOOL", 1); // level.allow_flamethrower
+	[[var]]("scr_allow_panzershreck", "BOOL", 1); // level.allow_panzershreck
+	[[var]]("scr_allow_bazooka", "BOOL", 1); // level.allow_bazooka
 
 
 	[[var]]("scr_no_oneshot_pistol_kills", "BOOL", 0); 	//level.prevent_single_shot_pistol // Single Shot Kills
@@ -207,6 +211,10 @@ onCvarChanged(cvar, value, isRegisterTime)
 
 		case "scr_allow_panzerfaust":	level.allow_panzerfaust = value; return true;
 		case "scr_allow_fg42":			level.allow_fg42 = value; return true;
+		case "scr_allow_satchel":		level.allow_satchel = value; return true;
+		case "scr_allow_flamethrower":	level.allow_flamethrower = value; return true;
+		case "scr_allow_panzershreck":	level.allow_panzershreck = value; return true;
+		case "scr_allow_bazooka":		level.allow_bazooka = value; return true;
 
 
 		case "scr_no_oneshot_pistol_kills": 		level.prevent_single_shot_pistol = value; return true;
@@ -266,6 +274,22 @@ onStartGameType()
 	if (!level.allow_fg42)
 	{
 		deletePlacedEntity("mpweapon_fg42");
+	}
+	if (!level.allow_satchel)
+	{
+		deletePlacedEntity("mpweapon_satchelcharge");
+	}
+	if (!level.allow_panzershreck)
+	{
+		deletePlacedEntity("mpweapon_panzershreck");
+	}
+	if (!level.allow_bazooka)
+	{
+		deletePlacedEntity("mpweapon_bazooka");
+	}
+	if (!level.allow_flamethrower)
+	{
+		deletePlacedEntity("mpweapon_flamethrower");
 	}
 }
 

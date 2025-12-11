@@ -126,8 +126,6 @@ main()
 
 	level thread windmills();
 
-	//block any map exploits	
-	fixExploits();
 	
 }
 
@@ -169,16 +167,7 @@ move_bases()
 	}
 }
 
-fixExploits() {
-//fixes by innocent bystander, www.after-hourz.com
 
-	// Block roof access exploit
-	thread maps\mp\_exploit_blocker::blockBox((4225,-10876, 710), (1,1,1));
-	thread maps\mp\_exploit_blocker::blockBox((4225,-10876, 680), (1,1,1));
-	thread maps\mp\_exploit_blocker::blockBox((4476,-10876, 710), (1,1,1));
-	thread maps\mp\_exploit_blocker::blockBox((4476,-10876, 680), (1,1,1));
-
-}
 
 pam_ambientsounds()
 {

@@ -116,8 +116,7 @@ main()
 		precacheShader(game["hud_axis_victory_image"]);
 	}
 
-	//block any map exploits
-	fixExploits();
+
 
 }
 
@@ -260,15 +259,6 @@ move_bases()
 	}
 }
 
-
-fixExploits () {
-//fix by innocent bystander, www.after-hourz.com
-
-	// Block the attic room
-	thread maps\mp\_exploit_blocker::blockBox((-503,-1667,265), (240,1,30));
-
-
-}
 
 pam_ambientsounds()
 {

@@ -119,8 +119,6 @@ main()
 		precacheShader(game["hud_axis_victory_image"]);
 	}
 	
-	//block any map exploits
-	fixExploits();
 	
 }
 
@@ -147,13 +145,7 @@ main()
 	//flag5.description = (&"GMI_DOM_FLAG5_MP_ITALY");
 //}
 
-fixExploits() {
-//fixes by innocent bystander, www.after-hourz.com
 
-	// Block access to player clip exploit
-	thread maps\mp\_exploit_blocker::blockBox((1250,1850,300), (1,100,50));
-
-}
 
 pam_ambientsounds()
 {
