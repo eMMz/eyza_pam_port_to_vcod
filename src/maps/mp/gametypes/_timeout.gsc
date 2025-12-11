@@ -100,15 +100,15 @@ Return true to indicate that menu response was handled in this function
 onMenuResponse(menu, response)
 {
 	logprint("_timeout::onMenuResponse - " + menu + " " + response + "\n");
-	/*
 	if (menu == game["menu_ingame"] && response == "timeout")
 	{
+		logprint("_timeout::onMenuResponse calling timeout\n");
+		
 		self closeMenu();
 		//self closeInGameMenu();
 		self callTimeout();
 		return true;
 	}
-	*/
 }
 
 
@@ -448,8 +448,10 @@ Update_Player_HUD_Cvar()
 */
 HUD_Timeout()
 {
+	level.hudplanted.x = 234;
+	level.hudplanted.y = 464;
 	//x = -85;
-	x = 395;
+	x = 320;
 	y = 240;
 
 	// Time-out

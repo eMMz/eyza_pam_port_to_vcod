@@ -664,7 +664,11 @@ UpdateCvarsForPlayers()
 		if (!isDefined(player)) // Because we wait a frame, next frame player may be disconnected
 			continue;
 
-		player UpdatePlayerCvars();
+		if (isDefined(player.pers["team"]) && player.pers["team"] == "streamer")
+		{
+			// logprint("_matchinfo::UpdateCvarsForPlayers for streamer\n");
+			player UpdatePlayerCvars();
+		}
 	}
 }
 
