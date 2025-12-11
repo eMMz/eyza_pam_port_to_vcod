@@ -193,6 +193,40 @@
 			textfont		UI_FONT_NORMAL
 			textscale		.24
 			textaligny		8
+			text			"@GMI_QUICKMESSAGE_4_REQUESTS"
+			cvarTest 		"ui_quickmessage_streamer"
+			showCvar		{ "0"}
+			decoration
+		}
+		execKey "4" { close quickmessage; open quickrequests; }
+
+		itemDef
+		{
+			name			"window"
+			visible			1
+			rect			16 84 0 0
+			origin			ORIGIN_QUICKMESSAGEWINDOW
+			forecolor		1 1 1 1
+			textfont		UI_FONT_NORMAL
+			textscale		.24
+			textaligny		8
+			text			"@GMI_QUICKMESSAGE_5_VEHICLES"
+			cvarTest 		"ui_quickmessage_streamer"
+			showCvar		{ "0"}
+			decoration
+		}
+		execKey "5" { close quickmessage; open quickvehicles; }
+
+		itemDef
+		{
+			name			"window"
+			visible			1
+			rect			16 100 0 0
+			origin			ORIGIN_QUICKMESSAGEWINDOW
+			forecolor		1 1 1 1
+			textfont		UI_FONT_NORMAL
+			textscale		.24
+			textaligny		8
 			text			"@QUICKMESSAGE_ESC_EXIT"
 			decoration
 		}

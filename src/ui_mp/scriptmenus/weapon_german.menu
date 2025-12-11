@@ -1,7 +1,7 @@
 #include "ui_mp/menudef.h"
 #include "ui_mp/macros.h"
 
-#define HIDE_ALL hide kar98; hide mp40; hide mp44; hide kar98scoped;
+#define HIDE_ALL hide kar98; hide mp40; hide mp44; hide kar98scoped; hide gewehr43; hide mg34;
 
 {
 	menuDef
@@ -53,9 +53,12 @@
 		ITEM_WEAPON(ORIGIN_CHOICE2, "button_mp40", "mp40_mp", "@MPMENU_2_MP40", "ui_allow_mp40", "mp40" , show mp40;, scriptMenuResponse "mp40_mp"; close weapon_german;, "steilhandgrenate", "smg")
 
 		ITEM_WEAPON(ORIGIN_CHOICE3, "button_mp44", "mp44_mp", "@MPMENU_3_MP44", "ui_allow_mp44", "mp44" , show mp44;, scriptMenuResponse "mp44_mp"; close weapon_german;, "steilhandgrenate", "mg")
+		
+		ITEM_WEAPON(ORIGIN_CHOICE4, "button_gewehr43", "gewehr43_mp", "@GMI_MPMENU_4_GEWEHR", "ui_allow_gewehr43", "gewehr43" , show gewehr43;, scriptMenuResponse "gewehr43_mp"; close weapon_german;, "steilhandgrenate", "semiautomatic")
 
-		ITEM_WEAPON(ORIGIN_CHOICE4, "button_kar98ksniper", "kar98k_sniper_mp", "@MPMENU_4_SCOPED_KAR98K", "ui_allow_kar98ksniper", "kar98scoped" , show kar98scoped;, scriptMenuResponse "kar98k_sniper_mp"; close weapon_german;, "steilhandgrenate", "sniper")
+		ITEM_WEAPON(ORIGIN_CHOICE5, "button_kar98ksniper", "kar98k_sniper_mp", "@GMI_MPMENU_5_SCOPED_KAR98K", "ui_allow_kar98ksniper", "kar98scoped" , show kar98scoped;, scriptMenuResponse "kar98k_sniper_mp"; close weapon_german;, "steilhandgrenate", "sniper")
 
+		ITEM_WEAPON(ORIGIN_CHOICE6, "button_mg34", "mg34_mp", "@GMI_MPMENU_6_MG34", "ui_allow_mp44", "mg34" , show mg34;, scriptMenuResponse "mg34_mp"; close weapon_german;, "steilhandgrenate", "mg")
 
 
 		// Close
@@ -68,7 +71,9 @@
 		execKey "1" { play "mouse_click"; scriptMenuResponse "kar98k_mp"; close weapon_german }
 		execKey "2" { play "mouse_click"; scriptMenuResponse "mp40_mp"; close weapon_german }
 		execKey "3" { play "mouse_click"; scriptMenuResponse "mp44_mp"; close weapon_german }
-		execKey "4" { play "mouse_click"; scriptMenuResponse "kar98k_sniper_mp"; close weapon_german }
+		execKey "4" { play "mouse_click"; scriptMenuResponse "gewehr43_mp"; close weapon_german }
+		execKey "5" { play "mouse_click"; scriptMenuResponse "kar98k_sniper_mp"; close weapon_german }
+		execKey "6" { play "mouse_click"; scriptMenuResponse "mg34_mp"; close weapon_german }
 
 		execKeyInt 32 { play "mouse_click"; close weapon_german; open main; } // space
 		execKeyInt 116 { play "mouse_click"; close weapon_german; open ingame; } // 'T'
