@@ -1,7 +1,7 @@
 #include "ui_mp/menudef.h"
 #include "ui_mp/macros.h"
 
-#define HIDE_ALL hide enfield; hide sten; hide bren; hide springfield;
+#define HIDE_ALL hide enfield; hide sten; hide bren; hide springfield; hide mg30cal;
 
 {
 	menuDef
@@ -50,12 +50,13 @@
 		// MENU CHOICES
 		ITEM_WEAPON(ORIGIN_CHOICE1, "button_enfield", "enfield_mp", "@MPMENU_1_LEEENFIELD", "ui_allow_enfield", "enfield", show enfield;, scriptMenuResponse "enfield_mp"; close weapon_british;, "british_grenade", "boltaction";)
 
-		ITEM_WEAPON(ORIGIN_CHOICE2, "button_sten", "sten_mp", "@MPMENU_2_STEN", "ui_allow_m1garand", "sten" , show sten;, scriptMenuResponse "sten_mp"; close weapon_british;, "british_grenade", "smg")
+		ITEM_WEAPON(ORIGIN_CHOICE2, "button_sten", "sten_mp", "@MPMENU_2_STEN", "ui_allow_sten", "sten" , show sten;, scriptMenuResponse "sten_mp"; close weapon_british;, "british_grenade", "smg")
 
 		ITEM_WEAPON(ORIGIN_CHOICE3, "button_bren", "bren_mp", "@MPMENU_3_BREN_LMG", "ui_allow_bren", "bren" , show bren;, scriptMenuResponse "bren_mp"; close weapon_british;, "british_grenade", "mg")
 
 		ITEM_WEAPON(ORIGIN_CHOICE4, "button_springfield", "springfield_mp", "@MPMENU_4_SPRINGFIELD", "ui_allow_springfield", "springfield" , show springfield;, scriptMenuResponse "springfield_mp"; close weapon_british;, "british_grenade", "sniper")
 
+		ITEM_WEAPON(ORIGIN_CHOICE5, "button_30cal", "mg30cal_mp", "@GMI_MPMENU_5_30CAL", "ui_allow_mg30cal", "mg30cal", show mg30cal;, scriptMenuResponse "mg30cal_mp"; close weapon_british;, "british_grenade", "mg")
 
 
 		// Close
@@ -69,6 +70,7 @@
 		execKey "2" { play "mouse_click"; scriptMenuResponse "sten_mp"; close weapon_british }
 		execKey "3" { play "mouse_click"; scriptMenuResponse "bren_mp"; close weapon_british }
 		execKey "4" { play "mouse_click"; scriptMenuResponse "springfield_mp"; close weapon_british }
+		execKey "5" { play "mouse_click"; scriptMenuResponse "mg30cal_mp"; close weapon_british }
 
 		execKeyInt 32 { play "mouse_click"; close weapon_british; open main; } // space
 		execKeyInt 116 { play "mouse_click"; close weapon_british; open ingame; } // 'T'
