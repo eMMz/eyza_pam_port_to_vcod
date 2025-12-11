@@ -118,6 +118,7 @@ Register_Shared_Cvars()
 	[[sVar]]("scr_friendlyfire", "INT", 0, 0, 3); 	// level.scr_friendlyfire on, off, reflect, shared
 	[[sVar]]("scr_posters", "BOOL", 0);              // level.scr_posters
 	[[sVar]]("r_fog", "BOOL", 0);
+	[[sVar]]("g_timeoutsAllowed", "INT", 0, 0, 3);       // disabled vCoD engine timeout - `/matchtimeout` `/matchtimein`
 	[[sVar]]("rpam_ambientsounds", "BOOL", 0);
 }
 
@@ -196,6 +197,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "voice_deadchat":			return true;
 		case "voice_global":			return true;
 		case "voice_localecho":			return true;
+		case "g_timeoutsAllowed":		return true;
 		case "scr_allow_ambient_sounds":	level.scr_allow_ambient_sounds = value; return true;
 		case "scr_allow_ambient_fire": 		level.scr_allow_ambient_fire = value; return true;
 		case "scr_allow_ambient_weather": 	level.scr_allow_ambient_weather = value; return true;
