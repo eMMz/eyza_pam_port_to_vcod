@@ -25,7 +25,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_round_report", 1);		// Print kill and damage stats at the end of the round
 
 	// Bomb settings
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_bombtimer_show", 1);	// Show bombtimr stopwatch
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_bombtimer_show", 0);	// Show bombtimr stopwatch
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_bombtimer", 60);		// Time untill bomb explodes. (seconds)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_PlantTime", 5);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sd_DefuseTime", 10);
@@ -141,19 +141,19 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_rifle_mode", 0);
 
 	// Nade spawn counts for each class
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_boltaction_nades", 2);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_semiautomatic_nades", 2);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_boltaction_nades", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_semiautomatic_nades", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_smg_nades", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sniper_nades", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_mg_nades", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shotgun_nades", 1);
 
 	// Smoke spawn counts for each class
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_boltaction_smokes", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_semiautomatic_smokes", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_smg_smokes", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sniper_smokes", 0);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_mg_smokes", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_boltaction_smokes", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_semiautomatic_smokes", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_smg_smokes", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sniper_smokes", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_mg_smokes", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shotgun_smokes", 1);
 
 	// Weapon Limits by class per team
@@ -174,7 +174,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_pistol_allow_drop", 1);
 
 	// Allow grenade / smoke drop when player die
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_grenade_drop", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_grenade_drop", 0);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_smoke_drop", 0);
 
 	// Player's weapon drop
@@ -199,11 +199,14 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_ppsh", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_mp40", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_kar98k", 1);
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_g43", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_gewehr43", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_kar98ksniper", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_mp44", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_shotgun", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_fg42", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_dp28", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_mg30cal", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_mg34", 1);
 
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_pistols", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_turrets", 1);
