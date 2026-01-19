@@ -25,6 +25,7 @@ Load_PB_Config()
 	case "comp_mr3":
 	case "comp_mr10":
 	case "comp_mr12":
+	case "comp_mr13":
 	case "comp_mr15":
 
 		if (pb_config == "cb") //pb_sv_config
