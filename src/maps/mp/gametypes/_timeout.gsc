@@ -449,8 +449,8 @@ Update_Player_HUD_Cvar()
 */
 HUD_Timeout()
 {
-	level.hudplanted.x = 234;
-	level.hudplanted.y = 464;
+	// level.hudplanted.x = 234;
+	// level.hudplanted.y = 464;
 	//x = -85;
 	x = 320;
 	y = 240;
