@@ -550,9 +550,15 @@ spawnPlayer()
 	maps\mp\gametypes\_weapons::givePistol();
 	maps\mp\gametypes\_weapons::giveSmokesFor(self.pers["weapon"]);
 	maps\mp\gametypes\_weapons::giveGrenadesFor(self.pers["weapon"]);
-	// maps\mp\gametypes\_weapons::giveBinoculars();
+	maps\mp\gametypes\_weapons::giveBinoculars();
 
 	self setSpawnWeapon(self.pers["weapon"]);
+
+	// set the status icon if battlerank is turned on
+	if(level.battlerank)
+	{
+		self.statusicon = maps\mp\gametypes\_rank_gmi::GetRankStatusIcon(self);
+	}
 
 	// Notify "spawned" notifications
 	self notify("spawned");

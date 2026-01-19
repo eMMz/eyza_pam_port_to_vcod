@@ -165,6 +165,9 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_pistols", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_turrets", 1);
 
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shellshock", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_battlerank", 1);
+
 	// Single Shot Kills
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_no_oneshot_pistol_kills", 0);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_no_oneshot_ppsh_kills", 0);

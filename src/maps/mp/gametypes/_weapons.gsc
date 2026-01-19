@@ -100,6 +100,8 @@ registerCvars()
 	[[var]]("scr_allow_tanks", "BOOL", 1); // level.allow_tanks	
 	[[var]]("scr_allow_jeeps", "BOOL", 1); // level.allow_jeeps	
 	[[var]]("scr_allow_flak88", "BOOL", 1); // level.allow_flak88	
+	
+	[[var]]("scr_allow_binoculars", "BOOL", 1); // level.allow_binoculars	
 
 
 	[[var]]("scr_no_oneshot_pistol_kills", "BOOL", 0); 	//level.prevent_single_shot_pistol // Single Shot Kills
@@ -224,6 +226,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "scr_allow_tanks":			level.allow_tanks = value; return true;
 		case "scr_allow_flak88":		level.allow_flak88 = value; return true;		
 
+		case "scr_allow_binoculars":	level.allow_binoculars = value; return true;
 
 		case "scr_no_oneshot_pistol_kills": 		level.prevent_single_shot_pistol = value; return true;
 		case "scr_no_oneshot_ppsh_kills": 		level.prevent_single_shot_ppsh = value; return true;
@@ -368,8 +371,9 @@ precacheWeaponsRifle()
 
 
 	// Weapons for all
-	//precacheItem("binoculars_mp");
-
+	precacheItem("binoculars_mp");
+	precacheItem("binoculars_artillery_mp");
+	precacheItem("satchelcharge_mp");
 }
 
 precacheWeapons()
@@ -493,7 +497,9 @@ precacheWeapons()
 	// Weapons for all
 	precacheItem("smokegrenade_mp");
 	//precacheItem("shotgun_mp");
-	//precacheItem("binoculars_mp");
+	precacheItem("binoculars_mp");
+	precacheItem("binoculars_artillery_mp");
+	precacheItem("satchelcharge_mp");
 }
 
 
@@ -662,72 +668,64 @@ deletePlacedEntity(entity)
 // Adds pistol to pistol slot only if empty
 givePistol()
 {
-	weap_pistol = self getweaponslotweapon("pistol");
-	if(weap_pistol == "none")
-	{
-		if(self.pers["team"] == "allies")
-		{
-			switch(game["allies"])
-			{
-			case "american":
-				pistoltype = "colt_mp";
-				break;
-
-			case "british":
-				pistoltype = "webley_mp";
-				//pistoltype = "colt_mp";
-				break;
-
-			case "russian":
-				//assert(game["allies"] == "russian");
-				pistoltype = "tt33_mp";
-				//pistoltype = "luger_mp";
-				break;
-			default:
-				pistoltype = "none";
-				break;
-			}
-		}
-		else
-		{
-			//assert(self.pers["team"] == "axis");
-			switch(game["axis"])
-			{
-			case "german":
-				//assert(game["axis"] == "german");
-				pistoltype = "luger_mp";
-				break;
-			default:
-				pistoltype = "none";
-				break;
-			}
-		}
-
-		self takeWeapon("colt_mp");
-		self takeWeapon("webley_mp");
-		self takeWeapon("tt33_mp");
-		self takeWeapon("luger_mp");
-
-		if (!level.allow_pistols)
-			return;
+	self takeWeapon("colt_mp");
+	self takeWeapon("luger_mp");
+	self takeWeapon("webley_mp");
+	self takeWeapon("tt33_mp");
+	
+	if ( !level.allow_pistols )
+		return;
 		
-		if (pistoltype == "none")
+	if(self.pers["team"] == "allies")
+	{
+		switch(game["allies"])		
 		{
-			logprint("_weapons::givePistol unknown team type. Cannot assign pistoltype\n");
-			return;
-		}
+		case "american":
+			pistoltype = "colt_mp";
+			break;
 
-		//self giveWeapon(pistoltype);
-		self setWeaponSlotWeapon("pistol", pistoltype);
-		//self setWeaponSlotAmmo("pistol", 999);
-		self setWeaponSlotAmmo("pistol", maps\mp\gametypes\_weapons::GetPistolAmmo(pistoltype));
-		self setWeaponSlotClipAmmo("pistol", 999);
-		//self giveMaxAmmo(pistoltype);
-	} else {
-		//logprint("_weapons::givePistol restoring ammo only for player=" + self.name + " \n");
-		// self setWeaponSlotAmmo("pistol", 999);
-		self setWeaponSlotAmmo("pistol", maps\mp\gametypes\_weapons::GetPistolAmmo(weap_pistol));
-		self setWeaponSlotClipAmmo("pistol", 999);
+		case "british":
+			pistoltype = "webley_mp";
+			break;
+
+		case "russian":
+			pistoltype = "tt33_mp";			
+			break;
+		}
+	}
+	else if(self.pers["team"] == "axis")
+	{
+		switch(game["axis"])
+		{
+		case "german":
+			pistoltype = "luger_mp";			
+			break;
+		}			
+	}
+
+	self takeWeapon("colt_mp");
+	self takeWeapon("webley_mp");
+	self takeWeapon("tt33_mp");
+	self takeWeapon("luger_mp");
+
+
+	// clear out all ammo
+	self setWeaponSlotAmmo("pistol", 0 );
+	self setWeaponSlotClipAmmo("pistol", 0 );
+	
+	clip_size = getfullclipammo(pistoltype);
+	ammount = maps\mp\gametypes\_pam_loadout_gmi::GetPistolAmmo(pistoltype);
+	
+	self giveWeapon(pistoltype);
+
+	if ( ammount > clip_size )
+	{
+		self setWeaponSlotClipAmmo("pistol", clip_size );
+		self setWeaponSlotAmmo("pistol", ammount - clip_size );
+	}
+	else
+	{
+		self setWeaponSlotClipAmmo("pistol", ammount );
 	}
 }
 
@@ -865,12 +863,51 @@ giveSmokesFor(weapon, count)
 	return 0;
 }
 
-/*
 giveBinoculars()
 {
-	self giveWeapon("binoculars_mp");
+	// if battle rank is on then call the battle rank function
+	if ( isDefined(level.battlerank) && level.battlerank)
+	{
+		return maps\mp\gametypes\_rank_gmi::giveBinoculars(weapon);
+	}
+
+	if ( !level.allow_binoculars )
+		return;
+	
+	binoctype = "binoculars_mp";
+	
+	self takeWeapon("binoculars_mp");
+	self takeWeapon("binoculars_artillery_mp");
+	
+	if(self.pers["team"] == "allies")
+	{
+		switch(game["allies"])		
+		{
+		case "american":
+			binoctype = "binoculars_mp";
+			break;
+
+		case "british":
+			binoctype = "binoculars_mp";
+			break;
+
+		case "russian":
+			binoctype = "binoculars_mp";
+			break;
+		}
+	}
+	else if(self.pers["team"] == "axis")
+	{
+		switch(game["axis"])
+		{
+		case "german":
+			binoctype = "binoculars_mp";
+			break;
+		}			
+	}
+	
+	self setWeaponSlotWeapon("binocular", binoctype);
 }
-*/
 
 dropWeapons()
 {
@@ -1044,6 +1081,12 @@ dropSmoke()
 // Get number of greandes based on selected weapon
 getWeaponBasedGrenadeCount(weapon)
 {
+	// if battle rank is on then call the battle rank function
+	if ( isDefined(level.battlerank) && level.battlerank)
+	{
+		return maps\mp\gametypes\_rank_gmi::getWeaponBasedGrenadeCount(weapon);
+	}
+
 	className = level.weapons[weapon].classname;
 	cvarNades = level.weaponclass[className].cvarNades;
 
@@ -1052,6 +1095,12 @@ getWeaponBasedGrenadeCount(weapon)
 
 getWeaponBasedSmokeGrenadeCount(weapon)
 {
+	// if battle rank is on then call the battle rank function
+	if ( isDefined(level.battlerank) && level.battlerank)
+	{
+		return maps\mp\gametypes\_rank_gmi::getWeaponBasedSmokeGrenadeCount(weapon);
+	}
+
 	className = level.weapons[weapon].classname;
 	cvarSmokes = level.weaponclass[className].cvarSmokes;
 

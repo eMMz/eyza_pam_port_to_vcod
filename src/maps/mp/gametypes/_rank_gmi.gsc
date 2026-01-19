@@ -5,6 +5,11 @@
 // ----------------------------------------------------------------------------------
 InitializeBattleRank()
 {
+	maps\mp\gametypes\global\_global::addEventListener("onCvarChanged", ::onCvarChanged);
+	maps\mp\gametypes\global\_global::addEventListener("onConnected",     ::onConnected);
+
+	maps\mp\gametypes\global\_global::registerCvar("scr_battlerank", "BOOL", 1);
+
 	game["br_artillery_ready"] = "gfx/hud/hud@fire_ready_shell.dds";
 
 	// set up the icons
@@ -19,6 +24,11 @@ InitializeBattleRank()
 	game["br_hudicons_allies_2"] = "gfx/hud/hud@us_rank3.dds";
 	game["br_hudicons_allies_3"] = "gfx/hud/hud@us_rank4.dds";
 	game["br_hudicons_allies_4"] = "gfx/hud/hud@us_rank5.dds";
+
+	if(game["firstInit"])
+	{
+		PrecacheBattleRank();
+	}
 
 	// set up the points
 	if(!isdefined(game["br_points_objective"]))	// Achieving an objective
@@ -102,6 +112,27 @@ InitializeBattleRank()
 		setCvar("scr_forcerank", "0"); 
 }
 
+// This function is called when cvar changes value.
+// Is also called when cvar is registered
+// Return true if cvar was handled here, otherwise false
+onCvarChanged(cvar, value, isRegisterTime)
+{
+	switch(cvar)
+	{
+		case "scr_battlerank": 		level.battlerank = value; return true;
+	}
+	return false;
+}
+
+onConnected()
+{
+    logprint("_rank_gmi::onConnected start\n");
+    // make sure that the rank variable is initialized
+	if ( !isDefined( self.pers["rank"] ) )
+		self.pers["rank"] = 0;
+    logprint("_rank_gmi::onConnected end\n");
+}
+
 // ----------------------------------------------------------------------------------
 //	UpdateBattleRank
 //
@@ -137,7 +168,7 @@ ResetPlayerRank()
 		player.score = 0;
 		player.statusicon = maps\mp\gametypes\_rank_gmi::GetRankStatusIcon(player);
 		
-		if ( level.drawfriend )
+		if ( level.scr_drawfriend )
 		{
 			player.headicon = maps\mp\gametypes\_rank_gmi::GetRankHeadIcon(player);
 		}
@@ -288,7 +319,7 @@ CheckPlayersForRankChanges()
 				if (!isdefined(player.hasflag))	// during CTF statusicon is used to identify the flag carrier
 					player.statusicon = maps\mp\gametypes\_rank_gmi::GetRankStatusIcon(player);
 
-				if ( level.drawfriend )
+				if ( level.scr_drawfriend )
 				{
 					player.headicon = maps\mp\gametypes\_rank_gmi::GetRankHeadIcon(player);
 				}
@@ -487,6 +518,7 @@ GetPistolAmmo(weapon)
 // ----------------------------------------------------------------------------------
 getWeaponBasedSmokeGrenadeCount(weapon)
 {
+	logprint("_rank_gmi::getWeaponBasedSmokeGrenadeCount for " + weapon + "\n");
 	rank_count = game["br_ammo_smoke_grenades_" + self.pers["rank"]];
 
 	return rank_count;
@@ -511,6 +543,7 @@ getWeaponBasedSatchelChargeCount(weapon)
 // ----------------------------------------------------------------------------------
 getWeaponBasedGrenadeCount(weapon)
 {
+	logprint("_rank_gmi::getWeaponBasedGrenadeCount for " + weapon + "\n");
 	rank_count = game["br_ammo_grenades_" + self.pers["rank"]];
 
 	return rank_count;

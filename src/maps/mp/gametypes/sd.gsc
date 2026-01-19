@@ -238,6 +238,9 @@ precache()
 	precacheString(&"SD_AXISHAVEBEENELIMINATED");
 	//precacheString(&"PLATFORM_HOLD_TO_PLANT_EXPLOSIVES");
 	//precacheString(&"PLATFORM_HOLD_TO_DEFUSE_EXPLOSIVES");
+
+	precacheString(&"GMI_MP_CEASEFIRE");
+
 	precacheModel("xmodel/mp_bomb1_defuse");
 	precacheModel("xmodel/mp_bomb1");
 	// temporarily bringing back for no lib version
@@ -729,6 +732,7 @@ onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWe
 		}
 	}
 
+	self maps\mp\gametypes\_shellshock_gmi::DoShellShock(sWeapon, sMeansOfDeath, sHitLoc, iDamage);
 
 	if(self.sessionstate != "dead" && !level.in_readyup)
 		maps\mp\gametypes\_log::logDamage(self, eAttacker, sWeapon, iDamage, sMeansOfDeath, sHitLoc, isFriendlyFire, normalizedDamage);
@@ -1132,7 +1136,7 @@ spawnPlayer()
 		maps\mp\gametypes\_weapons::giveGrenadesFor(self.spawnedWeapon);	// grenades will be added after start time
 	}
 	maps\mp\gametypes\_weapons::givePistol();
-	//maps\mp\gametypes\_weapons::giveBinoculars();
+	maps\mp\gametypes\_weapons::giveBinoculars();
 
 	// Switch to pistol in bash mode
 	if (level.in_bash)
@@ -2604,7 +2608,7 @@ bombzone_think(bombzone_other)
 		*/
 
 		// check for having been triggered by a valid player
-		if(isPlayer(player) && (player.pers["team"] == team) && player isOnGround() /*&& positionOk*/)
+		if(isPlayer(player) && (player.pers["team"] == team) && player isOnGround() /*&& positionOk*/ && !(player isinvehicle()) && (player maps\mp\_util_mp_gmi::canPlantGMI()))
 		{
 			if(!isDefined(player.planticon))
 			{
@@ -2655,7 +2659,7 @@ bombzone_think(bombzone_other)
 				// Planting progress loop
 				self.progresstime = 0;
 				// Player ("player" variable) can disconnect here, so we need to make sure he is still defined
-				while(isDefined(player) && isAlive(player) && player useButtonPressed() && (self.progresstime < level.planttime))
+				while(isDefined(player) && isAlive(player) && player useButtonPressed() && (self.progresstime < level.planttime) && (player maps\mp\_util_mp_gmi::canPlantGMI()))
 				{
 					player disableWeapon();
 					self.progresstime += level.frame;
@@ -2723,7 +2727,8 @@ bombzone_think(bombzone_other)
 					logprint("sd:: team obj removed\n");
 
 
-					plant = player maps\mp\_utility::getPlant();
+					// plant = player maps\mp\_utility::getPlant();
+					plant = player maps\mp\_util_mp_gmi::getPlantGMI(); // For UO
 					logprint("sd:: got plant\n");
 
 					// Spawn bomb
@@ -2828,11 +2833,10 @@ bomb_countdown()
 	self endon("bomb_defused");
 	level endon("intermission");
 
+	level.bombmodel playLoopSound("bomb_tick");
 	countDownTime = level.bombtimer; // seconds
 	//PAM
 	if (level.show_bombtimer) {
-		
-
 		level.clock = maps\mp\gametypes\global\_global::newHudElem2();
 		level.clock.font = "bigfixed";
 		level.clock.alignX = "center";
@@ -2842,24 +2846,26 @@ bomb_countdown()
 		level.clock.y = 460;
 
 		self thread HUD_UpdateBombTimerColor();
+
+		if (countDownTime > 15) {
+			// until 15 secs is left, use timer w/o millis
+			countDownTimeSubstracted = countDownTime - 15;
+			level.clock setTimer(countDownTime);
+			wait level.fps_multiplier * countDownTimeSubstracted;
+		}
+
+		// when 15 secs is left, use timer w/ millis
+		level.clock.x = 336;
+		level.clock setTenthsTimer(15);
+		wait level.fps_multiplier * 15;
+		//level.clock setTenthsTimer(countDownTime);
+		//wait level.fps_multiplier * countDownTime;
 	}
-
-	level.bombmodel playLoopSound("bomb_tick");
-
-	if (countDownTime > 15) {
-		// until 15 secs is left, use timer w/o millis
-		countDownTimeSubstracted = countDownTime - 15;
-		level.clock setTimer(countDownTime);
-		wait level.fps_multiplier * countDownTimeSubstracted;
-
-		
+	else // if no clock then just wait :)
+	{
+		wait level.fps_multiplier * countDownTime;
 	}
-	// when 15 secs is left, use timer w/ millis
-	level.clock.x = 336;
-	level.clock setTenthsTimer(15);
-	wait level.fps_multiplier * 15;
-	//level.clock setTenthsTimer(countDownTime);
-	//wait level.fps_multiplier * countDownTime;
+	
 
 	// bomb timer is up
 	objective_delete(0);

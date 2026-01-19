@@ -917,7 +917,7 @@ itemDef \
 	backcolor	1 1 1 .5 \
 	origin		107 13 \
 	visible		1 \
-	background	"hud_us_smokegrenade" \
+	background	"gfx/icons/hud@us_smokegrenade.dds" \
 	cvartest	cvarprefix "_icons" \
 	showcvar	{ "smoke"; "grenade_smoke"; "grenade2_smoke";  } \
 	decoration \
