@@ -121,4 +121,6 @@ InitModules()
 
 	thread maps\mp\gametypes\_objective::init(); // depends on readyup, timeout
 
+	
+	thread maps\mp\gametypes\global\pb_system::Init();
 }
