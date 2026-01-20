@@ -26,6 +26,7 @@ registerCvars()
 	[[var]]("scr_sniper_nades", "INT", 3, 0, 99);
 	[[var]]("scr_mg_nades", "INT", 2, 0, 99);
 	[[var]]("scr_shotgun_nades", "INT", 1, 0, 99);
+	[[var]]("scr_dmg_nades", "INT", 1, 0, 99);
 
 	// Smoke spawn counts for each class
 	[[var]]("scr_boltaction_smokes", "INT", 0, 0, 99);
@@ -34,6 +35,7 @@ registerCvars()
 	[[var]]("scr_sniper_smokes", "INT", 0, 0, 99);
 	[[var]]("scr_mg_smokes", "INT", 0, 0, 99);
 	[[var]]("scr_shotgun_smokes", "INT", 1, 0, 99);
+	[[var]]("scr_dmg_smokes", "INT", 1, 0, 99);
 
 	// Weapon Limits by class per team
 	[[var]]("scr_boltaction_limit", "INT", 99, 0, 99);
@@ -42,6 +44,7 @@ registerCvars()
 	[[var]]("scr_smg_limit", "INT", 99, 0, 99);
 	[[var]]("scr_mg_limit", "INT", 99, 0, 99);
 	[[var]]("scr_shotgun_limit", "INT", 99, 0, 99);
+	[[var]]("scr_dmg_limit", "INT", 99, 0, 99);
 
 	// Allow weapon drop when player die
 	[[var]]("scr_boltaction_allow_drop", "BOOL", 1);
@@ -51,7 +54,8 @@ registerCvars()
 	[[var]]("scr_mg_allow_drop", "BOOL", 1);
 	[[var]]("scr_shotgun_allow_drop", "BOOL", 1);
 	[[var]]("scr_pistol_allow_drop", "BOOL", 1);
-
+	[[var]]("scr_dmg_allow_drop", "BOOL", 1);
+	
 
 	// Allow/Disallow Weapons
 	[[var]]("scr_allow_greasegun", "BOOL", 1);
@@ -100,6 +104,8 @@ registerCvars()
 	[[var]]("scr_allow_tanks", "BOOL", 1); // level.allow_tanks	
 	[[var]]("scr_allow_jeeps", "BOOL", 1); // level.allow_jeeps	
 	[[var]]("scr_allow_flak88", "BOOL", 1); // level.allow_flak88	
+	
+	[[var]]("scr_allow_binoculars", "BOOL", 1); // level.allow_binoculars	
 
 
 	[[var]]("scr_no_oneshot_pistol_kills", "BOOL", 0); 	//level.prevent_single_shot_pistol // Single Shot Kills
@@ -141,6 +147,8 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "scr_mg_smokes":
 		case "scr_shotgun_nades":
 		case "scr_shotgun_smokes":
+		case "scr_dmg_nades":
+		case "scr_dmg_smokes":
 		return true;
 
 		// If class limit changed, update all weapons
@@ -150,6 +158,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "scr_smg_limit":
 		case "scr_mg_limit":
 		case "scr_shotgun_limit":
+		case "scr_dmg_limit":
 			if (!isRegisterTime)
 			{
 				thread updateLimit(cvar, value);
@@ -165,6 +174,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "scr_smg_allow_drop":
 		case "scr_mg_allow_drop":
 		case "scr_shotgun_allow_drop":
+		case "scr_dmg_allow_drop":		
             		if (!isRegisterTime) thread updateDrop(cvar, value);
 			return true;
 
@@ -224,6 +234,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "scr_allow_tanks":			level.allow_tanks = value; return true;
 		case "scr_allow_flak88":		level.allow_flak88 = value; return true;		
 
+		case "scr_allow_binoculars":	level.allow_binoculars = value; return true;
 
 		case "scr_no_oneshot_pistol_kills": 		level.prevent_single_shot_pistol = value; return true;
 		case "scr_no_oneshot_ppsh_kills": 		level.prevent_single_shot_ppsh = value; return true;
@@ -351,6 +362,8 @@ precacheWeaponsRifle()
 		break;
 	}
 
+	precacheItem("smokegrenade_mp");
+
 	precacheItem("kar98k_mp");
 	precacheItem("enfield_mp");
 	precacheItem("mosin_nagant_mp");
@@ -366,8 +379,9 @@ precacheWeaponsRifle()
 
 
 	// Weapons for all
-	//precacheItem("binoculars_mp");
-
+	precacheItem("binoculars_mp");
+	precacheItem("binoculars_artillery_mp");
+	precacheItem("satchelcharge_mp");
 }
 
 precacheWeapons()
@@ -489,8 +503,11 @@ precacheWeapons()
 
 
 	// Weapons for all
+	precacheItem("smokegrenade_mp");
 	//precacheItem("shotgun_mp");
-	//precacheItem("binoculars_mp");
+	precacheItem("binoculars_mp");
+	precacheItem("binoculars_artillery_mp");
+	precacheItem("satchelcharge_mp");
 }
 
 
@@ -531,7 +548,7 @@ defineWeapons()
 		addWeapon("springfield_mp", 	"sniper", 			"allies", 	"scr_allow_springfield", 	"ui_allow_springfield");
 		addWeapon("thompson_mp", 		"smg", 				"allies", 	"scr_allow_thompson", 		"ui_allow_thompson");
 		addWeapon("bar_mp", 			"mg", 				"allies", 	"scr_allow_bar", 			"ui_allow_bar");
-		addWeapon("mg30cal_mp", 		"mg", 				"allies", 	"scr_allow_mg30cal", 		"ui_allow_mg30cal");		
+		addWeapon("mg30cal_mp", 		"dmg", 				"allies", 	"scr_allow_mg30cal", 		"ui_allow_mg30cal");		
 		break;
 
 	case "british":
@@ -542,7 +559,7 @@ defineWeapons()
 		addWeapon("springfield_mp", 		"sniper",			"allies", 	"scr_allow_springfield", 	"ui_allow_springfield");
 		//addWeapon("thompson_mp", 			"smg", 				"allies", 	"scr_allow_thompson", 		"ui_allow_thompson");
 		addWeapon("bren_mp", 				"mg", 				"allies", 	"scr_allow_bren", 			"ui_allow_bren");
-		addWeapon("mg30cal_mp", 			"mg", 			 	"allies",  	"scr_allow_mg30cal", 	 	"ui_allow_mg30cal");		
+		addWeapon("mg30cal_mp", 			"dmg", 			 	"allies",  	"scr_allow_mg30cal", 	 	"ui_allow_mg30cal");		
 		break;
 
 	case "russian":
@@ -552,7 +569,7 @@ defineWeapons()
 		addWeapon("mosin_nagant_sniper_mp", "sniper", 			"allies", 	"scr_allow_nagantsniper", 	"ui_allow_nagantsniper");
 		addWeapon("ppsh_mp", 				"smg", 				"allies", 	"scr_allow_ppsh", 			"ui_allow_ppsh"); //PPSH_CHANGE
 		//addWeapon("vpo135_mp", 			"smg", 				"allies", 	"scr_allow_ppsh", 			"ui_allow_ppsh");
-		addWeapon("dp28_mp", 				"mg", 				"allies", 	"scr_allow_dp28", 			"ui_allow_dp28");
+		addWeapon("dp28_mp", 				"dmg", 				"allies", 	"scr_allow_dp28", 			"ui_allow_dp28");
 		break;
 	}
 
@@ -562,7 +579,7 @@ defineWeapons()
 	addWeapon("gewehr43_mp", 			"semiautomatic", 	"axis", 	"scr_allow_gewehr43", 			"ui_allow_gewehr43");
 	addWeapon("kar98k_sniper_mp", 	"sniper", 			"axis", 	"scr_allow_kar98ksniper", 	"ui_allow_kar98ksniper");
 	addWeapon("mp44_mp", 			"mg", 				"axis", 	"scr_allow_mp44", 			"ui_allow_mp44");
-	addWeapon("mg34_mp", 			"mg", 				"axis", 	"scr_allow_mg34", 			"ui_allow_mg34");
+	addWeapon("mg34_mp", 			"dmg", 				"axis", 	"scr_allow_mg34", 			"ui_allow_mg34");
 
 	// All teams
 	//addWeapon("shotgun_mp", 		"shotgun", 		"both", 	"scr_allow_shotgun", 		"ui_allow_shotgun");
@@ -577,6 +594,7 @@ defineWeapons()
 	addClass("smg", 			"scr_smg_limit",			"scr_smg_nades", 			"scr_smg_smokes",		"scr_smg_allow_drop");
 	addClass("mg", 				"scr_mg_limit",				"scr_mg_nades", 			"scr_mg_smokes",			"scr_mg_allow_drop");
 	//addClass("shotgun", 		"scr_shotgun_limit",		"scr_shotgun_nades", 		"scr_shotgun_smokes",		"scr_shotgun_allow_drop");
+	addclass("dmg", 			"scr_dmg_limit",			"scr_dmg_nades", 		"scr_dmg_smokes",		"scr_dmg_allow_drop");
 
 }
 
@@ -659,72 +677,64 @@ deletePlacedEntity(entity)
 // Adds pistol to pistol slot only if empty
 givePistol()
 {
-	weap_pistol = self getweaponslotweapon("pistol");
-	if(weap_pistol == "none")
-	{
-		if(self.pers["team"] == "allies")
-		{
-			switch(game["allies"])
-			{
-			case "american":
-				pistoltype = "colt_mp";
-				break;
-
-			case "british":
-				pistoltype = "webley_mp";
-				//pistoltype = "colt_mp";
-				break;
-
-			case "russian":
-				//assert(game["allies"] == "russian");
-				pistoltype = "tt33_mp";
-				//pistoltype = "luger_mp";
-				break;
-			default:
-				pistoltype = "none";
-				break;
-			}
-		}
-		else
-		{
-			//assert(self.pers["team"] == "axis");
-			switch(game["axis"])
-			{
-			case "german":
-				//assert(game["axis"] == "german");
-				pistoltype = "luger_mp";
-				break;
-			default:
-				pistoltype = "none";
-				break;
-			}
-		}
-
-		self takeWeapon("colt_mp");
-		self takeWeapon("webley_mp");
-		self takeWeapon("tt33_mp");
-		self takeWeapon("luger_mp");
-
-		if (!level.allow_pistols)
-			return;
+	self takeWeapon("colt_mp");
+	self takeWeapon("luger_mp");
+	self takeWeapon("webley_mp");
+	self takeWeapon("tt33_mp");
+	
+	if ( !level.allow_pistols )
+		return;
 		
-		if (pistoltype == "none")
+	if(self.pers["team"] == "allies")
+	{
+		switch(game["allies"])		
 		{
-			logprint("_weapons::givePistol unknown team type. Cannot assign pistoltype\n");
-			return;
-		}
+		case "american":
+			pistoltype = "colt_mp";
+			break;
 
-		//self giveWeapon(pistoltype);
-		self setWeaponSlotWeapon("pistol", pistoltype);
-		//self setWeaponSlotAmmo("pistol", 999);
-		self setWeaponSlotAmmo("pistol", maps\mp\gametypes\_weapons::GetPistolAmmo(pistoltype));
-		self setWeaponSlotClipAmmo("pistol", 999);
-		//self giveMaxAmmo(pistoltype);
-	} else {
-		//logprint("_weapons::givePistol restoring ammo only for player=" + self.name + " \n");
-		// self setWeaponSlotAmmo("pistol", 999);
-		self setWeaponSlotAmmo("pistol", maps\mp\gametypes\_weapons::GetPistolAmmo(weap_pistol));
-		self setWeaponSlotClipAmmo("pistol", 999);
+		case "british":
+			pistoltype = "webley_mp";
+			break;
+
+		case "russian":
+			pistoltype = "tt33_mp";			
+			break;
+		}
+	}
+	else if(self.pers["team"] == "axis")
+	{
+		switch(game["axis"])
+		{
+		case "german":
+			pistoltype = "luger_mp";			
+			break;
+		}			
+	}
+
+	self takeWeapon("colt_mp");
+	self takeWeapon("webley_mp");
+	self takeWeapon("tt33_mp");
+	self takeWeapon("luger_mp");
+
+
+	// clear out all ammo
+	self setWeaponSlotAmmo("pistol", 0 );
+	self setWeaponSlotClipAmmo("pistol", 0 );
+	
+	clip_size = getfullclipammo(pistoltype);
+	ammount = maps\mp\gametypes\_pam_loadout_gmi::GetPistolAmmo(pistoltype);
+	
+	self giveWeapon(pistoltype);
+
+	if ( ammount > clip_size )
+	{
+		self setWeaponSlotClipAmmo("pistol", clip_size );
+		self setWeaponSlotAmmo("pistol", ammount - clip_size );
+	}
+	else
+	{
+		self setWeaponSlotClipAmmo("pistol", ammount );
 	}
 }
 
@@ -776,9 +786,9 @@ GetSmokeTypeName()
 {
 	grenadetype = "none";
 	if(self.pers["team"] == "allies")
-		grenadetype = "smoke_grenade_" + game["allies"] + "_mp";
+		grenadetype = "smokegrenade_mp";
 	else if (self.pers["team"] == "axis")
-		grenadetype = "smoke_grenade_" + game["axis"] + "_mp";
+		grenadetype = "smokegrenade_mp";
 
 	return grenadetype;
 }
@@ -827,44 +837,92 @@ giveGrenadesFor(weapon, count)
 	return 0;
 }
 
-/*
 giveSmokesFor(weapon, count)
 {
 	// remove all smokes
-	self takeWeapon("smoke_grenade_american_mp");
-	self takeWeapon("smoke_grenade_british_mp");
-	self takeWeapon("smoke_grenade_russian_mp");
-	self takeWeapon("smoke_grenade_german_mp");
+	// self takeWeapon("smoke_grenade_american_mp");
+	// self takeWeapon("smoke_grenade_british_mp");
+	// self takeWeapon("smoke_grenade_russian_mp");
+	// self takeWeapon("smoke_grenade_german_mp");
+	self takeWeapon("smokegrenade_mp");
 
 	smokegrenadetype = self GetSmokeTypeName();
 	smokegrenadecount = getWeaponBasedSmokeGrenadeCount(weapon);
 
-	if(smokegrenadecount > 0)
+	if (smokegrenadetype == "none")
+	{
+		logprint("_weapons::giveSmokesFor - Uknown smoketype\n");
+		return 0;
+	}
+
+	if (smokegrenadecount) 
 	{
 		if (isDefined(count)) // replace count with own number
 			smokegrenadecount = count;
+		
+		if(smokegrenadecount > 0)
+		{
 
-		self giveWeapon(smokegrenadetype);
-		self setWeaponClipAmmo(smokegrenadetype, smokegrenadecount);
+			self setWeaponSlotWeapon("smokegrenade", smokegrenadetype);
+			self setWeaponSlotAmmo("smokegrenade", smokegrenadecount);
 
-		return smokegrenadecount;
+			return smokegrenadecount;
+		}
 	}
 	return 0;
 }
-*/
 
-/*
 giveBinoculars()
 {
-	self giveWeapon("binoculars_mp");
+	// if battle rank is on then call the battle rank function
+	if ( isDefined(level.battlerank) && level.battlerank)
+	{
+		return maps\mp\gametypes\_rank_gmi::giveBinoculars(weapon);
+	}
+
+	if ( !level.allow_binoculars )
+		return;
+	
+	binoctype = "binoculars_mp";
+	
+	self takeWeapon("binoculars_mp");
+	self takeWeapon("binoculars_artillery_mp");
+	
+	if(self.pers["team"] == "allies")
+	{
+		switch(game["allies"])		
+		{
+		case "american":
+			binoctype = "binoculars_mp";
+			break;
+
+		case "british":
+			binoctype = "binoculars_mp";
+			break;
+
+		case "russian":
+			binoctype = "binoculars_mp";
+			break;
+		}
+	}
+	else if(self.pers["team"] == "axis")
+	{
+		switch(game["axis"])
+		{
+		case "german":
+			binoctype = "binoculars_mp";
+			break;
+		}			
+	}
+	
+	self setWeaponSlotWeapon("binocular", binoctype);
 }
-*/
 
 dropWeapons()
 {
 	self thread dropWeapon();
 	self thread dropNade();
-	//self thread dropSmoke();
+	self thread dropSmoke();
 }
 
 dropWeapon()
@@ -1011,7 +1069,6 @@ dropNade()
 	}
 }
 
-/*
 dropSmoke()
 {
 	if (!level.allow_smokedrops)
@@ -1021,34 +1078,43 @@ dropSmoke()
 
 	if(grenadetype != "none")
 	{
-		ammosize = self getammocount(grenadetype);
-
-		if(ammosize) {
-			self dropItem(grenadetype);
+		if (self getWeaponSlotAmmo("smokegrenade") > 0)
+		{
+			grenadeType = self getWeaponSlotWeapon("smokegrenade");
+			self dropItem(grenadeType);
 			level maps\mp\gametypes\_weapon_drop::handleWeaponDrop(grenadeType, self);
 		}
 	}
 }
-*/
 
 // Get number of greandes based on selected weapon
 getWeaponBasedGrenadeCount(weapon)
 {
+	// if battle rank is on then call the battle rank function
+	if ( isDefined(level.battlerank) && level.battlerank)
+	{
+		return maps\mp\gametypes\_rank_gmi::getWeaponBasedGrenadeCount(weapon);
+	}
+
 	className = level.weapons[weapon].classname;
 	cvarNades = level.weaponclass[className].cvarNades;
 
 	return getCvarInt(cvarNades);
 }
 
-/*
 getWeaponBasedSmokeGrenadeCount(weapon)
 {
+	// if battle rank is on then call the battle rank function
+	if ( isDefined(level.battlerank) && level.battlerank)
+	{
+		return maps\mp\gametypes\_rank_gmi::getWeaponBasedSmokeGrenadeCount(weapon);
+	}
+
 	className = level.weapons[weapon].classname;
 	cvarSmokes = level.weaponclass[className].cvarSmokes;
 
 	return getCvarInt(cvarSmokes);
 }
-*/
 
 getFragGrenadeCount()
 {
@@ -1069,6 +1135,7 @@ getSmokeGrenadeCount()
 {
 	// Because player can pickup nades also from enemy team, all grenade types are counted
 	count = 0;
+	count += self getWeaponSlotAmmo("smokegrenade");
 	/*
 	count += self getammocount("smoke_grenade_american_mp");
 	count += self getammocount("smoke_grenade_british_mp");

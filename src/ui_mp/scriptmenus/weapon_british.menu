@@ -56,7 +56,7 @@
 
 		ITEM_WEAPON(ORIGIN_CHOICE4, "button_springfield", "springfield_mp", "@MPMENU_4_SPRINGFIELD", "ui_allow_springfield", "springfield" , show springfield;, scriptMenuResponse "springfield_mp"; close weapon_british;, "british_grenade", "sniper")
 
-		ITEM_WEAPON(ORIGIN_CHOICE5, "button_30cal", "mg30cal_mp", "@GMI_MPMENU_5_30CAL", "ui_allow_mg30cal", "mg30cal", show mg30cal;, scriptMenuResponse "mg30cal_mp"; close weapon_british;, "british_grenade", "mg")
+		ITEM_WEAPON(ORIGIN_CHOICE5, "button_30cal", "mg30cal_mp", "@GMI_MPMENU_5_30CAL", "ui_allow_mg30cal", "mg30cal", show mg30cal;, scriptMenuResponse "mg30cal_mp"; close weapon_british;, "british_grenade", "dmg")
 
 
 		// Close

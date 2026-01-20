@@ -58,7 +58,7 @@
 
 		ITEM_WEAPON(ORIGIN_CHOICE5, "button_kar98ksniper", "kar98k_sniper_mp", "@GMI_MPMENU_5_SCOPED_KAR98K", "ui_allow_kar98ksniper", "kar98scoped" , show kar98scoped;, scriptMenuResponse "kar98k_sniper_mp"; close weapon_german;, "steilhandgrenate", "sniper")
 
-		ITEM_WEAPON(ORIGIN_CHOICE6, "button_mg34", "mg34_mp", "@GMI_MPMENU_6_MG34", "ui_allow_mp44", "mg34" , show mg34;, scriptMenuResponse "mg34_mp"; close weapon_german;, "steilhandgrenate", "mg")
+		ITEM_WEAPON(ORIGIN_CHOICE6, "button_mg34", "mg34_mp", "@GMI_MPMENU_6_MG34", "ui_allow_mg34", "mg34" , show mg34;, scriptMenuResponse "mg34_mp"; close weapon_german;, "steilhandgrenate", "dmg")
 
 
 		// Close

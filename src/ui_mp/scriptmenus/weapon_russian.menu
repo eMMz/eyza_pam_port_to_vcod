@@ -56,7 +56,7 @@
 
 		ITEM_WEAPON(ORIGIN_CHOICE4, "button_nagantnsiper", "mosin_nagant_sniper_mp", "@GMI_MPMENU_4_SCOPED_MOSINNAGANT", "ui_allow_nagantsniper", "nagantscoped" , show nagantscoped;, scriptMenuResponse "mosin_nagant_sniper_mp"; close weapon_russian;, "russian_grenade", "sniper")
 
-		ITEM_WEAPON(ORIGIN_CHOICE5, "button_dp28", "dp28_mp", "@GMI_MPMENU_5_DP28", "ui_allow_dp28", "dp28" , show dp28;, scriptMenuResponse "dp28_mp"; close weapon_russian;, "russian_grenade", "mg")
+		ITEM_WEAPON(ORIGIN_CHOICE5, "button_dp28", "dp28_mp", "@GMI_MPMENU_5_DP28", "ui_allow_dp28", "dp28" , show dp28;, scriptMenuResponse "dp28_mp"; close weapon_russian;, "russian_grenade", "dmg")
 
 
 

@@ -147,6 +147,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sniper_nades", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_mg_nades", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shotgun_nades", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_dmg_nades", 1);
 
 	// Smoke spawn counts for each class
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_boltaction_smokes", 1);
@@ -155,6 +156,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_sniper_smokes", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_mg_smokes", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shotgun_smokes", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_dmg_smokes", 1);	
 
 	// Weapon Limits by class per team
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_boltaction_limit", 99);
@@ -163,6 +165,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_smg_limit", 99);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_mg_limit", 99);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shotgun_limit", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_dmg_limit", 1);
 
 	// Allow weapon drop when player die
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_boltaction_allow_drop", 1);
@@ -172,6 +175,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_mg_allow_drop", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shotgun_allow_drop", 0);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_pistol_allow_drop", 1);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_dmg_allow_drop", 0);	
 
 	// Allow grenade / smoke drop when player die
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_grenade_drop", 0);
