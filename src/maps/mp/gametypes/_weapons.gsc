@@ -26,6 +26,7 @@ registerCvars()
 	[[var]]("scr_sniper_nades", "INT", 3, 0, 99);
 	[[var]]("scr_mg_nades", "INT", 2, 0, 99);
 	[[var]]("scr_shotgun_nades", "INT", 1, 0, 99);
+	[[var]]("scr_dmg_nades", "INT", 1, 0, 99);
 
 	// Smoke spawn counts for each class
 	[[var]]("scr_boltaction_smokes", "INT", 0, 0, 99);
@@ -34,6 +35,7 @@ registerCvars()
 	[[var]]("scr_sniper_smokes", "INT", 0, 0, 99);
 	[[var]]("scr_mg_smokes", "INT", 0, 0, 99);
 	[[var]]("scr_shotgun_smokes", "INT", 1, 0, 99);
+	[[var]]("scr_dmg_smokes", "INT", 1, 0, 99);
 
 	// Weapon Limits by class per team
 	[[var]]("scr_boltaction_limit", "INT", 99, 0, 99);
@@ -42,6 +44,7 @@ registerCvars()
 	[[var]]("scr_smg_limit", "INT", 99, 0, 99);
 	[[var]]("scr_mg_limit", "INT", 99, 0, 99);
 	[[var]]("scr_shotgun_limit", "INT", 99, 0, 99);
+	[[var]]("scr_dmg_limit", "INT", 99, 0, 99);
 
 	// Allow weapon drop when player die
 	[[var]]("scr_boltaction_allow_drop", "BOOL", 1);
@@ -51,7 +54,8 @@ registerCvars()
 	[[var]]("scr_mg_allow_drop", "BOOL", 1);
 	[[var]]("scr_shotgun_allow_drop", "BOOL", 1);
 	[[var]]("scr_pistol_allow_drop", "BOOL", 1);
-
+	[[var]]("scr_dmg_allow_drop", "BOOL", 1);
+	
 
 	// Allow/Disallow Weapons
 	[[var]]("scr_allow_greasegun", "BOOL", 1);
@@ -143,6 +147,8 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "scr_mg_smokes":
 		case "scr_shotgun_nades":
 		case "scr_shotgun_smokes":
+		case "scr_dmg_nades":
+		case "scr_dmg_smokes":
 		return true;
 
 		// If class limit changed, update all weapons
@@ -152,6 +158,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "scr_smg_limit":
 		case "scr_mg_limit":
 		case "scr_shotgun_limit":
+		case "scr_dmg_limit":
 			if (!isRegisterTime)
 			{
 				thread updateLimit(cvar, value);
@@ -167,6 +174,7 @@ onCvarChanged(cvar, value, isRegisterTime)
 		case "scr_smg_allow_drop":
 		case "scr_mg_allow_drop":
 		case "scr_shotgun_allow_drop":
+		case "scr_dmg_allow_drop":		
             		if (!isRegisterTime) thread updateDrop(cvar, value);
 			return true;
 
@@ -540,7 +548,7 @@ defineWeapons()
 		addWeapon("springfield_mp", 	"sniper", 			"allies", 	"scr_allow_springfield", 	"ui_allow_springfield");
 		addWeapon("thompson_mp", 		"smg", 				"allies", 	"scr_allow_thompson", 		"ui_allow_thompson");
 		addWeapon("bar_mp", 			"mg", 				"allies", 	"scr_allow_bar", 			"ui_allow_bar");
-		addWeapon("mg30cal_mp", 		"mg", 				"allies", 	"scr_allow_mg30cal", 		"ui_allow_mg30cal");		
+		addWeapon("mg30cal_mp", 		"dmg", 				"allies", 	"scr_allow_mg30cal", 		"ui_allow_mg30cal");		
 		break;
 
 	case "british":
@@ -551,7 +559,7 @@ defineWeapons()
 		addWeapon("springfield_mp", 		"sniper",			"allies", 	"scr_allow_springfield", 	"ui_allow_springfield");
 		//addWeapon("thompson_mp", 			"smg", 				"allies", 	"scr_allow_thompson", 		"ui_allow_thompson");
 		addWeapon("bren_mp", 				"mg", 				"allies", 	"scr_allow_bren", 			"ui_allow_bren");
-		addWeapon("mg30cal_mp", 			"mg", 			 	"allies",  	"scr_allow_mg30cal", 	 	"ui_allow_mg30cal");		
+		addWeapon("mg30cal_mp", 			"dmg", 			 	"allies",  	"scr_allow_mg30cal", 	 	"ui_allow_mg30cal");		
 		break;
 
 	case "russian":
@@ -561,7 +569,7 @@ defineWeapons()
 		addWeapon("mosin_nagant_sniper_mp", "sniper", 			"allies", 	"scr_allow_nagantsniper", 	"ui_allow_nagantsniper");
 		addWeapon("ppsh_mp", 				"smg", 				"allies", 	"scr_allow_ppsh", 			"ui_allow_ppsh"); //PPSH_CHANGE
 		//addWeapon("vpo135_mp", 			"smg", 				"allies", 	"scr_allow_ppsh", 			"ui_allow_ppsh");
-		addWeapon("dp28_mp", 				"mg", 				"allies", 	"scr_allow_dp28", 			"ui_allow_dp28");
+		addWeapon("dp28_mp", 				"dmg", 				"allies", 	"scr_allow_dp28", 			"ui_allow_dp28");
 		break;
 	}
 
@@ -571,7 +579,7 @@ defineWeapons()
 	addWeapon("gewehr43_mp", 			"semiautomatic", 	"axis", 	"scr_allow_gewehr43", 			"ui_allow_gewehr43");
 	addWeapon("kar98k_sniper_mp", 	"sniper", 			"axis", 	"scr_allow_kar98ksniper", 	"ui_allow_kar98ksniper");
 	addWeapon("mp44_mp", 			"mg", 				"axis", 	"scr_allow_mp44", 			"ui_allow_mp44");
-	addWeapon("mg34_mp", 			"mg", 				"axis", 	"scr_allow_mg34", 			"ui_allow_mg34");
+	addWeapon("mg34_mp", 			"dmg", 				"axis", 	"scr_allow_mg34", 			"ui_allow_mg34");
 
 	// All teams
 	//addWeapon("shotgun_mp", 		"shotgun", 		"both", 	"scr_allow_shotgun", 		"ui_allow_shotgun");
@@ -586,6 +594,7 @@ defineWeapons()
 	addClass("smg", 			"scr_smg_limit",			"scr_smg_nades", 			"scr_smg_smokes",		"scr_smg_allow_drop");
 	addClass("mg", 				"scr_mg_limit",				"scr_mg_nades", 			"scr_mg_smokes",			"scr_mg_allow_drop");
 	//addClass("shotgun", 		"scr_shotgun_limit",		"scr_shotgun_nades", 		"scr_shotgun_smokes",		"scr_shotgun_allow_drop");
+	addclass("dmg", 			"scr_dmg_limit",			"scr_dmg_nades", 		"scr_dmg_smokes",		"scr_dmg_allow_drop");
 
 }
 
