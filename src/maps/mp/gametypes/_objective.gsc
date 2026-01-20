@@ -193,7 +193,7 @@ setPlayerObjective()
 				}
 			}
 			break;
-		case "start":
+		case "strat":
 			self setClientCvar("cg_objectiveText", "Special mode used for practicing grenades or smoke, strategic plan making, jump learning and overall game testing.");
 			self setClientCvar("cg_objective", "Special mode used for practicing grenades or smoke, strategic plan making, jump learning and overall game testing.");
 			break;

@@ -192,7 +192,7 @@ GetCvars(arr)
 	// PPSH Balance - Limits range of PPSH to same as Tommy
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_balance_ppsh_distance", 0);
 
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shellshock", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shellshock", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_battlerank", 1);
 
 	return arr;

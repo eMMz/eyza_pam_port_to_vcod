@@ -4,12 +4,13 @@
 {
 	menuDef
 	{
-		name			"serverinfo_strat"
+		name			"serverinfo_dm"
+		fullscreen		0
 		rect			0 0 640 480
 		focuscolor		1 1 1 1
 		style			WINDOW_STYLE_EMPTY
 		//blurWorld		5.0
-		onOpen
+		onOpen 
 		{
 			//exec "vstr server16;" // server16 contains string with player's settings
             scriptMenuResponse "server16";
@@ -19,9 +20,6 @@
 			scriptMenuResponse "close";
 		}
 
-		// Keys
-		execKeyInt 32 { play "mouse_click"; close ingame; open main; } // space
-
 		// Background
 		DRAW_MAP_BACKGROUND_IF_BLACKOUT
 		DRAW_BLUISH_BACKGROUND
@@ -30,10 +28,13 @@
 		DRAW_BARS
 
 		// Header: Teams
-		ITEM_TEXT_HEADING("Strategy Planning Mode")
+		ITEM_TEXT_HEADING("@DM_DEATHMATCH")
 
 		// INSTRUCTIONS
 		SERVERINFO_DRAW_OBJECTIVE
+
+		// SERVER SETTINGS
+		SERVERINFO_DRAW_PARAMETERS
 
 		// MESSAGE OF THE DAY
 		SERVERINFO_DRAW_MOTD
