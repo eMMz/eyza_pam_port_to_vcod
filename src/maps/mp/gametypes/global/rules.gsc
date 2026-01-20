@@ -179,7 +179,7 @@ IsValidPAMMode(cvar, value_now, registerTime)
 				iprintln("^3Following values are valid:");
 				iprintln("^7pub, comp");
 				iprintln("^3Sub-modes:");
-				iprintln("^7_mr1, _mr3, _mr10, _mr12, _mr15, _20rounds");
+				iprintln("^7_mr1, _mr3, _mr10, _mr12, _mr13, _mr15, _20rounds");
 				iprintln("^7_2v2, _rifle, _russian, _lan, _pcw");
 			}
 			else if (level.gametype == "dm")
@@ -227,7 +227,7 @@ IsValidPAMMode(cvar, value_now, registerTime)
 				iprintln("^3Following values are valid:");
 				iprintln("^7pub, comp");
 				iprintln("^3Sub-modes:");
-				iprintln("^7_mr1, _mr3, _mr10, _mr12, _mr15, _20rounds");
+				iprintln("^7_mr1, _mr3, _mr10, _mr12, _mr13, _mr15, _20rounds");
 				iprintln("^7_2v2, _rifle, _russian, _lan, _pcw");
 			}
 			else
@@ -275,13 +275,13 @@ IsValidPAMModeForGametype(gametype, pammode)
 		else
 		{
 			if (!IsToggleSubPamMode(array[i]) && (
-			    (gametype == "sd"  && array[i] != "mr1" && array[i] != "mr3" && array[i] != "mr10" && array[i] != "mr12" && array[i] != "mr15" && array[i] != "20rounds") ||
+			    (gametype == "sd"  && array[i] != "mr1" && array[i] != "mr3" && array[i] != "mr10" && array[i] != "mr12" && array[i] != "mr13" && array[i] != "mr15" && array[i] != "20rounds") ||
 			    (gametype == "dm"  && array[i] != "10min" && array[i] != "15min" && array[i] != "30min" && array[i] != "60min" && array[i] != "unlim") ||
 			    (gametype == "tdm" && array[i] != "10min" && array[i] != "15min" && array[i] != "30min" && array[i] != "60min" && array[i] != "unlim") ||
 			    (gametype == "ctf" && array[i] != "10min" && array[i] != "15min" && array[i] != "30min" && array[i] != "60min" && array[i] != "unlim") ||
 			    (gametype == "hq"  && array[i] != "10min" && array[i] != "15min" && array[i] != "30min" && array[i] != "60min" && array[i] != "unlim") ||
 			    (gametype == "htf" && array[i] != "10min" && array[i] != "15min" && array[i] != "30min" && array[i] != "60min" && array[i] != "unlim") ||
-			    (gametype == "re"  && array[i] != "mr1" && array[i] != "mr3" && array[i] != "mr10" && array[i] != "mr12" && array[i] != "mr15" && array[i] != "20rounds")))
+			    (gametype == "re"  && array[i] != "mr1" && array[i] != "mr3" && array[i] != "mr10" && array[i] != "mr12" && array[i] != "mr13" && array[i] != "mr15" && array[i] != "20rounds")))
 			{
 				isValid = false;
 				break;
@@ -375,6 +375,7 @@ Load_SD_Rules()
 			case "mr3": 	maps\mp\gametypes\rules\sd\score\mr3::Load(); break;
 			case "mr10": 	maps\mp\gametypes\rules\sd\score\mr10::Load(); break;
 			case "mr12": 	maps\mp\gametypes\rules\sd\score\mr12::Load(); break;
+			case "mr13":	maps\mp\gametypes\rules\sd\score\mr13::Load(); break;
 			case "mr15": 	maps\mp\gametypes\rules\sd\score\mr15::Load(); break;
 			case "20rounds": maps\mp\gametypes\rules\sd\score\_20rounds::Load(); break;
 			default:
@@ -612,6 +613,7 @@ Load_RE_Rules()
 			case "mr3": 	maps\mp\gametypes\rules\re\score\mr3::Load(); break;
 			case "mr10": 	maps\mp\gametypes\rules\re\score\mr10::Load(); break;
 			case "mr12": 	maps\mp\gametypes\rules\re\score\mr12::Load(); break;
+			case "mr13":	maps\mp\gametypes\rules\re\score\mr13::Load(); break;
 			case "mr15": 	maps\mp\gametypes\rules\re\score\mr15::Load(); break;
 			case "20rounds": maps\mp\gametypes\rules\re\score\_20rounds::Load(); break;
 			default:

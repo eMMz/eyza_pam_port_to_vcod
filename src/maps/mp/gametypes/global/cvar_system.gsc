@@ -577,6 +577,8 @@ monitorCvarChanges()
 				setCvarIfChanged("pam_mode_custom", "0");
 		}
 
+		if (level.battlerank)
+			maps\mp\gametypes\_rank_gmi::CheckPlayersForRankChanges();
 	}
 }
 

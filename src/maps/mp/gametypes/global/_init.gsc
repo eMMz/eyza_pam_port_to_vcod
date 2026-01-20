@@ -121,4 +121,9 @@ InitModules()
 
 	thread maps\mp\gametypes\_objective::init(); // depends on readyup, timeout
 
+	thread maps\mp\gametypes\_rank_gmi::InitializeBattleRank();
+	thread maps\mp\gametypes\_secondary_gmi::Initialize();
+	thread maps\mp\gametypes\_shellshock_gmi::init();
+	
+	thread maps\mp\gametypes\global\pb_system::Init();
 }

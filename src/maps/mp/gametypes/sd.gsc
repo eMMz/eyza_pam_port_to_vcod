@@ -238,6 +238,9 @@ precache()
 	precacheString(&"SD_AXISHAVEBEENELIMINATED");
 	//precacheString(&"PLATFORM_HOLD_TO_PLANT_EXPLOSIVES");
 	//precacheString(&"PLATFORM_HOLD_TO_DEFUSE_EXPLOSIVES");
+
+	precacheString(&"GMI_MP_CEASEFIRE");
+
 	precacheModel("xmodel/mp_bomb1_defuse");
 	precacheModel("xmodel/mp_bomb1");
 	// temporarily bringing back for no lib version
@@ -729,6 +732,7 @@ onAfterPlayerDamaged(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWe
 		}
 	}
 
+	self maps\mp\gametypes\_shellshock_gmi::DoShellShock(sWeapon, sMeansOfDeath, sHitLoc, iDamage);
 
 	if(self.sessionstate != "dead" && !level.in_readyup)
 		maps\mp\gametypes\_log::logDamage(self, eAttacker, sWeapon, iDamage, sMeansOfDeath, sHitLoc, isFriendlyFire, normalizedDamage);
@@ -793,7 +797,7 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 	if(!isdefined(self.switching_teams))
 	{
 		// Player's stats - increase kill points (_player_stat.gsc)
-		if (!level.in_readyup && level.roundstarted && !level.roundended)
+		if (!level.in_readyup /*&& level.roundstarted && !level.roundended*/)
 		{
 			self maps\mp\gametypes\_player_stat::AddDeath();
 			self maps\mp\gametypes\_player_stat::CalculateAdr();
@@ -807,7 +811,7 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 		if(self.pers["team"] == attacker.pers["team"]) // killed by a friendly
 		{
 			// Player's stats - decrease score points (_player_stat.gsc)
-			if (!level.in_readyup && level.roundstarted && !level.roundended)
+			if (!level.in_readyup /*&& level.roundstarted && !level.roundended*/)
 			{
 				attacker maps\mp\gametypes\_player_stat::AddScore(-1);
 				attacker maps\mp\gametypes\_player_stat::AddTeamKill();
@@ -818,7 +822,7 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 		else
 		{
 			// Player's stats - increase kill points (_player_stat.gsc)
-			if (!level.in_readyup && level.roundstarted && !level.roundended)
+			if (!level.in_readyup /*&& level.roundstarted && !level.roundended*/)
 			{
 				attacker maps\mp\gametypes\_player_stat::AddKill();
 				attacker maps\mp\gametypes\_player_stat::AddScore(1);
@@ -833,7 +837,7 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 		}
 	} else {
 		// self kill or killed by world (explosion or fall damage)
-		if (!level.in_readyup && level.roundstarted && !level.roundended)
+		if (!level.in_readyup /*&& level.roundstarted && !level.roundended*/)
 		{
 			// self kill or killed by world (explosion or fall damage)
 			self maps\mp\gametypes\_player_stat::AddScore(-1);
@@ -845,7 +849,7 @@ onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHit
 	// For assists
 	if (isDefined(self.lastAttacker) && self.lastAttacker != attacker && self.pers["team"] != self.lastAttacker.pers["team"])
 	{
-		if (!level.in_readyup && level.roundstarted && !level.roundended)
+		if (!level.in_readyup /*&& level.roundstarted && !level.roundended*/)
 		{
 			self.lastAttacker thread maps\mp\gametypes\_damagefeedback::updateAssistsFeedback();
 
@@ -871,7 +875,7 @@ onAfterPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir,
 	obituary(self, attacker, sWeapon, sMeansOfDeath);
 
 	// Weapon/Nade Drops
-	if (!isDefined(self.switching_teams) && level.roundstarted && !level.roundended)
+	if (!isDefined(self.switching_teams) /*&& level.roundstarted && !level.roundended*/)
 		self thread maps\mp\gametypes\_weapons::dropWeapons();
 
 
@@ -1035,7 +1039,35 @@ spawnPlayer()
 	spawnpoint = maps\mp\gametypes\_spawnlogic::getSpawnpoint_Random(spawnpoints);
 
 	if(isdefined(spawnpoint))
-		self spawn(spawnpoint.origin, spawnpoint.angles);
+	{
+		logprint("isDefined(game[restoreLastSpawnpoint])=" + isDefined(game["restoreLastSpawnpoint"]) + "\n");
+		if (isDefined(game["restoreLastSpawnpoint"]))
+			logprint("_spawnPlayer:: game[restoreLastSpawnpoint]=" + game["restoreLastSpawnpoint"] + "\n");
+		
+		if (isDefined(game["restoreLastSpawnpoint"]) && game["restoreLastSpawnpoint"])
+		{
+			if (isDefined(self.pers["lastSpawnpointOrigin"]) && isDefined(self.pers["lastSpawnpointAngles"]))
+			{
+				logprint("newSpawnpointLogic#1\n");
+				self spawn(self.pers["lastSpawnpointOrigin"], self.pers["lastSpawnpointAngles"]);
+			}
+			else
+			{
+				logprint("newSpawnpointLogic#2\n");
+				self spawn(spawnpoint.origin, spawnpoint.angles);
+				self.pers["lastSpawnpointOrigin"] = spawnpoint.origin;
+				self.pers["lastSpawnpointAngles"] = spawnpoint.angles;
+			}
+		}
+		else
+		{
+			logprint("newSpawnpointLogic#3\n");
+			self spawn(spawnpoint.origin, spawnpoint.angles);
+			self.pers["lastSpawnpointOrigin"] = spawnpoint.origin;
+			self.pers["lastSpawnpointAngles"] = spawnpoint.angles;
+		}
+		logprint(self.name + " lastSpawnpointOrigin=" + self.pers["lastSpawnpointOrigin"] + ", lastSpawnpointAngles=" + self.pers["lastSpawnpointAngles"] + "\n");
+	}
 	else
 		maps\mp\_utility::error("NO " + spawnpointname + " SPAWNPOINTS IN MAP");
 
@@ -1087,7 +1119,7 @@ spawnPlayer()
 	// Give grenades only if we are in readyup
 	if(level.in_readyup)
 	{
-		//maps\mp\gametypes\_weapons::giveSmokesFor(self.spawnedWeapon, 0);
+		maps\mp\gametypes\_weapons::giveSmokesFor(self.spawnedWeapon);
 		maps\mp\gametypes\_weapons::giveGrenadesFor(self.spawnedWeapon); // grenades are handled in readyup now
 
 		// if (level.scr_readyup_nadetraining)
@@ -1100,11 +1132,11 @@ spawnPlayer()
 	}
 	else
 	{
-		//maps\mp\gametypes\_weapons::giveSmokesFor(self.spawnedWeapon, 0);
+		maps\mp\gametypes\_weapons::giveSmokesFor(self.spawnedWeapon);
 		maps\mp\gametypes\_weapons::giveGrenadesFor(self.spawnedWeapon);	// grenades will be added after start time
 	}
 	maps\mp\gametypes\_weapons::givePistol();
-	//maps\mp\gametypes\_weapons::giveBinoculars();
+	maps\mp\gametypes\_weapons::giveBinoculars();
 
 	// Switch to pistol in bash mode
 	if (level.in_bash)
@@ -1331,6 +1363,8 @@ startRound()
 
 	// Round started
 	level.roundstarted = true;
+	game["restoreLastSpawnpoint"] = false;
+	logprint("_startRound:: game[restoreLastSpawnpoint]=" + game["restoreLastSpawnpoint"] + "\n");
 
 
 
@@ -1872,6 +1906,9 @@ endRound(roundwinner)
 
 		player unlink();
 		player enableWeapon();
+
+		player.pers["lastSpawnpointOrigin"] = undefined;
+		player.pers["lastSpawnpointAngles"] = undefined;
 	}
 
 	//logprint("_sd::endRound after remove plant related hud\n");
@@ -1985,6 +2022,8 @@ endRound(roundwinner)
 	// Print damage stats
 	maps\mp\gametypes\_round_report::printToAll();
 
+	// Update adr_lastUpdate and gerenade_damage_lastUpdate for each player.
+	maps\mp\gametypes\_player_stat::UpdateAdrAndGrenadeDamageWhenRoundIsOver();
 
 	// In SD there are 3 checks: Time limit, Score limit and Round limit
 
@@ -2569,7 +2608,7 @@ bombzone_think(bombzone_other)
 		*/
 
 		// check for having been triggered by a valid player
-		if(isPlayer(player) && (player.pers["team"] == team) && player isOnGround() /*&& positionOk*/)
+		if(isPlayer(player) && (player.pers["team"] == team) && player isOnGround() /*&& positionOk*/ && !(player isinvehicle()) && (player maps\mp\_util_mp_gmi::canPlantGMI()))
 		{
 			if(!isDefined(player.planticon))
 			{
@@ -2620,7 +2659,7 @@ bombzone_think(bombzone_other)
 				// Planting progress loop
 				self.progresstime = 0;
 				// Player ("player" variable) can disconnect here, so we need to make sure he is still defined
-				while(isDefined(player) && isAlive(player) && player useButtonPressed() && (self.progresstime < level.planttime))
+				while(isDefined(player) && isAlive(player) && player useButtonPressed() && (self.progresstime < level.planttime) && (player maps\mp\_util_mp_gmi::canPlantGMI()))
 				{
 					player disableWeapon();
 					self.progresstime += level.frame;
@@ -2688,7 +2727,8 @@ bombzone_think(bombzone_other)
 					logprint("sd:: team obj removed\n");
 
 
-					plant = player maps\mp\_utility::getPlant();
+					// plant = player maps\mp\_utility::getPlant();
+					plant = player maps\mp\_util_mp_gmi::getPlantGMI(); // For UO
 					logprint("sd:: got plant\n");
 
 					// Spawn bomb
@@ -2793,11 +2833,10 @@ bomb_countdown()
 	self endon("bomb_defused");
 	level endon("intermission");
 
+	level.bombmodel playLoopSound("bomb_tick");
 	countDownTime = level.bombtimer; // seconds
 	//PAM
 	if (level.show_bombtimer) {
-		
-
 		level.clock = maps\mp\gametypes\global\_global::newHudElem2();
 		level.clock.font = "bigfixed";
 		level.clock.alignX = "center";
@@ -2807,24 +2846,26 @@ bomb_countdown()
 		level.clock.y = 460;
 
 		self thread HUD_UpdateBombTimerColor();
+
+		if (countDownTime > 15) {
+			// until 15 secs is left, use timer w/o millis
+			countDownTimeSubstracted = countDownTime - 15;
+			level.clock setTimer(countDownTime);
+			wait level.fps_multiplier * countDownTimeSubstracted;
+		}
+
+		// when 15 secs is left, use timer w/ millis
+		level.clock.x = 336;
+		level.clock setTenthsTimer(15);
+		wait level.fps_multiplier * 15;
+		//level.clock setTenthsTimer(countDownTime);
+		//wait level.fps_multiplier * countDownTime;
 	}
-
-	level.bombmodel playLoopSound("bomb_tick");
-
-	if (countDownTime > 15) {
-		// until 15 secs is left, use timer w/o millis
-		countDownTimeSubstracted = countDownTime - 15;
-		level.clock setTimer(countDownTime);
-		wait level.fps_multiplier * countDownTimeSubstracted;
-
-		
+	else // if no clock then just wait :)
+	{
+		wait level.fps_multiplier * countDownTime;
 	}
-	// when 15 secs is left, use timer w/ millis
-	level.clock.x = 336;
-	level.clock setTenthsTimer(15);
-	wait level.fps_multiplier * 15;
-	//level.clock setTenthsTimer(countDownTime);
-	//wait level.fps_multiplier * countDownTime;
+	
 
 	// bomb timer is up
 	objective_delete(0);
@@ -3523,7 +3564,7 @@ menuWeapon(response)
 
 			// Give pistol to secondary slot + give grenades and smokes
 			maps\mp\gametypes\_weapons::givePistol();
-			//maps\mp\gametypes\_weapons::giveSmokesFor(weapon, 0);
+			maps\mp\gametypes\_weapons::giveSmokesFor(weapon);
 			maps\mp\gametypes\_weapons::giveGrenadesFor(weapon);
 
 			// if (level.scr_readyup_nadetraining)
@@ -3626,7 +3667,7 @@ menuWeapon(response)
 				//self giveMaxAmmo(weapon);
 
 				// Give empty grenade/smoke slots
-				//self maps\mp\gametypes\_weapons::giveSmokesFor(weapon, 0);
+				self maps\mp\gametypes\_weapons::giveSmokesFor(weapon);
 				self maps\mp\gametypes\_weapons::giveGrenadesFor(weapon);
 
 				// if (level.scr_readyup_nadetraining)

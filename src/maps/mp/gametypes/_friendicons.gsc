@@ -67,17 +67,28 @@ onStartGameType()
 
 onSpawnedPlayer()
 {
-	// Show friend icon
-	if(self.pers["team"] == "allies")
+	if(level.battlerank)
 	{
-		self.headicon = game["headicon_allies"];
-		self.headiconteam = "allies";
+		self.statusicon = maps\mp\gametypes\_rank_gmi::GetRankStatusIcon(self);
+		self.headicon = maps\mp\gametypes\_rank_gmi::GetRankHeadIcon(self);
+		self.headiconteam = self.pers["team"];
 	}
 	else
 	{
-		self.headicon = game["headicon_axis"];
-		self.headiconteam = "axis";
+		// Show friend icon
+		if(self.pers["team"] == "allies")
+		{
+			self.headicon = game["headicon_allies"];
+			self.headiconteam = "allies";
+		}
+		else
+		{
+			self.headicon = game["headicon_axis"];
+			self.headiconteam = "axis";
+		}
 	}
+
+	self thread maps\mp\gametypes\_rank_gmi::RankHudInit();
 }
 
 onPlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration)
