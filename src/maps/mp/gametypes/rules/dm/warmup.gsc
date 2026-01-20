@@ -56,7 +56,7 @@ GetCvars(arr)
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_ambient_weather", 0);
 
 
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_shellshock", 1);					// Create shell shock effect when player is hitted
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_allow_shellshock", 0);					// Create shell shock effect when player is hitted
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_replace_russian", 0); 					// Replace russians with Americans / Brisith
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_blackout", 0); 						// If match is in progress, show map background all over the screen and disable sounds for connected player
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_recording", 0); 						// Starts automatically recording when match starts
@@ -192,7 +192,7 @@ GetCvars(arr)
 	// PPSH Balance - Limits range of PPSH to same as Tommy
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_balance_ppsh_distance", 0);
 
-	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shellshock", 0);
+	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_shellshock", 1);
 	arr = maps\mp\gametypes\global\_global::ruleCvarDefault(arr, "scr_battlerank", 1);
 
 	return arr;
